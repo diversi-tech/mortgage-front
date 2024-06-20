@@ -1,3 +1,22 @@
+
+
+##  this branch is for building a generic sidebar component based on a list of parameters
+For the purpose of the component, the componentInfo model was also built
+In order to use the component, this model must be consumed.
+
+Attached is an example component with a simple example to use
+
+## list of icons name for componentInfo model using here:
+[icons names](https://fonts.google.com/icons?icon.set=Material+Icons)
+
+##  this braThis branch is for building a generic sidebar component based on a list of parameters
+For the purpose of the component, the componentInfo model was also built
+In order to use the component, this model must be consumed.
+
+Attached is an example component with a simple example to use
+
+
+
 # MortgageClient
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.4.
