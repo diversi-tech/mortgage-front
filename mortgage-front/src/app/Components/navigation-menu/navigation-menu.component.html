@@ -1,48 +1,16 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" opened class="sidenav">
+  <mat-sidenav #sidenav mode="side" position="end" opened class="sidenav" >
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item *ngFor="let c of componentsList"  [routerLink]="c.path">
-        <mat-icon>{{ c.icon }}</mat-icon><span>{{ c.name }}   </span>
+      <a mat-list-item *ngFor="let c of componentsList" [routerLink]="c.path">
+        <span>{{ c.name }}</span><mat-icon>{{ c.icon }}</mat-icon>
       </a>
     </mat-nav-list>
   </mat-sidenav>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  <!-- <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>My Application</span>
-    </mat-toolbar>
-    <div class="content">
+  <mat-sidenav-content class="main-content" >
+    <div class="content" >
       <router-outlet></router-outlet>
     </div>
-  </mat-sidenav-content> -->
+  </mat-sidenav-content>
 </mat-sidenav-container>
-
-<!--  
-<button [cdkMenuTriggerFor]="menu" class="example-standalone-trigger">☰</button>
-
-<ng-template #menu>
-  <div class="example-menu" cdkMenu>
-    <div  cdkMenuItem *ngFor="let c of componentsList">
-      <button class="example-menu-item" [routerLink]="c.path">{{c.name}}</button>
-    </div>
-  </div>
-</ng-template> -->
