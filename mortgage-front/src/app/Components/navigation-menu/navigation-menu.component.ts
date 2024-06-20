@@ -47,5 +47,10 @@ export class NavigationMenuComponent {
   public set componentsList(value: Array<ComponentInfo> | undefined) {
     this._componentsList = value;
   }
+  isSidebarOpened=true;
+
+  toggleSidebar() {
+    this.isSidebarOpened==false?this.isSidebarOpened=true:this.isSidebarOpened=false;
+  }
 
 }

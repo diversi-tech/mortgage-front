@@ -1,16 +1,30 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" position="end" opened class="sidenav" >
-    <mat-toolbar>Menu</mat-toolbar>
+  <!-- Container for the side navigation menu and main content -->
+  <mat-sidenav #sidenav mode="side" position="end" opened class="sidenav">
+    <!-- Toolbar with the menu title -->
     <mat-nav-list>
+      <!-- List of navigation items -->
       <a mat-list-item *ngFor="let c of componentsList" [routerLink]="c.path">
-        <span>{{ c.name }}</span><mat-icon>{{ c.icon }}</mat-icon>
+        <!-- Navigation item with a link to a component -->
+        <span>{{ c.name }}</span>
+        <!-- Display the component name -->
+        <mat-icon>{{ c.icon }}</mat-icon>
+        <!-- Display the component icon -->
       </a>
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav-content class="main-content" >
-    <div class="content" >
+  <mat-sidenav-content class="main-content">
+    <!-- Main content area -->
+    <button mat-icon-button (click)="toggleSidebar(); sidenav.toggle()" class="toggle-button"  >
+      <!-- Button to toggle the side navigation menu -->
+      <mat-icon>{{ isSidebarOpened ? 'close' : 'menu' }}</mat-icon>
+      <!-- Icon to display based on the menu state -->
+    </button>
+    <div class="content" style="margin-right: 50px;">
+      <!-- Container for the main content -->
       <router-outlet></router-outlet>
+      <!-- Outlet for the routed component -->
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

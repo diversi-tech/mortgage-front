@@ -1,61 +1,38 @@
-
 * {
-  font-size: 25px;
-  text-align: right !important;
+  /*General design*/
+  font-size: 20px;
+  text-align: right ;
   background-color: white !important;
   color: black;
 }
 
 .sidenav-container {
-  height:max-content;
-  min-height:70vh
+  //The sidenav cobtainer height definition
+  height: max-content;
+  min-height: 80vh;
 }
-mat-sidenav{
-  box-shadow: 0 7px 20px 5px #00000088;
+.toggle-button{
+ background-color: rgba(203, 203, 203, 0.508) !important;
+ margin: -10px;
 }
-.mat-toolbar {
-  background: #000000!important;
-  color: white;
-}
-
 .sidenav {
+  //width definition of the sidenav
+  box-shadow: 0 7px 20px 5px #00000088;
   width: 17vw;
-  min-width: min-content;
-  background-color: #fefefe; /* צבע רקע של ה-sidenav */
-  border-right: 1px solid #ccc; /* קו תחתון להבדל */
-}
-
-.mat-nav-list {
-  padding-top: 20px; 
-}
-
-.mat-list-item {
-  padding: 15px 30px; 
+  min-width: max-content;
 }
 
 .mat-list-item:hover {
-  background-color: rgba(207, 210, 210, 0.2); 
-  
-}
-
-.mat-icon {
-  margin-right: 10px; /* מרווח מימין לסמלי אייקון ב-sidenav */
+  background-color: rgba(207, 210, 210, 0.2);
 }
 
 .main-content {
-  margin-top: 0; /* מרווח 0 מלמעלה לתוכן הראשי */
+  //The guests components in this component
   padding: 20px;
-  background-color: #f9f9f9; /* צבע רקע לתוכן הראשי */
 }
 
-.toggle-button {
-  position: absolute;
-  top: 0px; /* מרווח 10px מלמעלה */
-  right: 20px; /* מרווח 20px מימין */
-  z-index: 20; /* שכבה מעל לתוכן הראשי */
-}
 a {
-  padding: 30px;
+  padding: 10px;
 }
 
 a:hover {
@@ -63,12 +40,36 @@ a:hover {
 }
 
 mat-icon,
+//The name and icon design in the sidebar
 span {
   background-color: transparent !important;
-  padding-right: 10px;
   padding-bottom: 5px;
 }
 
 span {
   margin-left: 5px;
+}
+
+mat-icon {
+  float: right;
+}
+@media screen and (max-width: 920px) {
+  *{font-size: 15px;
+  }
+  .main-content {
+    //The guests components in this component
+    padding: 0px;
+  }
+  
+  a {
+    padding: 0px;
+  }
+  .sidenav-container {
+    height: 50vh; /* Adjust height for smaller screens */
+  }
+  .toggle-button{
+    background-color: rgba(203, 203, 203, 0.508) !important;
+    margin: 10px;
+    text-align-last:center;
+   }
 }
