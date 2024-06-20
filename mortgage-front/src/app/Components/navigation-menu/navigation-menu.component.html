@@ -3,6 +3,7 @@
   <mat-sidenav #sidenav mode="side" position="end" opened class="sidenav">
     <!-- Toolbar -->
     <mat-nav-list>
+      
       <!-- List of navigation items -->
       @for (c of componentsList; track c) {
         <a mat-list-item [routerLink]="c.path">
@@ -30,12 +31,3 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-<button>
-  <ng-content select=".icon">
-   <i aria-hidden="true" class="material-icons">send</i>
-  </ng-content>
-  <ng-content>
-    <i aria-hidden="true" class="material-icons">send</i>
-  </ng-content>
-</button> 
