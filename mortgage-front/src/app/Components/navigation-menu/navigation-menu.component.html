@@ -1,16 +1,18 @@
 <mat-sidenav-container class="sidenav-container">
   <!-- Container for the side navigation menu and main content -->
   <mat-sidenav #sidenav mode="side" position="end" opened class="sidenav">
-    <!-- Toolbar with the menu title -->
+    <!-- Toolbar -->
     <mat-nav-list>
       <!-- List of navigation items -->
-      <a mat-list-item *ngFor="let c of componentsList" [routerLink]="c.path">
-        <!-- Navigation item with a link to a component -->
-        <span>{{ c.name }}</span>
-        <!-- Display the component name -->
-        <mat-icon>{{ c.icon }}</mat-icon>
-        <!-- Display the component icon -->
-      </a>
+      @for (c of componentsList; track c) {
+        <a mat-list-item [routerLink]="c.path">
+          <!-- Navigation item with a link to a component -->
+          <span>{{ c.name }}</span>
+          <!-- Display the component name -->
+          <mat-icon>{{ c.icon }}</mat-icon>
+          <!-- Display the component icon -->
+        </a>
+      }
     </mat-nav-list>
   </mat-sidenav>
 
@@ -28,3 +30,12 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+<button>
+  <ng-content select=".icon">
+   <i aria-hidden="true" class="material-icons">send</i>
+  </ng-content>
+  <ng-content>
+    <i aria-hidden="true" class="material-icons">send</i>
+  </ng-content>
+</button> 
