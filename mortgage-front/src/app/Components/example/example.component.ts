@@ -13,4 +13,5 @@ componentArray = [
       new ComponentInfo("כניסה לאתר", "/login", "contact_mail"),
       new ComponentInfo("רשימת לקוחות", "/customer-list", "list"),
     ];
+    
 }

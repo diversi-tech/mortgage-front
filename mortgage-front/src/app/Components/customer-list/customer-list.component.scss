@@ -1,12 +1,9 @@
-// .mat-form-field {
-//     margin-right: 12px;
-//   }
+
 .example-container {
     display: flex;
     flex-direction: column;
     min-width: 300px;
   }
-  
   .mat-table {
     overflow: auto;
     max-height: 500px;
@@ -15,6 +12,12 @@
   .mat-header-cell.mat-sort-header-sorted {
     color: black;
   }
-  // mat-cell:hover{
-  //   background-color: rgba(207, 208, 206, 0.187);
-  // }
+  @media screen and (min-width: 900px){
+    
+    // th{
+    //   padding: 3px!important;
+    // }
+    // *{
+    //   font-size: 15px!important;
+    // }
+  }

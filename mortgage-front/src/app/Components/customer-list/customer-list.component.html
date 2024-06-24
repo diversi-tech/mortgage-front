@@ -36,32 +36,34 @@
 
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
 <!-- src/app/components/customer-list/customer-list.component.html -->
-<button mat-raised-button  (click)="addCustomer()">Add New Customer</button>
-
+<mat-form-field>
+  <mat-label>סינון</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="לדוג. שם">
+</mat-form-field>
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-  <ng-container matColumnDef="first_name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.first_name }}</td>
+  <ng-container matColumnDef="First_Name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>שם פרטי</th>
+    <td mat-cell *matCellDef="let customer">{{ customer.First_Name }}</td>
   </ng-container>
   
-  <ng-container matColumnDef="last_name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.last_name }}</td>
+  <ng-container matColumnDef="Last_Name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>שם משפחה</th>
+    <td mat-cell *matCellDef="let customer">{{ customer.Last_Name }}</td>
   </ng-container>
 
-  <ng-container matColumnDef="address">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.address }}</td>
+  <ng-container matColumnDef="Address">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>כתובת</th>
+    <td mat-cell *matCellDef="let customer">{{ customer.Address }}</td>
   </ng-container>
 
-  <ng-container matColumnDef="phone">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.phone }}</td>
+  <ng-container matColumnDef="Phone">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>טלפון</th>
+    <td mat-cell *matCellDef="let customer">{{ customer.Phone }}</td>
   </ng-container>
 
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.email }}</td>
+  <ng-container matColumnDef="Email">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>אימייל</th>
+    <td mat-cell *matCellDef="let customer">{{ customer.Email }}</td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -70,3 +72,4 @@
 
 <mat-paginator [pageSizeOptions]="[10, 20,30]" showFirstLastButtons></mat-paginator>
 
+<button mat-raised-button  (click)="addCustomer()" style="float: left;">+</button>

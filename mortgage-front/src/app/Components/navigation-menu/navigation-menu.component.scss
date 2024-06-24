@@ -11,17 +11,17 @@
   width: 17vw;
   min-width: max-content;
 }
-
-a {
-  padding: 30px;
-}
-
 mat-icon {
   float: right;
 }
 .mat-sidenav-content {
   min-height: max-content;
   padding: 20px;
+}
+@media only screen and (max-width: 600px) {
+  *{
+    font-size: 15px;
+  }
 }
 // .toggle-button{
 //  background-color: rgba(203, 203, 203, 0.508) !important;

@@ -1,61 +1,61 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { ICustomer } from "../Models/ICustomer";
+import { Customer } from "../Models/Customer";
 
 @Injectable()
 export class customerService {
   constructor(private _http: HttpClient) {
     console.log("hi" + _http);
   }
-  CUSTOMERS: ICustomer[] =[
-      { id: 1, first_name: "Sara", last_name: "Cohen", address: "Netivot Shalom 24", phone: "0533182155", email: "s0556774746r@gmail.com" },
-      { id: 2, first_name: "David", last_name: "Levi", address: "HaYarkon 32", phone: "0542213456", email: "davidl@gmail.com" },
-      { id: 3, first_name: "Rachel", last_name: "Katz", address: "Ben Yehuda 56", phone: "0556677889", email: "rachelk@gmail.com" },
-      { id: 4, first_name: "Moshe", last_name: "Mizrachi", address: "Dizengoff 104", phone: "0523344556", email: "moshem@gmail.com" },
-      { id: 5, first_name: "Esther", last_name: "Ben David", address: "Herzl 12", phone: "0546677889", email: "estherbd@gmail.com" },
-      { id: 6, first_name: "Yossi", last_name: "Goldstein", address: "Rothschild 76", phone: "0532233445", email: "yossig@gmail.com" },
-      { id: 7, first_name: "Miriam", last_name: "Shapira", address: "King George 19", phone: "0526677889", email: "miriams@gmail.com" },
-      { id: 8, first_name: "Itzik", last_name: "Peretz", address: "Allenby 45", phone: "0503344556", email: "itzikp@gmail.com" },
-      { id: 9, first_name: "Yael", last_name: "Abramov", address: "Ben Gurion 78", phone: "0542233445", email: "yaela@gmail.com" },
-      { id: 10, first_name: "Haim", last_name: "Weinberg", address: "Jabotinsky 23", phone: "0536677889", email: "haimw@gmail.com" },
-      { id: 11, first_name: "Leah", last_name: "Rosen", address: "Aza 34", phone: "0541122334", email: "lear@gmail.com" },
-      { id: 12, first_name: "Eli", last_name: "Baruch", address: "Frishman 12", phone: "0524455667", email: "elib@gmail.com" },
-      { id: 13, first_name: "Shira", last_name: "Meir", address: "Trumpeldor 9", phone: "0545566778", email: "shiram@gmail.com" },
-      { id: 14, first_name: "Nadav", last_name: "Solomon", address: "Arlozorov 54", phone: "0506677889", email: "nadavs@gmail.com" },
-      { id: 15, first_name: "Yaakov", last_name: "Roth", address: "Bialik 47", phone: "0537788990", email: "yaakovr@gmail.com" },
-      { id: 16, first_name: "Tamar", last_name: "Eliyahu", address: "Pinsker 31", phone: "0528899001", email: "tamare@gmail.com" },
-      { id: 17, first_name: "Gila", last_name: "Avraham", address: "Shenkin 2", phone: "0549911223", email: "gilaa@gmail.com" },
-      { id: 18, first_name: "Daniel", last_name: "Simon", address: "Bugrashov 3", phone: "0501122334", email: "daniels@gmail.com" },
-      { id: 19, first_name: "Noa", last_name: "Aharoni", address: "Bograshov 5", phone: "0532233445", email: "noaa@gmail.com" },
-      { id: 20, first_name: "Oren", last_name: "Levin", address: "Bar Ilan 10", phone: "0543344556", email: "orenl@gmail.com" },
-      { id: 21, first_name: "Orly", last_name: "Azoulay", address: "Gordon 23", phone: "0524455667", email: "orlya@gmail.com" },
-      { id: 22, first_name: "Shmuel", last_name: "Kaplan", address: "Trumpeldor 15", phone: "0505566778", email: "shmuelk@gmail.com" },
-      { id: 23, first_name: "Alon", last_name: "Yosef", address: "Rashi 8", phone: "0536677889", email: "alony@gmail.com" },
-      { id: 24, first_name: "Dalia", last_name: "Malkin", address: "Rambam 1", phone: "0547788990", email: "daliam@gmail.com" },
-      { id: 25, first_name: "Ronen", last_name: "Cohen", address: "Haneviim 19", phone: "0528899001", email: "ronenc@gmail.com" },
-      { id: 26, first_name: "Sigal", last_name: "Birnbaum", address: "Herzl 100", phone: "0549911223", email: "sigalb@gmail.com" },
-      { id: 27, first_name: "Yoav", last_name: "Dahan", address: "Frishman 11", phone: "0501122334", email: "yoavd@gmail.com" },
-      { id: 28, first_name: "Tal", last_name: "Koren", address: "Allenby 60", phone: "0532233445", email: "talk@gmail.com" },
-      { id: 29, first_name: "Tzipi", last_name: "Hazan", address: "Pinsker 22", phone: "0543344556", email: "tzipih@gmail.com" },
-      { id: 30, first_name: "Eran", last_name: "Shalom", address: "Dizengoff 101", phone: "0524455667", email: "erans@gmail.com" },
-      { id: 31, first_name: "Yael", last_name: "Gavriel", address: "HaYarkon 80", phone: "0505566778", email: "yaelg@gmail.com" },
-      { id: 32, first_name: "Sharon", last_name: "Malka", address: "Herzl 24", phone: "0536677889", email: "sharonm@gmail.com" },
-      { id: 33, first_name: "Rami", last_name: "Weiss", address: "King George 50", phone: "0547788990", email: "ramiw@gmail.com" },
-      { id: 34, first_name: "Tova", last_name: "Baron", address: "Ben Gurion 60", phone: "0528899001", email: "tovab@gmail.com" },
-      { id: 35, first_name: "Avi", last_name: "Shwartz", address: "Allenby 70", phone: "0549911223", email: "avish@gmail.com" },
-      { id: 36, first_name: "Meirav", last_name: "Nissan", address: "Ben Yehuda 90", phone: "0501122334", email: "meiravn@gmail.com" },
-      { id: 37, first_name: "Noam", last_name: "Barak", address: "Rothschild 88", phone: "0532233445", email: "noamb@gmail.com" },
-      { id: 38, first_name: "Elad", last_name: "Zilberman", address: "HaYarkon 22", phone: "0543344556", email: "eladz@gmail.com" },
-      { id: 39, first_name: "Neta", last_name: "Carmel", address: "Dizengoff 66", phone: "0524455667", email: "netac@gmail.com" },
-      { id: 40, first_name: "Shani", last_name: "Paz", address: "Jabotinsky 34", phone: "0505566778", email: "shanip@gmail.com" },
-      { id: 41, first_name: "Gilad", last_name: "Eitan", address: "Frishman 4", phone: "0536677889", email: "gilade@gmail.com" },
-      { id: 42, first_name: "Or", last_name: "Levy", address: "King George 9", phone: "0547788990", email: "orl@gmail.com" },    
+  CUSTOMERS: Customer[] =[
+      { Id: 1, First_Name: "Sara", Last_Name: "Cohen", Address: "Netivot Shalom 24", Phone: "0533182155", Email: "s0556774746r@gmail.com" },
+      { Id: 2, First_Name: "David", Last_Name: "Levi", Address: "HaYarkon 32", Phone: "0542213456", Email: "davidl@gmail.com" },
+      { Id: 3, First_Name: "Rachel", Last_Name: "Katz", Address: "Ben Yehuda 56", Phone: "0556677889", Email: "rachelk@gmail.com" },
+      { Id: 4, First_Name: "Moshe", Last_Name: "Mizrachi", Address: "Dizengoff 104", Phone: "0523344556", Email: "moshem@gmail.com" },
+      { Id: 5, First_Name: "Esther", Last_Name: "Ben David", Address: "Herzl 12", Phone: "0546677889", Email: "estherbd@gmail.com" },
+      { Id: 6, First_Name: "Yossi", Last_Name: "Goldstein", Address: "Rothschild 76", Phone: "0532233445", Email: "yossig@gmail.com" },
+      { Id: 7, First_Name: "Miriam", Last_Name: "Shapira", Address: "King George 19", Phone: "0526677889", Email: "miriams@gmail.com" },
+      { Id: 8, First_Name: "Itzik", Last_Name: "Peretz", Address: "Allenby 45", Phone: "0503344556", Email: "itzikp@gmail.com" },
+      { Id: 9, First_Name: "Yael", Last_Name: "Abramov", Address: "Ben Gurion 78", Phone: "0542233445", Email: "yaela@gmail.com" },
+      { Id: 10, First_Name: "Haim", Last_Name: "Weinberg", Address: "Jabotinsky 23", Phone: "0536677889", Email: "haimw@gmail.com" },
+      { Id: 11, First_Name: "Leah", Last_Name: "Rosen", Address: "Aza 34", Phone: "0541122334", Email: "lear@gmail.com" },
+      { Id: 12, First_Name: "Eli", Last_Name: "Baruch", Address: "Frishman 12", Phone: "0524455667", Email: "elib@gmail.com" },
+      { Id: 13, First_Name: "Shira", Last_Name: "Meir", Address: "Trumpeldor 9", Phone: "0545566778", Email: "shiram@gmail.com" },
+      { Id: 14, First_Name: "Nadav", Last_Name: "Solomon", Address: "Arlozorov 54", Phone: "0506677889", Email: "nadavs@gmail.com" },
+      { Id: 15, First_Name: "Yaakov", Last_Name: "Roth", Address: "Bialik 47", Phone: "0537788990", Email: "yaakovr@gmail.com" },
+      { Id: 16, First_Name: "Tamar", Last_Name: "Eliyahu", Address: "Pinsker 31", Phone: "0528899001", Email: "tamare@gmail.com" },
+      { Id: 17, First_Name: "Gila", Last_Name: "Avraham", Address: "Shenkin 2", Phone: "0549911223", Email: "gilaa@gmail.com" },
+      { Id: 18, First_Name: "Daniel", Last_Name: "Simon", Address: "Bugrashov 3", Phone: "0501122334", Email: "daniels@gmail.com" },
+      { Id: 19, First_Name: "Noa", Last_Name: "Aharoni", Address: "Bograshov 5", Phone: "0532233445", Email: "noaa@gmail.com" },
+      { Id: 20, First_Name: "Oren", Last_Name: "Levin", Address: "Bar Ilan 10", Phone: "0543344556", Email: "orenl@gmail.com" },
+      { Id: 21, First_Name: "Orly", Last_Name: "Azoulay", Address: "Gordon 23", Phone: "0524455667", Email: "orlya@gmail.com" },
+      { Id: 22, First_Name: "Shmuel", Last_Name: "Kaplan", Address: "Trumpeldor 15", Phone: "0505566778", Email: "shmuelk@gmail.com" },
+      { Id: 23, First_Name: "Alon", Last_Name: "Yosef", Address: "Rashi 8", Phone: "0536677889", Email: "alony@gmail.com" },
+      { Id: 24, First_Name: "Dalia", Last_Name: "Malkin", Address: "Rambam 1", Phone: "0547788990", Email: "daliam@gmail.com" },
+      { Id: 25, First_Name: "Ronen", Last_Name: "Cohen", Address: "Haneviim 19", Phone: "0528899001", Email: "ronenc@gmail.com" },
+      { Id: 26, First_Name: "Sigal", Last_Name: "Birnbaum", Address: "Herzl 100", Phone: "0549911223", Email: "sigalb@gmail.com" },
+      { Id: 27, First_Name: "Yoav", Last_Name: "Dahan", Address: "Frishman 11", Phone: "0501122334", Email: "yoavd@gmail.com" },
+      { Id: 28, First_Name: "Tal", Last_Name: "Koren", Address: "Allenby 60", Phone: "0532233445", Email: "talk@gmail.com" },
+      { Id: 29, First_Name: "Tzipi", Last_Name: "Hazan", Address: "Pinsker 22", Phone: "0543344556", Email: "tzipih@gmail.com" },
+      { Id: 30, First_Name: "Eran", Last_Name: "Shalom", Address: "Dizengoff 101", Phone: "0524455667", Email: "erans@gmail.com" },
+      { Id: 31, First_Name: "Yael", Last_Name: "Gavriel", Address: "HaYarkon 80", Phone: "0505566778", Email: "yaelg@gmail.com" },
+      { Id: 32, First_Name: "Sharon", Last_Name: "Malka", Address: "Herzl 24", Phone: "0536677889", Email: "sharonm@gmail.com" },
+      { Id: 33, First_Name: "Rami", Last_Name: "Weiss", Address: "King George 50", Phone: "0547788990", Email: "ramiw@gmail.com" },
+      { Id: 34, First_Name: "Tova", Last_Name: "Baron", Address: "Ben Gurion 60", Phone: "0528899001", Email: "tovab@gmail.com" },
+      { Id: 35, First_Name: "Avi", Last_Name: "Shwartz", Address: "Allenby 70", Phone: "0549911223", Email: "avish@gmail.com" },
+      { Id: 36, First_Name: "Meirav", Last_Name: "Nissan", Address: "Ben Yehuda 90", Phone: "0501122334", Email: "meiravn@gmail.com" },
+      { Id: 37, First_Name: "Noam", Last_Name: "Barak", Address: "Rothschild 88", Phone: "0532233445", Email: "noamb@gmail.com" },
+      { Id: 38, First_Name: "Elad", Last_Name: "Zilberman", Address: "HaYarkon 22", Phone: "0543344556", Email: "eladz@gmail.com" },
+      { Id: 39, First_Name: "Neta", Last_Name: "Carmel", Address: "Dizengoff 66", Phone: "0524455667", Email: "netac@gmail.com" },
+      { Id: 40, First_Name: "Shani", Last_Name: "Paz", Address: "Jabotinsky 34", Phone: "0505566778", Email: "shanip@gmail.com" },
+      { Id: 41, First_Name: "Gilad", Last_Name: "Eitan", Address: "Frishman 4", Phone: "0536677889", Email: "gilade@gmail.com" },
+      { Id: 42, First_Name: "Or", Last_Name: "Levy", Address: "King George 9", Phone: "0547788990", Email: "orl@gmail.com" },    
     ];
     
     
-  getCustomersFromServer = (): Observable<ICustomer[]> => {
-    let list = this._http.get<ICustomer[]>("api/Customers");
+  getCustomersFromServer = (): Observable<Customer[]> => {
+    let list = this._http.get<Customer[]>("api/Customers");
     console.log(list);
     return list;
   }
@@ -63,12 +63,13 @@ export class customerService {
   //   console.log("in posttttttttttttttttttttttt");
   //   return this._http.post<ICustomer[]>('api/Customer/new', s);
   // }
-  getAllCustomers = (): ICustomer[] => {
+  getAllCustomers = (): Customer[] => {
     return this.CUSTOMERS;
   }
-  addCustomer(customer: ICustomer): void {
+  addCustomer(customer: Customer): void {
     this.CUSTOMERS.push(customer);
   }
+
   //שימוש בפונקציה בקומפוננטה:
   //THIS.Apiservice.postSrudents(data).subscribe(res=>{console.log('response from server',res);},error=>{console.error('Error',error);});
 }
