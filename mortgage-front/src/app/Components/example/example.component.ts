@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentInfo } from '../../Models/componentInfo';
 @Component({
-  selector: 'app-example',
+  selector: 'example',
   templateUrl: './example.component.html',
   styleUrl: './example.component.css'
 })
@@ -11,6 +11,6 @@ componentArray = [
       new ComponentInfo("נתונים", "/data", "home"),
       new ComponentInfo("מסמכים", "/doc", "info"),
       new ComponentInfo("כניסה לאתר", "/login", "contact_mail"),
-      new ComponentInfo("בלה בלה", "/login", "share"),
+      new ComponentInfo("רשימת לקוחות", "/customer-list", "list"),
     ];
 }

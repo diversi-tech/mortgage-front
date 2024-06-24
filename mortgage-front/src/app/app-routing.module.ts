@@ -3,11 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
 import { DocumentDefinitionComponent } from './Components/document-definition/document-definition.component';
 import { LoginComponent } from './Components/login/login.component';
+import { CustomerListComponent } from './Components/customer-list/customer-list.component';
+import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
 const routes: Routes =
   [
     { path: 'data', component: DataVisualizationComponent },
     { path: 'doc', component: DocumentDefinitionComponent },
-    { path: 'login', component: LoginComponent }
+    { path: 'login', component: LoginComponent },
+    { path: 'customer-list', component: CustomerListComponent },
+    {path:'customer-details',component:CustomerDetailModalComponent}
   ];
 
 @NgModule({

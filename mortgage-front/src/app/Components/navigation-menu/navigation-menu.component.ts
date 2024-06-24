@@ -9,7 +9,7 @@ import { BidiModule } from '@angular/cdk/bidi';
 import { MaterialModule } from '../../material/material.module';
 
 @Component({
-  selector: 'app-navigation-menu',
+  selector: 'navigation-menu',
   standalone: true,
   imports: [ BrowserAnimationsModule, BidiModule,CdkMenu,CdkMenuItem,RouterModule,
     BrowserModule,CdkMenuTrigger,

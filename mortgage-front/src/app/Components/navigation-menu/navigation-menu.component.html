@@ -3,7 +3,6 @@
   <mat-sidenav #sidenav mode="side" position="end" opened class="sidenav">
     <!-- Toolbar -->
     <mat-nav-list>
-      
       <!-- List of navigation items -->
       @for (c of componentsList; track c) {
         <a mat-list-item [routerLink]="c.path">
@@ -16,14 +15,11 @@
       }
     </mat-nav-list>
   </mat-sidenav>
-
   <mat-sidenav-content class="main-content">
     <!-- Main content area -->
-    <button mat-icon-button (click)="toggleSidebar(); sidenav.toggle()" class="toggle-button"  >
-      <!-- Button to toggle the side navigation menu -->
+    <!-- <button mat-icon-button (click)="toggleSidebar(); sidenav.toggle()" class="toggle-button"  >
       <mat-icon>{{ isSidebarOpened ? 'close' : 'menu' }}</mat-icon>
-      <!-- Icon to display based on the menu state -->
-    </button>
+    </button> -->
     <div class="content" style="margin-right: 50px;">
       <!-- Container for the main content -->
       <router-outlet></router-outlet>

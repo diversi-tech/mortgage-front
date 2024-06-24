@@ -8,6 +8,10 @@ import { DataVisualizationComponent } from './Components/data-visualization/data
 import { DocumentDefinitionComponent } from './Components/document-definition/document-definition.component';
 import { LoginComponent } from './Components/login/login.component';
 import { ExampleComponent } from './Components/example/example.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { customerService } from './services/costumer.service';
+import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,10 +21,13 @@ import { ExampleComponent } from './Components/example/example.component';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
+    HttpClientModule,
     NavigationMenuComponent
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAnimationsAsync(),
+    customerService
   ],
   bootstrap: [AppComponent]
 })
