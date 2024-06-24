@@ -20,7 +20,8 @@ import { ExampleComponent } from './Components/example/example.component';
     NavigationMenuComponent
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
