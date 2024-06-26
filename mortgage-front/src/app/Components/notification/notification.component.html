@@ -1,1 +1,25 @@
+<main>
+
 <p>notification works!</p>
+
+<div class="notifications-list">
+  <mat-card class="mat-card" *ngFor="let notification of notifications" appearance="outlined">
+
+    <mat-card-header>
+        <mat-card-title>
+          {{ notification.message }}
+        </mat-card-title>
+
+        <mat-card-subtitle>
+          Message for: customer no' {{ notification.customerId }}
+        </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-actions>
+      <button mat-button>Learn More</button>
+    </mat-card-actions>
+
+  </mat-card>
+</div>
+
+</main>
