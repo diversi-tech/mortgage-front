@@ -8,6 +8,7 @@ import { DataVisualizationComponent } from './Components/data-visualization/data
 import { DocumentDefinitionComponent } from './Components/document-definition/document-definition.component';
 import { LoginComponent } from './Components/login/login.component';
 import { ExampleComponent } from './Components/example/example.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 @NgModule({
   declarations: [
     AppComponent,
