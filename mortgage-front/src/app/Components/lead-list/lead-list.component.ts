@@ -1,39 +1,38 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ViewEncapsulation, Inject } from '@angular/core';
-import { Customer, Customer_type } from '../../Models/Customer';
-import { customerService } from '../../services/costumer.service';
-import { MaterialModule } from '../../material/material.module';
+import { Customer } from '../../Models/Customer';
 import { Router } from '@angular/router';
 import {  Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import {  MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { Lead } from '../../Models/Lead';
+import { leadService } from '../../services/lead.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 @Component({
-  selector: 'customer-list',
-  standalone: true,
-  imports: [MaterialModule, CommonModule],
-  templateUrl: './customer-list.component.html',
-  styleUrls: ['./customer-list.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: 'lead-list',
+  templateUrl: './lead-list.component.html',
+  styleUrl: './lead-list.component.scss'
 })
-export class CustomerListComponent implements OnInit, OnDestroy {
-  displayedColumns = [ 'first_Name','last_Name', 'address', 'phone','Customer_type', 'actions'];
-  dataSource: MatTableDataSource<Customer> = new MatTableDataSource<Customer>();
-  private customersSubscription?: Subscription;
+export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
+  displayedColumns = ['link','first_Name', 'phone', 'email', 'actions'];
+  dataSource: MatTableDataSource<Customer> = new MatTableDataSource<Lead>();
+  private leadsSubscription?: Subscription;
+  emailSubject = 'לחץ על הקישור כדי להיכנס לאתר';
+  link = this.leadService.sendLink();
+  whatsappMessage = "לחץ על הקישור כדי להיכנס לאתר\n" + this.link;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  constructor(private customerService: customerService, private router: Router, public dialog: MatDialog) { }
+  constructor(private leadService: leadService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.loadCustomers();
+    this.loadLeads();
   }
 
-  loadCustomers(): void {
-    this.customersSubscription = this.customerService.customers$.subscribe({
-      next: customers => {
-        this.dataSource.data = customers;
+  loadLeads(): void {
+    this.leadsSubscription = this.leadService.leads$.subscribe({
+      next: leads => {
+        this.dataSource.data = leads;
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
@@ -44,8 +43,8 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.customersSubscription) {
-      this.customersSubscription.unsubscribe();
+    if (this.leadsSubscription) {
+      this.leadsSubscription.unsubscribe();
     }
   }
 
@@ -62,22 +61,28 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       this.dataSource.paginator.firstPage();
     }
   }
+  encodeMailtoLink(email: string, subject: string, body: string): string {
+    return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+  encodeWhatsAppLink(phoneNumber: string, message: string): string {
+    const encodedMessage = encodeURIComponent(message);
+    return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+  }
 
-  addCustomer(): void {
+  addLead(): void {
     this.router.navigate(['/customer-details', -1]);
   }
 
-  editCustomer(selected: Customer): void {
+  editLead(selected: Customer): void {
     this.router.navigate(['/customer-details', selected.id]);
   }
- 
-  deleteCustomer(customer: Customer): void {
+  deleteLead(customer: Customer): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{
       data: { customer } // Pass customer object as data to the dialog
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.customerService.deleteCustomer(customer.id!).subscribe({
+        this.leadService.deleteCustomer(customer.id!).subscribe({
           next: () => {
             console.log('Customer deleted successfully');
           },
@@ -87,21 +92,5 @@ export class CustomerListComponent implements OnInit, OnDestroy {
         });
       }
     });
-  }
-  getCustomerTypeString(value: Customer_type): string {
-    console.log('value=' + value);
-    
-    switch (Number(value)) {
-      case 0:
-        console.log(value);
-        return "ליד";
-      case 1:
-        return "לקוח";
-      case 2:
-        return "בארכיון";
-      default:
-        'אחר'
-    }
-    return 'error';
   }
 }

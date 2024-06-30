@@ -1,75 +1,50 @@
-<!-- 
-<div class="mat-elevation-z8">
-  <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Name">
-  </mat-form-field>
-<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-  <ng-container matColumnDef="first_name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.first_name }}</td>
-  </ng-container>
-  
-  <ng-container matColumnDef="last_name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.last_name }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="address">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.address }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="phone">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.phone }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.email }}</td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-
-<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
-<!-- src/app/components/customer-list/customer-list.component.html -->
-<mat-form-field>
-  <mat-label>סינון</mat-label>
+<mat-form-field dir="rtl">
+  <mat-label>חפש</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="לדוג. שם">
 </mat-form-field>
-<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-  <ng-container matColumnDef="First_Name">
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" dir="rtl">
+  <ng-container matColumnDef="first_Name">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>שם פרטי</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.First_Name }}</td>
+    <td mat-cell *matCellDef="let customer">
+      {{customer.first_Name}}
+    </td>
   </ng-container>
-  
-  <ng-container matColumnDef="Last_Name">
+  <ng-container matColumnDef="last_Name">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>שם משפחה</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.Last_Name }}</td>
+    <td mat-cell *matCellDef="let customer">{{ customer.last_Name }}</td>
   </ng-container>
-
-  <ng-container matColumnDef="Address">
+  <ng-container matColumnDef="address">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>כתובת</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.Address }}</td>
+    <td mat-cell *matCellDef="let customer">{{ customer.address }}</td>
   </ng-container>
-
-  <ng-container matColumnDef="Phone">
+  <ng-container matColumnDef="phone">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>טלפון</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.Phone }}</td>
+    <td mat-cell *matCellDef="let customer">{{ customer.phone }}</td>
   </ng-container>
-
-  <ng-container matColumnDef="Email">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>אימייל</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.Email }}</td>
+  <ng-container matColumnDef="Customer_type">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>סוג לקוח</th>
+    <td mat-cell *matCellDef="let customer">{{getCustomerTypeString(customer.customer_type)}}</td>
   </ng-container>
-
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>פעולות</th>
+    <td mat-cell *matCellDef="let customer">
+      <button mat-icon-button color="primary" (click)="editCustomer(customer)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteCustomer(customer)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<mat-paginator [pageSizeOptions]="[10, 20,30]" showFirstLastButtons></mat-paginator>
+<br>
+<mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons dir="rtl"></mat-paginator>
 
-<button mat-raised-button  (click)="addCustomer()" style="float: left;">+</button>
+<button mat-fab color="primary" class="add-button" (click)="addCustomer()"
+  style="position: fixed;bottom: 8vh;left: 2vw;z-index: 1000;">
+  <mat-icon class="add-icon">add</mat-icon>
+</button>

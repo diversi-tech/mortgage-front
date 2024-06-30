@@ -1,23 +1,20 @@
+button {
+  margin-right: 8px;
+}
 
-.example-container {
-    display: flex;
-    flex-direction: column;
-    min-width: 300px;
-  }
+@media screen and (max-width: 1000px) {
   .mat-table {
-    overflow: auto;
-    max-height: 500px;
+    padding: 1px;
+    font-size: 12px;
   }
-  
-  .mat-header-cell.mat-sort-header-sorted {
-    color: black;
+  .mat-cell {
+    padding: 1px;
+    margin: 0;
   }
-  @media screen and (min-width: 900px){
-    
-    // th{
-    //   padding: 3px!important;
-    // }
-    // *{
-    //   font-size: 15px!important;
-    // }
+  mat-icon{
+    font-size: 20px!important;
   }
+}
+th{
+  font-weight: bold!important;
+}

@@ -4,32 +4,37 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Route, RouterModule } from "@angular/router";
 import { NavigationMenuComponent } from './Components/navigation-menu/navigation-menu.component';
-import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
-import { DocumentDefinitionComponent } from './Components/document-definition/document-definition.component';
-import { LoginComponent } from './Components/login/login.component';
 import { ExampleComponent } from './Components/example/example.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { customerService } from './services/costumer.service';
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MaterialModule } from './material/material.module';
+import { LeadListComponent } from './Components/lead-list/lead-list.component';
+import { leadService } from './services/lead.service';
+import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ExampleComponent
-  ],
+    ExampleComponent,
+    LeadListComponent,
+      ],
   imports: [
-    BrowserModule,
+    BrowserModule,MaterialModule,
     AppRoutingModule,
     RouterModule,
-    HttpClientModule,
+    HttpClientModule,MatFormFieldModule,MatInputModule,
     NavigationMenuComponent
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    customerService
+    customerService,leadService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  // entryComponents: [ConfirmDialog] // ensure your dialog component is listed here
+
 })
 export class AppModule { }
 // import { NgModule } from '@angular/core';

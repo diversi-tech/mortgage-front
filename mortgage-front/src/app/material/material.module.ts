@@ -10,6 +10,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+// import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+// import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 const modules=[
   MatListModule,
   MatButtonModule,
@@ -17,10 +22,17 @@ const modules=[
   MatToolbarModule,
   MatIconModule,
   MatTableModule,
+  MatPaginator,MatSort,
+
+  // MatTableDataSource,
+  // MatDialog,
+  // MatDialogRef,
   MatInputModule,
   MatFormFieldModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatDialogModule
+
 ]
 
 @NgModule({

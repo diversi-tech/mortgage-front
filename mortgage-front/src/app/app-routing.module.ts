@@ -5,13 +5,15 @@ import { DocumentDefinitionComponent } from './Components/document-definition/do
 import { LoginComponent } from './Components/login/login.component';
 import { CustomerListComponent } from './Components/customer-list/customer-list.component';
 import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
+import { LeadListComponent } from './Components/lead-list/lead-list.component';
 const routes: Routes =
   [
     { path: 'data', component: DataVisualizationComponent },
     { path: 'doc', component: DocumentDefinitionComponent },
     { path: 'login', component: LoginComponent },
     { path: 'customer-list', component: CustomerListComponent },
-    {path:'customer-details',component:CustomerDetailModalComponent}
+    {path:'lead-list',component:LeadListComponent},
+    {path:'customer-details/:id',component:CustomerDetailModalComponent}
   ];
 
 @NgModule({

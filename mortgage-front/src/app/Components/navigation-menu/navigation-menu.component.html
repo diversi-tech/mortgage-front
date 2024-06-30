@@ -1,29 +1,17 @@
 <mat-sidenav-container class="sidenav-container">
-  <!-- Container for the side navigation menu and main content -->
-  <mat-sidenav #sidenav mode="side" position="end" class="sidenav">
-    <!-- Toolbar -->
-    <mat-nav-list>
-      <!-- List of navigation items -->
+  <mat-sidenav #sidenav mode="side" position="end" class="sidenav" dir="rtl" opened>
+    <mat-nav-list dir="rtl">
       @for (c of componentsList; track c) {
-        <a mat-list-item [routerLink]="c.path">
-          <!-- Navigation item with a link to a component -->
-          <span>{{ c.name }}</span>
-          <!-- Display the component name -->
-          <mat-icon>{{ c.icon }}</mat-icon>
-          <!-- Display the component icon -->
-        </a>
+      <a mat-list-item [routerLink]="c.path">
+        <span>{{ c.name }}</span>
+        <mat-icon>{{ c.icon }}</mat-icon>
+      </a>
       }
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content class="main-content">
-    <!-- Main content area -->
-    <!-- <button mat-icon-button (click)="toggleSidebar(); sidenav.toggle()" class="toggle-button"  >
-      <mat-icon>{{ isSidebarOpened ? 'close' : 'menu' }}</mat-icon>
-    </button> -->
+  <mat-sidenav-content class="main-content" dir="rtl">
     <div class="content" style="margin-right: 50px;">
-      <!-- Container for th;e main content -->
       <router-outlet></router-outlet>
-      <!-- Outlet for the routed component -->
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
