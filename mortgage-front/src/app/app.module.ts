@@ -6,28 +6,51 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { ToolbarComponent } from './Components/toolbar/toolbar.component';
 import { RouterModule } from '@angular/router';
-import { AuthLoginComponent } from './Services/auth-login/auth-login.component';
 import { NavigationMenuComponent } from './Components/navigation-menu/navigation-menu.component';
 import { MatIconModule } from '@angular/material/icon';
-import { UserListComponent } from './user-list/user-list.component';
+import { UserListComponent } from './Components/user-list/user-list.component';
+import { BrowserAnimationsModule }  from '@angular/platform-browser/animations'; 
+import { MatMenuModule } from '@angular/material/menu'; 
+import { MatDrawerContent } from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { LoginComponent } from './Components/login/login.component';
+import{MatFormFieldModule}from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { HttpClientModule } from '@angular/common/http';
+import { UserDetailComponent } from './Components/user-detail/user-detail.component'; // Import HttpClientModule
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
-    AuthLoginComponent,
+    UserListComponent,
     NavigationMenuComponent,
     UserListComponent,
-    // MatIconModule
+    LoginComponent,
+    UserDetailComponent
   ],
   imports: [
-    // RouterModule,
-    BrowserModule,
-    
+    HttpClientModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
     MatToolbarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSidenavModule,
+    RouterModule,
+    BrowserModule,
+     MatIconModule,
+     MatMenuModule,
+     MatDrawerContent,
+     BrowserAnimationsModule,
     AppRoutingModule,
-    RouterModule.forRoot([]) // כאן יש לוודא שיש import של RouterModule ושיש לו את הקריאה ל- forRoot עם תצורת ניתוב מתאימה
+    RouterModule.forRoot([])
   ],
   providers: [
     provideClientHydration(),

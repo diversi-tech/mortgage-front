@@ -1,0 +1,49 @@
+<!-- src/app/Components/user-list/user-list.component.html -->
+<mat-form-field class="custom-form-field" dir="rtl">
+    <mat-label>חפש</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="">
+</mat-form-field>
+<button routerLink="/userDetail" class="addUser-button">הוספת עובד</button>
+
+<div class="rtl-table-wrapper">
+    <!-- the columns -->
+    <table mat-table [dataSource]="users$" matSort class="mat-elevation-z8" dir="rtl">
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-bold">מס' זיהוי</th>
+            <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="userName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-bold">שם</th>
+            <td mat-cell *matCellDef="let user">{{ user.userName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-bold">תפקיד</th>
+            <td mat-cell *matCellDef="let user">{{ user.role }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-bold">אי-מייל</th>
+            <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="th-bold">פעולות</th>
+            <td mat-cell *matCellDef="let user">
+                <button mat-icon-button color="warn" (click)="deleteUser(user.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" routerLink="/userDetail">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <!-- הצגת השורות -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+<br>
+<mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons dir="ltr"></mat-paginator>

@@ -1,32 +1,38 @@
- .mat-toolbar {
+.mat-toolbar {
     display: flex;
-    justify-content: space-between; /* יישוב מרחקים זמינים בין הפריטים */
-    background-color:darkgray;
-    /* align-items: center;  */
- }  
-.toolbar{
-    height: 48px;
-    border-radius: 24px;
-    font-size: 16px;
+    justify-content: space-between;
+    /* יישוב מרחקים זמינים בין הפריטים */
+    background-color: darkgray;
+    /*align-items: center;  */
+}
+
+.buttonLog {
+    height: 70%;
+    border-radius: 28%;
+    font-size: 70%;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.5;
+    /* line-height: 1.5; */
     letter-spacing: normal;
     text-align: center;
     color: black;
-    width: 12.5%;
+    width: 8vw;
+    min-width: 100px; /* Set a minimum width for the button */
+    padding: 0 16px; /* Add padding to accommodate text */
 }
-div{
+
+div {
     width: 100%;
     margin-left: 2%;
 }
-#login{
-    width: 11%;
+
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
 }
 
-
-.md-button.md-icon-button {
+/* .md-button.md-icon-button {
     margin: 0 0.6rem;
     height: 4.8rem;
     min-width: 0;
@@ -34,5 +40,4 @@ div{
     padding-left: 0;
     padding-right: 0;
     width: 4.8rem;
-}
-
+} */

@@ -1,20 +1,12 @@
 <mat-toolbar color="primary">
-  @if(isLoggedIn) {
-  <button class="toolbar" mat-button (click)="logout()">יציאה</button>
-
-  }
-
-  @else {
-  <button class="toolbar" id="login" mat-button (click)="login()">התחברות</button>
-
-  }
+  <button class="buttonLog" mat-button routerLink="/login" (click)="loginOrLogout()">
+    @if(isLoggedIn) { יציאה}
+    @else{ התחברות}
+  </button>
   <div>
     <span class="span">!שלום {{ user }}</span>
   </div>
-
-  <!-- <button class="toolbar" mat-button (click)="openMainMenu()">תפריט ראשי</button> -->
-  <!-- <md-button class="md-icon-button md-primary" aria-label="Settings">
-    <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-  </md-button> -->
-
+  <button mat-icon-button (click)="toggleNavigationMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
 </mat-toolbar>
