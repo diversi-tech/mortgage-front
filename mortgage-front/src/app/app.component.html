@@ -1,4 +1,9 @@
 <!-- <p>app-component work!</p> -->
+
+<app-toolbar></app-toolbar>
+@if(navigationMenuService.isOpened()){
+<app-navigation-menu [componentsList]="componentArray"></app-navigation-menu>
+}
+
 <router-outlet></router-outlet>
 <app-example></app-example>
-<!-- <app-navigation-menu></app-navigation-menu> -->
