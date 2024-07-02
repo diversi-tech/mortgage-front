@@ -1,72 +1,63 @@
-<!-- 
-<div class="mat-elevation-z8">
-  <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Name">
+<mat-form-field dir="rtl"> 
+  <mat-label>חפש</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="לדוג. שם">
+</mat-form-field>
+<!-- <div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+  <mat-form-field fxFlex.gt-sm="50%" fxFlex.lt-sm="100%" dir="rtl">
+    <mat-label>חפש</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="לדוג. שם">
   </mat-form-field>
-<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-  <ng-container matColumnDef="first_name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.first_name }}</td>
-  </ng-container>
-  
-  <ng-container matColumnDef="last_name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.last_name }}</td>
-  </ng-container>
+</div> -->
+<div class="rtl-table-wrapper">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" dir="rtl">
+    <ng-container matColumnDef="first_Name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>שם פרטי</th>
+      <td mat-cell *matCellDef="let customer">{{ (getLeadInfo(customer.id) | async)?.first_Name }}</td>
+    </ng-container>
+    
+    <ng-container matColumnDef="last_Name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>שם משפחה</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.last_Name }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="address">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.address }}</td>
-  </ng-container>
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>כתובת</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.address }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="phone">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.phone }}</td>
-  </ng-container>
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>טלפון</th>
+      <td mat-cell *matCellDef="let customer">{{ (getLeadInfo(customer.id) | async)?.phone }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.email }}</td>
-  </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>אי-מייל</th>
+      <td mat-cell *matCellDef="let customer">{{ (getLeadInfo(customer.id) | async)?.email }}</td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let customer">
+        <button mat-icon-button color="primary" (click)="editCustomer(customer)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteCustomer(customer)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <a mat-icon-button color="warn" [href]="encodeMailtoLink('saracohen.cp@gmail.com', emailSubject, link)">
+          <mat-icon>mail</mat-icon>
+        </a>
+        <a mat-icon-button color="warn" [href]="encodeWhatsAppLink('0521234567', whatsappMessage)">
+          <mat-icon>chat</mat-icon>
+        </a>
+      </td>
+    </ng-container>
 
-<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
-<!-- src/app/components/customer-list/customer-list.component.html -->
-<button mat-raised-button  (click)="addCustomer()">Add New Customer</button>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+<br>
+<mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons dir="rtl"></mat-paginator>
 
-<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-  <ng-container matColumnDef="first_name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.first_name }}</td>
-  </ng-container>
-  
-  <ng-container matColumnDef="last_name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.last_name }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="address">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.address }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="phone">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.phone }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.email }}</td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-
-<mat-paginator [pageSizeOptions]="[10, 20,30]" showFirstLastButtons></mat-paginator>
-
+<button mat-raised-button (click)="addCustomer()" style="padding: 30px; float: right; font-size: 35px;">+</button>

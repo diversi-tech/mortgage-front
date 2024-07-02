@@ -1,1 +1,254 @@
-<p>customer-detail-modal works!</p>
+ <!-- <p>customer-detail-modal works!</p>
+
+ <mat-stepper orientation="vertical" linear>
+  <mat-step [stepControl]="customerForm">
+<form [formGroup]="customerForm" class="form-container">
+    <div class="form-column">
+    <div  class="form-field">
+    <mat-form-field>
+      <input matInput formControlName="id" placeholder="ID">
+      @if(customerForm.get('id')?.hasError('required'))
+      {<mat-error>ID is required</mat-error> }
+    </mat-form-field>
+   
+  </div>
+  <div  class="form-field">
+    <mat-form-field>
+      <input matInput formControlName="first_Name" placeholder="first Name">
+      @if(customerForm.get('first_Name')?.hasError('required'))
+      { <mat-error >first Name is required</mat-error>   }
+    </mat-form-field>
+  </div>
+  
+  <div  class="form-field">
+    <mat-form-field>
+      <input matInput formControlName="last_Name" placeholder="last Name">
+      @if(customerForm.get('last_Name')?.hasError('required'))
+      {<mat-error >Last Name is required</mat-error>}
+    </mat-form-field>
+  </div>
+  <div  class="form-field">
+    <mat-form-field>
+      <input matInput formControlName="email" placeholder="email">
+      @if (customerForm.get('email')?.hasError('required')) {
+      <mat-error >Email is required</mat-error>
+      }
+      @if( customerForm.get('email')?.hasError('email')){
+        <mat-error>Enter a valid email</mat-error>
+      }
+    </mat-form-field>
+  </div>
+  <div  class="form-field">
+    <mat-form-field>
+      <input matInput formControlName="phone" placeholder="phone">
+      @if(customerForm.get('phone')?.hasError('pattern'))
+      {
+      <mat-error>Enter a valid phone number</mat-error>
+      }
+    </mat-form-field>
+  </div>
+ </div> 
+ <div class="form-column">
+  <div  class="form-field">
+    <mat-form-field>
+      <input matInput formControlName="address" placeholder="address">
+    </mat-form-field>
+  </div>
+  <div  class="form-field">
+    <mat-form-field>
+      <input matInput formControlName="lastSynced" placeholder="last Synced">
+    </mat-form-field>
+  </div>
+  <div  class="form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Created At</mat-label>
+      <input matInput formControlName="created_at" type="datetime-local">
+    </mat-form-field>
+  </div>
+  
+  <div  class="form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Updated At</mat-label>
+      <input matInput formControlName="updated_at" type="datetime-local">
+    </mat-form-field>
+  </div>
+  
+  <div  class="form-field">
+    <mat-checkbox formControlName="isArchived">Is Archived</mat-checkbox>
+  </div>
+  <div>
+    <button mat-button type="submit" (click)=" saveCustomer()">Save</button>
+  </div>
+</div>
+  </form> 
+  <div>
+    <button mat-button matStepperPrevious>Back</button>
+    <button mat-button matStepperNext>Next</button>
+  </div>
+</mat-step>
+</mat-stepper> -->
+
+<h1> עריכת פרטי הלקוח</h1>
+
+ <div class="container">
+   <mat-horizontal-stepper [linear]="stepperLinear" #stepper> 
+    <!-- קבוצת שלב ראשון -->
+     <mat-step [stepControl]="personalInfoGroup">
+        <form [formGroup]="personalInfoGroup">
+          <ng-template matStepLabel>פרטים אישיים</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>שם משפחה</mat-label>
+          <input matInput formControlName="last_Name" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>תעודת זהות</mat-label>
+          <input matInput formControlName="t_z" required>
+        </mat-form-field>
+        <div  class="form-field">
+          <mat-form-field>
+            <input matInput formControlName="lastSynced" placeholder="last Synced">
+          </mat-form-field>
+        </div>
+        <div  class="form-field">
+          <mat-form-field appearance="fill">
+            <mat-label>Created At</mat-label>
+            <input matInput formControlName="created_at" type="datetime-local">
+          </mat-form-field>
+        </div>
+        
+       
+          <mat-form-field appearance="fill">
+            <mat-label>Updated At</mat-label>
+            <input matInput formControlName="updated_at" type="datetime-local">
+          </mat-form-field>
+    
+        
+       
+          <mat-checkbox formControlName="isArchived">Is Archived</mat-checkbox>
+
+
+        <mat-form-field appearance="fill">
+          <mat-label>תאריך לידה</mat-label>
+            <input matInput formControlName="birthDate" type="datetime-local">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>מצב משפחתי</mat-label>
+          <mat-select formControlName="family_status" required>
+            <mat-option value="נשוי">נשוי</mat-option>
+            <mat-option value="גרוש">גרוש</mat-option>
+            <mat-option value="רווק">רווק</mat-option>
+            <mat-option value="אלמן">אלמן</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>מספר אנשים בבית</mat-label>
+          <input matInput type="number" formControlName="number_of_people_in_house" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>כתובת</mat-label>
+          <input matInput formControlName="address" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>הבא</button>
+        </div>
+      </form>
+    </mat-step> 
+
+    <!-- קבוצת שלב שני -->
+    <mat-step [stepControl]="jobInfoGroup">
+      <form [formGroup]="jobInfoGroup">
+        <ng-template matStepLabel>פרטי עבודה</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label> סטטוס </mat-label>
+          <mat-select formControlName="job_Status">
+            <mat-option value="שכיר">שכיר</mat-option>
+            <mat-option value="עצמאי">עצמאי</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>שם העסק או המקצוע</mat-label>
+          <input matInput formControlName="work_business_name">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>תיאור העבודה</mat-label>
+          <input matInput formControlName="job_description">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>שכר חודשי ממוצע (בשקלים)</mat-label>
+          <input matInput type="number" formControlName="avarage_monthly_salary">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>מספר שנים בעמדה הנוכחית</mat-label>
+          <input matInput type="number" formControlName="years_in_current_position">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>חזור</button>
+          <button mat-button matStepperNext>הבא</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- קבוצת שלב שלישי -->
+    <mat-step [stepControl]="financialInfoGroup">
+      <form [formGroup]="financialInfoGroup">
+        <ng-template matStepLabel>פרטים פיננסיים</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>הכנסה משכירות</mat-label>
+          <input matInput type="number" formControlName="income_rent">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>הכנסה מהסעד הממשלתי</mat-label>
+          <input matInput type="number" formControlName="income_Government_Endorsement">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>הכנסה אחרת</mat-label>
+          <input matInput type="number" formControlName="income_other">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>הוצאות לשכירות</mat-label>
+          <input matInput type="number" formControlName="expenses_rent">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>הוצאות להלוואות</mat-label>
+          <input matInput type="number" formControlName="expenses_loans">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>הוצאות אחרות</mat-label>
+          <input matInput type="number" formControlName="expenses_other">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>עיר הנכס</mat-label>
+          <input matInput formControlName="property_city">
+        </mat-form-field>
+        <mat-form-field>
+        <mat-label>סוג עסקה</mat-label>
+        <mat-select formControlName="transaction_type">
+          <mat-option value="מחיר למשתכן">מחיר למשתכן</mat-option>
+          <mat-option value="יד ראשונה">יד ראשונה</mat-option>
+          <mat-option value="יד שניה">יד שניה</mat-option>
+          <mat-option value="שיפוצים">שיפוצים</mat-option>
+          <mat-option value="לכל מטרה">לכל מטרה</mat-option>
+        </mat-select>
+      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>מחיר משוער על ידי הלקוח</mat-label>
+          <input matInput type="number" formControlName="estimated_price_by_customer">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>מחיר משוער על ידי הסכם מכירה</mat-label>
+          <input matInput type="number" formControlName="estimated_price_by_sales_agreement">
+        </mat-form-field>
+        <mat-checkbox formControlName="has_other_properties">יש נכסים נוספים</mat-checkbox>
+        <mat-form-field appearance="fill">
+          <mat-label>סכום ההלוואה המבוקש</mat-label>
+          <input matInput type="number" formControlName="amount_of_loan_requested">
+        </mat-form-field>
+      </form>
+      <div>
+          <button mat-button matStepperPrevious>חזור</button>
+          <button mat-button type="submit"  (click)=" saveCustomer()" >שמור</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

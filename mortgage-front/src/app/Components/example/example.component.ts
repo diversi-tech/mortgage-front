@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ComponentInfo } from '../../Models/componentInfo';
+import { Customer } from '../../Models/Customer';
 @Component({
   selector: 'example',
   templateUrl: './example.component.html',

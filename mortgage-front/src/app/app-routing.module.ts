@@ -11,8 +11,8 @@ const routes: Routes =
     { path: 'doc', component: DocumentDefinitionComponent },
     { path: 'login', component: LoginComponent },
     { path: 'customer-list', component: CustomerListComponent },
-    {path:'customer-details',component:CustomerDetailModalComponent}
-  ];
+    {path:'customer-details/:id',component:CustomerDetailModalComponent} 
+   ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

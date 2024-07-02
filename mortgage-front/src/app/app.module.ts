@@ -11,23 +11,32 @@ import { ExampleComponent } from './Components/example/example.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { customerService } from './services/costumer.service';
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { CommonModule } from '@angular/common';
+import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
+import { leadService } from './services/lead.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ExampleComponent
+    ExampleComponent,
+  
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-    NavigationMenuComponent
+    NavigationMenuComponent,
+    CommonModule,
+
+
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    customerService
+    customerService,
+    leadService
   ],
   bootstrap: [AppComponent]
 })
