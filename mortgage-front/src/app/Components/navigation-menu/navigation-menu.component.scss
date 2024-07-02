@@ -1,23 +1,22 @@
 * {
-  /*General design*/
   font-size: 20px;
-  text-align: right ;
+  text-align: right;
   background-color: white !important;
   color: black;
   scroll-behavior: smooth;
 }
 
 .sidenav-container {
-  //The sidenav cobtainer height definition
   height: max-content;
   min-height: 80vh;
 }
-.toggle-button{
- background-color: rgba(203, 203, 203, 0.508) !important;
- margin: -10px;
+
+.toggle-button {
+  background-color: rgba(203, 203, 203, 0.508) !important;
+  margin: -10px;
 }
+
 .sidenav {
-  //width definition of the sidenav
   box-shadow: 0 7px 20px 5px #00000088;
   width: 17vw;
   min-width: max-content;
@@ -28,7 +27,6 @@
 }
 
 .main-content {
-  //The guests components in this component
   padding: 20px;
 }
 
@@ -40,9 +38,7 @@ a:hover {
   background-color: rgba(207, 210, 210, 0.327) !important;
 }
 
-mat-icon,
-//The name and icon design in the sidebar
-span {
+mat-icon, span {
   background-color: transparent !important;
   padding-bottom: 5px;
 }
@@ -54,23 +50,32 @@ span {
 mat-icon {
   float: right;
 }
+
 @media screen and (max-width: 920px) {
-  *{font-size: 15px;
+  * {
+    font-size: 15px;
   }
+
   .main-content {
-    //The guests components in this component
     padding: 0px;
   }
-  
+
   a {
     padding: 0px;
   }
+
   .sidenav-container {
     height: 50vh; /* Adjust height for smaller screens */
   }
-  .toggle-button{
+
+  .sidenav {
+    width: 100vw; /* Adjust width for smaller screens */
+    min-width: 100vw; /* Adjust minimum width for smaller screens */
+  }
+
+  .toggle-button {
     background-color: rgba(203, 203, 203, 0.508) !important;
     margin: 10px;
-    text-align-last:center;
-   }
+    text-align-last: center;
+  }
 }

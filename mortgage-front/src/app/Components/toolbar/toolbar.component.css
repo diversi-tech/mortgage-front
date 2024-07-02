@@ -1,3 +1,8 @@
+* {
+    color: black;
+    scroll-behavior: smooth;
+}
+
 .mat-toolbar {
     display: flex;
     justify-content: space-between;
@@ -13,10 +18,11 @@
     font-style: normal;
     letter-spacing: normal;
     text-align: center;
-    color: black;
     width: 8vw;
-    min-width: 100px; /* Set a minimum width for the button */
-    padding: 0 16px; /* Add padding to accommodate text */
+    min-width: 100px;
+    padding: 0 16px;
+    color: black !important;
+    background-color: rgb(246, 243, 243);
 }
 
 div {
@@ -28,3 +34,4 @@ mat-toolbar {
     display: flex;
     justify-content: space-between;
 }
+

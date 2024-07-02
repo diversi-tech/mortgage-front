@@ -1,7 +1,8 @@
 <mat-toolbar color="primary">
   <button class="buttonLog" mat-button routerLink="/login" (click)="loginOrLogout()">
-    @if(isLoggedIn) { יציאה}
-    @else{ התחברות}
+    {{isLoggedIn? 'יציאה':'התחברות'}}
+    <!-- @if(isLoggedIn) { יציאה}
+    @else{ התחברות} -->
   </button>
   <div>
     <span class="span">!שלום {{ user }}</span>

@@ -12,9 +12,7 @@ export class AppComponent {
   constructor(public navigationMenuService: NavigatioMenuToggleService) {}
   componentArray = [
     new ComponentInfo("נתונים", "/data", "home"),
-    new ComponentInfo("מסמכים", "/doc", "info"),
-    new ComponentInfo("כניסה לאתר", "/login", "contact_mail"),
-    new ComponentInfo("בלה בלה", "/login", "share"),
+    new ComponentInfo("מסמכים", "/doc", "info")
   ];
   title = 'mortgage-client';
 }

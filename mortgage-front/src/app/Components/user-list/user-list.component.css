@@ -1,0 +1,33 @@
+/* .th-bold {
+    font-weight: bold;
+}
+
+.custom-form-field {
+    margin-top: 2%;
+}
+
+.add-user-button {
+    margin-left: 1%;
+    width: 7%;
+    height: 6%;
+    margin-top: 1%;
+}*/
+ .form-field {
+    margin-top: 2%;
+} 
+
+  .mat-form-field {
+    width: 100%; /* רוחב */
+  }
+  .page-div{
+    width: 100% !important;
+  }
+  .table-user {
+    background-color: white;
+}
+*{
+    color: black;
+}
+.page-div {
+    background-color: rebeccapurple;
+}
