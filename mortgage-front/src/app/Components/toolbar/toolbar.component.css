@@ -1,0 +1,30 @@
+.mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: darkgray;
+}
+
+.buttonLog {
+    height: 70%;
+    border-radius: 28%;
+    font-size: 70%;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: black;
+    width: 8vw;
+    min-width: 100px; /* Set a minimum width for the button */
+    padding: 0 16px; /* Add padding to accommodate text */
+}
+
+div {
+    width: 100%;
+    margin-left: 2%;
+}
+
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+}
