@@ -15,7 +15,6 @@ import { isPlatformBrowser } from '@angular/common';
   standalone: true,
   imports: [ BrowserAnimationsModule, BidiModule,CdkMenu,CdkMenuItem,RouterModule,
     BrowserModule,CdkMenuTrigger,
-    AppRoutingModule,CdkMenu,CdkMenuItem,RouterModule,BrowserModule,CdkMenuTrigger,
     AppRoutingModule,MaterialModule
   ],
   templateUrl: './navigation-menu.component.html',

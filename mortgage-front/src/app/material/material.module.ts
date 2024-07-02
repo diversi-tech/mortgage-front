@@ -23,10 +23,6 @@ const modules=[
   MatIconModule,
   MatTableModule,
   MatPaginator,MatSort,
-
-  // MatTableDataSource,
-  // MatDialog,
-  // MatDialogRef,
   MatInputModule,
   MatFormFieldModule,
   MatPaginatorModule,

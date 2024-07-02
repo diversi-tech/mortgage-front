@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ViewEncapsulation, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, Inject } from '@angular/core';
 import { Customer } from '../../Models/Customer';
 import { Router } from '@angular/router';
 import {  Subscription } from 'rxjs';
@@ -9,8 +9,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Lead } from '../../Models/Lead';
 import { leadService } from '../../services/lead.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MaterialModule } from '../../material/material.module';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'lead-list',
+  standalone: true,
+  imports: [MaterialModule, CommonModule],
   templateUrl: './lead-list.component.html',
   styleUrl: './lead-list.component.scss'
 })
@@ -70,11 +74,11 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
   }
 
   addLead(): void {
-    this.router.navigate(['/customer-details', -1]);
-  }
+
+    this.router.navigate(['/lead-tetails/', -1]);  }
 
   editLead(selected: Customer): void {
-    this.router.navigate(['/customer-details', selected.id]);
+    this.router.navigate(['/lead-tetails/', selected?.id]);
   }
   deleteLead(customer: Customer): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{

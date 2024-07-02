@@ -14,14 +14,17 @@ import { MaterialModule } from './material/material.module';
 import { LeadListComponent } from './Components/lead-list/lead-list.component';
 import { leadService } from './services/lead.service';
 import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dialog.component';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
     ExampleComponent,
-    LeadListComponent,
+    // LeadListComponent,
+    // LeadDetailComponent
       ],
   imports: [
-    BrowserModule,MaterialModule,
+    BrowserModule,MaterialModule,FormsModule,ReactiveFormsModule,
     AppRoutingModule,
     RouterModule,
     HttpClientModule,MatFormFieldModule,MatInputModule,

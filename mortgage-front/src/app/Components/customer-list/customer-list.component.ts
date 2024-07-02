@@ -40,7 +40,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       error: error => {
         console.error('Error loading customers:', error);
       }
-    });
+    });    
   }
 
   ngOnDestroy(): void {
@@ -89,11 +89,11 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     });
   }
   getCustomerTypeString(value: Customer_type): string {
-    console.log('value=' + value);
+    // console.log('value=' + value);
     
     switch (Number(value)) {
       case 0:
-        console.log(value);
+        // console.log(value);
         return "ליד";
       case 1:
         return "לקוח";
