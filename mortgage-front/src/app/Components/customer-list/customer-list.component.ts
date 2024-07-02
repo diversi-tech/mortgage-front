@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Customer } from '../../Models/Customer';
-import { customerService } from '../../services/costumer.service';
+import { customerService } from '../../Services/costumer.service';
 import { MaterialModule } from '../../material/material.module';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';

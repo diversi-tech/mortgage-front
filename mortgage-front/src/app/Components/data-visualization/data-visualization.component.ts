@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
-import { customerService } from '../../services/costumer.service';
+import { customerService } from '../../Services/costumer.service';
 import { Customer } from '../../Models/Customer';
 import { Subscription } from 'rxjs';
 import { Lead } from '../../Models/Lead';
-import { leadService } from '../../services/lead.service';
+import { leadService } from '../../Services/lead.service';
 import { Document } from '../../Models/Document';
-import { DocumentsListCustomerService } from '../../services/documentListCustomer.service';
+import { DocumentsListCustomerService } from '../../Services/documentListCustomer.service';
 import { DocumentType } from '../../Models/DocumentTypes.Model';
 import { MaterialModule } from '../../material/material.module';
 

@@ -10,6 +10,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { ToolbarComponent } from './Components/toolbar/toolbar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { customerService } from './Services/costumer.service';
+import { leadService } from './Services/lead.service';
+import { DocumentsListCustomerService } from './Services/documentListCustomer.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    customerService,
+    leadService,
+    DocumentsListCustomerService
   ],
   bootstrap: [AppComponent]
 })

@@ -62,7 +62,7 @@ import { FormControl, FormGroup,Validators ,FormBuilder} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../../material/material.module';
 import { Customer } from '../../Models/Customer';
-import { customerService } from '../../services/costumer.service';
+import { customerService } from '../../Services/costumer.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
