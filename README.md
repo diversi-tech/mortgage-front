@@ -5,7 +5,7 @@ Welcome to the Angular Charts Integration Project! This project demonstrates how
 
 ## Installation
 
-### Step 1: Install CanvasJS Angular Charts
+### Step 1: Install the necessary dependencies
 First, 
 Those who make changes to an existing branch should:
 ```bash
