@@ -22,9 +22,9 @@ export class leadService {
         })
       );
   }
-  // getLeads():Observable<Lead[]>{
-  //   return this.LeadsSubject.asObservable();
-  // }
+  getLeads():Observable<Lead[]>{
+    return this.LeadsSubject.asObservable();
+  }
   getLeadById(id: number): Lead | undefined {
     const leads = this.LeadsSubject.getValue();
     const l = leads.find(lead => lead.id === id);
@@ -56,6 +56,7 @@ export class leadService {
           if (index !== -1) {
             leads[index] = lead;
             this.LeadsSubject.next([...leads]);
+            this.fetchLeads().subscribe(); // אתחול לקוח
           } else {
             console.error('Lead not found in the current list');
           }

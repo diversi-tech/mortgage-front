@@ -34,10 +34,12 @@ mat-icon {
   .sidenav {
     box-shadow: 0 7px 20px 5px #00000088;
     width: 25vw;
+    margin: 0!important;
     min-width: max-content;
   }
 }
-.toggle-button{
- background-color: rgba(203, 203, 203, 0.508) !important;
- margin: -10px;
+.main-content{
+  height: 100vh;
+  background-image: url("https://t4.ftcdn.net/jpg/02/27/74/75/240_F_227747577_VMbOvpidnsdkwCKMI8nUx7KdLQmF4wvQ.jpg");
+  background-size: cover;
 }

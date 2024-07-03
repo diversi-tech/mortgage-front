@@ -19,7 +19,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
   encapsulation: ViewEncapsulation.None
 })
 export class CustomerListComponent implements OnInit, OnDestroy {
-  displayedColumns = [ 'first_Name','last_Name', 'address', 'phone','Customer_type', 'actions'];
+  displayedColumns = [ 'name', 'address', 'phone','Customer_type', 'actions'];
   dataSource: MatTableDataSource<Customer> = new MatTableDataSource<Customer>();
   private customersSubscription?: Subscription;
   @ViewChild(MatSort) sort!: MatSort;

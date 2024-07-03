@@ -1,16 +1,16 @@
 export enum Family_Status {
-     Married='Married',
-     Single='Single',
-     Divorced='Divorced',
-     Widow='Widow'
+     Married,
+     Single,
+     Divorceded,
+     Widow
 }
 export enum Job_Status {
-     Employed='Employed',
-     SelfEmployed='SelfEmployed'
+     Employed,
+     SelfEmployed
 }
 export enum TransactionTypeEnum {
-     Deposit='Deposit',
-     Withdrawal='Withdrawal'
+     Deposit,
+     Withdrawal,
 }
 export enum Customer_type{
      l,c,a
@@ -32,7 +32,7 @@ export class Customer {
      family_status?: Family_Status;
      number_of_people_in_house?: number;
      address?: string;
-     job_Status?: Job_Status;
+     job_status?: Job_Status;
      work_business_name?: string;
      job_description?: string;
      abstractvarage_monthly_salary?: number;

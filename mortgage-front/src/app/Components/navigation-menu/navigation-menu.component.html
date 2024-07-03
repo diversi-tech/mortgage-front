@@ -1,6 +1,7 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" position="end" class="sidenav" dir="rtl" opened>
-    <mat-nav-list dir="rtl">
+  
+  <mat-sidenav #sidenav mode="side" position="end" class="sidenav" dir="rtl" opened *ngIf="navigationMenuService.isOpened()">
+    <mat-nav-list dir="rtl" >
       @for (c of componentsList; track c) {
       <a mat-list-item [routerLink]="c.path">
         <span>{{ c.name }}</span>
@@ -10,7 +11,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="main-content" dir="rtl">
-    <div class="content" style="margin-right: 50px;">
+    <div class="content" >
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

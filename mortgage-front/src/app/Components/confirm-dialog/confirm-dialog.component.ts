@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styles: [``],
   imports: [MaterialModule, CommonModule],
   template: `
-    <div >
+    <div style="padding: 20px;" >
       <h1 mat-dialog-title dir="rtl">מחיקת לקוח</h1>
       <div mat-dialog-content>?  בטוח שאתה רוצה למחוק את הלקוח {{data.customer.first_Name}}</div>
       <div mat-dialog-actions>

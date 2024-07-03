@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,70 +17,32 @@ import { leadService } from './services/lead.service';
 import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dialog.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
+import { ToolbarComponent } from './Components/toolbar/toolbar.component';
+import { DocumentsListCustomerService } from './services/documentListCustomer.service';
+import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
+import { CommonModule } from '@angular/common';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 @NgModule({
   declarations: [
+    ToolbarComponent,
     AppComponent,
     ExampleComponent,
-    // LeadListComponent,
-    // LeadDetailComponent
-      ],
+  ],
   imports: [
-    BrowserModule,MaterialModule,FormsModule,ReactiveFormsModule,
+    BrowserModule, MaterialModule, FormsModule, ReactiveFormsModule,
     AppRoutingModule,
-    RouterModule,
-    HttpClientModule,MatFormFieldModule,MatInputModule,
-    NavigationMenuComponent
+    RouterModule, CommonModule,
+    HttpClientModule, MatFormFieldModule, MatInputModule,
+    NavigationMenuComponent, DataVisualizationComponent
+    ,CanvasJSAngularChartsModule
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    customerService,leadService
+    customerService, leadService, DocumentsListCustomerService
   ],
   bootstrap: [AppComponent],
   // entryComponents: [ConfirmDialog] // ensure your dialog component is listed here
 
 })
 export class AppModule { }
-// import { NgModule } from '@angular/core';
-// import { BrowserModule } from '@angular/platform-browser';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { RouterModule } from '@angular/router';
-// import { MatButtonModule } from '@angular/material/button';
-// import { MatSidenavModule } from '@angular/material/sidenav';
-// import { MatToolbarModule } from '@angular/material/toolbar';
-// import { MatIconModule } from '@angular/material/icon';
-// import { MatListModule } from '@angular/material/list';
-
-// import { AppRoutingModule } from './app-routing.module';
-// import { AppComponent } from './app.component';
-// import { NavigationMenuComponent } from './Components/navigation-menu/navigation-menu.component';
-// import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-// import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
-// import { DocumentDefinitionComponent } from './Components/document-definition/document-definition.component';
-// import { LoginComponent } from './Components/login/login.component';
-
-// @NgModule({
-//   declarations: [
-//     AppComponent,
-//     NavigationMenuComponent,
-//   ],
-//   imports: [
-//     BrowserModule,
-//     BrowserAnimationsModule,
-//     RouterModule,
-//     AppRoutingModule,
-//     MatButtonModule,
-//     MatSidenavModule,
-//     MatToolbarModule,
-//     MatIconModule,
-//     MatListModule, 
-//     DocumentDefinitionComponent,
-//     DataVisualizationComponent,
-//     LoginComponent
-//   ],
-//   providers: [
-//     provideAnimationsAsync()
-//   ],
-//   bootstrap: [AppComponent]
-// })
-// export class AppModule { }

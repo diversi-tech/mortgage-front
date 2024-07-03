@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+  <button class="buttonLog" mat-button routerLink="/login" (click)="loginOrLogout()">
+    @if(isLoggedIn) { יציאה}
+    @else{ התחברות}
+  </button>
+  <div>
+    <span class="span">!שלום {{ user }}</span>
+  </div>
+  <button mat-icon-button (click)="toggleNavigationMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>

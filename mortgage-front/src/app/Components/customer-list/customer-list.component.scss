@@ -1,20 +1,29 @@
-button {
-  margin-right: 8px;
+@media screen and (max-width: 900px) {
+  .mat-table {
+    padding: 1px !important;
+    font-size: 12px !important;
+  }
+
+  .mat-cell {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 0px !important;
+    max-height: min-content !important;
+  }
+
+  mat-icon {
+    font-size: 20px !important;
+  }
+
+  .th,
+  td,
+  ng-container {
+    padding: 1vw !important;
+    margin: 1vw !important;
+  }
+
 }
 
-@media screen and (max-width: 1000px) {
-  .mat-table {
-    padding: 1px;
-    font-size: 12px;
-  }
-  .mat-cell {
-    padding: 1px;
-    margin: 0;
-  }
-  mat-icon{
-    font-size: 20px!important;
-  }
-}
-th{
-  font-weight: bold!important;
+th {
+  font-weight: bold !important;
 }

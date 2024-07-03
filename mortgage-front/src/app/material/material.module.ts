@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
@@ -7,14 +8,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatDialogModule } from '@angular/material/dialog';
-// import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-// import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatStepperModule} from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
 const modules=[
   MatListModule,
   MatButtonModule,
@@ -22,13 +21,19 @@ const modules=[
   MatToolbarModule,
   MatIconModule,
   MatTableModule,
-  MatPaginator,MatSort,
   MatInputModule,
   MatFormFieldModule,
   MatPaginatorModule,
   MatSortModule,
-  MatDialogModule
-
+  MatInputModule,
+  MatButtonModule,
+   MatCheckboxModule,
+   MatFormFieldModule,
+   MatStepperModule,
+   MatSelectModule,
+  
+   
+  
 ]
 
 @NgModule({
@@ -41,3 +46,4 @@ const modules=[
   
 })
 export class MaterialModule { }
+
