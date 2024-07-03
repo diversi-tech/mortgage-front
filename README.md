@@ -11,7 +11,7 @@ Those who make changes to an existing branch should:
 ```bash
 npm install @canvasjs/angular-charts@latest
 ```
-And those who drag the project to a new folder should do 
+And those who clone the project to a new folder should do 
 ```bash
 npm i
 ```
