@@ -6,12 +6,15 @@ Welcome to the Angular Charts Integration Project! This project demonstrates how
 ## Installation
 
 ### Step 1: Install CanvasJS Angular Charts
-First, install the latest version of CanvasJS Angular Charts:
-
+First, 
+Those who make changes to an existing branch should:
 ```bash
 npm install @canvasjs/angular-charts@latest
 ```
-
+And those who drag the project to a new folder should do 
+```bash
+npm i
+```
 ### Step 2: Update Angular Project
 Next, update your Angular project to ensure all dependencies are up-to-date:
 
