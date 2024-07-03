@@ -1,7 +1,7 @@
-# 📊 Angular Charts Integration Project
+# 📊 Angular mortgage management project
 
 ## Overview
-Welcome to the Angular Charts Integration Project! This project demonstrates how to integrate CanvasJS Angular Charts into your Angular application and seed your database with customer task and document type data.
+Welcome to the Angular mortgage management project! This project demonstrates how to integrate CanvasJS Angular Charts into your Angular application and seed your database with customer task and document type data.
 
 ## Installation
 
