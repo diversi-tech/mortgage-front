@@ -13,7 +13,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserListComponent } from './Components/user-list/user-list.component';
 import { UserDetailComponent } from './Components/user-detail/user-detail.component';
 import { LoginComponent } from './Components/login/login.component';
-
+import { customerService } from './services/costumer.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { LeadListComponent } from './Components/lead-list/lead-list.component';
+import { leadService } from './services/lead.service';
+import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dialog.component';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
+import { DocumentsListCustomerService } from './services/documentListCustomer.service';
+import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
+import { CommonModule } from '@angular/common';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 
 @NgModule({
@@ -22,22 +33,24 @@ import { LoginComponent } from './Components/login/login.component';
     UserDetailComponent,
     ToolbarComponent,
     AppComponent,
-    ExampleComponent,
-    NavigationMenuComponent
+    ExampleComponent
   ],
+
   imports: [
-    LoginComponent,
-    BrowserModule,
+    BrowserModule, MaterialModule, FormsModule, ReactiveFormsModule,
     AppRoutingModule,
-    MaterialModule  ,
-    BrowserAnimationsModule,
-    RouterModule,
-    HttpClientModule 
+    RouterModule, CommonModule,
+    HttpClientModule, MatFormFieldModule, MatInputModule,
+    NavigationMenuComponent, DataVisualizationComponent
+    ,CanvasJSAngularChartsModule,LoginComponent
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    customerService, leadService, DocumentsListCustomerService
   ],
   bootstrap: [AppComponent],
 })
+
+  // entryComponents: [ConfirmDialog] // ensure your dialog component is listed here
 export class AppModule { }

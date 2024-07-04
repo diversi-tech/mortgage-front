@@ -6,21 +6,29 @@
   scroll-behavior: smooth;
 }
 
-.sidenav-container {
-  height: max-content;
-  // min-height: 80vh;
-  display: flex;
-  height: 100vh;
-}
+// שלי
+// .sidenav-container {
+//   height: max-content;
+//   // min-height: 80vh;
+//   display: flex;
+//   height: 100vh;
+// }
 
 // .toggle-button {
 //   background-color: rgba(203, 203, 203, 0.508) !important;
 //   margin: -10px;
 // }
 
-.mat-sidenav-content {
-  flex: 1;
-  padding: 20px;
+// שלי
+// .mat-sidenav-content {
+//   flex: 1;
+//   padding: 20px;
+//   scroll-behavior: smooth;
+// }
+
+//שלה 
+.sidenav-container{
+  min-height:550px;
 }
 
 .sidenav {
@@ -32,61 +40,107 @@
     overflow: hidden;
   }
 }
-
-.mat-list-item:hover {
-  background-color: rgba(207, 210, 210, 0.2);
+a{
+  padding: 30px!important;
 }
 
-.main-content {
-  padding: 20px;
-}
 
-a {
-  padding: 10px;
-}
+// שלי
+// .main-content {
+//   padding: 20px;
+// }
 
-a:hover {
-  background-color: rgba(207, 210, 210, 0.327) !important;
-}
+// שלי
+// a {
+//   padding: 10px;
+// }
 
-mat-icon,
-span {
-  background-color: transparent !important;
-  padding-bottom: 5px;
-}
+// שלי
+// a:hover {
+//   background-color: rgba(207, 210, 210, 0.327) !important;
+// }
 
-span {
-  margin-left: 5px;
-}
+// שלי
+// mat-icon,
+// span {
+//   background-color: transparent !important;
+//   padding-bottom: 5px;
+// }
 
-mat-icon {
-  float: right;
-}
+// שלי
+// span {
+//   margin-left: 5px;
+// }
 
-@media screen and (max-width: 920px) {
-  * {
-    font-size: 15px;
-  }
+// שלי
+// mat-icon {
+//   float: right;
+// }
 
-  .main-content {
-    padding: 0px;
-  }
+// שלי
+// @media screen and (max-width: 920px) {
+//   * {
+//     font-size: 15px;
+//   }
 
-  a {
-    padding: 0px;
-  }
+// שלי
+//   .main-content {
+//     padding: 0px;
+//   }
 
-  .sidenav-container {
-    height: 50vh;
-  }
+// שלי
+//   a {
+//     padding: 0px;
+//   }
 
-  .sidenav {
-    width: 100vw;
-  }
+// שלי
+//   .sidenav-container {
+//     height: 50vh;
+//   }
 
+// שלי
+//   .sidenav {
+//     width: 100vw;
+//   }
+
+// שלי
   // .toggle-button {
   //   background-color: rgba(203, 203, 203, 0.508) !important;
   //   margin: 10px;
   //   text-align-last: center;
   // }
+
+
+//שלה
+mat-icon {
+  float: right;
+}
+//שלה
+.mat-sidenav-content {
+  min-height: max-content;
+  padding: 20px;
+}
+//שלה
+@media only screen and (max-width: 900px) {
+  a{
+    padding: 5px!important;
+  }
+  span{
+    font-size: 18px!important;
+  }
+  .mat-icon {
+    float: right;
+  }
+  .sidenav {
+    box-shadow: 0 7px 20px 5px #00000088;
+    width: 25vw;
+    margin: 0!important;
+    min-width: max-content;
+  }
+}
+//שלה
+.main-content{
+  height: 100vh;
+  background-image: url("https://t4.ftcdn.net/jpg/02/27/74/75/240_F_227747577_VMbOvpidnsdkwCKMI8nUx7KdLQmF4wvQ.jpg");
+  background-size: cover;
 }

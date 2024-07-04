@@ -5,9 +5,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatStepperModule} from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
+
 
 const modules=[
   MatTableModule,
@@ -16,8 +22,17 @@ const modules=[
   MatSidenavModule,
   MatToolbarModule,
   MatIconModule,
+  MatTableModule,
+  MatInputModule,
+  MatFormFieldModule,
   MatPaginatorModule,
-  MatInputModule
+  MatSortModule,
+  MatInputModule,
+  MatButtonModule,
+   MatCheckboxModule,
+   MatFormFieldModule,
+   MatStepperModule,
+   MatSelectModule
 ]
 
 @NgModule({
@@ -30,3 +45,4 @@ const modules=[
   
 })
 export class MaterialModule { }
+

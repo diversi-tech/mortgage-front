@@ -1,0 +1,14 @@
+.lead-edit-card {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.mat-form-field{
+  margin: 10px!important;
+}

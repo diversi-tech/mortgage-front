@@ -6,7 +6,10 @@
 .mat-toolbar {
     display: flex;
     justify-content: space-between;
-    background-color: darkgray;
+
+
+ /* שלי */
+    /* background-color: darkgray;
     align-items: flex-end;
     justify-content: space-around;
     width: 100%;
@@ -20,19 +23,18 @@
     overflow: hidden;
     align-content: space-between;
     flex-wrap: nowrap;
-    align-items: center;
-    @media (min-width: 540px) {
-        /* overflow: hidden;
-        align-content: space-between;
-        flex-wrap: nowrap; */
-        /*for surface duo */
-        /* width: 111%;  */
-    }
-    /* @media (min-width: 375px) {
-        width: 125%;
-    }
+    align-items: center; */
 
-    @media (min-width: 360px) {
+    /* background-color: rgba(135, 148, 162, 0.73); */
+
+
+     /* שלה */
+    background-color: rgb(178, 189, 202);;
+}
+
+
+/* שלי */
+    /* @media (min-width: 360px) {
         width: 130%;
     }
 
@@ -42,22 +44,22 @@
 
     @media (min-width: 768px) {
         width: 100%;
-    } */
-}
-.yesMobiletoolbar{
+    } 
+} */
+
+/* שלי */
+/* .yesMobiletoolbar{
     width: 100% !important;
     overflow: hidden;
     align-content: space-between;
     flex-wrap: nowrap;
-}
+} */
+
 .buttonLog {
     height: 70%;
     border-radius: 28%;
     font-size: 70%;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: normal;
     text-align: center;
     width: 8vw;
     /* min-width: 100px; */
