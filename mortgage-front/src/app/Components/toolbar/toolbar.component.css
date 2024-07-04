@@ -1,14 +1,55 @@
 * {
     color: black;
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
 }
 
 .mat-toolbar {
     display: flex;
     justify-content: space-between;
     background-color: darkgray;
-}
+    align-items: flex-end;
+    justify-content: space-around;
+    width: 100%;
+    width: 100% !important;
+    overflow: hidden;
+    align-content: space-between;
+    flex-wrap: nowrap;
+    width: 100%;
+    display: flex;
+    width: 100% !important;
+    overflow: hidden;
+    align-content: space-between;
+    flex-wrap: nowrap;
+    align-items: center;
+    @media (min-width: 540px) {
+        /* overflow: hidden;
+        align-content: space-between;
+        flex-wrap: nowrap; */
+        /*for surface duo */
+        /* width: 111%;  */
+    }
+    /* @media (min-width: 375px) {
+        width: 125%;
+    }
 
+    @media (min-width: 360px) {
+        width: 130%;
+    }
+
+    @media (min-width: 344px) {
+        width: 136%;
+    }
+
+    @media (min-width: 768px) {
+        width: 100%;
+    } */
+}
+.yesMobiletoolbar{
+    width: 100% !important;
+    overflow: hidden;
+    align-content: space-between;
+    flex-wrap: nowrap;
+}
 .buttonLog {
     height: 70%;
     border-radius: 28%;
@@ -19,7 +60,7 @@
     letter-spacing: normal;
     text-align: center;
     width: 8vw;
-    min-width: 100px;
+    /* min-width: 100px; */
     padding: 0 16px;
     color: black !important;
     background-color: rgb(246, 243, 243);
@@ -29,9 +70,3 @@ div {
     width: 100%;
     margin-left: 2%;
 }
-
-mat-toolbar {
-    display: flex;
-    justify-content: space-between;
-}
-

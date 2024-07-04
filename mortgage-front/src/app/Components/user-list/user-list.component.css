@@ -1,33 +1,65 @@
-/* .th-bold {
+ .th-bold {
     font-weight: bold;
 }
 
-.custom-form-field {
-    margin-top: 2%;
+.form-field {
+  margin-top: 2%;
 }
 
-.add-user-button {
-    margin-left: 1%;
-    width: 7%;
-    height: 6%;
-    margin-top: 1%;
-}*/
- .form-field {
-    margin-top: 2%;
-} 
+.mat-form-field {
+  width: 100%;
+  /* display: flex;
+  justify-content: center; */
+}
 
-  .mat-form-field {
-    width: 100%; /* רוחב */
-  }
-  .page-div{
-    width: 100% !important;
-  }
-  .table-user {
-    background-color: white;
-}
-*{
-    color: black;
-}
 .page-div {
-    background-color: rebeccapurple;
+  width: 100% !important;
+  /* display: flex;
+  justify-content: center; */
+}
+
+.table-user {
+  background-color: white;
+  width: 100%;
+  /* white-space: nowrap */
+  /* min-width: 600px;  */
+  /* newwww */
+  /* table-layout: fixed; */
+}
+
+* {
+  color: black;
+}
+
+
+.paginator {
+  width: 100% !important;
+
+  @media (min-width: 375px) {
+    /* width: 125%; */
+  }
+
+  @media (min-width: 360px) {
+    /* width: 130%; */
+  }
+
+  @media (min-width: 344px) {
+    /* width: 136%; */
+  }
+
+  @media (min-width: 768px) {
+    /* width: 100%; */
+  }
+  background-color: white; /* רקע לבן */
+}
+mat-paginator{
+  width: 100%;
+}
+
+th, td {
+  /* newwww */
+  word-wrap: break-word;
+}
+.rtl-table-wrapper{
+  width: 100%;
 }

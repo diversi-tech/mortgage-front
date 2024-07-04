@@ -1,13 +1,14 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="toolbar" [ngClass]="{'yesMobiletoolbar': isMob === true, 'noMobiletoolbar' : isMob === false }">
   <button class="buttonLog" mat-button routerLink="/login" (click)="loginOrLogout()">
     {{isLoggedIn? 'יציאה':'התחברות'}}
-    <!-- @if(isLoggedIn) { יציאה}
-    @else{ התחברות} -->
+
   </button>
   <div>
     <span class="span">!שלום {{ user }}</span>
   </div>
-  <button mat-icon-button (click)="toggleNavigationMenu()">
+  <button mat-icon-button (click)="toggleNavigationMenu()" >
     <mat-icon>menu</mat-icon>
   </button>
 </mat-toolbar>
+
+
