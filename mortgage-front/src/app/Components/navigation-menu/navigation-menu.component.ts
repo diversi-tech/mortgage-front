@@ -46,9 +46,10 @@ export class NavigationMenuComponent  implements OnInit {
 
   private toggleSidenav(width: number): void {
     if (width < 900) {
+      this.navigationMenuService.setOpen(false)
       this.sidenav?.close();
-      this.navigationMenuService.toggle()
-    } else {      
+    } else { 
+      this.navigationMenuService.setOpen(true)
       this.sidenav?.open();
     }
   }
