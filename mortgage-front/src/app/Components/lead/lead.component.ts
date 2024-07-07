@@ -6,7 +6,7 @@ import { customerService } from '../../services/costumer.service';
 import { MatStepper } from '@angular/material/stepper';
 import { MaterialModule } from '../../material/material.module';
 import { leadService } from '../../services/lead.service';
-import { Role,User } from '../../Models/user';
+import { Role,User } from '../../Models/User';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

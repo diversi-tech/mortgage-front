@@ -6,13 +6,8 @@
 .mat-toolbar {
     display: flex;
     justify-content: space-between;
-<<<<<<< HEAD
-    /* background-color: rgba(135, 148, 162, 0.73); */
-    background-color: rgb(178, 189, 202);
-=======
     background: linear-gradient(135deg, rgb(206, 213, 221), rgb(169, 178, 187));
     padding: 0 16px;
->>>>>>> bb499f2fcfc96972e788002a90a1936b5b2a78a6
 }
 
 .toolbar-content {
