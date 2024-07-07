@@ -15,8 +15,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
-
-
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField } from '@angular/material/form-field';
 const modules=[
   MatTableModule,
   MatListModule,
@@ -34,7 +34,10 @@ const modules=[
    MatCheckboxModule,
    MatFormFieldModule,
    MatStepperModule,
-   MatSelectModule
+   MatSelectModule,
+   MatIcon,
+   MatToolbarModule,
+   MatFormField
 ]
 
 @NgModule({

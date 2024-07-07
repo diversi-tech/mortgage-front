@@ -27,6 +27,7 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { LeadComponent } from './Components/lead/lead.component';
 import { UserService } from './services/user.service';
 import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
+import { FooterComponent } from './Components/footer/footer.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { CustomerDetailModalComponent } from './Components/customer-detail-modal
     UserListComponent,
     UserDetailComponent,
     ToolbarComponent,
-    AppComponent
+    AppComponent,
+    FooterComponent
     ],
 
   imports: [

@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavigatioMenuToggleService } from './services/navigation-menu-toggle.service';
+import { NavigatioMenuToggleService } from './Services/navigation-menu-toggle.service';
 import { ComponentInfo } from './Models/componentInfo';
 
 

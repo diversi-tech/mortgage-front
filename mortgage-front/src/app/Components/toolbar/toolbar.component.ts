@@ -1,6 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NavigationMenuComponent } from '../navigation-menu/navigation-menu.component';
+<<<<<<< HEAD
 import { NavigatioMenuToggleService } from '../../services/navigation-menu-toggle.service';
+=======
+// import { isMobile } from 'is-mobile' ;
+import { NavigatioMenuToggleService } from '../../Services/navigation-menu-toggle.service';
+>>>>>>> 6e213548739412892921db2ea289e7742c6fc566
 import { LoginComponent } from '../login/login.component';
 
 
