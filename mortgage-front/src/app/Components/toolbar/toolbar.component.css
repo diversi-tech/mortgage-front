@@ -1,3 +1,8 @@
+* {
+    color: black;
+    /* scroll-behavior: smooth; */
+}
+
 .mat-toolbar {
     display: flex;
     justify-content: space-between;
@@ -20,6 +25,29 @@
     height: 90px;
     width: 110px;
 }
+
+
+/*my*/
+    /* @media (min-width: 360px) {
+        width: 130%;
+    }
+
+    @media (min-width: 344px) {
+        width: 136%;
+    }
+
+    @media (min-width: 768px) {
+        width: 100%;
+    } 
+} */
+
+/*my */
+/* .yesMobiletoolbar{
+    width: 100% !important;
+    overflow: hidden;
+    align-content: space-between;
+    flex-wrap: nowrap;
+} */
 
 .buttonLog {
     height: 40px;

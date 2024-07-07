@@ -10,6 +10,7 @@ import { ComponentInfo } from './Models/componentInfo';
 })
 export class AppComponent {
   constructor(public navigationMenuService: NavigatioMenuToggleService) {}
+
   componentArray = [
     new ComponentInfo("נתונים", "/data", "timeline"),
     new ComponentInfo("מסמכים", "/doc", "description"),
@@ -18,7 +19,13 @@ export class AppComponent {
     new ComponentInfo("רשימת לידים", "/lead-list", "list"),
     new ComponentInfo("כניסת לידים", "/leadLogin", "login"),
 
+    new ComponentInfo("רשימת משתמשים", "/user-list", "list")
   ];
   
   title = 'mortgage-client';
 }
+
+
+
+
+

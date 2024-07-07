@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
@@ -16,7 +15,10 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+
+
 const modules=[
+  MatTableModule,
   MatListModule,
   MatButtonModule,MatCardModule,MatGridListModule,
   MatSidenavModule,
@@ -32,10 +34,7 @@ const modules=[
    MatCheckboxModule,
    MatFormFieldModule,
    MatStepperModule,
-   MatSelectModule,
-  
-   
-  
+   MatSelectModule
 ]
 
 @NgModule({
