@@ -9,7 +9,7 @@ import { BidiModule } from '@angular/cdk/bidi';
 import { MaterialModule } from '../../material/material.module';
 import { MatSidenav } from '@angular/material/sidenav';
 import { isPlatformBrowser } from '@angular/common';
-import { NavigatioMenuToggleService } from '../../services/navigation-menu-toggle.service';
+import { NavigatioMenuToggleService } from '../../Services/navigation-menu-toggle.service';
 
 @Component({
   selector: 'navigation-menu',
@@ -19,7 +19,7 @@ import { NavigatioMenuToggleService } from '../../services/navigation-menu-toggl
     AppRoutingModule,MaterialModule
   ],
   templateUrl: './navigation-menu.component.html',
-  styleUrl: './navigation-menu.component.scss'
+  styleUrls: ['./navigation-menu.component.scss']
 })
 export class NavigationMenuComponent  implements OnInit {
   /*The logic of open-in-window>900 and close-in-window<900*/
@@ -28,26 +28,30 @@ export class NavigationMenuComponent  implements OnInit {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.toggleSidenav(window.innerWidth);
+      setTimeout(() => {
+        this.toggleSidenav(window.innerWidth);
+      });
     }
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
+  onResize(event: Event): void {
     if (isPlatformBrowser(this.platformId)) {
       const target = event.target as Window;
-      this.toggleSidenav(target.innerWidth);
+      setTimeout(() => {
+        this.toggleSidenav(target.innerWidth);
+      });
     }
   }
 
-  private toggleSidenav(width: number) {
+  private toggleSidenav(width: number): void {
     if (width < 900) {
       this.sidenav?.close();
+      this.navigationMenuService.toggle()
     } else {      
       this.sidenav?.open();
     }
   }
-/* until here/ */
   private _componentsList?: Array<ComponentInfo>;
   public get componentsList(): Array<ComponentInfo> | undefined {
     return this._componentsList;
@@ -56,10 +60,6 @@ export class NavigationMenuComponent  implements OnInit {
   public set componentsList(value: Array<ComponentInfo> | undefined) {
     this._componentsList = value;
   }
-  // isSidebarOpened=true;
-
-  // toggleSidebar() {
-  //   this.isSidebarOpened==false?this.isSidebarOpened=true:this.isSidebarOpened=false;
-  // }
-
 }
+
+

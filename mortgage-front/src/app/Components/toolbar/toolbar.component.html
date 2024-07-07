@@ -1,12 +1,17 @@
 <mat-toolbar color="primary">
-  <button class="buttonLog" mat-button routerLink="/login" (click)="loginOrLogout()">
-    @if(isLoggedIn) { יציאה}
-    @else{ התחברות}
-  </button>
-  <div>
-    <span class="span">!שלום {{ user }}</span>
+  <div class="toolbar-content">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="Logo" class="logo">
+    </div>
+    <button class="buttonLog" mat-button routerLink="/login" (click)="loginOrLogout()">
+      <mat-icon>{{ isLoggedIn ? 'logout' : 'login' }}</mat-icon>
+      {{ isLoggedIn ? 'יציאה' : 'התחברות' }}
+    </button>
+    <div class="welcome-message">
+      <span class="span">!שלום {{ user }}</span>
+    </div>
   </div>
-  <button mat-icon-button (click)="toggleNavigationMenu()">
+  <button mat-icon-button (click)="toggleNavigationMenu()" >
     <mat-icon>menu</mat-icon>
   </button>
 </mat-toolbar>

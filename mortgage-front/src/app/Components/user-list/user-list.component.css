@@ -1,0 +1,65 @@
+
+ .form-field {
+   margin-top: 2%;
+ }
+
+ .mat-form-field {
+   width: 100%;
+
+ }
+
+ .page-div {
+   width: 100% !important;
+
+ }
+
+ .table-user {
+   background-color: white;
+   width: 100%;
+ }
+
+ * {
+   color: black;
+ }
+
+
+ .paginator {
+   width: 100% !important;
+
+   @media (min-width: 375px) {
+     /* width: 125%; */
+   }
+
+   @media (min-width: 360px) {
+     /* width: 130%; */
+   }
+
+   @media (min-width: 344px) {
+     /* width: 136%; */
+   }
+
+   @media (min-width: 768px) {
+     /* width: 100%; */
+   }
+
+   background-color: white;
+   /* רקע לבן */
+ }
+
+ mat-paginator {
+   width: 100%;
+ }
+
+ th,
+ td {
+   word-wrap: break-word;
+
+ }
+ th{
+  font-weight: bold !important;
+
+ }
+
+ .rtl-table-wrapper {
+   width: 100%;
+ }
