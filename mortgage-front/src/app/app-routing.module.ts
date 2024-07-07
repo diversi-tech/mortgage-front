@@ -23,7 +23,8 @@ const routes: Routes =
     {path:'customer-details/:id',component:CustomerDetailModalComponent},
     {path:'lead-details/:id',component:LeadDetailComponent},
     {path:'user-list',component:UserListComponent},
-    {path:'user-details/:id',component:UserDetailComponent}
+    {path:'user-details/:id',component:UserDetailComponent},
+    {path:'customer-details-modal',component:CustomerDetailModalComponent},
   ];
 
 @NgModule({

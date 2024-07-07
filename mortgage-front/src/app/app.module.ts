@@ -36,6 +36,7 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     ToolbarComponent,
     AppComponent,
     ExampleComponent,
+    
   ],
 
   imports: [
