@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IUser } from '../Models/user';
+import { User } from '../Models/user';
 import { Observable } from 'rxjs';
 
 
@@ -13,9 +13,9 @@ export class UserListService {
 
   constructor(private http: HttpClient) { } // Inject HttpClient in the constructor
 
-  getUsers(): Observable<IUser[]> {
+  getUsers(): Observable<User[]> {
     console.log('getUser')
-    return this.http.get<IUser[]>(`${this.apiUrl}/users`);
+    return this.http.get<User[]>(`${this.apiUrl}/users`);
 }
   
   deleteUserById(id:number):Observable<any> {

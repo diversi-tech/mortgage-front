@@ -1,9 +1,13 @@
-export interface IUser {
-    userName: string;
-    id: number;
-    password:number;
-    email:string;
-    role:0|1;
-    createdAt:Date;
-    updatedAt:Date;
+export enum Role {
+    Admin,
+    Customer
+}
+export class User {
+    id?: number;
+    userName?: string;
+    password?: string;
+    email?: string;
+    role?:Role;
+    created_at?: Date ;
+    updated_at?: Date ;
 }
