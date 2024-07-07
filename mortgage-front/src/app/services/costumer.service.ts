@@ -20,7 +20,7 @@ export class customerService {
       .pipe(
         tap(customers => this.customersSubject.next(customers)),
         catchError(error => {
-          console.error('Error fetching customers:', error);
+          // console.error('Error fetching customers:', error);
           throw error;
         })
       );
@@ -35,7 +35,7 @@ export class customerService {
           this.customersSubject.next(updatedCustomers);
         }),
         catchError(error => {
-          console.error('Error deleting customer:', error);
+          // console.error('Error deleting customer:', error);
           throw error;
         })
       );

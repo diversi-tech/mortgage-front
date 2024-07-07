@@ -2,8 +2,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IUser } from '../../Models/user';
-import { UserListService } from '../../Services/user-list.service';
+import { User } from '../../Models/user';
+import { UserListService } from '../../services/user-list.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class UserListComponent implements OnInit {
   displayedColumns: string[] = ['userName', 'id', 'role', 'email', 'actions'];
-  users$!: MatTableDataSource<IUser>;
+  users$!: MatTableDataSource<User>;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private userListService: UserListService) {  }

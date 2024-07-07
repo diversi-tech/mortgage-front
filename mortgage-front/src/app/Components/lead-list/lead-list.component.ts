@@ -41,7 +41,7 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
         this.dataSource.paginator = this.paginator;
       },
       error: error => {
-        console.error('Error loading customers:', error);
+        // console.error('Error loading customers:', error);
       }
     });
   }
@@ -91,7 +91,7 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
             console.log('Customer deleted successfully');
           },
           error: error => {
-            console.error('Error deleting customer:', error);
+            // console.error('Error deleting customer:', error);
           }
         });
       }

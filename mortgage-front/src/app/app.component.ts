@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavigatioMenuToggleService } from './Services/navigation-menu-toggle.service';
+import { NavigatioMenuToggleService } from './services/navigation-menu-toggle.service';
 import { ComponentInfo } from './Models/componentInfo';
 
 
@@ -17,6 +17,8 @@ export class AppComponent {
     new ComponentInfo("כניסה לאתר", "/login", "login"),
     new ComponentInfo("רשימת לקוחות", "/customer-list", "checklist"),
     new ComponentInfo("רשימת לידים", "/lead-list", "list"),
+    new ComponentInfo("כניסת לידים", "/leadLogin", "login"),
+
     new ComponentInfo("רשימת משתמשים", "/user-list", "list")
   ];
   

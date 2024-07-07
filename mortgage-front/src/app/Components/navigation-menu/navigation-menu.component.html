@@ -1,5 +1,7 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" position="end" class="sidenav" dir="rtl" opened *ngIf="navigationMenuService.isOpened()">
+<mat-sidenav-container class="sidenav-container" style="background-color: rgb(176, 172, 122);">
+  <mat-sidenav #sidenav mode="side" position="end" class="sidenav" dir="rtl" 
+  [opened]="navigationMenuService.isOpened()" >
+  <!-- <mat-sidenav #sidenav mode="side" position="end" class="sidenav" dir="rtl" opened *ngIf="navigationMenuService.isOpened()"> -->
     <mat-nav-list dir="rtl" >
       @for (c of componentsList; track c) {
       <a mat-list-item [routerLink]="c.path">

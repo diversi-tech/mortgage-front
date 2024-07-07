@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Route, RouterModule } from "@angular/router";
 import { NavigationMenuComponent } from './Components/navigation-menu/navigation-menu.component';
-import { ExampleComponent } from './Components/example/example.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ToolbarComponent } from './Components/toolbar/toolbar.component';
 import { MaterialModule } from './material/material.module';
@@ -25,6 +24,9 @@ import { DocumentsListCustomerService } from './services/documentListCustomer.se
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
 import { CommonModule } from '@angular/common';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { LeadComponent } from './Components/lead/lead.component';
+import { UserService } from './services/user.service';
+import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
 
 
 @NgModule({
@@ -32,22 +34,23 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     UserListComponent,
     UserDetailComponent,
     ToolbarComponent,
-    AppComponent,
-    ExampleComponent
-  ],
+    AppComponent
+    ],
 
   imports: [
     BrowserModule, MaterialModule, FormsModule, ReactiveFormsModule,
-    AppRoutingModule,
+    AppRoutingModule,LeadComponent,
     RouterModule, CommonModule,
     HttpClientModule, MatFormFieldModule, MatInputModule,
+    NavigationMenuComponent
+    ,CanvasJSAngularChartsModule,BrowserAnimationsModule,
     NavigationMenuComponent, DataVisualizationComponent
     ,CanvasJSAngularChartsModule,LoginComponent
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    customerService, leadService, DocumentsListCustomerService
+    customerService, leadService, DocumentsListCustomerService,UserService
   ],
   bootstrap: [AppComponent],
 })

@@ -5,31 +5,28 @@
   color: black;
   scroll-behavior: smooth;
 }
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
 
-// my
-// .sidenav-container {
-//   height: max-content;
-//   // min-height: 80vh;
-//   display: flex;
-//   height: 100vh;
-// }
+@keyframes slideOut {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
 
-// .toggle-button {
-//   background-color: rgba(203, 203, 203, 0.508) !important;
-//   margin: -10px;
-// }
+.open {
+  animation: slideIn 0.5s ease-in-out;
+}
 
-// my
-// .mat-sidenav-content {
-//   flex: 1;
-//   padding: 20px;
-//   scroll-behavior: smooth;
-// }
+.close {
+  animation: slideOut 0.5s ease-in-out;
+}
 
-//main branch
 .sidenav-container{
   min-height:550px;
 }
+
 
 .sidenav {
   box-shadow: 0 7px 20px 5px #00000088;
@@ -120,7 +117,7 @@ mat-icon {
   min-height: max-content;
   padding: 20px;
 }
-//main branch
+
 @media only screen and (max-width: 900px) {
   a{
     padding: 5px!important;
@@ -141,6 +138,12 @@ mat-icon {
 //main branch
 .main-content{
   height: 100vh;
-  background-image: url("https://t4.ftcdn.net/jpg/02/27/74/75/240_F_227747577_VMbOvpidnsdkwCKMI8nUx7KdLQmF4wvQ.jpg");
+  // background-image: url("https://t4.ftcdn.net/jpg/02/27/74/75/240_F_227747577_VMbOvpidnsdkwCKMI8nUx7KdLQmF4wvQ.jpg");
+// background-image: url("./assets/istockphoto-1393059175-612x612.jpg");
+// background-image: url('/assets/Mortgage2.bak.webp');
+// background-size: cover;
+}
+mat-sidenav-container{
+  background-image: url('/assets/Mortgage2.bak.webp');
   background-size: cover;
 }
