@@ -22,11 +22,13 @@ import { DocumentsListCustomerService } from './services/documentListCustomer.se
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
 import { CommonModule } from '@angular/common';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { FooterComponent } from './Components/footer/footer.component';
 @NgModule({
   declarations: [
     ToolbarComponent,
     AppComponent,
     ExampleComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule, MaterialModule, FormsModule, ReactiveFormsModule,
