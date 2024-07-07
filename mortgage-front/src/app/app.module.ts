@@ -8,20 +8,23 @@ import { DataVisualizationComponent } from './Components/data-visualization/data
 import { DocumentDefinitionComponent } from './Components/document-definition/document-definition.component';
 import { LoginComponent } from './Components/login/login.component';
 import { ExampleComponent } from './Components/example/example.component';
+import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
+//import { MagicLinkComponent } from './components/magic-link/magic-link.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ExampleComponent
+    ExampleComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    NavigationMenuComponent
+    NavigationMenuComponent,
+    CustomerDetailModalComponent
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    //provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

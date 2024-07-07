@@ -3,11 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
 import { DocumentDefinitionComponent } from './Components/document-definition/document-definition.component';
 import { LoginComponent } from './Components/login/login.component';
+import { MagicLinkComponent } from './Components/magic-link/magic-link.component';
+
 const routes: Routes =
   [
     { path: 'data', component: DataVisualizationComponent },
     { path: 'doc', component: DocumentDefinitionComponent },
-    { path: 'login', component: LoginComponent }
+    { path: 'login', component: LoginComponent },
+    { path: 'magic-link', component: MagicLinkComponent },
   ];
 
 @NgModule({
