@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
 import { DocumentDefinitionComponent } from './Components/document-definition/document-definition.component';
 import { LoginComponent } from './Components/login/login.component';
+import { MagicLinkComponent } from './Components/magic-link/magic-link.component';
 import { CustomerListComponent } from './Components/customer-list/customer-list.component';
 import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
 import { LeadListComponent } from './Components/lead-list/lead-list.component';
@@ -17,6 +18,7 @@ const routes: Routes =
     { path: 'data', component: DataVisualizationComponent },
     { path: 'doc', component: DocumentDefinitionComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'magic-link', component: MagicLinkComponent },
     { path: 'customer-list', component: CustomerListComponent },
     {path:'lead-list',component:LeadListComponent},
     {path:'customer-details/:id',component:CustomerDetailModalComponent},
