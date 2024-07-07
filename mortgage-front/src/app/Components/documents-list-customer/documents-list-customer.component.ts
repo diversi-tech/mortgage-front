@@ -33,7 +33,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 export class DocumentsListCustomerComponent implements OnInit {
 
-  displayedColumns = ['name', 'type', 'status', 'icon'];
+  displayedColumns = ['name', 'type', 'status', 'icon','approval'];
   // documents: any;
   customerId: number = 4; // לדוגמה, ללקוח מסוים עם ID מסוים
   documentStatusString: String = DocumentStatus[0];
@@ -75,6 +75,7 @@ export class DocumentsListCustomerComponent implements OnInit {
     this.documentStatusString = DocumentStatus[status];
     return this.documentStatusString;
   }
+
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];

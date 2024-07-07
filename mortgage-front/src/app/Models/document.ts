@@ -1,7 +1,7 @@
 
 export enum DocumentStatus {
-    Pending,
-    Completed
+    ממתין,
+    הושלם
 }
 
 
