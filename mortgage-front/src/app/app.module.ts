@@ -28,7 +28,6 @@ import { LeadComponent } from './Components/lead/lead.component';
 import { UserService } from './services/user.service';
 import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
 import { FooterComponent } from './Components/footer/footer.component';
-import { ExampleComponent } from './Components/example/example.component';
 
 
 @NgModule({
@@ -37,7 +36,6 @@ import { ExampleComponent } from './Components/example/example.component';
     UserDetailComponent,
     ToolbarComponent,
     AppComponent,
-    ExampleComponent,
     FooterComponent
   ],
 
