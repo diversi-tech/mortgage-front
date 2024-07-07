@@ -1,76 +1,146 @@
 * {
-  /*General design*/
   font-size: 20px;
-  text-align: right ;
+  text-align: right;
   background-color: white !important;
   color: black;
   scroll-behavior: smooth;
 }
 
-.sidenav-container {
-  //The sidenav cobtainer height definition
-  height: max-content;
-  min-height: 80vh;
+// my
+// .sidenav-container {
+//   height: max-content;
+//   // min-height: 80vh;
+//   display: flex;
+//   height: 100vh;
+// }
+
+// .toggle-button {
+//   background-color: rgba(203, 203, 203, 0.508) !important;
+//   margin: -10px;
+// }
+
+// my
+// .mat-sidenav-content {
+//   flex: 1;
+//   padding: 20px;
+//   scroll-behavior: smooth;
+// }
+
+//my
+.sidenav-container{
+  min-height:550px;
 }
-.toggle-button{
- background-color: rgba(203, 203, 203, 0.508) !important;
- margin: -10px;
-}
+
 .sidenav {
-  //width definition of the sidenav
   box-shadow: 0 7px 20px 5px #00000088;
   width: 17vw;
-  min-width: max-content;
+  @media (min-width: 540px) {
+    display: flex;
+    margin: 0;
+    overflow: hidden;
+  }
+}
+a{
+  padding: 30px!important;
 }
 
-.mat-list-item:hover {
-  background-color: rgba(207, 210, 210, 0.2);
-}
 
-.main-content {
-  //The guests components in this component
-  padding: 20px;
-}
+// my
+// .main-content {
+//   padding: 20px;
+// }
 
-a {
-  padding: 10px;
-}
+// my
+// a {
+//   padding: 10px;
+// }
 
-a:hover {
-  background-color: rgba(207, 210, 210, 0.327) !important;
-}
+// my
+// a:hover {
+//   background-color: rgba(207, 210, 210, 0.327) !important;
+// }
 
-mat-icon,
-//The name and icon design in the sidebar
-span {
-  background-color: transparent !important;
-  padding-bottom: 5px;
-}
+//my
+// mat-icon,
+// span {
+//   background-color: transparent !important;
+//   padding-bottom: 5px;
+// }
 
-span {
-  margin-left: 5px;
-}
+// my
+// span {
+//   margin-left: 5px;
+// }
 
+// my
+// mat-icon {
+//   float: right;
+// }
+
+// my
+// @media screen and (max-width: 920px) {
+//   * {
+//     font-size: 15px;
+//   }
+
+// my
+//   .main-content {
+//     padding: 0px;
+//   }
+
+// my
+//   a {
+//     padding: 0px;
+//   }
+
+// my
+//   .sidenav-container {
+//     height: 50vh;
+//   }
+
+// my
+//   .sidenav {
+//     width: 100vw;
+//   }
+
+// my
+  // .toggle-button {
+  //   background-color: rgba(203, 203, 203, 0.508) !important;
+  //   margin: 10px;
+  //   text-align-last: center;
+  // }
+
+
+//main branch
 mat-icon {
   float: right;
 }
-@media screen and (max-width: 920px) {
-  *{font-size: 15px;
+//my
+.mat-sidenav-content {
+  min-height: max-content;
+  padding: 20px;
+}
+//main branch
+@media only screen and (max-width: 900px) {
+  a{
+    padding: 5px!important;
   }
-  .main-content {
-    //The guests components in this component
-    padding: 0px;
+  span{
+    font-size: 18px!important;
   }
-  
-  a {
-    padding: 0px;
+  .mat-icon {
+    float: right;
   }
-  .sidenav-container {
-    height: 50vh; /* Adjust height for smaller screens */
+  .sidenav {
+    box-shadow: 0 7px 20px 5px #00000088;
+    width: 25vw;
+    margin: 0!important;
+    min-width: max-content;
   }
-  .toggle-button{
-    background-color: rgba(203, 203, 203, 0.508) !important;
-    margin: 10px;
-    text-align-last:center;
-   }
+}
+//main branch
+.main-content{
+  height: 100vh;
+  background-image: url("https://t4.ftcdn.net/jpg/02/27/74/75/240_F_227747577_VMbOvpidnsdkwCKMI8nUx7KdLQmF4wvQ.jpg");
+  background-size: cover;
 }

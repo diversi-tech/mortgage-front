@@ -1,1 +1,7 @@
-<app-customer-detail-modal></app-customer-detail-modal>
+<app-toolbar></app-toolbar>
+<!-- @if(navigationMenuService.isOpened()){ -->
+<navigation-menu [componentsList]="componentArray"></navigation-menu>
+<!-- } -->
+
+<router-outlet></router-outlet>
+<example></example>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Use custom colors from global styles */
 
 
@@ -104,4 +105,19 @@
 
 }
 
+=======
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-column {
+  flex: 1 1 50%;
+  max-width: 50%;
+}
+
+.form-field {
+  margin-bottom: 16px;
+}
+>>>>>>> 1d9642c23d8cf451813b93b7eae866b85b6b76c1
 

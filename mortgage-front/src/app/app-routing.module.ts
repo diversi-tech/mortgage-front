@@ -4,6 +4,13 @@ import { DataVisualizationComponent } from './Components/data-visualization/data
 import { DocumentDefinitionComponent } from './Components/document-definition/document-definition.component';
 import { LoginComponent } from './Components/login/login.component';
 import { MagicLinkComponent } from './Components/magic-link/magic-link.component';
+import { CustomerListComponent } from './Components/customer-list/customer-list.component';
+import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
+import { LeadListComponent } from './Components/lead-list/lead-list.component';
+import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
+import { UserListComponent } from './Components/user-list/user-list.component';
+import { UserDetailComponent } from './Components/user-detail/user-detail.component';
+
 
 const routes: Routes =
   [
@@ -11,6 +18,12 @@ const routes: Routes =
     { path: 'doc', component: DocumentDefinitionComponent },
     { path: 'login', component: LoginComponent },
     { path: 'magic-link', component: MagicLinkComponent },
+    { path: 'customer-list', component: CustomerListComponent },
+    {path:'lead-list',component:LeadListComponent},
+    {path:'customer-details/:id',component:CustomerDetailModalComponent},
+    {path:'lead-details/:id',component:LeadDetailComponent},
+    {path:'user-list',component:UserListComponent},
+    {path:'user-details/:id',component:UserDetailComponent}
   ];
 
 @NgModule({
@@ -18,26 +31,3 @@ const routes: Routes =
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
-// import { NgModule } from '@angular/core';
-// import { RouterModule, Routes } from '@angular/router';
-// import { HomeComponent } from './home/home.component';
-// import { AboutComponent } from './about/about.component';
-// import { ServicesComponent } from './services/services.component';
-// import { ContactComponent } from './contact/contact.component';
-// import { ProfileComponent } from './profile/profile.component';
-
-// const routes: Routes = [
-//   { path: 'home', component: HomeComponent },
-//   { path: 'about', component: AboutComponent },
-//   { path: 'services', component: ServicesComponent },
-//   { path: 'contact', component: ContactComponent },
-//   { path: 'profile', component: ProfileComponent },
-//   { path: '', redirectTo: '/home', pathMatch: 'full' }
-// ];
-
-// @NgModule({
-//   imports: [RouterModule.forRoot(routes)],
-//   exports: [RouterModule]
-// })
-// export class AppRoutingModule { }

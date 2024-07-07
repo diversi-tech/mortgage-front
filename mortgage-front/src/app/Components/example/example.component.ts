@@ -1,16 +1,19 @@
 import { Component } from '@angular/core';
 import { ComponentInfo } from '../../Models/componentInfo';
+import { Customer } from '../../Models/Customer';
 @Component({
-  selector: 'app-example',
+  selector: 'example',
   templateUrl: './example.component.html',
   styleUrl: './example.component.css'
 })
 export class ExampleComponent {
 //Some logic to decide how to initialize the array
 componentArray = [
-      new ComponentInfo("נתונים", "/data", "home"),
+      new ComponentInfo("נתונים", "/data", "data"),
       new ComponentInfo("מסמכים", "/doc", "info"),
       new ComponentInfo("כניסה לאתר", "/login", "contact_mail"),
-      new ComponentInfo("בלה בלה", "/login", "share"),
+      new ComponentInfo("רשימת לקוחות", "/customer-list", "list"),
+      new ComponentInfo("רשימת לידים", "/lead-list", "list"),
     ];
+    
 }
