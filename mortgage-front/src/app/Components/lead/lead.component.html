@@ -1,0 +1,177 @@
+<div id="content">
+<mat-horizontal-stepper  [linear]="isLinear" #stepper  (selectionChange)="onStepChange($event)">
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>הגדרת שם משתמש וסיסמא</ng-template>
+      <mat-form-field>
+        <mat-label>שם משתמש</mat-label>
+        <input matInput formControlName="userName"  required>
+      </mat-form-field>
+    
+      <mat-form-field>
+        <mat-label> סיסמא</mat-label>
+        <input matInput formControlName="password" type="password" required>
+       </mat-form-field>
+
+         <div>
+        <button mat-button  matStepperNext  (click)="checkUserNameAndPassword()">הבא</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>עדכון פרטים אישיים</ng-template>
+      <mat-form-field>
+        <mat-label>שם משפחה</mat-label>
+        <input matInput formControlName="lastName" (input)="onInputChange('last_Name', $event)">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>ת.ז.</mat-label>
+        <input matInput type="number" formControlName="t_z" (input)="onInputChange('t_z', $event)">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>תאריך לידה</mat-label>
+        <input matInput formControlName="birthDate" type="date" (input)="onInputChange('birthDate', $event)">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>מצב משפחתי</mat-label>
+        <mat-select formControlName="family_status" (selectionChange)="onSelectionChange('family_status', $event.value)">
+          <mat-option value="Married">Married</mat-option>
+          <mat-option value="Single">Single</mat-option>
+          <mat-option value="Divorced">Divorced</mat-option>
+          <mat-option value="Widow">Widow</mat-option>
+        </mat-select>
+      </mat-form-field>      
+      <mat-form-field>
+        <mat-label>מספר אנשים בבית</mat-label>
+        <input matInput formControlName="number_of_people_in_house" type="number" (input)="onInputChange('number_of_people_in_house', $event)">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>כתובת</mat-label>
+        <input matInput formControlName="address" (input)="onInputChange('address', $event)">
+      </mat-form-field>
+      <h3>פרטי תעסוקה</h3>
+      <mat-form-field>
+        <mat-label>סטטוס</mat-label>
+        <mat-select formControlName="job_Status" (selectionChange)="onInputChange('job_status', $event)">
+          <mat-option value="שכיר">שכיר</mat-option>
+          <mat-option value="עצמאי">עצמאי</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>מקום עבודה</mat-label>
+        <input matInput formControlName="work_business_name" (input)="onInputChange('work_business_name', $event)">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>תפקיד</mat-label>
+        <input matInput formControlName="job_description" (input)="onInputChange('job_description', $event)">
+      </mat-form-field>
+      <!-- <mat-form-field>
+        <mat-label>משכורת חודשית ממוצעת נטו</mat-label>
+        <input matInput formControlName="avarage_monthly_salary" type="number" (input)="onInputChange('avarage_monthly_salary', $event)">
+      </mat-form-field> -->
+      <mat-form-field>
+        <mat-label>ותק</mat-label>
+        <input matInput formControlName="years_in_current_position" (input)="onInputChange('years_in_current_position', $event)">
+      </mat-form-field>
+      <h3>הכנסות</h3>
+      <mat-form-field>
+        <mat-label>קצבאות</mat-label>
+        <input matInput formControlName="income_rent" type="number" (input)="onInputChange('income_rent', $event)">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>מזונות</mat-label>
+        <input matInput formControlName="income_Government_Endorsement" type="number" (input)="onInputChange('income_Government_Endorsement', $event)">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>מקור אחר</mat-label>
+        <input matInput formControlName="income_other" type="number" (input)="onInputChange('income_other', $event)">
+      </mat-form-field>
+      <h3>הוצאות</h3>
+      <mat-form-field>
+        <mat-label>שכר דירה</mat-label>
+        <input matInput formControlName="expenses_rent" type="number" (input)="onInputChange('expenses_rent', $event)">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>הלוואות</mat-label>
+        <input matInput formControlName="expenses_loans" type="number" (input)="onInputChange('expenses_loans', $event)">
+      </mat-form-field>
+      <!-- <mat-form-field>
+        <mat-label>משכנתאות</mat-label>
+        <input matInput formControlName="mortgages" type="number" (input)="onInputChange('mortgages', $event)">
+      </mat-form-field> -->
+      
+      <mat-form-field>
+        <mat-label>מקור אחר</mat-label>
+        <input matInput formControlName="expenses_other" type="number" (input)="onInputChange('expenses_other', $event)">
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>חזור</button>
+        <button mat-button matStepperNext>הבא</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <ng-template matStepLabel>פרטי הנכס</ng-template>
+      <mat-form-field>
+        <mat-label>יישוב</mat-label>
+        <input matInput formControlName="property_city" (input)="onInputChange('property_city', $event)">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>סוג עסקה</mat-label>
+        <mat-select formControlName="transaction_type" (selectionChange)="onInputChange('transaction_type', $event)">
+          <mat-option value="מחיר_למשתכן">מחיר למשתכן</mat-option>
+          <mat-option value="New">יד ראשונה</mat-option>
+          <mat-option value="Old">יד שניה</mat-option>
+          <mat-option value="Renovation">שיפוצים</mat-option>
+          <mat-option value="Other">לכל מטרה</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>שווי הנכס לפי הערכת לווה</mat-label>
+        <input matInput formControlName="estimated_price_by_customer" type="number" (input)="onInputChange('estimated_price_by_customer', $event)">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>שווה הנכס לפי הסכם מכר</mat-label>
+        <input matInput formControlName="estimated_price_by_sales_agreement" type="number" (input)="onInputChange('estimated_price_by_sales_agreement', $event)">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>יש נכסים נוספים ללווה</mat-label>
+        <mat-select formControlName="has_other_properties" (selectionChange)="onInputChange('has_other_properties', $event)">
+          <mat-option value="כן">כן</mat-option>
+          <mat-option value="לא">לא</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>סכום ההלוואה</mat-label>
+        <input matInput formControlName="amount_of_loan_requested" type="number" (input)="onInputChange('amount_of_loan_requested', $event)">
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>חזור</button>
+        <button mat-button matStepperNext>הבא</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="fourthFormGroup">
+    <form [formGroup]="fourthFormGroup">
+      <ng-template matStepLabel>העלאת מסמכים</ng-template>
+      <input type="file" (change)="onFileChange($event)" multiple>
+      <div *ngFor="let file of uploadedFiles; let i = index">
+        <span (click)="viewDocument(file)" style="cursor:pointer; color:blue;">
+          {{ file.name }}
+        </span>
+        <button mat-button color="warn" (click)="removeFile(i)">מחק</button>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>חזור</button>
+        <button mat-button (click)="uploadDocuments()">העלאה</button>
+        <button mat-button type="submit">שמור</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>
+</div>

@@ -13,8 +13,10 @@
   </div>
 </section>
 
-<div *ngIf="chartOptions">
-  <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
+<div *ngIf="chartOptions" id="canvas">
+  <!-- <canvasjs-chart [options]="chartOptions"></canvasjs-chart> -->
+  <canvasjs-chart  [options]="chartOptions" ></canvasjs-chart>
+
 </div>
 
 
