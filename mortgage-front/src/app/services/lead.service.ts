@@ -17,7 +17,7 @@ export class leadService {
       .pipe(
         tap(leads => this.LeadsSubject.next(leads)),
         catchError(error => {
-          console.error('Error fetching leads:', error);
+          // console.error('Error fetching leads:', error);
           throw error;
         })
       );
@@ -41,28 +41,29 @@ export class leadService {
           this.LeadsSubject.next(updatedLeads);
         }),
         catchError(error => {
-          console.error('Error deleting customer:', error);
+          // console.error('Error deleting customer:', error);
           throw error;
         })
       );
   }
   updateLead(lead: any): Observable<Lead> {
+
     const updateUrl = `${this.basicURL}Leads/${lead.id}`;
     return this.http.put<Lead>(updateUrl, lead)
       .pipe(
         tap(() => {
-          const leads = this.LeadsSubject.getValue();
+          const leads = this.LeadsSubject.getValue();          
           const index = leads.findIndex(l => l.id === lead?.id);
           if (index !== -1) {
             leads[index] = lead;
             this.LeadsSubject.next([...leads]);
             this.fetchLeads().subscribe(); // אתחול לקוח
           } else {
-            console.error('Lead not found in the current list');
+            // console.error('Lead not found in the current list');
           }
         }),
         catchError(error => {
-          console.error('Error updating lead:', error);
+          // console.error('Error updating lead:', error);
           throw error;
         })
       );
@@ -73,15 +74,15 @@ export class leadService {
     console.log(updateUrl);
     return this.http.post<Lead>(updateUrl, lead)
       .pipe(
-        tap(() => {
+        tap((res) => {
+          console.log(res);
           console.log("in addLead tap");
           const leads = this.LeadsSubject.getValue();
-          this.LeadsSubject.next([...leads, lead]);
-          this.fetchLeads().subscribe(); // אתחול לקוח
-          console.log("id:" + lead?.id);
+          this.LeadsSubject.next([...leads, res]);
+          console.log("id:" + res?.id);
         }),
         catchError(error => {
-          console.error('Error deleting customer:', error);
+          // console.error('Error deleting customer:', error);
           throw error;
         })
       );

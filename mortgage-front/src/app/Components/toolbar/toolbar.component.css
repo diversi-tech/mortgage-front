@@ -1,28 +1,65 @@
 .mat-toolbar {
     display: flex;
     justify-content: space-between;
-    /* background-color: rgba(135, 148, 162, 0.73); */
-    background-color: rgb(178, 189, 202);;
+    background: linear-gradient(135deg, rgb(206, 213, 221), rgb(169, 178, 187));
+    padding: 0 16px;
+}
+
+.toolbar-content {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+}
+
+.logo {
+    height: 90px;
+    width: 110px;
 }
 
 .buttonLog {
-    height: 70%;
-    border-radius: 28%;
-    font-size: 70%;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 0.875rem;
     font-weight: 600;
     text-align: center;
     color: black;
-    width: 8vw;
-    min-width: 100px; /* Set a minimum width for the button */
-    padding: 0 16px; /* Add padding to accommodate text */
+    padding: 0 16px;
+    background-color: white;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-right: 16px;
 }
 
-div {
-    width: 100%;
-    margin-left: 2%;
+.buttonLog:hover {
+    background-color: #d4e6f1;
+    transform: scale(1.05);
+}
+
+.welcome-message {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: white;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
 }
 
 mat-toolbar {
     display: flex;
+    height: 13vh;
     justify-content: space-between;
+}
+
+mat-icon {
+    margin-right: 8px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }

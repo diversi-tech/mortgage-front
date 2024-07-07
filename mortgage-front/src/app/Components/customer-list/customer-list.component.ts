@@ -38,7 +38,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
         this.dataSource.paginator = this.paginator;
       },
       error: error => {
-        console.error('Error loading customers:', error);
+        // console.error('Error loading customers:', error);
       }
     });    
   }

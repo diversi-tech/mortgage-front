@@ -43,7 +43,7 @@ financialInfoGroup:FormGroup;
        } 
   else {
       // טיפול במקרה שבו מזהה הלקוח לא נמצא בנתיב (למשל, הצגת הודעת שגיאה או ניווט מחדש)
-      console.error('Customer ID not found in route parameters.');
+      // console.error('Customer ID not found in route parameters.');
     }
   }
 
@@ -133,7 +133,7 @@ constructor(private formBuilder: FormBuilder, private route: ActivatedRoute,priv
                 console.log('Customer UPDATE successfully');
               },
               error: error => {
-                console.error('Error update customer:', error);
+                // console.error('Error update customer:', error);
               }
             });
           }

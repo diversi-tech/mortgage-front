@@ -1,7 +1,7 @@
 export enum Family_Status {
      Married,
      Single,
-     Divorceded,
+     Divorced,
      Widow
 }
 export enum Job_Status {

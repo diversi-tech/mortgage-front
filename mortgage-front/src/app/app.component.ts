@@ -16,6 +16,8 @@ export class AppComponent {
     new ComponentInfo("כניסה לאתר", "/login", "login"),
     new ComponentInfo("רשימת לקוחות", "/customer-list", "checklist"),
     new ComponentInfo("רשימת לידים", "/lead-list", "list"),
+    new ComponentInfo("כניסת לידים", "/leadLogin", "login"),
+
   ];
   
   title = 'mortgage-client';

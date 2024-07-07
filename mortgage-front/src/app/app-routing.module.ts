@@ -7,6 +7,7 @@ import { CustomerListComponent } from './Components/customer-list/customer-list.
 import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
 import { LeadListComponent } from './Components/lead-list/lead-list.component';
 import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
+import { LeadComponent } from './Components/lead/lead.component';
 const routes: Routes =
   [
     { path: 'data', component: DataVisualizationComponent },
@@ -15,7 +16,8 @@ const routes: Routes =
     { path: 'customer-list', component: CustomerListComponent },
     {path:'lead-list',component:LeadListComponent},
     {path:'customer-details/:id',component:CustomerDetailModalComponent},
-    {path:'lead-tetails/:id',component:LeadDetailComponent}
+    {path:'lead-tetails/:id',component:LeadDetailComponent},
+    {path:'leadLogin',component:LeadComponent}
   ];
 
 @NgModule({

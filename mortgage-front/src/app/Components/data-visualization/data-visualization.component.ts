@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { customerService } from '../../services/costumer.service';
 import { Customer } from '../../Models/Customer';
-import { Subscription } from 'rxjs';
 import { Lead } from '../../Models/Lead';
 import { leadService } from '../../services/lead.service';
 import { Document } from '../../Models/Document';
@@ -13,10 +12,10 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-data-visualization',
   standalone: true,
-  imports: [CanvasJSAngularChartsModule, MaterialModule,CommonModule],
+  imports: [CanvasJSAngularChartsModule, MaterialModule, CommonModule],
   templateUrl: './data-visualization.component.html',
   styleUrl: './data-visualization.component.scss',
-  
+
 })
 export class DataVisualizationComponent implements OnInit {
 
@@ -26,7 +25,6 @@ export class DataVisualizationComponent implements OnInit {
   documents: Document[] = [];
   documentTypes: DocumentType[] = [];
   chartOptions: any;
-  private leadSubscription?: Subscription;
   ngOnInit(): void {
     this.createArrys();
   }
@@ -37,9 +35,9 @@ export class DataVisualizationComponent implements OnInit {
       console.log('here ');
       this.customers = customersRes;
       console.log(this.customers[0]?.address);
-      
+
     })
-    
+
     // this.leadSubscription = this.leadService.leads$.subscribe({
     //   next: leads => {
     //     console.log('accept the changes');
@@ -49,14 +47,13 @@ export class DataVisualizationComponent implements OnInit {
     //     console.error('Error loading customers:', error);
     //   }
     // });
-    this.leadService.getLeads().subscribe(leadRes=>
-      {
-          this.leads=leadRes;
-      })
+    this.leadService.getLeads().subscribe(leadRes => {
+      this.leads = leadRes;
+    })
     this.documentService.getAllDocuments().subscribe(documentRes => {
       this.documents = documentRes;
       console.log("in getAllDocuments");
-      
+
     }
     )
     this.documentService.getAllDocumentType().subscribe(documentTypeRes => {
@@ -75,7 +72,7 @@ export class DataVisualizationComponent implements OnInit {
 
   getJobStatusCounts() {
     var counts = { Employed: 0, SelfEmployed: 0 };
-    this.customers.forEach(customer => {      
+    this.customers.forEach(customer => {
       if (customer.job_status === 0) counts.Employed++;
       else if (customer.job_status === 1) counts.SelfEmployed++;
     });
@@ -83,22 +80,21 @@ export class DataVisualizationComponent implements OnInit {
   }
 
   getFamilyStatusCounts() {
-    const counts = { single: 0, married: 0, divorced: 0, widow :0};
-   this.customers.forEach(customer => {
-     if (customer.family_status ===0) counts.married++;
-     else if (customer.family_status ===1 ) counts.single++;
-     else if (customer.family_status ===2) counts.divorced++;
-     else if (customer.family_status ===3) counts.widow++;
-   });
-   return counts;
+    const counts = { single: 0, married: 0, divorced: 0, widow: 0 };
+    this.customers.forEach(customer => {
+      if (customer.family_status === 0) counts.married++;
+      else if (customer.family_status === 1) counts.single++;
+      else if (customer.family_status === 2) counts.divorced++;
+      else if (customer.family_status === 3) counts.widow++;
+    });
+    return counts;
   }
-  initializeChart1() {
-    console.log('-1-');
+  async initializeChart1() {
+    
     var leadCount = this.leads.length;
     var customerCount = this.customers.length;
     var familyStatusCounts = this.getFamilyStatusCounts();
-    var jobStatusCounts = this.getJobStatusCounts();    
-    console.log('-2-');
+    var jobStatusCounts = this.getJobStatusCounts();
     this.chartOptions = {
       title: {
         text: " כמות לקוחות ולידים בסך הכל ומצבי סטטוס הלקוחות"
@@ -121,9 +117,9 @@ export class DataVisualizationComponent implements OnInit {
           { label: "Job Status - Employed", y: jobStatusCounts.Employed, color: "#F79646" },
           { label: "Job Status - Self Employed", y: jobStatusCounts.SelfEmployed, color: "#92A8CD" }
         ]
-      }]
+      }],
+
     };
-    console.log('-3-');
   }
 
   getCountsByMonth(items: any[]) {

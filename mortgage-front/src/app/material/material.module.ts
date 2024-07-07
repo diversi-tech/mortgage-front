@@ -14,9 +14,11 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatStepperModule} from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
 const modules=[
   MatListModule,
-  MatButtonModule,
+  MatButtonModule,MatCardModule,MatGridListModule,
   MatSidenavModule,
   MatToolbarModule,
   MatIconModule,

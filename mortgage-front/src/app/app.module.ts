@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Route, RouterModule } from "@angular/router";
 import { NavigationMenuComponent } from './Components/navigation-menu/navigation-menu.component';
-import { ExampleComponent } from './Components/example/example.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { customerService } from './services/costumer.service';
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
@@ -22,24 +21,26 @@ import { DocumentsListCustomerService } from './services/documentListCustomer.se
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
 import { CommonModule } from '@angular/common';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LeadComponent } from './Components/lead/lead.component';
+import { UserService } from './services/user.service';
 @NgModule({
   declarations: [
     ToolbarComponent,
-    AppComponent,
-    ExampleComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule, MaterialModule, FormsModule, ReactiveFormsModule,
-    AppRoutingModule,
+    AppRoutingModule,LeadComponent,
     RouterModule, CommonModule,
     HttpClientModule, MatFormFieldModule, MatInputModule,
-    NavigationMenuComponent, DataVisualizationComponent
-    ,CanvasJSAngularChartsModule
+    NavigationMenuComponent
+    ,CanvasJSAngularChartsModule,BrowserAnimationsModule
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    customerService, leadService, DocumentsListCustomerService
+    customerService, leadService, DocumentsListCustomerService,UserService
   ],
   bootstrap: [AppComponent],
   // entryComponents: [ConfirmDialog] // ensure your dialog component is listed here

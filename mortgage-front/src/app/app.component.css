@@ -1,0 +1,46 @@
+/* .foot{
+    height: 150px;
+    width: 100%;
+    background-color: rgb(178, 194, 215);
+}
+img{
+    margin-left: 0 auto;
+}
+.custom-footer {
+    background-color: #94a5b7b9;
+    color: #ffffff; 
+    padding: 20px 0;
+    text-align: center;
+    font-size: 18px; 
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; 
+    margin: 0 auto; 
+  }
+  
+  .company-logo {
+    width: 150px; 
+    height: 150px;
+    margin-right: 20px;
+  }
+  
+  .company-details {
+    font-size: 20px; 
+  }
+  .company-name{
+    font-weight: bold;
+  }
+  
+  .contact-info {
+    text-align: right; 
+  }
+  
+  .contact-info span {
+    display: block;
+    margin-top: 5px; 
+  }
+   */
