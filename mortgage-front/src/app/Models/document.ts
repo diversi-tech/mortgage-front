@@ -34,23 +34,7 @@ export class Document {
 }
 
 
-export enum TransactionType {
-    מחיר_למשתכן,
-    New,
-    Old,
-    Renovation,
-    Other
-}
 
-
-export class DocumentType {
-
-    id?: number;
-    transaction_type?: TransactionType;
-    document_name?: string;
-    required?: boolean;
-
-}
 
 
 

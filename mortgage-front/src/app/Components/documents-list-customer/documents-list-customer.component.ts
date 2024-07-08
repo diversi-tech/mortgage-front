@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { MaterialModule } from '../../material/material.module';
-import { Document, DocumentStatus } from '../../Models/document';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { DocumentsListCustomerService } from '../../services/documents-list-customer.service';
+import { DocumentsListCustomerService } from '../../Services/documents-list-customer.service';
 import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { DocumentStatus,Document } from '../../Models/Document';
 
 
 

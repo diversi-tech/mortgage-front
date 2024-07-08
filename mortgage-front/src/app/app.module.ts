@@ -1,4 +1,4 @@
-import {  NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,22 +40,30 @@ import { FooterComponent } from './Components/footer/footer.component';
   ],
 
   imports: [
-    BrowserModule, MaterialModule, FormsModule, ReactiveFormsModule,
-    AppRoutingModule,LeadComponent,
-    RouterModule, CommonModule,
-    HttpClientModule, MatFormFieldModule, MatInputModule,
-    NavigationMenuComponent
-    ,CanvasJSAngularChartsModule,BrowserAnimationsModule,
-    NavigationMenuComponent, DataVisualizationComponent
-    ,CanvasJSAngularChartsModule,LoginComponent
+    BrowserModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    LeadComponent,
+    RouterModule,
+    CommonModule,
+    HttpClientModule,
+    MatFormFieldModule,
+    MatInputModule,
+    NavigationMenuComponent,
+    CanvasJSAngularChartsModule,
+    BrowserAnimationsModule,
+    NavigationMenuComponent, DataVisualizationComponent,
+    CanvasJSAngularChartsModule, LoginComponent
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    customerService, leadService, DocumentsListCustomerService,UserService
+    customerService, leadService, DocumentsListCustomerService, UserService
   ],
   bootstrap: [AppComponent],
 })
 
-  // entryComponents: [ConfirmDialog] // ensure your dialog component is listed here
+// entryComponents: [ConfirmDialog] // ensure your dialog component is listed here
 export class AppModule { }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Injectable } from '@angular/core';
-import { Document } from "../Models/document";
+import { Document } from '../Models/Document';
 
 
 @Injectable({
@@ -29,7 +29,7 @@ export class DocumentsListCustomerService {
     return this.http.get<DocumentType[]>(`${this.apiUrl}DocumentTypes`);
   }
 
-  
+
   fetchDocumentsByCustomerId(customerId: number): Observable<Document[]> {
     return this.http.get<Document[]>(this.apiUrl + `/CustomerTasksControllercs/customerId/${customerId}`)
       .pipe(
