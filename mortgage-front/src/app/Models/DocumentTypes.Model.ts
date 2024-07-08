@@ -1,10 +1,10 @@
 
 export enum TransactionType {
+    PricePerTenant,
     New,
     Old,
     Renovation,
-    Other,
-    PricePerTenant
+    Other
 }
 export class DocumentType {
     id?: number;

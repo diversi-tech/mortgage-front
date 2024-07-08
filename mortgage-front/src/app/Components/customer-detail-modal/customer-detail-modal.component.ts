@@ -7,10 +7,11 @@ import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
-import { CustomerServiceService } from '../../services/customer-service.service';
+import { CustomerServiceService } from '../../Services/customer-service.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../Services/user.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MaterialModule } from '../../material/material.module';
 
 
 @Component({
@@ -18,6 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   standalone: true,
   imports: [
     CommonModule,
+    MaterialModule,
     MatSelectModule,
     MatInputModule,
     MatFormFieldModule,

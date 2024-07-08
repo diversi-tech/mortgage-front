@@ -25,7 +25,7 @@ import { DataVisualizationComponent } from './Components/data-visualization/data
 import { CommonModule } from '@angular/common';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { LeadComponent } from './Components/lead/lead.component';
-import { UserService } from './services/user.service';
+import { UserService } from './Services/user.service';
 import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
 import { FooterComponent } from './Components/footer/footer.component';
 
