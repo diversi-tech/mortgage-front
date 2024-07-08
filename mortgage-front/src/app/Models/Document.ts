@@ -1,6 +1,6 @@
 export enum Status {
-    pending,
-    completed 
+    ממתין,
+    הושלם 
 }
 export class Document {
 
