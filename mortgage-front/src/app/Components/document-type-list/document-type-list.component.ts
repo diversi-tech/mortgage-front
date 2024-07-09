@@ -9,15 +9,15 @@ import { RouterModule } from '@angular/router';
 
 
 @Component({
-  selector: 'app-user-detail',
+  selector: 'document-type-list',
   standalone: true,
-  imports: [ 
+  imports: [ RouterModule,
     CommonModule
     ,MaterialModule
   ],
-  templateUrl: './user-detail.component.html',
-  styleUrl: './user-detail.component.css'
+  templateUrl: './document-type-list.component.html',
+  styleUrl: './document-type-list.component.css'
 })
-export class UserDetailComponent {
+export class DocumentTypeListComponent {
 
 }

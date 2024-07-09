@@ -17,6 +17,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField } from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
+
 const modules=[
   MatTableModule,
   MatListModule,
@@ -50,4 +55,3 @@ const modules=[
   
 })
 export class MaterialModule { }
-

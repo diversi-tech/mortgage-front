@@ -12,37 +12,37 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserListComponent } from './Components/user-list/user-list.component';
 import { UserDetailComponent } from './Components/user-detail/user-detail.component';
 import { LoginComponent } from './Components/login/login.component';
-import { customerService } from './services/costumer.service';
+import { customerService } from './Services/costumer.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { LeadListComponent } from './Components/lead-list/lead-list.component';
-import { leadService } from './services/lead.service';
-import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dialog.component';
+import { leadService } from './Services/lead.service';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
-import { DocumentsListCustomerService } from './services/documentListCustomer.service';
+import { DocumentsListCustomerService } from './Services/documentListCustomer.service';
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
 import { CommonModule } from '@angular/common';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { LeadComponent } from './Components/lead/lead.component';
-import { UserService } from './services/user.service';
-import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
+import { UserService } from './Services/user.service';
 import { FooterComponent } from './Components/footer/footer.component';
+import { DocumentTypeDetailsComponent } from './Components/document-type-details/document-type-details.component';
+import { DocumentTypeListComponent } from './Components/document-type-list/document-type-list.component';
 
 
 @NgModule({
   declarations: [
-    UserListComponent,
-    UserDetailComponent,
-    ToolbarComponent,
-    AppComponent,
-    FooterComponent
+    AppComponent
   ],
 
   imports: [
+    UserListComponent,
+    UserDetailComponent,
+    ToolbarComponent,
+    FooterComponent,
+    DocumentTypeDetailsComponent,
+    DocumentTypeListComponent,
     BrowserModule, MaterialModule, FormsModule, ReactiveFormsModule,
     AppRoutingModule,LeadComponent,
-    RouterModule, CommonModule,
+    RouterModule, 
     HttpClientModule, MatFormFieldModule, MatInputModule,
     NavigationMenuComponent
     ,CanvasJSAngularChartsModule,BrowserAnimationsModule,
@@ -57,5 +57,5 @@ import { FooterComponent } from './Components/footer/footer.component';
   bootstrap: [AppComponent],
 })
 
-  // entryComponents: [ConfirmDialog] // ensure your dialog component is listed here
+  // entryComponents: [Dialog] // ensure your dialog component is listed here
 export class AppModule { }

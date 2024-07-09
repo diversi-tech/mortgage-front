@@ -6,7 +6,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   selector: 'confirm-dialog',
   standalone: true,
   styles: [``],
-  imports: [MaterialModule, CommonModule],
+  imports: [
+    MaterialModule,
+    CommonModule
+  ],
   template: `
     <div style="padding: 20px;" >
       <h1 mat-dialog-title dir="rtl">מחיקת לקוח</h1>

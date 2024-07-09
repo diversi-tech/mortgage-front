@@ -7,14 +7,19 @@ import {  MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Lead } from '../../Models/Lead';
-import { leadService } from '../../services/lead.service';
+import { leadService } from '../../Services/lead.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MaterialModule } from '../../material/material.module';
 import { CommonModule } from '@angular/common';
+
+
 @Component({
   selector: 'lead-list',
   standalone: true,
-  imports: [MaterialModule, CommonModule],
+  imports: [
+    MaterialModule,
+     CommonModule
+  ],
   templateUrl: './lead-list.component.html',
   styleUrl: './lead-list.component.scss'
 })

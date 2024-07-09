@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ViewEncapsulation, Inject } from '@angular/core';
 import { Customer, Customer_type } from '../../Models/Customer';
-import { customerService } from '../../services/costumer.service';
+import { customerService } from '../../Services/costumer.service';
 import { MaterialModule } from '../../material/material.module';
 import { Router } from '@angular/router';
 import {  Subscription } from 'rxjs';
@@ -13,7 +13,10 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 @Component({
   selector: 'customer-list',
   standalone: true,
-  imports: [MaterialModule, CommonModule],
+  imports: [
+    MaterialModule,
+     CommonModule
+  ],
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.scss'],
   encapsulation: ViewEncapsulation.None

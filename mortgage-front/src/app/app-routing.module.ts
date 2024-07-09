@@ -11,6 +11,8 @@ import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-
 import { LeadComponent } from './Components/lead/lead.component';
 import { UserListComponent } from './Components/user-list/user-list.component';
 import { UserDetailComponent } from './Components/user-detail/user-detail.component';
+import { DocumentTypeDetailsComponent } from './Components/document-type-details/document-type-details.component';
+import { DocumentTypeListComponent } from './Components/document-type-list/document-type-list.component';
 
 
 const routes: Routes =
@@ -28,6 +30,10 @@ const routes: Routes =
     {path:'user-list',component:UserListComponent},
     {path:'user-details/:id',component:UserDetailComponent},
     {path:'customer-details-modal',component:CustomerDetailModalComponent},
+    {path:'documentType-details/:id',component:DocumentTypeDetailsComponent},
+    {path:'documentType-list',component:DocumentTypeListComponent},
+    {path:'user-details',component:UserDetailComponent},
+
   ];
 
 @NgModule({

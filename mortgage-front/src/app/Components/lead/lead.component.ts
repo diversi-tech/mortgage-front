@@ -2,19 +2,23 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Customer, Family_Status, Job_Status, TransactionTypeEnum } from '../../Models/Customer';
-import { customerService } from '../../services/costumer.service';
+import { customerService } from '../../Services/costumer.service';
 import { MatStepper } from '@angular/material/stepper';
 import { MaterialModule } from '../../material/material.module';
-import { leadService } from '../../services/lead.service';
+import { leadService } from '../../Services/lead.service';
 import { Role,User } from '../../Models/User';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../Services/user.service';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-lead',
   standalone: true,
-  imports: [MaterialModule, ReactiveFormsModule, CommonModule],
+  imports: [
+    MaterialModule,
+     ReactiveFormsModule
+    , CommonModule
+  ],
   templateUrl: './lead.component.html',
   styleUrls: ['./lead.component.css']
 })
