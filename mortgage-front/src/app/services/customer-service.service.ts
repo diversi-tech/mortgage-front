@@ -18,13 +18,11 @@ export class CustomerServiceService {
   }
   
   getById(id: number): Observable<any>{
-    console.log("hi");
     return this.http.get(`${this.apiUrl}/${id}`); // Use this.apiUrl
   }
 
   update(id: number, updatedData: any): Observable<any> {
-    console.log("Updating customer with ID:", id);
-    console.log("Data to be sent:", updatedData);
+    console.log("customer id",updatedData);
     return this.http.put(`${this.apiUrl}/${id}`, updatedData);
   }
 

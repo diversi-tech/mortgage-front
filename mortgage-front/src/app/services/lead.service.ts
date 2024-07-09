@@ -1,6 +1,6 @@
 
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Lead } from "../Models/Lead";
 
@@ -92,6 +92,11 @@ export class leadService {
   sendLink(): string {
     /*some logic */
     return 'http://localhost:4200/';;
+  }
+  
+  checkToken(id:number): Observable<HttpResponse<string>>{
+    console.log("i am here");
+    return this.http.get<string>(`https://localhost:7055/api/Email/validate-magic-link/${id}`,{ observe: 'response', responseType: 'text' as 'json'  })
   }
 
 }

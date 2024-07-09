@@ -10,6 +10,7 @@ import { Role,User } from '../../Models/user';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lead',
@@ -22,6 +23,10 @@ export class LeadComponent implements OnInit, AfterViewInit {
 
   @ViewChild('stepper')
   stepper!: MatStepper;
+  
+
+  
+
 
 
   user: User = {
@@ -141,7 +146,9 @@ export class LeadComponent implements OnInit, AfterViewInit {
       this.checkPasswordDigit();
       this.checkPasswordSpecialCharacter();
     });
+    console.log("hiiiiii");
     this.loadFormData();
+
   }
 
   checkPasswordLength() {

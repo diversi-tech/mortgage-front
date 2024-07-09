@@ -54,7 +54,7 @@ export class CustomerDetailModalComponent implements OnInit {
 
 
   constructor(private userService: UserService, private customerService: CustomerServiceService) { }
-  customerdata: any;
+  customerdata: any = {};
 
 
 
@@ -67,8 +67,8 @@ export class CustomerDetailModalComponent implements OnInit {
     if (customerId !== null) {
       this.customerService.getById(customerId).subscribe(
         response => {
-          this.customerdata = response;
-          console.log("hi", this.customerdata);
+          this.customerdata = response||{};
+          console.log("hffffffffffffi", this.customerdata);
         },
         error => {
           console.error('Error fetching data', error);
@@ -83,6 +83,10 @@ export class CustomerDetailModalComponent implements OnInit {
   }
 
   submitForm() {
+    if (!this.customerdata) {
+      console.error('Customer data is not available.');
+      return;
+    }
     // const formValues = {
     //   first_Name:this.firstName|| this.customerdata.first_Name || '',
     //   last_Name:this.lastName|| this.customerdata.last_Name || '',
@@ -129,7 +133,7 @@ export class CustomerDetailModalComponent implements OnInit {
 
     // Print or process formValues as needed
 
-    console.log('Submitted Data:', formValues);
+    //console.log('Submitted Data:', formValues);
     // Optionally, you could send formValues to a server or perform additional actions here
 
     this.isEditMode = false; // Exit edit mode after submission

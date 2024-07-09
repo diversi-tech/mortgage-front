@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NavigationMenuComponent } from '../navigation-menu/navigation-menu.component';
 // import { isMobile } from 'is-mobile' ;
-import { NavigatioMenuToggleService } from '../../Services/navigation-menu-toggle.service';
+//import { NavigatioMenuToggleService } from '../../Services/navigation-menu-toggle.service';
 import { LoginComponent } from '../login/login.component';
 //import { NavigatioMenuToggleService } from './services/navigation-menu-toggle.service';
 //import { NavigatioMenuToggleService } from '../../services/navigation-menu-toggle.service';
@@ -22,15 +22,13 @@ export class ToolbarComponent implements OnInit {
 
   // constructor(private authService:AuthLoginComponent) {}-variable to call the authService
   constructor(private NavigationMenuToggleService: NavigatioMenuToggleService) {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     //this.isMob=isMobile();
-=======
+
     // this.isMob=isMobile();
->>>>>>> 6e213548739412892921db2ea289e7742c6fc566
-    console.log(this.isMob);
-=======
->>>>>>> cefbe7fcb2a6a95b6230b21e8c38cb179217822f
+    //console.log(this.isMob);
+
+
     
    }
 
