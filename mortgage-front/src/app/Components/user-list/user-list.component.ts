@@ -2,7 +2,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { User } from '../../Models/user';
 import { Role, User } from '../../Models/User';
 
 import { UserListService } from '../../Services/user-list.service';

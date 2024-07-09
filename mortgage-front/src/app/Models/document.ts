@@ -3,8 +3,6 @@ export enum DocumentStatus {
     ממתין,
     הושלם
 }
-
-
 export class Document {
 
     id?: number;

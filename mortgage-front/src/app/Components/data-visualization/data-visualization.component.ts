@@ -4,7 +4,7 @@ import { customerService } from '../../Services/costumer.service';
 import { Customer } from '../../Models/Customer';
 import { Lead } from '../../Models/Lead';
 import { leadService } from '../../Services/lead.service';
-import { Document } from '../../Models/Document';
+import { Document } from '../../Models/document';
 import { DocumentsListCustomerService } from '../../Services/documentListCustomer.service';
 import { DocumentType } from '../../Models/DocumentTypes.Model';
 import { MaterialModule } from '../../material/material.module';

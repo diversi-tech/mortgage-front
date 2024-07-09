@@ -7,7 +7,7 @@ import { DocumentsListCustomerService } from '../../Services/documents-list-cust
 import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { DocumentStatus,Document } from '../../Models/Document';
+import { DocumentStatus,Document } from '../../Models/document';
 
 
 

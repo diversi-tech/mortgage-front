@@ -19,9 +19,7 @@ export class AppComponent {
     new ComponentInfo("רשימת משתמשים", "/user-list", "list"),
     new ComponentInfo(" פרטי לקוח", "/customer-details-modal", "list"),
     new ComponentInfo("כניסת לידים", "/leadLogin", "login"),
-    new ComponentInfo("רשימת משתמשים", "/user-list", "list"),
-    new ComponentInfo("רשימת מסמכים","/documentType-list","score")
-    new ComponentInfo("רשימת משתמשים", "/user-list", "list")
+    new ComponentInfo("רשימת מסמכים","/documentType-list","score"),
   ];
 
   title = 'mortgage-client';

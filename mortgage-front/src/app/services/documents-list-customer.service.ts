@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Injectable } from '@angular/core';
-import { Document } from '../Models/Document';
+import { Document } from '../Models/document';
 
 
 @Injectable({
