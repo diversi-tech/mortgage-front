@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { User } from '../../Models/user';
 import { UserListService } from '../../services/user-list.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { Role, User } from '../../Models/User';
+
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-list',
@@ -47,4 +49,14 @@ export class UserListComponent implements OnInit {
       }
     });
 }
+  getUserTypeString(value: Role): string {
+   
+    switch (Number(value)) {
+      case 0:
+        return "מנהל";
+      case 1:
+        return "לקוח";
+    }
+    return 'error';
+  }
 }

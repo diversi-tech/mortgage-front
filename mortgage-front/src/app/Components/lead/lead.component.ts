@@ -2,15 +2,18 @@
 import { AfterViewInit, Component, NgModule, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Customer, Family_Status, Job_Status, TransactionTypeEnum } from '../../Models/Customer';
-import { customerService } from '../../services/costumer.service';
+import { customerService } from '../../Services/costumer.service';
 import { MatStepper } from '@angular/material/stepper';
 import { MaterialModule } from '../../material/material.module';
-import { leadService } from '../../services/lead.service';
-import { Role,User } from '../../Models/user';
-import { UserService } from '../../services/user.service';
+
+import { leadService } from '../../Services/lead.service';
+import { Role,User } from '../../Models/User';
+import { UserService } from '../../Services/user.service';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UploadComponent } from '../file-upload/file-upload.component';
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-lead',
   standalone: true,
@@ -22,6 +25,10 @@ export class LeadComponent implements OnInit, AfterViewInit {
 
   @ViewChild('stepper')
   stepper!: MatStepper;
+  
+
+  
+
 
 
   user: User = {
@@ -141,7 +148,9 @@ export class LeadComponent implements OnInit, AfterViewInit {
       this.checkPasswordDigit();
       this.checkPasswordSpecialCharacter();
     });
+    console.log("hiiiiii");
     this.loadFormData();
+
   }
 
   checkPasswordLength() {

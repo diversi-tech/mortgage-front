@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { leadService } from '../../services/lead.service';
+import { leadService } from '../../Services/lead.service';
 import { catchError, tap, throwError } from 'rxjs';
 import { response } from 'express';
 @Component({

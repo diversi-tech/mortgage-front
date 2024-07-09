@@ -18,6 +18,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const modules=[
   MatTableModule,
@@ -27,7 +30,6 @@ const modules=[
   MatToolbarModule,
   MatIconModule,
   MatTableModule,
-  MatInputModule,
   MatFormFieldModule,
   MatPaginatorModule,
   MatSortModule,
@@ -36,7 +38,11 @@ const modules=[
    MatCheckboxModule,
    MatFormFieldModule,
    MatStepperModule,
-   MatSelectModule
+   MatSelectModule,
+   MatIcon,
+   MatToolbarModule,
+   MatFormField,
+   MatTooltipModule
 ]
 
 @NgModule({
@@ -49,4 +55,3 @@ const modules=[
   
 })
 export class MaterialModule { }
-
