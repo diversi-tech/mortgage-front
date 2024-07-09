@@ -159,6 +159,7 @@
   <mat-step [stepControl]="fourthFormGroup">
     <form [formGroup]="fourthFormGroup">
       <ng-template matStepLabel>העלאת מסמכים</ng-template>
+      <!-- <app-upload></app-upload> -->
       <input type="file" (change)="onFileChange($event)" multiple>
       <div *ngFor="let file of uploadedFiles; let i = index">
         <span (click)="viewDocument(file)" style="cursor:pointer; color:blue;">

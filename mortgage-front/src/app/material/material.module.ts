@@ -15,22 +15,25 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const modules=[
   MatTableModule,
-  MatListModule,
-  MatButtonModule,MatCardModule,MatGridListModule,
+  MatListModule,MatSnackBarModule,
+  MatButtonModule,MatCardModule,MatGridListModule,MatProgressBarModule,
   MatSidenavModule,
   MatToolbarModule,
   MatIconModule,
   MatTableModule,
-  MatInputModule,
   MatFormFieldModule,
   MatPaginatorModule,
   MatSortModule,
@@ -42,7 +45,8 @@ const modules=[
    MatSelectModule,
    MatIcon,
    MatToolbarModule,
-   MatFormField
+   MatFormField,
+   MatTooltipModule
 ]
 
 @NgModule({

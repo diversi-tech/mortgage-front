@@ -1,7 +1,6 @@
 * {
   font-size: 20px;
   text-align: right;
-  background-color: white !important;
   color: black;
   scroll-behavior: smooth;
 }
@@ -42,6 +41,19 @@ a{
 }
 
 
+.container{
+  height: 100vh;
+  background-image: url("/assets/background.jpg");
+  background-size: cover;  
+}
+.main-content{
+  // height: 100vh;
+  // background-image: url("/assets/back.jpg");
+  // background-size: cover;
+  // background-attachment:scroll;
+
+
+}
 // my
 // .main-content {
 //   padding: 20px;
@@ -144,6 +156,9 @@ mat-icon {
 // background-size: cover;
 }
 mat-sidenav-container{
-  background-image: url('/assets/Mortgage2.bak.webp');
+  // background-image: url('/assets/Mortgage2.bak.webp');
   background-size: cover;
 }
+// mat-sidenav-container{
+ 
+// }

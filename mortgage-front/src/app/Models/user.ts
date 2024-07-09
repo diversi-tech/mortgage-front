@@ -2,6 +2,7 @@ export enum Role {
     Admin,
     Customer
 }
+
 export class User {
     id?: number;
     userName?: string;

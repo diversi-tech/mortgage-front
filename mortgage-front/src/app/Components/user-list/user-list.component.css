@@ -59,7 +59,9 @@
   font-weight: bold !important;
 
  }
-
+ tr:hover{
+  background-color: rgba(178, 189, 202, 0.058)!important;
+}
  .rtl-table-wrapper {
    width: 100%;
  }

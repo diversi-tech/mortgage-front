@@ -11,8 +11,8 @@ import { leadService } from '../../Services/lead.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MaterialModule } from '../../material/material.module';
 import { CommonModule } from '@angular/common';
-
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { magicLinkService } from '../../Services/magicLinkService';
 @Component({
   selector: 'lead-list',
   standalone: true,
@@ -25,14 +25,19 @@ import { CommonModule } from '@angular/common';
 })
 export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
   displayedColumns = ['link','first_Name', 'phone', 'email', 'actions'];
-  dataSource: MatTableDataSource<Customer> = new MatTableDataSource<Lead>();
+  dataSource: MatTableDataSource<Lead> = new MatTableDataSource<Lead>();
   private leadsSubscription?: Subscription;
   emailSubject = 'לחץ על הקישור כדי להיכנס לאתר';
   link = this.leadService.sendLink();
   whatsappMessage = "לחץ על הקישור כדי להיכנס לאתר\n" + this.link;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  constructor(private leadService: leadService, private router: Router, public dialog: MatDialog) { }
+  constructor(private leadService: leadService,
+     private router: Router, 
+     public dialog: MatDialog,
+     private magicLinkService: magicLinkService,
+      private _snackBar: MatSnackBar
+    ) { }
 
   ngOnInit(): void {
     this.loadLeads();
@@ -102,4 +107,20 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
       }
     });
   }
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000, // Duration in milliseconds for how long the snackbar should be visible
+    });
+  }
+sendLink(id: number) {
+  this.magicLinkService.sendMagicLink(id).subscribe({
+    next: response => {
+      this.openSnackBar('Link sent successfully!', 'Close');
+    },
+    error: error => {
+      console.error('Error sending  link:', error);
+      this.openSnackBar('Failed to send  link.', 'Close');
+    }
+  });
+}
 }

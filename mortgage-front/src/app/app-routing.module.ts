@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
 import { DocumentDefinitionComponent } from './Components/document-definition/document-definition.component';
@@ -13,12 +13,16 @@ import { UserListComponent } from './Components/user-list/user-list.component';
 import { UserDetailComponent } from './Components/user-detail/user-detail.component';
 import { DocumentTypeDetailsComponent } from './Components/document-type-details/document-type-details.component';
 import { DocumentTypeListComponent } from './Components/document-type-list/document-type-list.component';
+import { UploadComponent } from './Components/file-upload/file-upload.component';
+
+import { DocumentsListCustomerComponent } from './Components/documents-list-customer/documents-list-customer.component';
 
 
 const routes: Routes =
   [
     { path: 'data', component: DataVisualizationComponent },
-    { path: 'doc', component: DocumentDefinitionComponent },
+    {path:'doc-list',component:DocumentsListCustomerComponent},
+    { path: 'doc', component: UploadComponent },
     { path: 'login', component: LoginComponent },
     { path: 'magic-link', component: MagicLinkComponent },
     { path: 'customer-list', component: CustomerListComponent },

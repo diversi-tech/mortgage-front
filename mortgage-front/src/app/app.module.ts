@@ -1,4 +1,4 @@
-import {  NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,8 +15,11 @@ import { LoginComponent } from './Components/login/login.component';
 import { customerService } from './Services/costumer.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { LeadListComponent } from './Components/lead-list/lead-list.component';
 import { leadService } from './Services/lead.service';
+import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dialog.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
 import { DocumentsListCustomerService } from './Services/documentListCustomer.service';
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
 import { CommonModule } from '@angular/common';
@@ -26,13 +29,19 @@ import { UserService } from './Services/user.service';
 import { FooterComponent } from './Components/footer/footer.component';
 import { DocumentTypeDetailsComponent } from './Components/document-type-details/document-type-details.component';
 import { DocumentTypeListComponent } from './Components/document-type-list/document-type-list.component';
+import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
+import { magicLinkService } from './Services/magicLinkService';
+import { DocumentTypeService } from './Services/documentType.service';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UserListComponent,
+    UserDetailComponent,
+    ToolbarComponent,
+    AppComponent, FooterComponent,
   ],
-
   imports: [
     UserListComponent,
     UserDetailComponent,
@@ -41,21 +50,20 @@ import { DocumentTypeListComponent } from './Components/document-type-list/docum
     DocumentTypeDetailsComponent,
     DocumentTypeListComponent,
     BrowserModule, MaterialModule, FormsModule, ReactiveFormsModule,
-    AppRoutingModule,LeadComponent,
-    RouterModule, 
-    HttpClientModule, MatFormFieldModule, MatInputModule,
-    NavigationMenuComponent
-    ,CanvasJSAngularChartsModule,BrowserAnimationsModule,
+    AppRoutingModule, LeadComponent,
+    RouterModule, CommonModule,
+    HttpClientModule, MatFormFieldModule, MatInputModule
+    , CanvasJSAngularChartsModule, BrowserAnimationsModule,
     NavigationMenuComponent, DataVisualizationComponent
-    ,CanvasJSAngularChartsModule,LoginComponent
+    , LoginComponent,
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    customerService, leadService, DocumentsListCustomerService,UserService
+    customerService, leadService, DocumentsListCustomerService, UserService, DocumentTypeService,magicLinkService
   ],
   bootstrap: [AppComponent],
 })
 
-  // entryComponents: [Dialog] // ensure your dialog component is listed here
+// entryComponents: [ConfirmDialog] // ensure your dialog component is listed here
 export class AppModule { }
