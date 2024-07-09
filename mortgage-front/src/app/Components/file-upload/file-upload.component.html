@@ -1,0 +1,31 @@
+<div class="container">
+  <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden />
+  <button mat-raised-button color="primary" (click)="triggerFileInput()">
+    <mat-icon>upload</mat-icon>
+    Select File
+  </button>
+
+  <button mat-raised-button color="accent" [disabled]="!selectedFile" (click)="onUpload()">
+    Upload
+  </button>
+  @if(uploadedFileName){
+  <h3>{{uploadedFileName}}</h3>}
+  <!-- @if(showMsg){
+  <h3 id="msg">{{message}}</h3>
+  } -->
+  @if(uploadProgress>0){
+  <div class="progress-bar">
+    <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+    Upload Progress: {{ uploadProgress }}%
+  </div>
+  }
+
+  <hr />
+
+
+
+  <!-- 
+  <div *ngIf="uploadedFileName">
+    <button (click)="onDownload(uploadedFileName)">Download Uploaded File</button>
+  </div>
+</div> -->

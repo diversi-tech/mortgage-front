@@ -11,12 +11,13 @@ import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-
 import { LeadComponent } from './Components/lead/lead.component';
 import { UserListComponent } from './Components/user-list/user-list.component';
 import { UserDetailComponent } from './Components/user-detail/user-detail.component';
+import { UploadComponent } from './Components/file-upload/file-upload.component';
 
 
 const routes: Routes =
   [
     { path: 'data', component: DataVisualizationComponent },
-    { path: 'doc', component: DocumentDefinitionComponent },
+    { path: 'doc', component: UploadComponent },
     { path: 'login', component: LoginComponent },
     { path: 'magic-link', component: MagicLinkComponent },
     { path: 'customer-list', component: CustomerListComponent },

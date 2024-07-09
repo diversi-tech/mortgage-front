@@ -1,5 +1,5 @@
 // lead.component.ts
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, NgModule, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Customer, Family_Status, Job_Status, TransactionTypeEnum } from '../../Models/Customer';
 import { customerService } from '../../services/costumer.service';
@@ -10,7 +10,7 @@ import { Role,User } from '../../Models/user';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { UploadComponent } from '../file-upload/file-upload.component';
 @Component({
   selector: 'app-lead',
   standalone: true,

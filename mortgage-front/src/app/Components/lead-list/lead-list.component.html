@@ -1,4 +1,5 @@
 <div id="content">
+  
 <mat-form-field dir="rtl">
   <mat-label>חפש</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="לדוג. שם">
@@ -8,9 +9,11 @@
   <ng-container matColumnDef="link">
     <th mat-header-cell *matHeaderCellDef>שליחת קישור</th>
     <td mat-cell *matCellDef="let lead">
-      <a mat-icon-button color="warn" [href]="encodeMailtoLink(lead?.email, emailSubject, link)">
+      <button mat-icon-button color="warn" (click)="sendLink(lead.id)">
+      <!-- <a mat-icon-button color="warn" [href]="encodeMailtoLink(lead?.email, emailSubject, link)"> -->
         <mat-icon>mail</mat-icon>
-      </a>
+      <!-- </a> -->
+    </button>
       <a mat-icon-button color="warn" [href]="encodeWhatsAppLink(lead?.phone, whatsappMessage)">
         <svg viewBox="0 0 32 32" class="whatsapp-ico">
           <path

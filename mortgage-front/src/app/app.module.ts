@@ -1,4 +1,4 @@
-import {  NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +27,7 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { LeadComponent } from './Components/lead/lead.component';
 import { UserService } from './services/user.service';
 import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
+import { magicLinkService } from './services/magicLinkService';
 
 
 @NgModule({
@@ -35,25 +36,25 @@ import { CustomerDetailModalComponent } from './Components/customer-detail-modal
     UserDetailComponent,
     ToolbarComponent,
     AppComponent
-    ],
+  ],
 
   imports: [
     BrowserModule, MaterialModule, FormsModule, ReactiveFormsModule,
-    AppRoutingModule,LeadComponent,
+    AppRoutingModule, LeadComponent,
     RouterModule, CommonModule,
     HttpClientModule, MatFormFieldModule, MatInputModule,
     NavigationMenuComponent
-    ,CanvasJSAngularChartsModule,BrowserAnimationsModule,
+    , CanvasJSAngularChartsModule, BrowserAnimationsModule,
     NavigationMenuComponent, DataVisualizationComponent
-    ,CanvasJSAngularChartsModule,LoginComponent
+    , CanvasJSAngularChartsModule, LoginComponent
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    customerService, leadService, DocumentsListCustomerService,UserService
+    customerService, leadService, DocumentsListCustomerService, UserService,magicLinkService
   ],
   bootstrap: [AppComponent],
 })
 
-  // entryComponents: [ConfirmDialog] // ensure your dialog component is listed here
+// entryComponents: [ConfirmDialog] // ensure your dialog component is listed here
 export class AppModule { }

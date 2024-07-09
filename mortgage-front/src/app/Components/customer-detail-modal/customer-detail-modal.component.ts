@@ -5,7 +5,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
-import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { CustomerServiceService } from '../../services/customer-service.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -24,7 +23,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserModule,
     MatIconModule,
     HttpClientModule,
     MatTooltipModule
@@ -50,17 +48,11 @@ export class CustomerDetailModalComponent implements OnInit {
     { value: 'Website', viewValue: 'Website', icon: 'public' }
   ];
 
-
-
-
-
   constructor(private userService: UserService, private customerService: CustomerServiceService) { }
   customerdata: any;
 
-
-
   ngOnInit(): void {
-    sessionStorage.setItem('customerid', '1002');
+    sessionStorage.setItem('customerid', '2');
     const customervalue = sessionStorage.getItem('customerid');
     const customerId: number | null = customervalue !== null ? Number(customervalue) : null;
     console.log(customerId);
@@ -94,38 +86,38 @@ export class CustomerDetailModalComponent implements OnInit {
     // };
     const currentDate = new Date().toISOString();
     const formValues = {
-      lead_id: this.customerdata.lead_id || 0,
-      first_Name: this.firstName || this.customerdata.first_Name || '',
-      last_Name: this.lastName || this.customerdata.last_Name || '',
-      email: this.email || this.customerdata.email || '',
-      phone: this.phone || this.customerdata.phone || '',
-      address: this.adress || this.customerdata.address || '',
-      connection:  this.customerdata.connection || 0,
-      t_z:  this.customerdata.t_z || 'string',
-      birthDate:  this.customerdata.birthDate || '2024-06-30T08:02:22.761',
-      family_status: this.customerdata.family_status || 0,
-      number_of_people_in_house:  this.customerdata.number_of_people_in_house || 0,
-      job_status:  this.customerdata.job_status || 0,
-      work_business_name: this.customerdata.work_business_name || 'try',
-      job_description:  this.customerdata.job_description || 'try',
-      avarage_monthly_salary:  this.customerdata.avarage_monthly_salary || 0,
-      years_in_current_position:  this.customerdata.years_in_current_position || 0,
-      income_rent:  this.customerdata.income_rent || 0,
-      income_Government_Endorsement:  this.customerdata.income_Government_Endorsement || 0,
-      income_other:  this.customerdata.income_other || 0,
-      expenses_rent:  this.customerdata.expenses_rent || 0,
-      expenses_loans:  this.customerdata.expenses_loans || 0,
-      expenses_other:  this.customerdata.expenses_other || 0,
-      property_city: this.customerdata.property_city || 'try',
-      transaction_type:  this.customerdata.transaction_type || 0,
-      estimated_price_by_customer:  this.customerdata.estimated_price_by_customer || 0,
-      estimated_price_by_sales_agreement:  this.customerdata.estimated_price_by_sales_agreement || 0,
-      has_other_properties:  this.customerdata.has_other_properties || true,
-      amount_of_loan_requested:  this.customerdata.amount_of_loan_requested || 0,
-      lastSynced:  this.customerdata.lastSynced || currentDate,
-      isArchived: this.customerdata.isArchived || true,
-      created_at:  this.customerdata.created_at || '2024-06-30T08:02:22.761',
-      updated_at:  this.customerdata.updated_at || currentDate,
+      lead_id: this?.customerdata.lead_id || 0,
+      first_Name: this?.firstName || this?.customerdata.first_Name || '',
+      last_Name: this?.lastName || this?.customerdata.last_Name || '',
+      email: this?.email || this?.customerdata.email || '',
+      phone: this?.phone || this?.customerdata.phone || '',
+      address: this?.adress || this?.customerdata.address || '',
+      connection:  this?.customerdata.connection || 0,
+      t_z:  this?.customerdata.t_z || 'string',
+      birthDate:  this?.customerdata.birthDate || '2024-06-30T08:02:22.761',
+      family_status: this?.customerdata.family_status || 0,
+      number_of_people_in_house:  this?.customerdata.number_of_people_in_house || 0,
+      job_status:  this?.customerdata.job_status || 0,
+      work_business_name: this?.customerdata.work_business_name || 'try',
+      job_description:  this?.customerdata.job_description || 'try',
+      avarage_monthly_salary:  this?.customerdata.avarage_monthly_salary || 0,
+      years_in_current_position:  this?.customerdata.years_in_current_position || 0,
+      income_rent:  this?.customerdata.income_rent || 0,
+      income_Government_Endorsement:  this?.customerdata.income_Government_Endorsement || 0,
+      income_other:  this?.customerdata.income_other || 0,
+      expenses_rent:  this?.customerdata.expenses_rent || 0,
+      expenses_loans:  this?.customerdata.expenses_loans || 0,
+      expenses_other:  this?.customerdata.expenses_other || 0,
+      property_city: this?.customerdata.property_city || 'try',
+      transaction_type:  this?.customerdata.transaction_type || 0,
+      estimated_price_by_customer:  this?.customerdata.estimated_price_by_customer || 0,
+      estimated_price_by_sales_agreement:  this?.customerdata.estimated_price_by_sales_agreement || 0,
+      has_other_properties:  this?.customerdata.has_other_properties || true,
+      amount_of_loan_requested:  this?.customerdata.amount_of_loan_requested || 0,
+      lastSynced:  this?.customerdata.lastSynced || currentDate,
+      isArchived: this?.customerdata.isArchived || true,
+      created_at:  this?.customerdata.created_at || '2024-06-30T08:02:22.761',
+      updated_at:  this?.customerdata.updated_at || currentDate,
     };
 
     // Print or process formValues as needed
