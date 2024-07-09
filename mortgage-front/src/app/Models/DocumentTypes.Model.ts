@@ -1,10 +1,10 @@
 
 export enum TransactionType {
-    New,
-    Old,
-    Renovation,
-    Other,
-    PricePerTenant
+   ' חדש',
+   ' ישן',
+   ' שיפוץ',
+   ' אחר',
+    'מחיר למשתכן'
 }
 export class DocumentType {
     id?: number;

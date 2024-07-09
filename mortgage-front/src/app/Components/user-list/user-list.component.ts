@@ -2,8 +2,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { User } from '../../Models/user';
-import { UserListService } from '../../services/user-list.service';
+import { Role, User } from '../../Models/User';
+
+import { UserListService } from '../../Services/user-list.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -34,5 +35,15 @@ export class UserListComponent implements OnInit {
     this.userListService.deleteUserById(id).subscribe(() => {
       this.users$.data = this.users$.data.filter(user => user.id !== id);
     });
+  }
+  getUserTypeString(value: Role): string {
+   
+    switch (Number(value)) {
+      case 0:
+        return "מנהל";
+      case 1:
+        return "לקוח";
+    }
+    return 'error';
   }
 }

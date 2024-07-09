@@ -1,11 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NavigationMenuComponent } from '../navigation-menu/navigation-menu.component';
 // import { isMobile } from 'is-mobile' ;
-//import { NavigatioMenuToggleService } from '../../Services/navigation-menu-toggle.service';
-import { LoginComponent } from '../login/login.component';
-//import { NavigatioMenuToggleService } from './services/navigation-menu-toggle.service';
-//import { NavigatioMenuToggleService } from '../../services/navigation-menu-toggle.service';
 import { NavigatioMenuToggleService } from '../../services/navigation-menu-toggle.service';
+import { LoginComponent } from '../login/login.component';
+
+
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -22,13 +21,6 @@ export class ToolbarComponent implements OnInit {
 
   // constructor(private authService:AuthLoginComponent) {}-variable to call the authService
   constructor(private NavigationMenuToggleService: NavigatioMenuToggleService) {
-
-    //this.isMob=isMobile();
-
-    // this.isMob=isMobile();
-    //console.log(this.isMob);
-
-
     
    }
 

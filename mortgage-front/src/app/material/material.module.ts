@@ -17,6 +17,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 const modules=[
   MatTableModule,
   MatListModule,
@@ -25,7 +27,6 @@ const modules=[
   MatToolbarModule,
   MatIconModule,
   MatTableModule,
-  MatInputModule,
   MatFormFieldModule,
   MatPaginatorModule,
   MatSortModule,
@@ -37,7 +38,8 @@ const modules=[
    MatSelectModule,
    MatIcon,
    MatToolbarModule,
-   MatFormField
+   MatFormField,
+   MatTooltipModule
 ]
 
 @NgModule({
@@ -50,4 +52,3 @@ const modules=[
   
 })
 export class MaterialModule { }
-

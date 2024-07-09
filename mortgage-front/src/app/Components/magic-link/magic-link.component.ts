@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { leadService } from '../../services/lead.service';
+//import { leadService } from '../../services/lead.service';
+import { leadService } from '../../Services/lead.service';
 import { response } from 'express';
 import { NgIf } from '@angular/common';
 
