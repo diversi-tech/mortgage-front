@@ -9,7 +9,9 @@ import { BidiModule } from '@angular/cdk/bidi';
 import { MaterialModule } from '../../material/material.module';
 import { MatSidenav } from '@angular/material/sidenav';
 import { isPlatformBrowser } from '@angular/common';
-import { NavigatioMenuToggleService } from '../../Services/navigation-menu-toggle.service';
+//import { NavigatioMenuToggleService } from '../../Services/navigation-menu-toggle.service';
+//import { CustomerDetailModalComponent } from '../customer-detail-modal/customer-detail-modal.component';
+import { NavigatioMenuToggleService } from '../../services/navigation-menu-toggle.service';
 
 @Component({
   selector: 'navigation-menu',
@@ -46,9 +48,10 @@ export class NavigationMenuComponent  implements OnInit {
 
   private toggleSidenav(width: number): void {
     if (width < 900) {
+      this.navigationMenuService.setOpen(false)
       this.sidenav?.close();
-      this.navigationMenuService.toggle()
-    } else {      
+    } else { 
+      this.navigationMenuService.setOpen(true)
       this.sidenav?.open();
     }
   }

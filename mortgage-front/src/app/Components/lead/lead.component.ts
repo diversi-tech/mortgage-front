@@ -5,9 +5,10 @@ import { Customer, Family_Status, Job_Status, TransactionTypeEnum } from '../../
 import { customerService } from '../../Services/costumer.service';
 import { MatStepper } from '@angular/material/stepper';
 import { MaterialModule } from '../../material/material.module';
-import { leadService } from '../../Services/lead.service';
-import { Role,User } from '../../Models/user';
-import { UserService } from '../../Services/user.service';
+
+import { leadService } from '../../services/lead.service';
+import { Role,User } from '../../Models/User';
+import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 

@@ -13,11 +13,13 @@ import { UserListComponent } from './Components/user-list/user-list.component';
 import { UserDetailComponent } from './Components/user-detail/user-detail.component';
 import { DocumentTypeListComponent } from './Components/document-type-list/document-type-list.component';
 
+import { DocumentsListCustomerComponent } from './Components/documents-list-customer/documents-list-customer.component';
+
 
 const routes: Routes =
   [
     { path: 'data', component: DataVisualizationComponent },
-    { path: 'doc', component: DocumentDefinitionComponent },
+    { path: 'doc', component: DocumentsListCustomerComponent },
     { path: 'login', component: LoginComponent },
     { path: 'magic-link', component: MagicLinkComponent },
     { path: 'customer-list', component: CustomerListComponent },
@@ -29,9 +31,6 @@ const routes: Routes =
     {path:'user-list',component:UserListComponent},
     {path:'user-details/:id',component:UserDetailComponent},
     {path:'documentType-list',component:DocumentTypeListComponent}
-    
-
-
   ];
 
 @NgModule({
