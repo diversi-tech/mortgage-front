@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
 import { DocumentDefinitionComponent } from './Components/document-definition/document-definition.component';
@@ -11,6 +11,7 @@ import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-
 import { LeadComponent } from './Components/lead/lead.component';
 import { UserListComponent } from './Components/user-list/user-list.component';
 import { UserDetailComponent } from './Components/user-detail/user-detail.component';
+import { DocumentTypeListComponent } from './Components/document-type-list/document-type-list.component';
 
 
 const routes: Routes =
@@ -26,7 +27,11 @@ const routes: Routes =
     {path:'leadLogin',component:LeadComponent},
     {path:'lead-details/:id',component:LeadDetailComponent},
     {path:'user-list',component:UserListComponent},
-    {path:'user-details/:id',component:UserDetailComponent}
+    {path:'user-details/:id',component:UserDetailComponent},
+    {path:'documentType-list',component:DocumentTypeListComponent}
+    
+
+
   ];
 
 @NgModule({
