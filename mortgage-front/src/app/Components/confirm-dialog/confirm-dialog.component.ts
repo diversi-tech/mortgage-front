@@ -40,7 +40,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   selector: 'confirm-dialog',
   standalone: true,
   styles: [``],
-  imports: [MaterialModule, CommonModule],
+  imports: [
+    MaterialModule,
+    CommonModule
+  ],
   template: `
     <div  style="text-align: right;padding:20px">
       <h3 mat-dialog-title dir="rtl">{{ getTitle() }}</h3>

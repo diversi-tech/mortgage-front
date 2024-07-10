@@ -26,20 +26,26 @@ import { CommonModule } from '@angular/common';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { LeadComponent } from './Components/lead/lead.component';
 import { UserService } from './Services/user.service';
-import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
-import { magicLinkService } from './services/magicLinkService';
-
-
 import { FooterComponent } from './Components/footer/footer.component';
+import { DocumentTypeDetailsComponent } from './Components/document-type-details/document-type-details.component';
+import { DocumentTypeListComponent } from './Components/document-type-list/document-type-list.component';
+import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
+import { magicLinkService } from './Services/magicLinkService';
 import { DocumentTypeService } from './Services/documentType.service';
+
+
 @NgModule({
   declarations: [
+    AppComponent
+  ],
+  imports: [
+
     UserListComponent,
     UserDetailComponent,
     ToolbarComponent,
-    AppComponent, FooterComponent,
-  ],
-  imports: [
+    FooterComponent,
+    DocumentTypeDetailsComponent,
+    DocumentTypeListComponent,
     BrowserModule, MaterialModule, FormsModule, ReactiveFormsModule,
     AppRoutingModule, LeadComponent,
     RouterModule, CommonModule,
@@ -56,6 +62,5 @@ import { DocumentTypeService } from './Services/documentType.service';
   bootstrap: [AppComponent],
 })
 
-// entryComponents: [ConfirmDialog] // ensure your dialog component is listed here
 // entryComponents: [ConfirmDialog] // ensure your dialog component is listed here
 export class AppModule { }

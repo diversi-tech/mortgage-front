@@ -4,12 +4,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DocumentsListCustomerService } from '../../services/documents-list-customer.service';
-import { Observable, Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import {  Subscription } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { DocumentStatus,Document } from '../../Models/document';
-
-
+import { DocumentStatus,Document } from '../../Models/Document';
 
 
 @Component({

@@ -12,11 +12,14 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { MaterialModule } from '../../material/material.module';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { magicLinkService } from '../../services/magicLinkService';
+import { magicLinkService } from '../../Services/magicLinkService';
 @Component({
   selector: 'lead-list',
   standalone: true,
-  imports: [MaterialModule, CommonModule],
+  imports: [
+    MaterialModule,
+     CommonModule
+  ],
   templateUrl: './lead-list.component.html',
   styleUrl: './lead-list.component.scss'
 })

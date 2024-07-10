@@ -4,15 +4,20 @@ import { customerService } from '../../Services/costumer.service';
 import { Customer } from '../../Models/Customer';
 import { Lead } from '../../Models/Lead';
 import { leadService } from '../../Services/lead.service';
-import { Document } from '../../Models/document';
+import { Document } from '../../Models/Document';
 import { DocumentsListCustomerService } from '../../Services/documentListCustomer.service';
 import { DocumentType } from '../../Models/DocumentTypes.Model';
 import { MaterialModule } from '../../material/material.module';
 import { CommonModule } from '@angular/common';
+
+
 @Component({
   selector: 'app-data-visualization',
   standalone: true,
-  imports: [CanvasJSAngularChartsModule, MaterialModule, CommonModule],
+  imports: [CanvasJSAngularChartsModule, 
+    MaterialModule,
+     CommonModule
+  ],
   templateUrl: './data-visualization.component.html',
   styleUrl: './data-visualization.component.scss',
 

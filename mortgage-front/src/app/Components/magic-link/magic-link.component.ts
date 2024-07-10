@@ -1,3 +1,11 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BidiModule } from '@angular/cdk/bidi';
+import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
+import { CommonModule } from '@angular/common';
+import { AppRoutingModule } from '../../app-routing.module';
+import { MaterialModule } from '../../material/material.module';
+import { RouterModule } from '@angular/router';
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 //import { leadService } from '../../services/lead.service';
@@ -7,10 +15,16 @@ import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-magic-link',
-  templateUrl: './magic-link.component.html',
-  styleUrl: './magic-link.component.css',
   standalone: true,
-  imports: [NgIf],
+  imports: [ BrowserAnimationsModule, BidiModule,CdkMenu,CdkMenuItem,RouterModule,
+    CommonModule,
+    CdkMenuTrigger,
+    AppRoutingModule
+    ,MaterialModule,
+    NgIf
+  ],
+  templateUrl: './magic-link.component.html',
+  styleUrl: './magic-link.component.css'
 })
 export class MagicLinkComponent implements OnInit {
   id: number | null = null;;

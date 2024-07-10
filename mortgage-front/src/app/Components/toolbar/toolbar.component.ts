@@ -3,10 +3,23 @@ import { NavigationMenuComponent } from '../navigation-menu/navigation-menu.comp
 // import { isMobile } from 'is-mobile' ;
 import { NavigatioMenuToggleService } from '../../services/navigation-menu-toggle.service';
 import { LoginComponent } from '../login/login.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BidiModule } from '@angular/cdk/bidi';
+import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
+import { CommonModule } from '@angular/common';
+import { AppRoutingModule } from '../../app-routing.module';
+import { MaterialModule } from '../../material/material.module';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
+  standalone: true,
+  imports: [ BrowserAnimationsModule, BidiModule,CdkMenu,CdkMenuItem,RouterModule,
+    CommonModule,
+    CdkMenuTrigger,
+    AppRoutingModule
+    ,MaterialModule
+  ],
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.css'],
   providers: [NavigationMenuComponent]

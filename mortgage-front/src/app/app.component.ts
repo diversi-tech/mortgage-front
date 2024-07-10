@@ -1,9 +1,10 @@
 import { Component} from '@angular/core';
 import { ComponentInfo } from './Models/componentInfo';
-//import { NavigatioMenuToggleService } from '../../Services/navigation-menu-toggle.service';
 import { NavigatioMenuToggleService } from './services/navigation-menu-toggle.service';
+
 @Component({
   selector: 'app-root',
+  
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Document } from '../Models/document';
+import { Document } from '../Models/Document';
 import { DocumentType } from '../Models/DocumentTypes.Model';
 
 @Injectable({

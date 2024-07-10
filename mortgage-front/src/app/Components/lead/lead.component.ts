@@ -5,7 +5,6 @@ import { Customer, Family_Status, Job_Status, TransactionTypeEnum } from '../../
 import { customerService } from '../../Services/costumer.service';
 import { MatStepper } from '@angular/material/stepper';
 import { MaterialModule } from '../../material/material.module';
-
 import { leadService } from '../../Services/lead.service';
 import { Role,User } from '../../Models/User';
 import { UserService } from '../../Services/user.service';
@@ -17,7 +16,11 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-lead',
   standalone: true,
-  imports: [MaterialModule, ReactiveFormsModule, CommonModule],
+  imports: [
+    MaterialModule,
+     ReactiveFormsModule
+    , CommonModule
+  ],
   templateUrl: './lead.component.html',
   styleUrls: ['./lead.component.css']
 })

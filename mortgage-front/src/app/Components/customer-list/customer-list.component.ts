@@ -13,7 +13,10 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 @Component({
   selector: 'customer-list',
   standalone: true,
-  imports: [MaterialModule, CommonModule],
+  imports: [
+    MaterialModule,
+     CommonModule
+  ],
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.scss'],
   encapsulation: ViewEncapsulation.None

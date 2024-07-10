@@ -1,4 +1,3 @@
-
 export enum TransactionType {
    ' חדש',
    ' ישן',
@@ -6,9 +5,10 @@ export enum TransactionType {
    ' אחר',
     'מחיר למשתכן'
 }
+  
 export class DocumentType {
     id?: number;
     transaction_Type?: TransactionType;
-    document_name?: string;
+    document_Name?: string;
     required?: boolean
 }  
