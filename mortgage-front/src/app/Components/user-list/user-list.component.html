@@ -1,57 +1,60 @@
-<div class="form-field-div">
-<mat-form-field class="form-field" dir="rtl">
-    <mat-label>חפש</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="לדוג. שם">
-</mat-form-field>
-</div>
+<div id="content">
+    <div class="form-field-div">
+        <mat-form-field class="form-field" dir="rtl">
+            <mat-label>חפש</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="לדוג. שם">
+        </mat-form-field>
+    </div>
 
-<div class="rtl-table-wrapper">
-    <table mat-table [dataSource]="users$" matSort class="mat-elevation-z8 table-user" dir="rtl">
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>תעודת זהות</th>
-            <td mat-cell *matCellDef="let user">{{ user.id }}</td>
-        </ng-container>
-        <ng-container matColumnDef="userName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>שם</th>
-            <td mat-cell *matCellDef="let user">{{ user.userName }}</td>
-        </ng-container>
+    <div class="rtl-table-wrapper">
+        <table mat-table [dataSource]="users$" matSort class="mat-elevation-z8 table-user" dir="rtl">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>תעודת זהות</th>
+                <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+            </ng-container>
+            <ng-container matColumnDef="userName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>שם</th>
+                <td mat-cell *matCellDef="let user">{{ user.userName }}</td>
+            </ng-container>
 
-        <ng-container matColumnDef="password">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>ססמה</th>
-            <td mat-cell *matCellDef="let user">{{ user.password }}</td>
-        </ng-container>
-        <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>אי-מייל</th>
-            <td mat-cell *matCellDef="let user">{{user.email}}</td>
-        </ng-container>
-        <ng-container matColumnDef="role">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>תפקיד</th>
-            <td mat-cell *matCellDef="let user">{{getUserTypeString(user.role)}}</td>
-        </ng-container>
-        <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>פעולות</th>
-            <td mat-cell *matCellDef="let user">
-                <button mat-icon-button color="primary"  [routerLink]="['/user-details', user.id]">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button color="warn" (click)="deleteUser(user.id)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </td>
-        </ng-container>
+            <ng-container matColumnDef="password">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>ססמה</th>
+                <td mat-cell *matCellDef="let user">{{ user.password }}</td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>אי-מייל</th>
+                <td mat-cell *matCellDef="let user">{{user.email}}</td>
+            </ng-container>
+            <ng-container matColumnDef="role">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>תפקיד</th>
+                <td mat-cell *matCellDef="let user">{{getUserTypeString(user.role)}}</td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>פעולות</th>
+                <td mat-cell *matCellDef="let user">
+                    <button mat-icon-button color="primary" [routerLink]="['/user-details', user.id]">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="deleteUser(user.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-</div>
-<br>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    <br>
 
-<button mat-fab color="primary" class="add-button" [routerLink]="['/user-details', '-1']"
-    style="position: fixed;bottom: 8vh;left: 2vw;z-index: 1000;">
-    <mat-icon class="add-icon">add</mat-icon>
-</button>
+    <button mat-fab color="primary" class="add-button" [routerLink]="['/user-details', '-1']"
+        style="position: fixed;bottom: 8vh;left: 2vw;z-index: 1000;">
+        <mat-icon class="add-icon">add</mat-icon>
+    </button>
 
 
-<div class="page-div">
-<mat-paginator class="paginator" [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons dir="rtl"></mat-paginator>
+    <div class="page-div">
+        <mat-paginator class="paginator" [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons
+            dir="rtl"></mat-paginator>
+    </div>
 </div>

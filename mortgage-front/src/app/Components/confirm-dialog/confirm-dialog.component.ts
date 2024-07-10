@@ -42,12 +42,12 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styles: [``],
   imports: [MaterialModule, CommonModule],
   template: `
-    <div style="padding: 20px;">
-      <h1 mat-dialog-title dir="rtl">{{ getTitle() }}</h1>
-      <div mat-dialog-content>
+    <div  style="text-align: right;padding:20px">
+      <h3 mat-dialog-title dir="rtl">{{ getTitle() }}</h3>
+      <h5 mat-dialog-content>
         {{ getContent() }}
-      </div>
-      <div mat-dialog-actions>
+      </h5>
+      <div mat-dialog-actions >
         <button mat-button (click)="onNoClick()">לא</button>
         <button mat-button color="primary" (click)="onYesClick()" cdkFocusInitial>כן</button>
       </div>
@@ -58,7 +58,7 @@ export class ConfirmDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close(false);
@@ -73,16 +73,25 @@ export class ConfirmDialogComponent {
       return 'מחיקת לקוח';
     } else if (this.data.DocumentType) {
       return 'מחיקת מסמך';
-    } else {
+    } else if (this.data.lead) {
+      return 'מחיקת ליד';
+    }
+    else {
       return 'מחיקת פריט';
     }
   }
 
   getContent(): string {
+    console.log(this.data.documentType);
+    
+
     if (this.data.customer) {
       return `?  בטוח שאתה רוצה למחוק את הלקוח ${this.data.customer.first_Name}`;
-    } else if (this.data.DocumentType) {
-      return `?  בטוח שאתה רוצה למחוק את המסמך ${this.data.documentType.name}`;
+    } else if (this.data.documentType) {
+      this.data.documentType.document_name;
+      return `  בטוח שאתה רוצה למחוק את המסמך ${this.data.documentType.document_Name}?`;
+    } else if (this.data.lead) {
+      return `?  בטוח שאתה רוצה למחוק את הליד ${this.data.lead.first_Name}`;
     } else {
       return '?  בטוח שאתה רוצה למחוק את הפריט הזה';
     }

@@ -7,7 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import {  Subscription } from 'rxjs';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import {DocumentTypeService} from '../../Services/documentType.service';
+import { DocumentTypeService } from '../../Services/documentType.service';
 import {  MatDialog } from '@angular/material/dialog';
 
 

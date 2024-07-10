@@ -24,6 +24,7 @@
 
 .sidenav-container{
   min-height:550px;
+  height: max-content;
 }
 
 
@@ -42,7 +43,7 @@ a{
 
 
 .container{
-  height: 100vh;
+  height: max-content;
   background-image: url("/assets/background.jpg");
   background-size: cover;  
 }

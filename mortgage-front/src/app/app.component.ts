@@ -18,7 +18,7 @@ export class AppComponent {
     new ComponentInfo("רשימת לקוחות", "/customer-list", "checklist"),
     new ComponentInfo("רשימת לידים", "/lead-list", "list"),
     new ComponentInfo("רשימת משתמשים", "/user-list", "list"),
-    new ComponentInfo(" פרטי לקוח", "/customer-details-modal", "list"),
+    //new ComponentInfo(" פרטי לקוח", "/customer-details-modal", "list"),
     new ComponentInfo("כניסת לידים", "/leadLogin", "login"),
     new ComponentInfo("רשימת מסמכים","/documentType-list","score"),
   ];
