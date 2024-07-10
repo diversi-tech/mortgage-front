@@ -3,7 +3,7 @@
         <mat-card-title>ניהול סוג מסמך</mat-card-title>
         <mat-card-content class="card-content">
             <form [formGroup]="documentTypeForm" (ngSubmit)="onSubmit()">
-
+<div class="div-warp-fields">
                 <mat-form-field class="type-field" appearance="fill">
                     <mat-label>סוג העסקה</mat-label>
                     <mat-select formControlName="transaction_Type" required>
@@ -26,7 +26,7 @@
                 </mat-form-field>
                
                 <mat-checkbox formControlName="required" >נדרש</mat-checkbox>
-
+            </div>
                 <div class="button-group">
                     <button mat-raised-button color="primary" type="submit" [disabled]="documentTypeForm.invalid">שמור</button>
                     <button mat-raised-button color="warn" type="button" (click)="cancel()">ביטול</button>

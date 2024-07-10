@@ -36,13 +36,10 @@ import { DocumentTypeService } from './Services/documentType.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    UserListComponent,
-    UserDetailComponent,
-    ToolbarComponent,
-    AppComponent, FooterComponent,
+    AppComponent
   ],
   imports: [
+
     UserListComponent,
     UserDetailComponent,
     ToolbarComponent,
