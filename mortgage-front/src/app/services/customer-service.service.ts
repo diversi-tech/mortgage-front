@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
 export class CustomerServiceService {
   
   //private customerURL = `${environment.apiURL}/api`; 
-  private apiUrl = 'https://localhost:7055/api/Customers'; // Define your API URL
-  
+  //private apiUrl = 'https://localhost:7055/api/Customers'; // Define your API URL
+  private apiUrl=  `${environment.apiURL}/api/Customers`;
   constructor(private http: HttpClient) { }
 
   getData(): Observable<any> {

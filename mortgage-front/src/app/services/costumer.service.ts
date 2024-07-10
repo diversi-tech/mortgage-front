@@ -4,10 +4,12 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Customer } from "../Models/Customer";
 import { Lead } from "../Models/Lead";
+import { environment } from "../../environments/environment.development";
 
 @Injectable()
 export class customerService {
-  readonly basicURL = "https://localhost:7055/api/";
+  //readonly basicURL = "https://localhost:7055/api/";
+  private basicURL=  environment.apiURL;
   private customersSubject = new BehaviorSubject<Customer[]>([]);
   customers$ = this.customersSubject.asObservable();
 

@@ -3,10 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve -o",
+    "build": "ng build --prod",
+    "build:staging":"ng build --configuration=staging",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "prebuild":"npm install",
+    "prebuild:staging":"npm install",
     "serve:ssr:mortgage-client": "node dist/mortgage-client/server/server.mjs"
   },
   "private": true,
