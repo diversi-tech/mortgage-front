@@ -4,14 +4,25 @@
   color: black;
   scroll-behavior: smooth;
 }
+
 @keyframes slideIn {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 @keyframes slideOut {
-  from { transform: translateX(0); }
-  to { transform: translateX(100%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
 }
 
 .open {
@@ -22,31 +33,34 @@
   animation: slideOut 0.5s ease-in-out;
 }
 
-.sidenav-container{
-  min-height:550px;
+.sidenav-container {
+  min-height: 550px;
 }
 
 
 .sidenav {
   box-shadow: 0 7px 20px 5px #00000088;
   width: 17vw;
+
   @media (min-width: 540px) {
     display: flex;
     margin: 0;
     overflow: hidden;
   }
 }
-a{
-  padding: 30px!important;
+
+a {
+  padding: 30px !important;
 }
 
 
-.container{
-  height: 100vh;
+.container {
+  height: max-content;
   background-image: url("/assets/background.jpg");
-  background-size: cover;  
+  background-size: cover;
 }
-.main-content{
+
+.main-content {
   // height: 100vh;
   // background-image: url("/assets/back.jpg");
   // background-size: cover;
@@ -54,6 +68,7 @@ a{
 
 
 }
+
 // my
 // .main-content {
 //   padding: 20px;
@@ -113,17 +128,18 @@ a{
 //   }
 
 // my
-  // .toggle-button {
-  //   background-color: rgba(203, 203, 203, 0.508) !important;
-  //   margin: 10px;
-  //   text-align-last: center;
-  // }
+// .toggle-button {
+//   background-color: rgba(203, 203, 203, 0.508) !important;
+//   margin: 10px;
+//   text-align-last: center;
+// }
 
 
 //main branch
 mat-icon {
   float: right;
 }
+
 //main branch
 .mat-sidenav-content {
   min-height: max-content;
@@ -131,34 +147,40 @@ mat-icon {
 }
 
 @media only screen and (max-width: 900px) {
-  a{
-    padding: 5px!important;
+  a {
+    padding: 5px !important;
   }
-  span{
-    font-size: 18px!important;
+
+  span {
+    font-size: 18px !important;
   }
+
   .mat-icon {
     float: right;
   }
+
   .sidenav {
     box-shadow: 0 7px 20px 5px #00000088;
     width: 25vw;
-    margin: 0!important;
+    margin: 0 !important;
     min-width: max-content;
   }
 }
+
 //main branch
-.main-content{
+.main-content {
   height: 100vh;
   // background-image: url("https://t4.ftcdn.net/jpg/02/27/74/75/240_F_227747577_VMbOvpidnsdkwCKMI8nUx7KdLQmF4wvQ.jpg");
-// background-image: url("./assets/istockphoto-1393059175-612x612.jpg");
-// background-image: url('/assets/Mortgage2.bak.webp');
-// background-size: cover;
+  // background-image: url("./assets/istockphoto-1393059175-612x612.jpg");
+  // background-image: url('/assets/Mortgage2.bak.webp');
+  // background-size: cover;
 }
-mat-sidenav-container{
+
+mat-sidenav-container {
   // background-image: url('/assets/Mortgage2.bak.webp');
   background-size: cover;
 }
+
 // mat-sidenav-container{
- 
+
 // }

@@ -40,7 +40,9 @@ export class DocumentTypeDetailsComponent implements OnInit {
     // קבל את ה-ID מהנתיב
     this.route.paramMap.subscribe(params => {
       this.docTypeId = Number(params.get('id'));
-      this.setFormValues(this.docTypeId)
+      if(isNaN(this.docTypeId)==false){//check if the type of the id is number
+        this.setFormValues(this.docTypeId)
+      }
     });
   }
 
@@ -48,10 +50,13 @@ export class DocumentTypeDetailsComponent implements OnInit {
 
   setFormValues(id: number): void {
     if (this.docTypeId != -1) {
+      
       this.documentTypeService.getDocTypeById(id).subscribe(docTypeById => {
-        this.docType = docTypeById
-        this.docType.transaction_Type = TransactionType[this.docType.transaction_Type as number] as unknown as TransactionType
-        this.documentTypeForm.patchValue(this.docType);
+        if(docTypeById!=null){  //check if the id not exist in the DB
+          this.docType = docTypeById
+          this.docType.transaction_Type = TransactionType[this.docType.transaction_Type as number] as unknown as TransactionType
+          this.documentTypeForm.patchValue(this.docType);
+        }
       });
     }
   }
