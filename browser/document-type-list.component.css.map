@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/Components/document-type-list/document-type-list.component.css"],
-  "sourcesContent": ["#content {\r\n    background-color: rgba(255, 255, 255, 0.602);\r\n    padding: 25px;\r\n    border-radius: 40px;\r\n    /* border: 3px solid rgb(178, 189, 202); */\r\n    min-width: max-content;\r\n    min-height: 60vh;\r\n  }"],
-  "mappings": ";AAAA,CAAC;AACG,oBAAkB,KAAK,GAAG,EAAE,GAAG,EAAE,GAAG,EAAE;AACtC,WAAS;AACT,iBAAe;AAEf,aAAW;AACX,cAAY;AACd;",
-  "names": []
-}
