@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/Components/user-list/user-list.component.css"],
+  "sourcesContent": ["\r\n .form-field {\r\n   margin-top: 2%;\r\n }\r\n\r\n .mat-form-field {\r\n   width: 100%;\r\n\r\n }\r\n\r\n .page-div {\r\n   width: 100% !important;\r\n\r\n }\r\n\r\n .table-user {\r\n   background-color: white;\r\n   width: 100%;\r\n }\r\n\r\n * {\r\n   color: black;\r\n }\r\n\r\n\r\n .paginator {\r\n   width: 100% !important;\r\n\r\n   @media (min-width: 375px) {\r\n     /* width: 125%; */\r\n   }\r\n\r\n   @media (min-width: 360px) {\r\n     /* width: 130%; */\r\n   }\r\n\r\n   @media (min-width: 344px) {\r\n     /* width: 136%; */\r\n   }\r\n\r\n   @media (min-width: 768px) {\r\n     /* width: 100%; */\r\n   }\r\n\r\n   background-color: white;\r\n   /* \u05E8\u05E7\u05E2 \u05DC\u05D1\u05DF */\r\n }\r\n\r\n mat-paginator {\r\n   width: 100%;\r\n }\r\n\r\n th,\r\n td {\r\n   word-wrap: break-word;\r\n\r\n }\r\n th{\r\n  font-weight: bold !important;\r\n\r\n }\r\n\r\n .rtl-table-wrapper {\r\n   width: 100%;\r\n }\r\n"],
+  "mappings": ";AACC,CAAC;AACC,cAAY;AACd;AAEA,CAAC;AACC,SAAO;AAET;AAEA,CAAC;AACC,SAAO;AAET;AAEA,CAAC;AACC,oBAAkB;AAClB,SAAO;AACT;AAEA;AACE,SAAO;AACT;AAGA,CAAC;AACC,SAAO;AAkBP,oBAAkB;AAEpB;AAEA;AACE,SAAO;AACT;AAEA;AACA;AACE,aAAW;AAEb;AACA;AACC,eAAa;AAEd;AAEA,CAAC;AACC,SAAO;AACT;",
+  "names": []
+}

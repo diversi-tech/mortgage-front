@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/Components/lead/lead.component.css"],
+  "sourcesContent": ["/* lead-form.component.css */\r\nmat-form-field {\r\n    width: 100%;\r\n  }\r\n  button {\r\n    margin-right: 8px;\r\n  }\r\n  h3 {\r\n    margin-top: 20px;\r\n  }\r\n\r\n\r\n  .invalid-requirement {\r\n    color: red;\r\n  }\r\n  \r\n  .valid-requirement {\r\n    color: green;\r\n  }\r\n  mat-horizontal-stepper{\r\n    width: 50vw;\r\n    margin: 0 auto;\r\n  }\r\n  #content {\r\n    background-color: rgba(255, 255, 255, 0.602);\r\n    padding: 25px;\r\n    border-radius: 40px;\r\n    /* border: 3px solid rgb(178, 189, 202); */\r\n    min-width: max-content;\r\n    min-height: 60vh;\r\n  }\r\n"],
+  "mappings": ";AACA;AACI,SAAO;AACT;AACA;AACE,gBAAc;AAChB;AACA;AACE,cAAY;AACd;AAGA,CAAC;AACC,SAAO;AACT;AAEA,CAAC;AACC,SAAO;AACT;AACA;AACE,SAAO;AACP,UAAQ,EAAE;AACZ;AACA,CAAC;AACC,oBAAkB,KAAK,GAAG,EAAE,GAAG,EAAE,GAAG,EAAE;AACtC,WAAS;AACT,iBAAe;AAEf,aAAW;AACX,cAAY;AACd;",
+  "names": []
+}

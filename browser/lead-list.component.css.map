@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/Components/lead-list/lead-list.component.scss"],
+  "sourcesContent": ["th{\r\n    font-weight: bold!important;\r\n  }\r\n  // background-image: url(https://media.istockphoto.com/id/1393059175/photo/home.jpg?s=612x612&w=0&k=20&c=sgT3wRfpj4AAN08TQAACJ9_cp94yDnGa-uU2dKCOnhc=);\r\n\r\n  #content {\r\n    background-color: rgba(255, 255, 255, 0.602);\r\n    padding: 25px;\r\n    border-radius: 40px;\r\n    // border: 3px solid rgb(178, 189, 202);\r\n    min-width: max-content;\r\n    min-height: 60vh;\r\n  }\r\n  .tr:hover{\r\n    background-color: rgba(178, 189, 202, 0.058)!important;\r\n  }\r\n  @media screen and (max-width: 900px) {\r\n  .mat-table {\r\n    padding: 1px !important;\r\n    font-size: 12px !important;\r\n  }\r\n}\r\n"],
+  "mappings": ";AAAA;AACI,eAAA;;AAIF,CAAA;AACE,oBAAA,KAAA,GAAA,EAAA,GAAA,EAAA,GAAA,EAAA;AACA,WAAA;AACA,iBAAA;AAEA,aAAA;AACA,cAAA;;AAEF,CAAA,EAAA;AACE,oBAAA,KAAA,GAAA,EAAA,GAAA,EAAA,GAAA,EAAA;;AAEF,OAAA,OAAA,IAAA,CAAA,SAAA,EAAA;AACA,GAAA;AACE,aAAA;AACA,eAAA;;;",
+  "names": []
+}

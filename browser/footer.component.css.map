@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/Components/footer/footer.component.css"],
+  "sourcesContent": [".footer{\r\n    position: relative;\r\n    bottom: 0;\r\n    width: 100%;\r\n    text-align: center;\r\n    padding: 20px 0;\r\n    box-shadow: 0 -2px 5px rgba(21, 22, 21, 0.2);\r\n    height:60px;\r\n    background-color: rgb(178, 189, 202); \r\n    margin: 0 auto;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    /* flex-wrap: wrap;*/\r\n    grid-area: \"footer\";\r\n    /* z-index: 5; */\r\n   }\r\n   .footer img.footer-image {\r\n    height: 80px;\r\n    width: 80px;\r\n    margin-right: 60px;\r\n    /* box-shadow:0 -3px 10px rgb(11, 27, 14); */\r\n    border-radius: 3px;\r\n  }\r\n  .footer-text {\r\n    color:#f41db0e9;\r\n    font-size: 20px;\r\n    margin-top: 20px;\r\n    text-align: center;\r\n  }\r\n"],
+  "mappings": ";AAAA,CAAC;AACG,YAAU;AACV,UAAQ;AACR,SAAO;AACP,cAAY;AACZ,WAAS,KAAK;AACd,cAAY,EAAE,KAAK,IAAI,KAAK,EAAE,EAAE,EAAE,EAAE,EAAE,EAAE;AACxC,UAAO;AACP,oBAAkB,IAAI,GAAG,EAAE,GAAG,EAAE;AAChC,UAAQ,EAAE;AACV,WAAS;AACT,mBAAiB;AAEjB,aAAW;AAEZ;AACA,CAhBF,OAgBU,GAAG,CAAC;AACX,UAAQ;AACR,SAAO;AACP,gBAAc;AAEd,iBAAe;AACjB;AACA,CAAC;AACC,SAAM;AACN,aAAW;AACX,cAAY;AACZ,cAAY;AACd;",
+  "names": []
+}

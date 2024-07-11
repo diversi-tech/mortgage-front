@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/Components/lead-detail-modal/lead-detail-modal.component.css"],
+  "sourcesContent": [".lead-edit-card {\r\n  max-width: 800px;\r\n  margin: auto;\r\n  padding: 20px;\r\n  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); /* Black box shadow */\r\n}\r\n\r\n.button-group {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin-top: 20px;\r\n}\r\n.mat-form-field{\r\n  margin: 10px!important;\r\n  width: 12vw;\r\n}\r\n\r\n#content {\r\n  background-color: rgba(255, 255, 255, 0.602);\r\n  padding: 25px;\r\n  border-radius: 40px;\r\n  /* border: 3px solid rgb(178, 189, 202); */\r\n  min-width: max-content;\r\n  height: 70vh;\r\n}\r\n@media screen and (max-width: 900px) {\r\n  .mat-form-field{\r\n    margin: 10px!important;\r\n    width: 15vw;\r\n    font-size: small;\r\n    height: 70px;\r\n  }\r\n  mat-label{\r\n    font-size: small;\r\n  }\r\n}"],
+  "mappings": ";AAAA,CAAC;AACC,aAAW;AACX,UAAQ;AACR,WAAS;AACT,cAAY,EAAE,EAAE,KAAK,KAAK,CAAC,EAAE,CAAC,EAAE,CAAC,EAAE;AACrC;AAEA,CAAC;AACC,WAAS;AACT,mBAAiB;AACjB,cAAY;AACd;AACA,CAAC;AACC,UAAQ;AACR,SAAO;AACT;AAEA,CAAC;AACC,oBAAkB,KAAK,GAAG,EAAE,GAAG,EAAE,GAAG,EAAE;AACtC,WAAS;AACT,iBAAe;AAEf,aAAW;AACX,UAAQ;AACV;AACA,OAAO,OAAO,IAAI,CAAC,SAAS,EAAE;AAC5B,GAdD;AAeG,YAAQ;AACR,WAAO;AACP,eAAW;AACX,YAAQ;AACV;AACA;AACE,eAAW;AACb;AACF;",
+  "names": []
+}
