@@ -1,0 +1,13 @@
+{
+  "routes": [
+    "/customer-list",
+    "/data",
+    "/doc",
+    "/documentType-list",
+    "/lead-list",
+    "/leadLogin",
+    "/login",
+    "/magic-link",
+    "/user-list"
+  ]
+}
