@@ -1,0 +1,84 @@
+* {
+  font-size: 20px;
+  text-align: right;
+  color: black;
+  scroll-behavior: smooth;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+.open {
+  animation: slideIn 0.5s ease-in-out;
+}
+
+.close {
+  animation: slideOut 0.5s ease-in-out;
+}
+
+.sidenav-container {
+  min-height: 550px;
+}
+
+.sidenav {
+  box-shadow: 0 7px 20px 5px rgba(0, 0, 0, 0.5333333333);
+  width: 17vw;
+}
+@media (min-width: 540px) {
+  .sidenav {
+    display: flex;
+    margin: 0;
+    overflow: hidden;
+  }
+}
+
+a {
+  padding: 30px !important;
+}
+
+mat-icon {
+  float: right;
+}
+
+.mat-sidenav-content {
+  min-height: -moz-max-content;
+  min-height: max-content;
+  padding: 20px;
+}
+
+@media only screen and (max-width: 900px) {
+  a {
+    padding: 5px !important;
+  }
+  span {
+    font-size: 18px !important;
+  }
+  .mat-icon {
+    float: right;
+  }
+  .sidenav {
+    box-shadow: 0 7px 20px 5px rgba(0, 0, 0, 0.5333333333);
+    width: 25vw;
+    margin: 0 !important;
+    min-width: -moz-max-content;
+    min-width: max-content;
+  }
+}
+.main-content {
+  height: 100vh;
+  background-image: url("/assets/Mortgage2.bak.webp");
+  background-size: cover;
+}/*# sourceMappingURL=navigation-menu.component.css.map */

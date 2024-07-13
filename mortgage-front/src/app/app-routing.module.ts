@@ -18,7 +18,8 @@ import { DocumentsListCustomerComponent } from './Components/documents-list-cust
 
 const routes: Routes =
   [
-    { path: 'data', component: DataVisualizationComponent },
+    //{ path: 'data', component: DataVisualizationComponent },
+    { path: '', component: DataVisualizationComponent },
     { path: 'doc', component: DocumentsListCustomerComponent },
     { path: 'login', component: LoginComponent },
     { path: 'magic-link', component: MagicLinkComponent },
@@ -30,11 +31,12 @@ const routes: Routes =
     {path:'lead-details/:id',component:LeadDetailComponent},
     {path:'user-list',component:UserListComponent},
     {path:'user-details/:id',component:UserDetailComponent},
-    {path:'documentType-list',component:DocumentTypeListComponent}
+    {path:'documentType-list',component:DocumentTypeListComponent},
+    { path: '**', redirectTo: '' } // Redirect unknown routes to root
   ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{useHash: false})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

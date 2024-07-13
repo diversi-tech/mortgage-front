@@ -1,10 +1,17 @@
+# services:
+#   - type: web
+#     name: mortgage-client
+#     env: static
+#     staticPublishPath: dist/mortgage-client
+#     buildCommand: npm install && npm run build
+#     startCommand: npx serve -s dist/mortgage-client
+#     envVars:
+#       - key: API_URL
+#         value: https://mortgage-server.onrender.com
 services:
   - type: web
     name: mortgage-client
     env: static
-    staticPublishPath: dist/mortgage-client
-    buildCommand: npm install && npm run build
-    startCommand: npx serve -s dist/mortgage-client
-    envVars:
-      - key: API_URL
-        value: https://mortgage-server.onrender.com
+    staticPublishPath: dist/https://mortgage-client
+    buildCommand: npm install && npm run build -- --output-path=dist/mortgage-client
+    publishPath: dist/mortgage-client

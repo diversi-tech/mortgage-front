@@ -1,0 +1,34 @@
+@media screen and (max-width: 900px) {
+  .mat-table {
+    padding: 1px !important;
+    font-size: 12px !important;
+  }
+  .mat-cell {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 0px !important;
+    max-height: -moz-min-content !important;
+    max-height: min-content !important;
+  }
+  mat-icon {
+    font-size: 20px !important;
+  }
+  .th,
+  td,
+  ng-container {
+    padding: 1vw !important;
+    margin: 1vw !important;
+  }
+}
+th {
+  font-weight: bold !important;
+}
+
+#content {
+  background-color: rgba(255, 255, 255, 0.602);
+  padding: 25px;
+  border-radius: 40px;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  min-height: 60vh;
+}/*# sourceMappingURL=customer-list.component.css.map */

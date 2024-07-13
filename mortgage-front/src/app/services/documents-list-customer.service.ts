@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Injectable } from '@angular/core';
 import { Document } from '../Models/document';
+import { environment } from '../../environments/environment.development';
 
 
 @Injectable({
@@ -10,7 +11,8 @@ import { Document } from '../Models/document';
 export class DocumentsListCustomerService {
 
 
-  readonly apiUrl = 'https://localhost:7055/api'
+  //readonly apiUrl = 'https://localhost:7055/api'
+  private apiUrl=  `${environment.apiURL}/api/`;
   private documentsSubject = new BehaviorSubject<Document[]>([]);
   documents$ = this.documentsSubject.asObservable();
 
@@ -31,7 +33,7 @@ export class DocumentsListCustomerService {
 
 
   fetchDocumentsByCustomerId(customerId: number): Observable<Document[]> {
-    return this.http.get<Document[]>(this.apiUrl + `/CustomerTasksControllercs/customerId/${customerId}`)
+    return this.http.get<Document[]>(this.apiUrl + `CustomerTasksControllercs/customerId/${customerId}`)
       .pipe(
         tap(customers => this.documentsSubject.next(customers)),
         catchError(error => {

@@ -1,0 +1,86 @@
+/* Use custom colors from global styles */
+.customer-all-detailes {
+  display: flex;
+  flex-direction: column;
+  width: 70vh;
+  margin: auto;
+  align-items: flex-start;
+  /* Center align the form */
+  /* Apply orange background to form fields */
+  /* Override placeholder color if needed */
+  /* Style labels */
+  /* Apply flex layout to rows */
+}
+.customer-all-detailes h2 {
+  color: var(--custom-primary);
+  font-size: 24px;
+  margin: auto;
+  padding: 3vh;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.customer-all-detailes .mat-form-field {
+  background-color: var(--custom-primary);
+  margin-bottom: 15px;
+  width: 100%;
+  /* Ensure full width */
+  /* Ensure input/select are visible */
+}
+.customer-all-detailes .mat-form-field input.mat-input,
+.customer-all-detailes .mat-form-field textarea.mat-input,
+.customer-all-detailes .mat-form-field .mat-select-trigger {
+  color: white;
+}
+.customer-all-detailes .mat-form-field-placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  /* Placeholder text color */
+}
+.customer-all-detailes .mat-form-field-label {
+  color: white;
+  /* Label text color */
+}
+.customer-all-detailes .row-layout {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 15px;
+  align-items: center;
+  /* Add space between rows */
+  /* Adjust spacing between form fields */
+}
+.customer-all-detailes .row-layout .mat-form-field {
+  margin-right: 30px;
+  /* Add space between form fields */
+  flex: 1;
+  /* Equal width for fields */
+}
+.customer-all-detailes .row-layout .readonly-input {
+  border-top-left-radius: var(--mdc-filled-text-field-container-shape);
+  border-top-right-radius: var(--mdc-filled-text-field-container-shape);
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: var(--mdc-filled-text-field-container-color);
+  width: 177.5px;
+  z-index: 0;
+  height: 50px;
+  margin-bottom: 15px;
+  padding: 0px 16px;
+}
+.customer-all-detailes .row-layout .readonly-input::-moz-placeholder {
+  color: var(--mdc-filled-text-field-label-text-color);
+  -webkit-font-smoothing: antialiased;
+  line-height: normal;
+  pointer-events: all;
+  font: 400 1rem/1.5rem Roboto, sans-serif;
+  letter-spacing: 0.031rem;
+}
+.customer-all-detailes .row-layout .readonly-input::placeholder {
+  color: var(--mdc-filled-text-field-label-text-color);
+  -webkit-font-smoothing: antialiased;
+  line-height: normal;
+  pointer-events: all;
+  font: 400 1rem/1.5rem Roboto, sans-serif;
+  letter-spacing: 0.031rem;
+}
+.customer-all-detailes .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
+  direction: rtl;
+  width: 30vh;
+}/*# sourceMappingURL=customer-detail-modal.component.css.map */

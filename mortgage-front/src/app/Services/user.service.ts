@@ -1,11 +1,13 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
-import { User } from "../Models/User";
+import { environment } from "../../environments/environment.development";
+import { User } from "../Models/user";
 //import { Lead } from "../Models/Lead";
 @Injectable()
  export class UserService {
-  readonly basicURL = "https://localhost:7055/api/";
+  //readonly basicURL = "https://localhost:7055/api/";
+  private apiUrl=  `${environment.apiURL}/api/`;
   private usersSubject = new BehaviorSubject<User[]>([]);
   users$ = this.usersSubject.asObservable();
   constructor(private http: HttpClient) {
@@ -18,7 +20,7 @@ import { User } from "../Models/User";
       }),
       withCredentials: true // שורה זו חשובה לפיתוח
     };
-    return this.http.get<User[]>(`${this.basicURL}Users`, httpOptions)
+    return this.http.get<User[]>(`${this.apiUrl}Users`, httpOptions)
       .pipe(
         tap(users => this.usersSubject.next(users)),
         catchError(error => {
@@ -36,7 +38,7 @@ import { User } from "../Models/User";
     if (user.role !== undefined) formData.append('Role', user.role.toString());
     if (user.created_at !== undefined) formData.append('Created_at', user.created_at.toISOString());
     if (user.updated_at !== undefined) formData.append('Updated_at', user.updated_at.toISOString());
-    return this.http.post(`${this.basicURL}Users`, user);
+    return this.http.post(`${this.apiUrl}Users`, user);
    }
   //  createUser(user: User): Observable<User> {
   //   console.log("in addLead");

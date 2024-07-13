@@ -7,7 +7,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { MaterialModule } from '../../material/material.module';
 
 import { leadService } from '../../Services/lead.service';
-import { Role,User } from '../../Models/User';
+import { Role,User } from '../../Models/user';
 import { UserService } from '../../Services/user.service';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -232,18 +232,33 @@ export class LeadComponent implements OnInit, AfterViewInit {
       fourthFormGroup: this.fourthFormGroup.value,
       uploadedFiles: this.uploadedFiles
     };
-    localStorage.setItem('formData', JSON.stringify(formData));
+    
+    if (typeof window !== 'undefined') {
+      // Safe to use localStorage
+      localStorage.setItem('formData', JSON.stringify(formData));
+    }
   }
 
   saveCurrentStep() {
-    localStorage.setItem('currentStep', JSON.stringify(this.stepper.selectedIndex));
+    if (typeof window !== 'undefined') {
+      // Safe to use localStorage
+      localStorage.setItem('currentStep', JSON.stringify(this.stepper.selectedIndex));
+    }
+    
+    
   }
 
   loadCurrentStep() {
-    const currentStep = localStorage.getItem('currentStep');
-    if (currentStep) {
-      this.stepper.selectedIndex = JSON.parse(currentStep);
+    if (typeof window !== 'undefined') {
+      // Safe to use localStorage
+      const currentStep = localStorage.getItem('currentStep');
+      if (currentStep) {
+        this.stepper.selectedIndex = JSON.parse(currentStep);
+      }
     }
+    
+    
+    
   }
 
 
@@ -252,15 +267,21 @@ export class LeadComponent implements OnInit, AfterViewInit {
   }
 
   loadFormData() {
-    const formData = localStorage.getItem('formData');
-    if (formData) {
-      const parsedFormData = JSON.parse(formData);
-      this.firstFormGroup.setValue(parsedFormData.firstFormGroup || {});
-      this.secondFormGroup.setValue(parsedFormData.secondFormGroup || {});
-      this.thirdFormGroup.setValue(parsedFormData.thirdFormGroup || {});
-      this.fourthFormGroup.setValue(parsedFormData.fourthFormGroup || {});
-      this.uploadedFiles = parsedFormData.uploadedFiles || [];
+    if (typeof window !== 'undefined') {
+      // Safe to use localStorage
+      const formData = localStorage.getItem('formData');
+      if (formData) {
+        const parsedFormData = JSON.parse(formData);
+        this.firstFormGroup.setValue(parsedFormData.firstFormGroup || {});
+        this.secondFormGroup.setValue(parsedFormData.secondFormGroup || {});
+        this.thirdFormGroup.setValue(parsedFormData.thirdFormGroup || {});
+        this.fourthFormGroup.setValue(parsedFormData.fourthFormGroup || {});
+        this.uploadedFiles = parsedFormData.uploadedFiles || [];
+      }
     }
+    
+    
+  
   }
 
   onInputChange(fieldName: keyof Customer, event: any) {

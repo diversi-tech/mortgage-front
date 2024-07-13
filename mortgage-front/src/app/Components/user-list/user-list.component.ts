@@ -2,9 +2,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Role, User } from '../../Models/User';
+import { Role, User } from '../../Models/user';
 
-import { UserListService } from '../../Services/user-list.service';
+import { UserListService } from '../../services/user-list.service';
 import { Observable } from 'rxjs';
 
 @Component({

@@ -4,10 +4,12 @@ import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Customer } from "../Models/Customer";
 import { Lead } from "../Models/Lead";
 import { DocumentType } from '../Models/DocumentTypes.Model';
+import { environment } from "../../environments/environment.development";
 
 @Injectable()
 export class DocumentTypeService {
-  readonly basicURL = "https://localhost:7055/api/";
+  //readonly basicURL = "https://localhost:7055/api/";
+  private apiUrl=  `${environment.apiURL}/api/`;
   private documentSubject = new BehaviorSubject<DocumentType[]>([]);
   documentTypes$ = this.documentSubject.asObservable();
 
@@ -16,7 +18,7 @@ export class DocumentTypeService {
   }
 
   fetchCustomers(): Observable<DocumentType[]> {
-    return this.http.get<DocumentType[]>(`${this.basicURL}DocumentTypes`)
+    return this.http.get<DocumentType[]>(`${this.apiUrl}DocumentTypes`)
       .pipe(
         tap(documentTypes => this.documentSubject.next(documentTypes)),
         catchError(error => {
@@ -27,7 +29,7 @@ export class DocumentTypeService {
   }
 
   deleteDocumentType(DocumentTypeId: number): Observable<any> {
-    const deleteUrl = `${this.basicURL}DocumentTypes/${DocumentTypeId}`;
+    const deleteUrl = `${this.apiUrl}DocumentTypes/${DocumentTypeId}`;
     return this.http.delete(deleteUrl)
       .pipe(
         tap(() => {

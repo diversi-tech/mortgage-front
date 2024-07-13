@@ -2,17 +2,19 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Lead } from "../Models/Lead";
+import { environment } from "../../environments/environment.development";
 
 @Injectable()
 export class leadService {
-  readonly basicURL = "https://localhost:7055/api/";
+  //readonly basicURL = "https://localhost:7055/api/";
+  private apiUrl=  `${environment.apiURL}/api/`;
   private LeadsSubject = new BehaviorSubject<Lead[]>([]);
   leads$ = this.LeadsSubject.asObservable();
   constructor(private http: HttpClient) {
     this.fetchLeads().subscribe(); // אתחול לקוח
   }
   fetchLeads(): Observable<Lead[]> {
-    return this.http.get<Lead[]>(`${this.basicURL}Leads`)
+    return this.http.get<Lead[]>(`${this.apiUrl}Leads`)
       .pipe(
         tap(leads => this.LeadsSubject.next(leads)),
         catchError(error => {
@@ -32,7 +34,7 @@ export class leadService {
 
 
   deleteCustomer(leadId: number): Observable<any> {
-    const deleteUrl = `${this.basicURL}Leads/${leadId}`;
+    const deleteUrl = `${this.apiUrl}Leads/${leadId}`;
     return this.http.delete(deleteUrl)
       .pipe(
         tap(() => {
@@ -47,7 +49,7 @@ export class leadService {
   }
   updateLead(lead: any): Observable<Lead> {
 
-    const updateUrl = `${this.basicURL}Leads/${lead.id}`;
+    const updateUrl = `${this.apiUrl}Leads/${lead.id}`;
     return this.http.put<Lead>(updateUrl, lead)
       .pipe(
         tap(() => {
@@ -69,7 +71,7 @@ export class leadService {
   }
   addLead(lead: Lead): Observable<Lead> {
     console.log("in addLead");
-    const updateUrl = `${this.basicURL}Leads/`;
+    const updateUrl = `${this.apiUrl}Leads/`;
     console.log(updateUrl);
     return this.http.post<Lead>(updateUrl, lead)
       .pipe(
@@ -95,7 +97,7 @@ export class leadService {
   
   checkToken(id:number): Observable<HttpResponse<string>>{
     console.log("i am here");
-    return this.http.get<string>(`https://localhost:7055/api/Email/validate-magic-link/${id}`,{ observe: 'response', responseType: 'text' as 'json'  })
+    return this.http.get<string>(`${this.apiUrl}Email/validate-magic-link/${id}`,{ observe: 'response', responseType: 'text' as 'json'  })
   }
 
 }

@@ -9,6 +9,7 @@ import { environment } from "../../environments/environment.development";
 @Injectable()
 export class customerService {
   //readonly basicURL = "https://localhost:7055/api/";
+  //https://mortgage-server.onrender.com/api
   private basicURL=  environment.apiURL;
   private customersSubject = new BehaviorSubject<Customer[]>([]);
   customers$ = this.customersSubject.asObservable();
@@ -18,7 +19,7 @@ export class customerService {
   }
 
   fetchCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(`${this.basicURL}Customers`)
+    return this.http.get<Customer[]>(`${this.basicURL}/api/Customers`)
       .pipe(
         tap(customers => this.customersSubject.next(customers)),
         catchError(error => {
@@ -29,7 +30,7 @@ export class customerService {
   }
 
   deleteCustomer(customerId: number): Observable<any> {
-    const deleteUrl = `${this.basicURL}Customers/${customerId}`;
+    const deleteUrl = `${this.basicURL}/api/Customers/${customerId}`;
     return this.http.delete(deleteUrl)
       .pipe(
         tap(() => {
@@ -51,20 +52,20 @@ export class customerService {
     return customers.find(customer => customer.id === id);
   }
   getLeadById(id: number): Observable<Lead> {
-    return this.http.get<Lead>(`${this.basicURL}Leads/${id}`);
+    return this.http.get<Lead>(`${this.basicURL}/api/Leads/${id}`);
   }
 
   sendLink(customerId: number): string {
     /*some logic */
-    return `${this.basicURL}/${customerId}/SendLink`;
+    return `${this.basicURL}/${customerId}/api/SendLink`;
   }
 
   createCustomer(customer: Customer): Observable<Customer> {
-    return this.http.post<Customer>(`${this.basicURL}Customers`, customer);
+    return this.http.post<Customer>(`${this.basicURL}/api/Customers`, customer);
   }
 
   updateCustomer(customerId: number|undefined, customer: Customer|undefined): Observable<Customer> {
-    return this.http.put<Customer>(`${this.basicURL}Customers/${customerId}`,customer);
+    return this.http.put<Customer>(`${this.basicURL}/api/Customers/${customerId}`,customer);
   }
 }
 
