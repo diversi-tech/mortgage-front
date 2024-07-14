@@ -55,6 +55,8 @@
           },
           "configurations": {
             "production": {
+              "outputPath": "docs",
+              "baseHref": "/mortgage-front/",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
