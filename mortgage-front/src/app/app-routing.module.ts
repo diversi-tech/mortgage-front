@@ -19,7 +19,7 @@ import { DocumentsListCustomerComponent } from './Components/documents-list-cust
 const routes: Routes =
   [
     //{ path: 'data', component: DataVisualizationComponent },
-    { path: '', component: DataVisualizationComponent },
+    { path: '/', component: DataVisualizationComponent },
     { path: 'doc', component: DocumentsListCustomerComponent },
     { path: 'login', component: LoginComponent },
     { path: 'magic-link', component: MagicLinkComponent },
