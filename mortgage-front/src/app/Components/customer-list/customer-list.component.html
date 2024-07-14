@@ -175,7 +175,7 @@
       </table>
       <mat-paginator #leadsPaginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
       <br>
-      <app-admin-dashboard [typeOfCustomer]="0"></app-admin-dashboard>
+      <export-to-excel [typeOfCustomer]="0"></export-to-excel>
     </div>
     <!-- טבלה ללקוחות מסוג "לקוח" -->
     <div class="contents" style="padding: 25px;">
@@ -216,7 +216,7 @@
       </table>
       <mat-paginator #customersPaginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
       <br>
-      <app-admin-dashboard [typeOfCustomer]="1"></app-admin-dashboard>
+      <export-to-excel [typeOfCustomer]="1"></export-to-excel>
 
     </div>
     <div class="contents" style="padding: 25px;">
@@ -261,7 +261,7 @@
         style="position: fixed;bottom: 8vh;left: 2vw;z-index: 1000;">
         <mat-icon class="add-icon">add</mat-icon>
       </button>
-      <app-admin-dashboard [typeOfCustomer]="2"></app-admin-dashboard>
+      <export-to-excel [typeOfCustomer]="2"></export-to-excel>
     </div>
   </div>
 </div>
