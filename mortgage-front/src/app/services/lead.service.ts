@@ -13,10 +13,10 @@ export class leadService {
   constructor(private http: HttpClient) {
     this.fetchLeads().subscribe(); // אתחול לקוח
   }
-  fetchLeads(): Observable<Lead[]> {
-    console.log("hiiiiii");
+  fetchLeads(): Observable<Lead[]> {  
+    console.log("trung to get to lead");
     
-    return this.http.get<Lead[]>(`${this.apiUrl}Leads`)
+    return this.http.get<Lead[]>(`${this.apiUrl}Leads`, { withCredentials: true })
       .pipe(
         tap(leads => this.LeadsSubject.next(leads)),
         catchError(error => {
