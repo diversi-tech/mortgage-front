@@ -15,8 +15,8 @@ export class leadService {
   }
   fetchLeads(): Observable<Lead[]> {  
     console.log("trung to get to lead");
-    
-    return this.http.get<Lead[]>(`${this.apiUrl}Leads`, { withCredentials: true })
+    //, { withCredentials: true }
+    return this.http.get<Lead[]>(`${this.apiUrl}Leads`)
       .pipe(
         tap(leads => this.LeadsSubject.next(leads)),
         catchError(error => {
