@@ -14,6 +14,8 @@ export class leadService {
     this.fetchLeads().subscribe(); // אתחול לקוח
   }
   fetchLeads(): Observable<Lead[]> {
+    console.log("hiiiiii");
+    
     return this.http.get<Lead[]>(`${this.apiUrl}Leads`)
       .pipe(
         tap(leads => this.LeadsSubject.next(leads)),
