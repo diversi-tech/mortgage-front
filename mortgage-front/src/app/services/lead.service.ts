@@ -75,7 +75,7 @@ export class leadService {
     console.log("in addLead");
     const updateUrl = `${this.apiUrl}Leads/`;
     console.log(updateUrl);
-    return this.http.post<Lead>(updateUrl, lead)
+    return this.http.post<Lead>(updateUrl, lead,{withCredentials:true})
       .pipe(
         tap((res) => {
           console.log(res);
