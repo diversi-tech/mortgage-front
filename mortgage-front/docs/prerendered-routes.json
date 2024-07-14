@@ -1,6 +1,6 @@
 {
   "routes": [
-    "",
+    "/",
     "/customer-list",
     "/doc",
     "/documentType-list",
