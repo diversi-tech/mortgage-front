@@ -49,4 +49,5 @@ export class Customer {
      estimated_price_by_sales_agreement?: number
      has_other_properties?: boolean;
      amount_of_loan_requested?: number;
+     [key: string]: any; 
 }
