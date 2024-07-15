@@ -20,11 +20,14 @@ export class LoginComponent {
 
   // ngOnInit() {
   //   this.auth.login('brt', '8520').subscribe(token => {
+
+  // need to check what returned:a token-if the user exists,or a message :'the user not found' 
+
   //     this.currentToken = token;
   //     this.currentUser = this.auth.decodeToken(this.currentToken);
   //     console.log("currentUser:",this.currentUser);
-      
+
   //   });
-    
+
 }
 
