@@ -17,10 +17,13 @@ import { UploadComponent } from './Components/file-upload/file-upload.component'
 
 import { DocumentsListCustomerComponent } from './Components/documents-list-customer/documents-list-customer.component';
 import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
+import { CustomerPortalComponent } from './Components/customer-portal/customer-portal.component';
 
 
 const routes: Routes =
   [
+     { path: '', redirectTo: '/login', pathMatch: 'full' },
+    {path:'lead-details/:id',component:LeadDetailComponent},
     {path:'exel',component:AdminDashboardComponent},
     { path: 'data', component: DataVisualizationComponent },
     {path:'doc-list',component:DocumentsListCustomerComponent},
@@ -32,14 +35,15 @@ const routes: Routes =
     {path:'customer-details/:id',component:CustomerDetailModalComponent},
     {path:'lead-tetails/:id',component:LeadDetailComponent},
     {path:'leadLogin',component:LeadComponent},
-    {path:'lead-details/:id',component:LeadDetailComponent},
     {path:'user-list',component:UserListComponent},
     {path:'user-details/:id',component:UserDetailComponent},
     {path:'customer-details-modal',component:CustomerDetailModalComponent},
     {path:'documentType-details/:id',component:DocumentTypeDetailsComponent},
     {path:'documentType-list',component:DocumentTypeListComponent},
     {path:'user-details',component:UserDetailComponent},
-    {path:'admin-dashboard',component:AdminDashboardComponent}
+    {path:'admin-dashboard',component:AdminDashboardComponent,children:[
+    ]},
+    {path:'customer-portal',component:CustomerPortalComponent}
 
   ];
 

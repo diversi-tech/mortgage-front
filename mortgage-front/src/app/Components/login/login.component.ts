@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../../Models/user';
-import { loginService } from '../../services/login.service';
+import { loginService } from '../../Services/login.service';
 import { Router, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../material/material.module';
 import { CommonModule } from '@angular/common';
@@ -19,7 +19,7 @@ RouterModule
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent{
   loginForm: FormGroup;
   user?:User;
 
@@ -67,7 +67,9 @@ export class LoginComponent {
          this.router.navigate(['/admin-dashboard']);
         } 
         else  {
-          console.log('customer');}
+          console.log('customer');
+          this.router.navigate(['/customer-portal']);
+        }
       },
       (error) => {
         console.log

@@ -8,10 +8,13 @@ import { ComponentInfo } from '../../Models/componentInfo';
 import { NavigationMenuComponent } from "../navigation-menu/navigation-menu.component";
 import { AppRoutingModule } from '../../app-routing.module';
 import { RouterModule } from '@angular/router';
+// import { ToolbarComponent } from "../toolbar/toolbar.component";
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [NavigationMenuComponent,RouterModule],
+  imports: [NavigationMenuComponent, RouterModule
+    //  ToolbarComponent
+    ],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.scss'
 })

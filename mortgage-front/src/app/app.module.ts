@@ -33,7 +33,7 @@ import { CustomerDetailModalComponent } from './Components/customer-detail-modal
 import { magicLinkService } from './services/magicLinkService';
 import { DocumentTypeService } from './Services/documentType.service';
 import { ExportToExcelComponent } from './Components/export-to-excel/export-to-excel.component';
-import { loginService } from './services/login.service';
+import { loginService } from './Services/login.service';
 // import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 
 
