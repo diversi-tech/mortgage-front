@@ -5,8 +5,7 @@ Welcome to the Angular mortgage management project! This project demonstrates ho
 
 ## Installation
 
--when you pull the changes you have to install:
-npm install jwt-decode
+
 
 ### Step 1: Install the necessary dependencies
 First, 
@@ -18,6 +17,12 @@ And those who clone the project to a new folder should do
 ```bash
 npm i
 ```
+
+### One more Step for installation
+
+-when you pull the changes you have to install:
+npm install jwt-decode
+
 ### Step 2: Update Angular Project
 Next, update your Angular project to ensure all dependencies are up-to-date:
 
