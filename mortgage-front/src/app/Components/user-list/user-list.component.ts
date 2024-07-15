@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { Role, User } from '../../Models/User';
-import { UserListService } from '../../Services/user-list.service';
+import { UserListService } from '../../services/user-list.service';
 import { MaterialModule } from '../../material/material.module';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
@@ -73,6 +73,7 @@ export class UserListComponent implements OnInit {
       }
     });
 }
+
   getUserTypeString(value: Role): string {
     switch (Number(value)) {
       case 0:

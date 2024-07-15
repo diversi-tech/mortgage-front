@@ -13,6 +13,8 @@ import { MaterialModule } from '../../material/material.module';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { magicLinkService } from '../../Services/magicLinkService';
+
+
 @Component({
   selector: 'lead-list',
   standalone: true,
@@ -90,15 +92,15 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
   editLead(selected: Customer): void {
     this.router.navigate(['/lead-tetails/', selected?.id]);
   }
-  deleteLead(customer: Customer): void {
+  deleteLead(lead: Lead): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{
-      data: { customer } // Pass customer object as data to the dialog
+      data: { lead } // Pass customer object as data to the dialog
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.leadService.deleteCustomer(customer.id!).subscribe({
+        this.leadService.deleteCustomer(lead.id!).subscribe({
           next: () => {
-            console.log('Customer deleted successfully');
+            console.log('lead deleted successfully');
           },
           error: error => {
             // console.error('Error deleting customer:', error);

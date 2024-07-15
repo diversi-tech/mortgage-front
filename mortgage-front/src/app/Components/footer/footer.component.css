@@ -11,7 +11,7 @@
     display: flex;
     justify-content: space-between;
     /* flex-wrap: wrap;*/
-    grid-area: "footer";
+    /* grid-area: "footer"; */
     /* z-index: 5; */
    }
    .footer img.footer-image {

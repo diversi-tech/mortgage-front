@@ -52,7 +52,7 @@ import { DocumentTypeService } from './Services/documentType.service';
     HttpClientModule, MatFormFieldModule, MatInputModule
     , CanvasJSAngularChartsModule, BrowserAnimationsModule,
     NavigationMenuComponent, DataVisualizationComponent
-    , LoginComponent,
+    , LoginComponent
   ],
   providers: [
     provideClientHydration(),

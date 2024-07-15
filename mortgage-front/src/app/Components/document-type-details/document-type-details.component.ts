@@ -50,7 +50,6 @@ export class DocumentTypeDetailsComponent implements OnInit {
 
   setFormValues(id: number): void {
     if (this.docTypeId != -1) {
-      
       this.documentTypeService.getDocTypeById(id).subscribe(docTypeById => {
         if(docTypeById!=null){  //check if the id not exist in the DB
           this.docType = docTypeById
@@ -105,6 +104,5 @@ export class DocumentTypeDetailsComponent implements OnInit {
       transaction_Type: transactionTypeValue
     });
   }
-
 
 }
