@@ -21,26 +21,26 @@ import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dash
 
 const routes: Routes =
   [
-    {path:'exel',component:AdminDashboardComponent},
+    { path: 'exel', component: AdminDashboardComponent },
     { path: 'data', component: DataVisualizationComponent },
-    {path:'doc-list',component:DocumentsListCustomerComponent},
+    { path: 'doc-list', component: DocumentsListCustomerComponent },
     { path: 'doc', component: UploadComponent },
     { path: 'login', component: LoginComponent },
     { path: 'magic-link', component: MagicLinkComponent },
     { path: 'customer-list', component: CustomerListComponent },
-    {path:'lead-list',component:LeadListComponent},
-    {path:'customer-details/:id',component:CustomerDetailModalComponent},
-    {path:'lead-tetails/:id',component:LeadDetailComponent},
-    {path:'leadLogin',component:LeadComponent},
-    {path:'lead-details/:id',component:LeadDetailComponent},
-    {path:'user-list',component:UserListComponent},
-    {path:'user-details/:id',component:UserDetailComponent},
-    {path:'customer-details-modal',component:CustomerDetailModalComponent},
-    {path:'documentType-details/:id',component:DocumentTypeDetailsComponent},
-    {path:'documentType-list',component:DocumentTypeListComponent},
-    {path:'user-details',component:UserDetailComponent},
-    {path:'admin-dashboard',component:AdminDashboardComponent}
-
+    { path: 'lead-list', component: LeadListComponent },
+    { path: 'customer-details/:id', component: CustomerDetailModalComponent },
+    { path: 'lead-tetails/:id', component: LeadDetailComponent },
+    { path: 'leadLogin', component: LeadComponent },
+    { path: 'lead-details/:id', component: LeadDetailComponent },
+    { path: 'user-list', component: UserListComponent },
+    { path: 'user-details/:id', component: UserDetailComponent },
+    { path: 'customer-details-modal', component: CustomerDetailModalComponent },
+    { path: 'documentType-details/:id', component: DocumentTypeDetailsComponent },
+    { path: 'documentType-list', component: DocumentTypeListComponent },
+    { path: 'user-details', component: UserDetailComponent },
+    { path: 'admin-dashboard', component: AdminDashboardComponent },
+    // { path: '', component: LoginComponent }
   ];
 
 @NgModule({

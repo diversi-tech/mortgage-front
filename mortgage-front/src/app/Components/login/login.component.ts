@@ -64,9 +64,11 @@ export class LoginComponent {
         { 
           console.log('admin'); 
         
-         this.router.navigate(['/admin-dashboard']);
+        //  this.router.navigate(['/admin-dashboard']);
+        this._loginService.isAdmin='admin';
         } 
         else  {
+        this._loginService.isAdmin='customer';
           console.log('customer');}
       },
       (error) => {

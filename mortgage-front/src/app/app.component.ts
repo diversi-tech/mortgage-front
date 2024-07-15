@@ -1,16 +1,17 @@
-import { Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ComponentInfo } from './Models/componentInfo';
 import { NavigatioMenuToggleService } from './services/navigation-menu-toggle.service';
+import { Router } from '@angular/router';
+import { loginService } from './services/login.service';
 
 @Component({
   selector: 'app-root',
-  
+
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  constructor() {}
-
+export class AppComponent  {
+  constructor(private router:Router,public loginService:loginService) { }
   // componentArray = [
   //   new ComponentInfo("נתונים", "/data", "timeline"),
   //   new ComponentInfo("מסמכים", "/doc", "description"),
