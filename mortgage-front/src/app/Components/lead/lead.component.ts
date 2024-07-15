@@ -8,7 +8,7 @@ import { MaterialModule } from '../../material/material.module';
 
 import { leadService } from '../../Services/lead.service';
 import { Role,User } from '../../Models/user';
-import { UserService } from '../../Services/user.service';
+import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
