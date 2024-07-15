@@ -10,41 +10,43 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./file-upload.component.css']
 })
 export class UploadComponent {
-  selectedFile?: File;
+  selectedFiles: File[] = [];
   uploadProgress: number = 0;
-  uploadedFileName? = "";
-  // message = "File uploaded successfully!";
-  // showMsg:boolean=false;
-  constructor(private uploadService: UploadService,private _snackBar: MatSnackBar) { }
+  uploadedFiles: File[] = [];
+
+  constructor(private uploadService: UploadService, private _snackBar: MatSnackBar) { }
+
   triggerFileInput(): void {
     const fileInput = document.getElementById('fileInput');
     if (fileInput) {
       fileInput.click();
     }
   }
-  onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
-    this.uploadedFileName = this.selectedFile?.name;
 
+  onFileSelected(event: any): void {
+    console.log("in onFileSelected");
+    console.log(this.uploadedFiles);
+    this.selectedFiles = Array.from(event.target.files);
   }
+
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
-      duration: 5000, // Duration in milliseconds for how long the snackbar should be visible
+      duration: 5000,
     });
   }
- 
+
   onUpload(): void {
-    if (this.selectedFile) {
-      this.uploadService.uploadFile(this.selectedFile, "1").subscribe(
-        (event: any) => {
+    if (this.selectedFiles && this.selectedFiles.length > 0) {
+      this.uploadService.uploadFiles(this.selectedFiles,"1").subscribe(
+        (event: any) => {          
           if (event.status === 'progress') {
             this.uploadProgress = event.message;
-          } else if (event.status !== 'error'||event.status=='ok') {
-            console.log('File uploaded successfully:', event);
+          } else if (!event.status) {
+            console.log('Files uploaded successfully:', event.files);
             this.uploadProgress = 0;
-            this.selectedFile = undefined;
-            this.uploadedFileName = undefined;
-            this.openSnackBar('המסמך הועלה בהצלחה!', 'Close');
+            this.selectedFiles = [];
+            this.uploadedFiles = event.files;
+            this.openSnackBar('המסמכים הועלו בהצלחה!', 'Close');
           }
         },
         (error: any) => {
@@ -55,6 +57,7 @@ export class UploadComponent {
       );
     }
   }
+}
 
   // onDownload(fileName: string): void {
   //   this.uploadService.downloadFile(fileName).subscribe(blob => {
@@ -66,4 +69,3 @@ export class UploadComponent {
   //     window.URL.revokeObjectURL(url);
   //   });
   // }
-}

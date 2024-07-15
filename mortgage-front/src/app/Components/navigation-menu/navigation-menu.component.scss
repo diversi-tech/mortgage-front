@@ -57,83 +57,18 @@ a {
 
 .container{
   height: max-content;
+  background-color: rgba(0, 0, 0, 0.05);
   background-image: url("/assets/background.jpg");
-  background-size: cover;
+  background-size: cover;  
+  
 }
-
-.main-content {
-  // height: 100vh;
+.main-content{
+  height: 100vh;
   // background-image: url("/assets/back.jpg");
   // background-size: cover;
   // background-attachment:scroll;
-
-
 }
 
-// my
-// .main-content {
-//   padding: 20px;
-// }
-
-// my
-// a {
-//   padding: 10px;
-// }
-
-// my
-// a:hover {
-//   background-color: rgba(207, 210, 210, 0.327) !important;
-// }
-
-//my
-// mat-icon,
-// span {
-//   background-color: transparent !important;
-//   padding-bottom: 5px;
-// }
-
-// my
-// span {
-//   margin-left: 5px;
-// }
-
-// my
-// mat-icon {
-//   float: right;
-// }
-
-// my
-// @media screen and (max-width: 920px) {
-//   * {
-//     font-size: 15px;
-//   }
-
-// my
-//   .main-content {
-//     padding: 0px;
-//   }
-
-// my
-//   a {
-//     padding: 0px;
-//   }
-
-// my
-//   .sidenav-container {
-//     height: 50vh;
-//   }
-
-// my
-//   .sidenav {
-//     width: 100vw;
-//   }
-
-// my
-// .toggle-button {
-//   background-color: rgba(203, 203, 203, 0.508) !important;
-//   margin: 10px;
-//   text-align-last: center;
-// }
 
 
 //main branch
@@ -181,7 +116,3 @@ mat-sidenav-container {
   // background-image: url('/assets/Mortgage2.bak.webp');
   background-size: cover;
 }
-
-// mat-sidenav-container{
-
-// }

@@ -25,23 +25,6 @@
 
 .paginator {
   width: 100% !important;
-
-  @media (min-width: 375px) {
-    /* width: 125%; */
-  }
-
-  @media (min-width: 360px) {
-    /* width: 130%; */
-  }
-
-  @media (min-width: 344px) {
-    /* width: 136%; */
-  }
-
-  @media (min-width: 768px) {
-    /* width: 100%; */
-  }
-
   background-color: white;
   /* רקע לבן */
 }
@@ -60,9 +43,7 @@ th {
   font-weight: bold !important;
 
  }
- /* tr:hover{
-  background-color: rgba(178, 189, 202, 0.058)!important;
-} */
+ 
  .rtl-table-wrapper {
    width: 100%;
  }

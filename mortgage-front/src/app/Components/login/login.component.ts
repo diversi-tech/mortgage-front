@@ -11,7 +11,7 @@ import { TokenPayload } from '../../Models/Login';
 })
 export class LoginComponent {
 
-  // just example for creating token and the decoded:
+  // just example for creating token to an existing user and the decoded:
 
 
   // currentToken: string = '';

@@ -22,6 +22,7 @@ export class AppComponent {
     //new ComponentInfo(" פרטי לקוח", "/customer-details-modal", "list"),
     new ComponentInfo("כניסת לידים", "/leadLogin", "login"),
     new ComponentInfo("רשימת מסמכים","/documentType-list","score"),
+    new ComponentInfo("ייצוא לאקסל",'exel',"save")
   ];
 
   title = 'mortgage-client';

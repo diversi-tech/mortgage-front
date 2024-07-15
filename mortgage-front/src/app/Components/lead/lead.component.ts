@@ -7,6 +7,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { MaterialModule } from '../../material/material.module';
 import { leadService } from '../../Services/lead.service';
 import { Role,User } from '../../Models/User';
+
 import { UserService } from '../../Services/user.service';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,9 +19,10 @@ import { ActivatedRoute } from '@angular/router';
   standalone: true,
   imports: [
     MaterialModule,
-     ReactiveFormsModule
-    , CommonModule
-  ],
+    ReactiveFormsModule,
+    CommonModule,
+    UploadComponent
+],
   templateUrl: './lead.component.html',
   styleUrls: ['./lead.component.css']
 })

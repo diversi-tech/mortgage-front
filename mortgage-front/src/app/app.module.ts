@@ -32,14 +32,14 @@ import { DocumentTypeListComponent } from './Components/document-type-list/docum
 import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
 import { magicLinkService } from './Services/magicLinkService';
 import { DocumentTypeService } from './Services/documentType.service';
+import { ExportToExcelComponent } from './Components/export-to-excel/export-to-excel.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
-
     UserListComponent,
     UserDetailComponent,
     ToolbarComponent,

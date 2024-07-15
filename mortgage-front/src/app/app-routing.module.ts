@@ -16,10 +16,12 @@ import { DocumentTypeListComponent } from './Components/document-type-list/docum
 import { UploadComponent } from './Components/file-upload/file-upload.component';
 
 import { DocumentsListCustomerComponent } from './Components/documents-list-customer/documents-list-customer.component';
+import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 
 
 const routes: Routes =
   [
+    {path:'exel',component:AdminDashboardComponent},
     { path: 'data', component: DataVisualizationComponent },
     {path:'doc-list',component:DocumentsListCustomerComponent},
     { path: 'doc', component: UploadComponent },
