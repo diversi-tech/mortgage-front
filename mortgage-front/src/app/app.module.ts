@@ -33,6 +33,8 @@ import { CustomerDetailModalComponent } from './Components/customer-detail-modal
 import { magicLinkService } from './services/magicLinkService';
 import { DocumentTypeService } from './Services/documentType.service';
 import { ExportToExcelComponent } from './Components/export-to-excel/export-to-excel.component';
+import { loginService } from './services/login.service';
+// import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 
 
 @NgModule({
@@ -52,12 +54,13 @@ import { ExportToExcelComponent } from './Components/export-to-excel/export-to-e
     HttpClientModule, MatFormFieldModule, MatInputModule
     , CanvasJSAngularChartsModule, BrowserAnimationsModule,
     NavigationMenuComponent, DataVisualizationComponent
-    , LoginComponent,
+    , LoginComponent
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    customerService, leadService, DocumentsListCustomerService, UserService, DocumentTypeService,magicLinkService
+    customerService, leadService, DocumentsListCustomerService, UserService, DocumentTypeService,magicLinkService,
+    loginService
   ],
   bootstrap: [AppComponent],
 })

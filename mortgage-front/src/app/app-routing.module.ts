@@ -39,6 +39,7 @@ const routes: Routes =
     {path:'documentType-details/:id',component:DocumentTypeDetailsComponent},
     {path:'documentType-list',component:DocumentTypeListComponent},
     {path:'user-details',component:UserDetailComponent},
+    {path:'admin-dashboard',component:AdminDashboardComponent}
 
   ];
 

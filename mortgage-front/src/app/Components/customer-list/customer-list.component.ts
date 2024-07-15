@@ -17,7 +17,7 @@ import { ExportToExcelComponent } from "../export-to-excel/export-to-excel.compo
   standalone: true,
   imports: [
     MaterialModule,
-    CommonModule, AdminDashboardComponent,
+    CommonModule,
     ExportToExcelComponent
 ],
   templateUrl: './customer-list.component.html',

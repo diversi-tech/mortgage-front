@@ -19,7 +19,8 @@ import { NgIf } from '@angular/common';
   imports: [ BrowserAnimationsModule, BidiModule,CdkMenu,CdkMenuItem,RouterModule,
     CommonModule,
     CdkMenuTrigger,
-    AppRoutingModule
+    // AppRoutingModule
+    RouterModule
     ,MaterialModule,
     NgIf
   ],
