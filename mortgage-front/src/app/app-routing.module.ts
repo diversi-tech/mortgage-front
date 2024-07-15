@@ -22,29 +22,26 @@ import { CustomerPortalComponent } from './Components/customer-portal/customer-p
 
 const routes: Routes =
   [
-     { path: '', redirectTo: '/login', pathMatch: 'full' },
-    {path:'lead-details/:id',component:LeadDetailComponent},
-    {path:'exel',component:AdminDashboardComponent},
+    { path: 'exel', component: AdminDashboardComponent },
     { path: 'data', component: DataVisualizationComponent },
-    {path:'doc-list',component:DocumentsListCustomerComponent},
+    { path: 'doc-list', component: DocumentsListCustomerComponent },
     { path: 'doc', component: UploadComponent },
     { path: 'login', component: LoginComponent },
     { path: 'magic-link', component: MagicLinkComponent },
     { path: 'customer-list', component: CustomerListComponent },
-    {path:'lead-list',component:LeadListComponent},
-    {path:'customer-details/:id',component:CustomerDetailModalComponent},
-    {path:'lead-tetails/:id',component:LeadDetailComponent},
-    {path:'leadLogin',component:LeadComponent},
-    {path:'user-list',component:UserListComponent},
-    {path:'user-details/:id',component:UserDetailComponent},
-    {path:'customer-details-modal',component:CustomerDetailModalComponent},
-    {path:'documentType-details/:id',component:DocumentTypeDetailsComponent},
-    {path:'documentType-list',component:DocumentTypeListComponent},
-    {path:'user-details',component:UserDetailComponent},
-    {path:'admin-dashboard',component:AdminDashboardComponent,children:[
-    ]},
-    {path:'customer-portal',component:CustomerPortalComponent}
-
+    { path: 'lead-list', component: LeadListComponent },
+    { path: 'customer-details/:id', component: CustomerDetailModalComponent },
+    { path: 'lead-tetails/:id', component: LeadDetailComponent },
+    { path: 'leadLogin', component: LeadComponent },
+    { path: 'lead-details/:id', component: LeadDetailComponent },
+    { path: 'user-list', component: UserListComponent },
+    { path: 'user-details/:id', component: UserDetailComponent },
+    { path: 'customer-details-modal', component: CustomerDetailModalComponent },
+    { path: 'documentType-details/:id', component: DocumentTypeDetailsComponent },
+    { path: 'documentType-list', component: DocumentTypeListComponent },
+    { path: 'user-details', component: UserDetailComponent },
+    { path: 'admin-dashboard', component: AdminDashboardComponent },
+    // { path: '', component: LoginComponent }
   ];
 
 @NgModule({

@@ -10,10 +10,13 @@ import { NavigationMenuComponent } from "../navigation-menu/navigation-menu.comp
   styleUrl: './customer-portal.component.scss'
 })
 export class CustomerPortalComponent {
+  constructor() {
+    console.log("in ");
+  }
   componentArrayOfCustomer = [
-    
-     new ComponentInfo("מסמכים-לקוח", "/doc-list", "description"),
-     new ComponentInfo("כניסה לאתר", "/login", "login"),
-     new ComponentInfo("כניסת לידים", "/leadLogin", "login"),
-  ];
+    new ComponentInfo("מסמכים-לקוח", "/doc-list", "description"),
+    new ComponentInfo("כניסה לאתר", "/login", "login"),
+    new ComponentInfo("כניסת לידים", "/leadLogin", "login"),
+    new ComponentInfo('עריכת פרטי לקוח', "/customer-details/","description")
+ ];   
 }

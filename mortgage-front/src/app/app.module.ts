@@ -33,7 +33,9 @@ import { CustomerDetailModalComponent } from './Components/customer-detail-modal
 import { magicLinkService } from './services/magicLinkService';
 import { DocumentTypeService } from './Services/documentType.service';
 import { ExportToExcelComponent } from './Components/export-to-excel/export-to-excel.component';
-import { loginService } from './Services/login.service';
+import { loginService } from './services/login.service';
+import { CustomerPortalComponent } from './Components/customer-portal/customer-portal.component';
+import { AdminDashboardComponent } from "./Components/admin-dashboard/admin-dashboard.component";
 // import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 
 
@@ -45,17 +47,18 @@ import { loginService } from './Services/login.service';
     UserListComponent,
     UserDetailComponent,
     ToolbarComponent,
-    FooterComponent,
+    FooterComponent, CustomerPortalComponent,
     DocumentTypeDetailsComponent,
     DocumentTypeListComponent,
     BrowserModule, MaterialModule, FormsModule, ReactiveFormsModule,
     AppRoutingModule, LeadComponent,
     RouterModule, CommonModule,
-    HttpClientModule, MatFormFieldModule, MatInputModule
-    , CanvasJSAngularChartsModule, BrowserAnimationsModule,
-    NavigationMenuComponent, DataVisualizationComponent
-    , LoginComponent
-  ],
+    HttpClientModule, MatFormFieldModule, MatInputModule,
+    CanvasJSAngularChartsModule, BrowserAnimationsModule,
+    NavigationMenuComponent, DataVisualizationComponent,
+    LoginComponent,
+    AdminDashboardComponent
+],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),

@@ -64,12 +64,12 @@ export class LoginComponent{
         { 
           console.log('admin'); 
         
-         this.router.navigate(['/admin-dashboard']);
+        //  this.router.navigate(['/admin-dashboard']);
+        this._loginService.isAdmin='admin';
         } 
         else  {
-          console.log('customer');
-          this.router.navigate(['/customer-portal']);
-        }
+        this._loginService.isAdmin='customer';
+          console.log('customer');}
       },
       (error) => {
         console.log
