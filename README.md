@@ -5,6 +5,9 @@ Welcome to the Angular mortgage management project! This project demonstrates ho
 
 ## Installation
 
+-when you pull the changes you have to install:
+npm install jwt-decode
+
 ### Step 1: Install the necessary dependencies
 First, 
 Those who make changes to an existing branch should:
