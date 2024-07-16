@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { ComponentInfo } from './Models/componentInfo';
-import { NavigatioMenuToggleService } from './services/navigation-menu-toggle.service';
+import { NavigatioMenuToggleService } from './Services/navigation-menu-toggle.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +22,9 @@ export class AppComponent {
     //new ComponentInfo(" פרטי לקוח", "/customer-details-modal", "list"),
     new ComponentInfo("כניסת לידים", "/leadLogin", "login"),
     new ComponentInfo("רשימת מסמכים","/documentType-list","score"),
-    new ComponentInfo("ייצוא לאקסל",'exel',"save")
+    new ComponentInfo("ייצוא לאקסל",'exel',"save"),
+    new ComponentInfo("רשימת תפוצה",'/mailing-list',"save")
+
   ];
 
   title = 'mortgage-client';

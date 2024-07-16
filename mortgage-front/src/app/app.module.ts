@@ -19,7 +19,6 @@ import { LeadListComponent } from './Components/lead-list/lead-list.component';
 import { leadService } from './Services/lead.service';
 import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dialog.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
 import { DocumentsListCustomerService } from './Services/documentListCustomer.service';
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
 import { CommonModule } from '@angular/common';
@@ -33,6 +32,8 @@ import { CustomerDetailModalComponent } from './Components/customer-detail-modal
 import { magicLinkService } from './Services/magicLinkService';
 import { DocumentTypeService } from './Services/documentType.service';
 import { ExportToExcelComponent } from './Components/export-to-excel/export-to-excel.component';
+import { MailingListComponent } from './Components/mailing-list/mailing-list.component';
+import { MailingListService } from './Services/mailing-list.service';
 
 
 @NgModule({
@@ -40,6 +41,8 @@ import { ExportToExcelComponent } from './Components/export-to-excel/export-to-e
     AppComponent,
   ],
   imports: [
+    MailingListComponent,
+
     UserListComponent,
     UserDetailComponent,
     ToolbarComponent,
@@ -57,7 +60,7 @@ import { ExportToExcelComponent } from './Components/export-to-excel/export-to-e
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    customerService, leadService, DocumentsListCustomerService, UserService, DocumentTypeService,magicLinkService
+    customerService, leadService, DocumentsListCustomerService, UserService, DocumentTypeService,magicLinkService,MailingListService
   ],
   bootstrap: [AppComponent],
 })

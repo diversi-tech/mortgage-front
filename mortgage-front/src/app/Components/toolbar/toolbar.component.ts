@@ -1,8 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationMenuComponent } from '../navigation-menu/navigation-menu.component';
-// import { isMobile } from 'is-mobile' ;
-import { NavigatioMenuToggleService } from '../../services/navigation-menu-toggle.service';
-import { LoginComponent } from '../login/login.component';
+import { NavigatioMenuToggleService } from '../../Services/navigation-menu-toggle.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BidiModule } from '@angular/cdk/bidi';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
@@ -10,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from '../../app-routing.module';
 import { MaterialModule } from '../../material/material.module';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../Services/auth.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -27,32 +26,29 @@ import { RouterModule } from '@angular/router';
 
 
 export class ToolbarComponent implements OnInit {
-  isLoggedIn: boolean = false;
+  // isLoggedIn: boolean = false;
   showLogout: boolean = false;
   showMainMenu: boolean = false;
   user: string = 'אורח';
 
-  // constructor(private authService:AuthLoginComponent) {}-variable to call the authService
-  constructor(private NavigationMenuToggleService: NavigatioMenuToggleService) {
-    
-   }
-
+  constructor(private NavigationMenuToggleService: NavigatioMenuToggleService,public authService:AuthService) {  }
 
   ngOnInit(): void {
-    this.isLoggedIn = false;
+    // this.isLoggedIn = false;
     this.NavigationMenuToggleService.toggle();
   }
+
   loginOrLogout(): void {
-    if (this.isLoggedIn) {
+    if (this.authService.isLoggedIn()) {
       // after merge with git- call logout function in the AuthService
       //this.user= this.authService.login()        
       this.user = 'אורח'
-      this.isLoggedIn = false;
+      // this.isLoggedIn = false;
     }
     else {
       //after merge with git- call login function in the AuthService
       this.user = 'משה שוורץ'
-      this.isLoggedIn = true;
+      // this.isLoggedIn = true;
     }
   }
   

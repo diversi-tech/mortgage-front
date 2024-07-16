@@ -1,0 +1,25 @@
+<div id="content">
+    <mat-card class="document-type-edit-card">
+        <mat-card-title>רשימת תפוצה</mat-card-title>
+        <mat-card-content class="card-content">
+            <form [formGroup]="mailingListForm" (ngSubmit)="onSubmit()">
+                <div class="div-warp-fields">
+                    <mat-form-field class="subject-field">
+                        <mat-label>נושא</mat-label>
+                        <textarea matInput formControlName="subject" placeholder=""></textarea>
+                    </mat-form-field>
+                    <mat-form-field class="message-field">
+                        <mat-label>הודעה</mat-label>
+                        <textarea matInput formControlName="message" placeholder=""></textarea>
+                    </mat-form-field>
+
+                </div>
+                <div class="button-group">
+                    <button mat-raised-button color="primary" type="submit"
+                    [disabled]="!isFormValid()">שלח</button>
+                        <button mat-raised-button color="warn" type="button" (click)="clearFormFields()">מחק</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

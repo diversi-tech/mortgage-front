@@ -4,8 +4,8 @@
       <img src="assets/logo.png" alt="Logo" class="logo">
     </div>
     <button class="buttonLog" mat-button routerLink="/login" (click)="loginOrLogout()">
-      <mat-icon>{{ isLoggedIn ? 'logout' : 'login' }}</mat-icon>
-      {{ isLoggedIn ? 'יציאה' : 'התחברות' }}
+      <mat-icon>{{ authService.isLoggedIn() ? 'logout' : 'login' }}</mat-icon>
+      {{ authService.isLoggedIn() ? 'יציאה' : 'התחברות' }}
     </button>
     <div class="welcome-message">
       <span class="span">!שלום {{ user }}</span>

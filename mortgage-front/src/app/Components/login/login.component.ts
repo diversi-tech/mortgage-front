@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../Services/login.service';
+import { AuthService } from '../../Services/auth.service';
 import { TokenPayload } from '../../Models/Login';
 
 @Component({

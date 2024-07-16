@@ -7,22 +7,16 @@ import { Role,User } from '../../Models/User';
 import { UserListService } from '../../Services/user-list.service';
 import { MaterialModule } from '../../material/material.module';
 import { MatPaginator } from '@angular/material/paginator';
-import { Router } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-
 import { Observable } from 'rxjs';
+import { TokenPayload } from '../../Models/Login';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
   imports: [ 
-    // AppRoutingModule, 
-    // RouterModule,
     MaterialModule,
-    // CommonModule,
-    // ReactiveFormsModule,
-    // FormsModule 
   ],
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
@@ -48,7 +42,6 @@ export class UserListComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.users$.filter = filterValue.trim().toLowerCase();
   }
-
 
   editOrAddUser(id:number){
     this.router.navigate(['/user-details', id]);
