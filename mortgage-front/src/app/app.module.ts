@@ -33,9 +33,10 @@ import { CustomerDetailModalComponent } from './Components/customer-detail-modal
 import { magicLinkService } from './services/magicLinkService';
 import { DocumentTypeService } from './Services/documentType.service';
 import { ExportToExcelComponent } from './Components/export-to-excel/export-to-excel.component';
-import { loginService } from './services/login.service';
+import { loginService } from './Services/login.service';
 import { CustomerPortalComponent } from './Components/customer-portal/customer-portal.component';
 import { AdminDashboardComponent } from "./Components/admin-dashboard/admin-dashboard.component";
+import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 // import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 
 
@@ -57,7 +58,10 @@ import { AdminDashboardComponent } from "./Components/admin-dashboard/admin-dash
     CanvasJSAngularChartsModule, BrowserAnimationsModule,
     NavigationMenuComponent, DataVisualizationComponent,
     LoginComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+     ForgotPasswordComponent,
+     ForgotPasswordComponent
+  
 ],
   providers: [
     provideClientHydration(),

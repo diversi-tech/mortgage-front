@@ -7,7 +7,6 @@ export class loginService {
   readonly basicURL = "https://localhost:7055";
   constructor(private http: HttpClient) { }
   isAdmin?:string;
-  
   login(email: string, password: number): Observable<any> {
     const data={id:0,userName:"string",password:password,email:email,role:0,created_at:"2024-07-11T08:18:16.401Z",updated_at:"2024-07-11T08:18:16.401Z"};
  

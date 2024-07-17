@@ -9,12 +9,15 @@ import { NavigationMenuComponent } from "../navigation-menu/navigation-menu.comp
 import { AppRoutingModule } from '../../app-routing.module';
 import { RouterModule } from '@angular/router';
 // import { ToolbarComponent } from "../toolbar/toolbar.component";
+// import { FooterComponent } from "../footer/footer.component";
+// import { ToolbarComponent } from "../toolbar/toolbar.component";
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
   imports: [NavigationMenuComponent, RouterModule
     //  ToolbarComponent
-    ],
+    ,
+  ],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.scss'
 })
@@ -23,7 +26,7 @@ export class AdminDashboardComponent {
     console.log("in AdminDashboardComponent");
   }
   componentArrayOfAdmin = [
-    new ComponentInfo("נתונים", "/data", "timeline"),
+    new ComponentInfo("נתונים", "data", "timeline"),
     new ComponentInfo("מסמכים", "/doc", "description"),
     // new ComponentInfo("מסמכים-לקוח", "/doc-list", "description"),
     new ComponentInfo("כניסה לאתר", "/login", "login"),

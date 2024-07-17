@@ -14,10 +14,10 @@ import { UserDetailComponent } from './Components/user-detail/user-detail.compon
 import { DocumentTypeDetailsComponent } from './Components/document-type-details/document-type-details.component';
 import { DocumentTypeListComponent } from './Components/document-type-list/document-type-list.component';
 import { UploadComponent } from './Components/file-upload/file-upload.component';
-
 import { DocumentsListCustomerComponent } from './Components/documents-list-customer/documents-list-customer.component';
 import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 import { CustomerPortalComponent } from './Components/customer-portal/customer-portal.component';
+import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 
 
 const routes: Routes =
@@ -32,7 +32,7 @@ const routes: Routes =
     { path: 'lead-list', component: LeadListComponent },
     { path: 'customer-details/:id', component: CustomerDetailModalComponent },
     { path: 'lead-tetails/:id', component: LeadDetailComponent },
-    { path: 'leadLogin', component: LeadComponent },
+    { path: 'leadLogin/:id', component: LeadComponent },
     { path: 'lead-details/:id', component: LeadDetailComponent },
     { path: 'user-list', component: UserListComponent },
     { path: 'user-details/:id', component: UserDetailComponent },
@@ -41,9 +41,10 @@ const routes: Routes =
     { path: 'documentType-list', component: DocumentTypeListComponent },
     { path: 'user-details', component: UserDetailComponent },
     { path: 'admin-dashboard', component: AdminDashboardComponent },
-    // { path: '', component: LoginComponent }
+    {path:'forgot-password',component:ForgotPasswordComponent},
+   { path: '', component: LoginComponent }
   ];
-
+ 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

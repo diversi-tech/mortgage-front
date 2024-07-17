@@ -38,7 +38,6 @@ export class NavigationMenuComponent  implements OnInit {
       });
     }
   }
-
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     if (isPlatformBrowser(this.platformId)) {
