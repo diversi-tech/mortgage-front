@@ -53,7 +53,7 @@ export class MagicLinkComponent implements OnInit {
         },
       );
     }
-
+ 
 
 
   }

@@ -2,32 +2,62 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../../Models/user';
-import { loginService } from '../../services/login.service';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../material/material.module';
-import { CommonModule } from '@angular/common';
-import { AppRoutingModule } from '../../app-routing.module';
-
+import { leadService } from '../../Services/lead.service';
+import { loginService } from '../../services/login.service';
+import { response } from 'express';
+import { AuthService } from '../../services/auth.service';
+// import { loginService } from '../../Services/login.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MaterialModule,ReactiveFormsModule,
-// AppRoutingModule
-RouterModule
-
-  ],
+  imports: [MaterialModule, ReactiveFormsModule,
+    // AppRoutingModule
+    RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent{
+  
+
   loginForm: FormGroup;
   user?:User;
 
-  constructor(private fb: FormBuilder,private _loginService:loginService,private snackBar: MatSnackBar, private router: Router) {
+  id: number | null = null;private _loginService: any;
+;
+  token: string | null = null;
+  isNotValid = false;
+  //constructor(  private router: Router) { }
+  tokenValid: any;
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.id = params['id']; // Get the 'id' parameter
+      this.token = params['token']; // Get the 'token' parameter if needed
+      console.log('ID:', this.id);
+      console.log('Token:', this.token);
+    });
+    if (this.id != null) {
+      this.leadService.checkToken(this.id).subscribe(
+        response => {
+          if (response.status === 200) {
+            this.router.navigate(['/leadLogin/', this?.id]);
+            console.log("hiiii");
+          }
+          else {
+            this.isNotValid = true;
+          }
+        },
+      );
+    }
+ 
+  }
+  constructor(private route: ActivatedRoute,private leadService: leadService,private fb: FormBuilder,private _auth:AuthService,private snackBar: MatSnackBar, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required,Validators.minLength(6), Validators.pattern(/^\S*$/)]]
     });
+    // this._loginService.isAdmin='login';
   }
 
   get email() {
@@ -38,26 +68,16 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
   submit() {
-  
-    
-    //     this._loginService.login(email,password).subscribe(
-    //       (response: User) => {
-    //         this.user = response;
-    //         console.log('Login successful:', response);
-    //       },
-    //       (error) => {
-    //         console.error('Login failed:', error);
-    //       }
-    //     )
-    //   }
     if (this.loginForm.valid) {
-      
+  
       console.log('good');
       const { email, password } = this.loginForm.value;
-    this._loginService.login(email,password).subscribe(
+    this._auth.login(email,password).subscribe(
       (response) => {
+
+        
         console.log('Login successful', response);
-        this.user = response;
+      // this.user=response;
         const role=this.user?.role;
         console.log('what the user',this.user);
         if(role===0)
@@ -66,12 +86,15 @@ export class LoginComponent {
         
          this.router.navigate(['/admin-dashboard']);
         this._loginService.isAdmin='admin';
+         this.router.navigate(['/admin-dashboard']);
         } 
         else  {
-        this._loginService.isAdmin='customer';
-          console.log('customer');}
+          console.log('customer');
+          this.router.navigate(['/customer-portal']);
+
+        }
       },
-      (error) => {
+      (error: any) => {
         console.log
         ('Login failed', error);
         this.snackBar.open('המשתמש לא קיים במערכת', 'Close', {
@@ -89,7 +112,9 @@ export class LoginComponent {
   }
   forgotPassword() {
   // כאן תוכל להוסיף לוגיקה לשליחת קישור לשכחת סיסמה
+  this._loginService.
   console.log('Forgot password clicked');
+  // this.router.navigate(['/forgot-password']);
   // לדוגמה, תוכל להפנות לדף אחר או להציג הודעה
 }
 

@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ComponentInfo } from './Models/componentInfo';
-import { NavigatioMenuToggleService } from './services/navigation-menu-toggle.service';
-import { Router } from '@angular/router';
+// import { ComponentInfo } from './Models/componentInfo';
+// import { NavigatioMenuToggleService } from './Services/navigation-menu-toggle.service';
+// import { Router } from '@angular/router';
 import { loginService } from './services/login.service';
+
 
 @Component({
   selector: 'app-root',
-
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  templateUrl:'./app.component.html',
+  styleUrl:'./app.component.css'
 })
 export class AppComponent  {
-  
-  constructor(private router:Router,public loginService:loginService) { }
+  constructor(public loginService:loginService) { 
+  }
   // componentArray = [
   //   new ComponentInfo("נתונים", "/data", "timeline"),
   //   new ComponentInfo("מסמכים", "/doc", "description"),
@@ -26,7 +26,6 @@ export class AppComponent  {
   //   new ComponentInfo("רשימת מסמכים","/documentType-list","score"),
   //   new ComponentInfo("ייצוא לאקסל",'exel',"save")
   // ];
-
   title = 'mortgage-client';
   
 }

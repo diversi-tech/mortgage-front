@@ -36,16 +36,13 @@ import { ExportToExcelComponent } from './Components/export-to-excel/export-to-e
 import { loginService } from './services/login.service';
 import { CustomerPortalComponent } from './Components/customer-portal/customer-portal.component';
 import { AdminDashboardComponent } from "./Components/admin-dashboard/admin-dashboard.component";
-import { ChatComponent } from './Components/chat/chat.component';
-import { ChatService } from './services/chatService';
+import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 // import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent,
-
   ],
   imports: [
     UserListComponent,
@@ -61,13 +58,16 @@ import { ChatService } from './services/chatService';
     CanvasJSAngularChartsModule, BrowserAnimationsModule,
     NavigationMenuComponent, DataVisualizationComponent,
     LoginComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+     ForgotPasswordComponent,
+     ForgotPasswordComponent
+  
 ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
     customerService, leadService, DocumentsListCustomerService, UserService, DocumentTypeService,magicLinkService,
-    loginService,ChatService
+    loginService
   ],
   bootstrap: [AppComponent],
 })
