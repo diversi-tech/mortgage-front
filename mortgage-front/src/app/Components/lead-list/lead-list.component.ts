@@ -87,10 +87,10 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
 
   addLead(): void {
 
-    this.router.navigate(['/lead-tetails/', -1]);  }
+    this.router.navigate(['admin-dashboard/lead-tetails/', -1]);  }
 
   editLead(selected: Customer): void {
-    this.router.navigate(['/lead-tetails/', selected?.id]);
+    this.router.navigate(['admin-dashboard/lead-tetails/', selected?.id]);
   }
   deleteLead(lead: Lead): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{

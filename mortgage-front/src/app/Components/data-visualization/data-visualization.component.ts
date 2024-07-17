@@ -133,7 +133,11 @@ export class DataVisualizationComponent implements OnInit {
       May: 0, June: 0, July: 0, August: 0, September: 0,
       October: 0, November: 0, December: 0
     };
-
+    // var monthCounts = {
+    //   January: 10, February: 20, March: 30, April: 40,
+    //   May: 50, June: 40, July: 30, August: 20, September: 10,
+    //   October: 70, November: 10, December: 20
+    // };
     items.forEach(item => {
       if (item.created_at) {
         var date = new Date(item.created_at);

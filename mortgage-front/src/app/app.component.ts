@@ -11,6 +11,7 @@ import { loginService } from './services/login.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent  {
+  
   constructor(private router:Router,public loginService:loginService) { }
   // componentArray = [
   //   new ComponentInfo("נתונים", "/data", "timeline"),
@@ -27,6 +28,7 @@ export class AppComponent  {
   // ];
 
   title = 'mortgage-client';
+  
 }
 
 

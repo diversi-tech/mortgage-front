@@ -5,4 +5,12 @@
     /* border: 3px solid rgb(178, 189, 202); */
     min-width: max-content;
     min-height: 60vh;
+    max-width: 60vw;
+    margin: 0 auto;
+    background: none!important;
+    background-color: transparent!important;
   }
+  
+:host {
+  background-color: transparent;
+}

@@ -20,15 +20,15 @@ export class AdminDashboardComponent {
     console.log("in AdminDashboardComponent");
   }
   componentArrayOfAdmin = [
-    new ComponentInfo("נתונים", "/data", "timeline"),
-    new ComponentInfo("מסמכים", "/doc", "description"),
+    new ComponentInfo("נתונים", "/admin-dashboard/data", "timeline"),
+    new ComponentInfo("מסמכים", "/admin-dashboard/doc", "description"),
     // new ComponentInfo("מסמכים-לקוח", "/doc-list", "description"),
     new ComponentInfo("כניסה לאתר", "/login", "login"),
-    new ComponentInfo("רשימת לקוחות", "/customer-list", "checklist"),
-    new ComponentInfo("רשימת לידים", "/lead-list", "list"),
-    new ComponentInfo("רשימת משתמשים", "/user-list", "list"),
-    new ComponentInfo(" פרטי לקוח", "/customer-details-modal", "list"),
+    new ComponentInfo("רשימת לקוחות", "/admin-dashboard/customer-list", "checklist"),
+    new ComponentInfo("רשימת לידים", "/admin-dashboard/lead-list", "list"),
+    new ComponentInfo("רשימת משתמשים", "/admin-dashboard/user-list", "list"),
+    new ComponentInfo(" פרטי לקוח", "/admin-dashboard/customer-details-modal", "list"),
     // new ComponentInfo("כניסת לידים", "/leadLogin", "login"),
-    new ComponentInfo("רשימת מסמכים","/documentType-list","score"),
+    new ComponentInfo("רשימת מסמכים","/admin-dashboard/documentType-list","score"),
   ];
 }

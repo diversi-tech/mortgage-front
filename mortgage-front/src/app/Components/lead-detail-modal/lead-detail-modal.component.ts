@@ -79,7 +79,7 @@ export class LeadDetailComponent implements OnInit {
               console.log('Lead updated successfully', response);
               console.log("id:"+response?.id);
               
-              this.router.navigate(['/lead-list']);
+              this.router.navigate(['admin-dashboard/lead-list']);
             })
           )
           .subscribe();
@@ -89,7 +89,7 @@ export class LeadDetailComponent implements OnInit {
           .pipe(
             tap(response => {
               console.log('Lead updated successfully', response);
-              this.router.navigate(['/lead-list']); // Navigate back to the lead list or any other route
+              this.router.navigate(['admin-dashboard/lead-list']); // Navigate back to the lead list or any other route
             })
           )
           .subscribe();
@@ -98,7 +98,7 @@ export class LeadDetailComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/lead-list']);
+    this.router.navigate(['admin-dashboard/lead-list']);
   }
 }
 export class Leads {

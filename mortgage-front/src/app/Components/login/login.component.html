@@ -1,4 +1,4 @@
-<mat-card ngSkipHydration>
+<!-- <mat-card ngSkipHydration>
     <mat-card-title>התחברות---</mat-card-title>
     <mat-card-content>
         <form [formGroup]="loginForm" (ngSubmit)="submit()">
@@ -38,4 +38,140 @@
         </form>
     </mat-card-content>
 </mat-card>
+ -->
+
+
 <!-- <router-outlet> </router-outlet> -->
+<!-- 
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card mt-5 rounded shadow">
+          <div class="card-body">
+            <h3 class="card-title text-center">Welcome Back!</h3>
+            <form [formGroup]="loginForm" (ngSubmit)="submit()">
+              <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" formControlName="email" placeholder="you@example.com">
+                @if(email?.invalid && (email?.dirty || email?.touched)){
+                    <div  class="text-danger">
+                        @if(email?.errors?.['required']){
+                      <div>Email is required.</div>}
+                      @if(email?.errors?.['email']){<div>Email is invalid.</div>}
+                    </div>
+                }
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password">
+                @if(password?.invalid && (password?.dirty || password?.touched)){
+                    <div  class="text-danger">
+                        @if(password?.errors?.['required']){
+                      <div >Password is required.</div>
+                        }
+                        @if (password?.errors?.['minlength']) {
+                      <div >Password must be at least 6 characters long.</div>}
+                      @if(password?.errors?.['pattern']){
+                      <div >Password cannot contain spaces.</div>}
+                    </div>
+                }
+              </div>
+              <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid">Login</button>
+            </form>
+            <div class="text-center mt-3">
+              <a href="#" (click)="forgotPassword()" class="text-muted">Forgot Password?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   -->
+<!--   
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card mt-5">
+          <div class="card-body">
+            <h3 class="card-title text-center">Login</h3>
+            <form [formGroup]="loginForm" (ngSubmit)="submit()">
+              <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter email">
+             @if(email?.invalid && (email?.dirty || email?.touched)){
+                <div  class="text-danger">
+                    @if(email?.errors?.['required']){
+                  <div>Email is required.</div>}
+                  @if(email?.errors?.['email']){<div>Email is invalid.</div>}
+                  <div *ngIf="email?.errors?.email">Invalid email address.</div>
+                </div>
+            }
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter password">
+                @if(password?.invalid && (password?.dirty || password?.touched)){
+                <div  class="text-danger">
+                    @if(password?.errors?.['required']){
+                  <div >Password is required.</div>
+                    }
+                    @if (password?.errors?.['minlength']) {
+                  <div >Password must be at least 6 characters long.</div>}
+                  @if(password?.errors?.['pattern']){
+                  <div >Password cannot contain spaces.</div>}
+                </div>
+            }
+              </div>
+              <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid">Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+   -->
+
+  <div class="login-container">
+    <div class="login-card">
+      <h3 class="card-title" style="font-size: 40px;"><i class="material-icons" style="font-size: 30px;float: none;">account_circle</i>הירשם לכניסה</h3>
+      <form [formGroup]="loginForm" (ngSubmit)="submit()">
+        <div class="form-group">
+          <label for="email"><i class="material-icons">email</i> כתובת אמייל</label>
+          <input type="email" class="form-input" id="email" formControlName="email" placeholder="you@example.com">
+          @if(email?.invalid && (email?.dirty || email?.touched)){
+            <div  class="text-danger">
+                @if(email?.errors?.['required']){
+              <div>Email is required.</div>}
+              @if(email?.errors?.['email']){<div>Email is invalid.</div>}
+            </div>
+        }
+    
+        </div>
+        <div class="form-group">
+          <label for="password"><i class="material-icons">lock</i> סיסמה</label>
+ <div class="password-input">
+    <input type="password" class="form-input" id="password" formControlName="password" placeholder="Password" [type]="hidePassword ? 'password' : 'text'">
+    <i class="material-icons" id="see" (click)="togglePasswordVisibility()">{{ hidePassword ? 'visibility_off' : 'visibility' }}</i>
+  </div>
+          @if(password?.invalid && (password?.dirty || password?.touched)){
+            <div  class="text-danger">
+                @if(password?.errors?.['required']){
+              <div >Password is required.</div>
+                }
+                @if (password?.errors?.['minlength']) {
+              <div >Password must be at least 6 characters long.</div>}
+              @if(password?.errors?.['pattern']){
+              <div >Password cannot contain spaces.</div>}
+            </div>
+        }
+        </div>
+        <button type="submit" class="submit-btn" [disabled]="loginForm.invalid">Login</button>
+      </form>
+      <div class="forgot-password">
+        <a href="#" (click)="forgotPassword()" class="text-muted">Forgot Password?</a>
+      </div>
+    </div>
+  </div>
+  

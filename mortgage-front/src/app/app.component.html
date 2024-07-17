@@ -1,10 +1,10 @@
 <app-toolbar></app-toolbar>
-@if(loginService.isAdmin==undefined){
+<!-- @if(loginService.isAdmin==undefined){
     <ng-container>
         <app-login></app-login>
     </ng-container>
-    }
-<router-outlet></router-outlet>
+    } -->
+<!-- <router-outlet></router-outlet>
 @if(loginService.isAdmin=='admin'){
 <ng-container>
     <app-admin-dashboard></app-admin-dashboard>
@@ -14,5 +14,7 @@
     <ng-container>
         <app-customer-portal></app-customer-portal>
     </ng-container>
-    }
+    } -->
+    <router-outlet></router-outlet>
 <footer> </footer>
+<!-- <app-chat></app-chat> -->

@@ -64,7 +64,7 @@ export class LoginComponent {
         { 
           console.log('admin'); 
         
-        //  this.router.navigate(['/admin-dashboard']);
+         this.router.navigate(['/admin-dashboard']);
         this._loginService.isAdmin='admin';
         } 
         else  {
@@ -83,4 +83,14 @@ export class LoginComponent {
 
     }
   }
+  hidePassword = true; // מוסתר כברירת מחדל
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword; // מתחלף בין מצב מוסתר לגלוי
+  }
+  forgotPassword() {
+  // כאן תוכל להוסיף לוגיקה לשליחת קישור לשכחת סיסמה
+  console.log('Forgot password clicked');
+  // לדוגמה, תוכל להפנות לדף אחר או להציג הודעה
+}
+
 }

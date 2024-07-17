@@ -21,6 +21,7 @@ import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dash
 
 const routes: Routes =
   [
+    { path: '', redirectTo: '/login', pathMatch: 'full' }, // ניתוב ברירת מחדל
     { path: 'exel', component: AdminDashboardComponent },
     { path: 'data', component: DataVisualizationComponent },
     { path: 'doc-list', component: DocumentsListCustomerComponent },
@@ -39,8 +40,18 @@ const routes: Routes =
     { path: 'documentType-details/:id', component: DocumentTypeDetailsComponent },
     { path: 'documentType-list', component: DocumentTypeListComponent },
     { path: 'user-details', component: UserDetailComponent },
-    { path: 'admin-dashboard', component: AdminDashboardComponent },
-    // { path: '', component: LoginComponent }
+    { path: 'admin-dashboard', component: AdminDashboardComponent,children:[
+      { path: 'customer-list', component: CustomerListComponent },
+      { path: 'doc', component: UploadComponent },
+      { path: 'data', component: DataVisualizationComponent },
+      { path: 'doc-list', component: DocumentsListCustomerComponent },
+      { path: 'user-list', component: UserListComponent },
+      { path: 'lead-list', component: LeadListComponent },
+      { path: 'customer-details-modal', component: CustomerDetailModalComponent },
+      { path: 'leadLogin', component: LeadComponent },
+      { path: 'documentType-list', component: DocumentTypeListComponent },
+      { path: 'lead-tetails/:id', component: LeadDetailComponent },
+    ] },
   ];
 
 @NgModule({
@@ -48,3 +59,13 @@ const routes: Routes =
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+/*    new ComponentInfo("נתונים", "/data", "timeline"),
+    new ComponentInfo("מסמכים", "/doc", "description"),
+    // new ComponentInfo("מסמכים-לקוח", "/doc-list", "description"),
+    new ComponentInfo("כניסה לאתר", "/login", "login"),
+    new ComponentInfo("רשימת לקוחות", "/admin-dashboard/customer-list", "checklist"),
+    new ComponentInfo("רשימת לידים", "/lead-list", "list"),
+    new ComponentInfo("רשימת משתמשים", "/user-list", "list"),
+    new ComponentInfo(" פרטי לקוח", "/customer-details-modal", "list"),
+    // new ComponentInfo("כניסת לידים", "/leadLogin", "login"),
+    new ComponentInfo("רשימת מסמכים","/documentType-list","score"), */
