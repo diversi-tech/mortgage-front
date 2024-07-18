@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DocumentType, TransactionType } from '../../Models/DocumentTypes.Model';
-import { DocumentTypeService } from '../../Services/documentType.service';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../material/material.module';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -40,8 +39,10 @@ export class MailingListComponent {
 
  async onSubmit() {
     if (this.isFormValid()) {
-      const formValues = this.mailingListForm.value;
+
       const recipients: string[] = await this.fetchCustomerEmails();
+      this.clearFormFields();
+      const formValues = this.mailingListForm.value;
       this.sendMail(recipients, formValues.subject, formValues.message);
     }
   }
@@ -73,7 +74,7 @@ export class MailingListComponent {
     return subjectControl?.value || messageControl?.value;
   }
 
-  clearFormFields(): void {
+  clearFormFields(): void { 
     this.mailingListForm.reset({
     });
   }
