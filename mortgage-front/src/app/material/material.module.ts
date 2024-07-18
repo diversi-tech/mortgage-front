@@ -18,7 +18,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+// import { MatSnackBar } from '@angular/material/snack-bar';
 
 const modules=[
   MatTableModule,
@@ -40,7 +40,8 @@ const modules=[
    MatIcon,
    MatToolbarModule,
    MatFormField,
-   MatTooltipModule
+   MatTooltipModule,
+  //  MatSnackBar
 ]
 
 @NgModule({

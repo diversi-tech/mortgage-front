@@ -1,13 +1,14 @@
 
 export enum DocumentStatus {
-    ממתין,
-    הושלם
+    "בחר מסמך",
+    "ממתין לאישור",
+    "נשלח"
 }
 
 
 export class Document {
 
-    id?: number;
+    id: number;
     customer_Id?: number;
     task_description?: string;
     document_type_id?: number;

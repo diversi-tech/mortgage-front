@@ -43,8 +43,40 @@
     max-width: 124px;
   }
 
+  .okey-button-container {
+    margin: 2%;
+    display: flex;
+    justify-content: center;
+    /* width: 120px; */
+  }
 
+.mat-header-cell{
+  text-align: right;
+}
 
+.mat-cell{
+  text-align: center;
+}
 
+.send-all{
+  direction: ltr;
+  display: flex;
+  padding: 2%;
+  text-align: right;
+}
 
+.button-text {
+  margin-right: 8px; 
+}
  
+.icon-container {
+  flex: 1; 
+}
+
+.file-name {
+ 
+  background-color: lightblue;
+  text-align: center; /* יישור הטקסט למרכז */
+  /* padding: 2vh; רווח בין הטקסט לגבולות המלבן */
+ 
+}

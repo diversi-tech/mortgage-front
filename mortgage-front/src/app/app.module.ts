@@ -22,7 +22,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
 import { DocumentsListCustomerService } from './services/documentListCustomer.service';
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { LeadComponent } from './Components/lead/lead.component';
 import { UserService } from './Services/user.service';
@@ -60,7 +60,9 @@ import { FooterComponent } from './Components/footer/footer.component';
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    customerService, leadService, DocumentsListCustomerService, UserService
+    customerService, leadService, DocumentsListCustomerService, UserService,
+    DatePipe
+  
   ],
   bootstrap: [AppComponent],
 })
