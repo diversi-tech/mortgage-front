@@ -7,7 +7,7 @@ import { DocumentsListCustomerService } from '../../Services/documents-list-cust
 import { Observable, Subscription } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { DocumentStatus, Document } from '../../Models/Document';
+import { Status, Document } from '../../Models/Document';
 import { DocumentType, TransactionType } from '../../Models/DocumentTypes.Model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
@@ -94,7 +94,7 @@ export class DocumentsListCustomerComponent implements OnInit {
 
   //status enum פונקציה להמרת המספר לערך המחרוזתי שלו ב
   changeDocStatusToString(index: number): String {
-    this.documentStatusString = DocumentStatus[index];
+    this.documentStatusString = Status[index];
     return this.documentStatusString;
   }
 

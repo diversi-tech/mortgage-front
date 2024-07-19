@@ -1,8 +1,7 @@
-
 export enum Status {
     "בחר מסמך",
     "ממתין לאישור",
-    "נשלח"
+    "נשלח" 
 }
 export class Document {
 
@@ -33,9 +32,3 @@ export class Document {
 
 
 }
-
-
-
-
-
-
