@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ViewEncapsulation, Inject } from '@angular/core';
 import { Customer, Customer_type } from '../../Models/Customer';
-import { customerService } from '../../services/costumer.service';
+import { customerService } from '../../Services/costumer.service';
 import { MaterialModule } from '../../material/material.module';
 import { Router } from '@angular/router';
 import {  Subscription } from 'rxjs';
@@ -10,20 +10,31 @@ import {  MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.component';
+import { ExportToExcelComponent } from "../export-to-excel/export-to-excel.component";
 @Component({
   selector: 'customer-list',
   standalone: true,
-  imports: [MaterialModule, CommonModule],
+  imports: [
+    MaterialModule,
+    CommonModule, AdminDashboardComponent,
+    ExportToExcelComponent
+],
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class CustomerListComponent implements OnInit, OnDestroy {
-  displayedColumns = [ 'name', 'address', 'phone','Customer_type', 'actions'];
-  dataSource: MatTableDataSource<Customer> = new MatTableDataSource<Customer>();
+  displayedColumns = ['name', 'address', 'phone', 'Customer_type', 'actions'];
+  leads: MatTableDataSource<Customer> = new MatTableDataSource<Customer>();
+  customers: MatTableDataSource<Customer> = new MatTableDataSource<Customer>();
+  archivedCustomers: MatTableDataSource<Customer> = new MatTableDataSource<Customer>();
   private customersSubscription?: Subscription;
+  @ViewChild('leadsPaginator') leadsPaginator!: MatPaginator;
+  @ViewChild('customersPaginator') customersPaginator!: MatPaginator;
+  @ViewChild('archivedCustomersPaginator') archivedCustomersPaginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   constructor(private customerService: customerService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -33,14 +44,22 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   loadCustomers(): void {
     this.customersSubscription = this.customerService.customers$.subscribe({
       next: customers => {
-        this.dataSource.data = customers;
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.leads.data = customers.filter(customer => customer.customer_type === 0);
+        this.customers.data = customers.filter(customer => customer.customer_type === 1);
+        this.archivedCustomers.data = customers.filter(customer => customer.customer_type === 2);
+
+        this.leads.sort = this.sort;
+        this.customers.sort = this.sort;
+        this.archivedCustomers.sort = this.sort;
+
+        this.leads.paginator = this.leadsPaginator;
+        this.customers.paginator = this.customersPaginator;
+        this.archivedCustomers.paginator = this.archivedCustomersPaginator;
       },
       error: error => {
         // console.error('Error loading customers:', error);
       }
-    });    
+    });
   }
 
   ngOnDestroy(): void {
@@ -49,28 +68,31 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-  }
-
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.leads.filter = filterValue;
+    this.customers.filter = filterValue;
+    this.archivedCustomers.filter = filterValue;
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if (this.leads.paginator) {
+      this.leads.paginator.firstPage();
+    }
+    if (this.customers.paginator) {
+      this.customers.paginator.firstPage();
+    }
+    if (this.archivedCustomers.paginator) {
+      this.archivedCustomers.paginator.firstPage();
     }
   }
 
   addCustomer(): void {
-    this.router.navigate(['/customer-details', -1]);
+    this.router.navigate(['/customer-details']);
   }
 
-  editCustomer(selected: Customer): void {
-    this.router.navigate(['/customer-details', selected.id]);
+  editCustomer(customer: Customer): void {
+    this.router.navigate(['/customer-details', customer.id]);
   }
- 
+
   deleteCustomer(customer: Customer): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{
       data: { customer } // Pass customer object as data to the dialog
@@ -79,29 +101,25 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       if (result) {
         this.customerService.deleteCustomer(customer.id!).subscribe({
           next: () => {
-            console.log('Customer deleted successfully');
+            console.log('lead deleted successfully');
           },
           error: error => {
-            console.error('Error deleting customer:', error);
           }
         });
       }
     });
   }
-  getCustomerTypeString(value: Customer_type): string {
-    // console.log('value=' + value);
-    
-    switch (Number(value)) {
+
+  getCustomerTypeString(customer_type: Customer_type): string {
+    switch (customer_type) {
       case 0:
-        // console.log(value);
-        return "ליד";
+        return 'ליד';
       case 1:
-        return "לקוח";
+        return 'לקוח';
       case 2:
-        return "בארכיון";
+        return 'בארכיון';
       default:
-        'אחר'
+        return 'לא ידוע';
     }
-    return 'error';
   }
 }

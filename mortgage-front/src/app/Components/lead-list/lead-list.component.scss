@@ -11,9 +11,9 @@ th{
     min-width: max-content;
     min-height: 60vh;
   }
-  .tr:hover{
-    background-color: rgba(178, 189, 202, 0.058)!important;
-  }
+  // .tr:hover{
+  //   background-color: rgba(178, 189, 202, 0.058)!important;
+  // }
   @media screen and (max-width: 900px) {
   .mat-table {
     padding: 1px !important;

@@ -21,6 +21,7 @@ img{
     max-width: 1200px; 
     margin: 0 auto; 
   }
+    
   
   .company-logo {
     width: 150px; 
@@ -42,5 +43,11 @@ img{
   .contact-info span {
     display: block;
     margin-top: 5px; 
+  }
+   */
+   /* :host {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
    */

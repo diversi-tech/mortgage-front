@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LeadDetailComponent } from './lead-detail-modal.component';
+import { FileUploadComponent } from './file-upload.component';
 
-describe('LeadDetailModalComponent', () => {
-  let component: LeadDetailComponent;
-  let fixture: ComponentFixture<LeadDetailComponent>;
+describe('FileUploadComponent', () => {
+  let component: FileUploadComponent;
+  let fixture: ComponentFixture<FileUploadComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LeadDetailComponent]
+      declarations: [FileUploadComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LeadDetailComponent);
+    fixture = TestBed.createComponent(FileUploadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

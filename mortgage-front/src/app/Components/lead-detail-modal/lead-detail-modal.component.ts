@@ -10,13 +10,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { leadService } from '../../services/lead.service';
+import { leadService } from '../../Services/lead.service';
 import { catchError, tap, throwError } from 'rxjs';
 import { response } from 'express';
+
+
 @Component({
   selector: 'lead-detail-modal',
   standalone: true,
-  imports: [MaterialModule, CommonModule, MatIconModule, MatFormFieldModule
+  imports: [
+    MaterialModule,
+     CommonModule
+    , MatIconModule, MatFormFieldModule
     , MatCardModule, MatButtonModule, ReactiveFormsModule, MatInputModule
   ],
   templateUrl: './lead-detail-modal.component.html',
@@ -38,7 +43,9 @@ export class LeadDetailComponent implements OnInit {
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       email: ['', [Validators.required, Validators.email]],
       created_at: [{ value: '', disabled: true }],
-      updated_at: [{ value: '', disabled: true }]
+      updated_at: [{ value: '', disabled: true }],
+      token: [{ value: '', disabled: true }],
+      expiration: [{ value: '', disabled: true }]
     });
   }
 
@@ -61,6 +68,8 @@ export class LeadDetailComponent implements OnInit {
         updatedLead.id = this.lead?.id; // Ensure ID is set
         updatedLead.created_at = this.lead?.created_at;  // Preserve original date
         updatedLead.updated_at = this.lead?.updated_at;  // Preserve original dat
+        updatedLead.expiration=this.lead?.expiration;
+        updatedLead.token="";
         console.log('Updated Lead:', updatedLead); // Print the lead object
         if (this.leadId == -1) {
           console.log('in new');

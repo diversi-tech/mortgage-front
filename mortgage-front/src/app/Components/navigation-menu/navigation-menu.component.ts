@@ -2,23 +2,22 @@ import { Component, Input,  AfterViewInit, ViewChild, HostListener, Inject, PLAT
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { ComponentInfo } from '../../Models/componentInfo';
 import {  RouterModule } from "@angular/router";
-import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from '../../app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BidiModule } from '@angular/cdk/bidi';
 import { MaterialModule } from '../../material/material.module';
 import { MatSidenav } from '@angular/material/sidenav';
-import { isPlatformBrowser } from '@angular/common';
-//import { NavigatioMenuToggleService } from '../../Services/navigation-menu-toggle.service';
-//import { CustomerDetailModalComponent } from '../customer-detail-modal/customer-detail-modal.component';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NavigatioMenuToggleService } from '../../Services/navigation-menu-toggle.service';
 
 @Component({
   selector: 'navigation-menu',
   standalone: true,
   imports: [ BrowserAnimationsModule, BidiModule,CdkMenu,CdkMenuItem,RouterModule,
-    BrowserModule,CdkMenuTrigger,
-    AppRoutingModule,MaterialModule
+    CommonModule,
+    CdkMenuTrigger,
+    AppRoutingModule
+    ,MaterialModule
   ],
   templateUrl: './navigation-menu.component.html',
   styleUrls: ['./navigation-menu.component.scss']
@@ -59,10 +58,9 @@ export class NavigationMenuComponent  implements OnInit {
   public get componentsList(): Array<ComponentInfo> | undefined {
     return this._componentsList;
   }
+  
   @Input()
   public set componentsList(value: Array<ComponentInfo> | undefined) {
     this._componentsList = value;
   }
 }
-
-

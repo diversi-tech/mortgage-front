@@ -28,7 +28,8 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
   standalone: true,
   imports: [
     MaterialModule,
-  ]
+  ],
+  providers: [DatePipe]
 
 })
 
@@ -44,7 +45,7 @@ export class DocumentsListCustomerComponent implements OnInit {
   dataSource: MatTableDataSource<Document> = new MatTableDataSource<Document>();
   private documentSubscription?: Subscription;
 
-  selectedDocuments: File[] = [];
+ selectedDocuments: File[] = [];
  
 
   @ViewChild(MatSort) sort!: MatSort;

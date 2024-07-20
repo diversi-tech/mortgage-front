@@ -1,0 +1,47 @@
+<p>רשימת סוגי המסמכים </p>
+<div id="content" >
+    <mat-form-field dir="rtl">
+      <mat-label>חפש</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="חפש...">
+    </mat-form-field>
+    
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" dir="rtl">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>שם מסמך</th>
+        <td mat-cell *matCellDef="let documentType">{{documentType.document_Name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="required">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>נדרש</th>
+        <td mat-cell *matCellDef="let documentType">{{ changeRequired(documentType.required)}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="TransactionType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>סוג מסמך</th>
+        <td mat-cell *matCellDef="let documentType">{{changeDocStatusToString(documentType.transaction_Type) }}</td>
+      </ng-container>
+      
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>פעולות</th>
+        <td mat-cell *matCellDef="let documentType">
+          <button mat-icon-button color="primary" (click)="editDocument(documentType)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteDocument(documentType)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <br>
+    <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons dir="rtl"></mat-paginator>
+    
+    <button mat-fab color="primary" class="add-button" (click)="addCustomer()"
+      style="position: fixed;bottom: 8vh;left: 2vw;z-index: 1000;">
+      <mat-icon class="add-icon">add</mat-icon>
+    </button>
+    </div>
+    

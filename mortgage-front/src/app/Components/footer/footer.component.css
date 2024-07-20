@@ -1,18 +1,18 @@
 .footer{
-    position: fixed;
+    position: relative;
     bottom: 0;
     width: 100%;
     text-align: center;
-    padding: 10px 0;
+    padding: 20px 0;
     box-shadow: 0 -2px 5px rgba(21, 22, 21, 0.2);
     height:60px;
     background-color: rgb(178, 189, 202); 
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap; 
-    grid-area: "footer";
-    z-index: 4;
+    /* flex-wrap: wrap;*/
+    /* grid-area: "footer"; */
+    /* z-index: 5; */
    }
    .footer img.footer-image {
     height: 80px;
