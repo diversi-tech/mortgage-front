@@ -16,7 +16,7 @@ import { AuthService } from '../../services/auth.service';
     // AppRoutingModule
     RouterModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss'] // תוקן ל-styleUrls
 })
 export class LoginComponent{
   

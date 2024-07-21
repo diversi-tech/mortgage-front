@@ -12,7 +12,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { MaterialModule } from '../../material/material.module';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { magicLinkService } from '../../services/magicLinkService';
+import { magicLinkService } from '../../Services/magicLinkService';
 import { AdminDashboardComponent } from "../admin-dashboard/admin-dashboard.component";
 @Component({
   selector: 'lead-list',

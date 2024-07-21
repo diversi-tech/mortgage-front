@@ -25,7 +25,6 @@ import { response } from 'express';
     , MatCardModule, MatButtonModule, ReactiveFormsModule, MatInputModule
   ],
   templateUrl: './lead-detail-modal.component.html',
-  styleUrl: './lead-detail-modal.component.css'
 })
 export class LeadDetailComponent implements OnInit {
   leadForm: FormGroup;

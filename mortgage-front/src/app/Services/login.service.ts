@@ -1,15 +1,52 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from "@angular/common/http";
-import { BehaviorSubject, Observable, catchError, tap, throwError } from "rxjs";
-import { User } from "../Models/user";
-@Injectable()
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { TokenPayload } from '../Models/Login';
+import { jwtDecode } from "jwt-decode";
+
+
+@Injectable({
+  providedIn: 'root'
+})
 export class loginService {
-  readonly basicURL = "https://localhost:7055";
-  constructor(private http: HttpClient) { }
-  isAdmin?:string;
-  login(email: string, password: number): Observable<any> {
-    const data={id:0,userName:"string",password:password,email:email,role:0,created_at:"2024-07-11T08:18:16.401Z",updated_at:"2024-07-11T08:18:16.401Z"};
- 
-    return this.http.post<User>(`${this.basicURL}/login`,data);
+  readonly basicURL = "https://localhost:7055/api";
+
+  constructor(private http: HttpClient) {}
+
+  login(email: string, password: string): Observable<string> {
+    const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
+    return this.http.get(`${this.basicURL}/Users/${email}/${password}`, { headers, responseType: 'text' });
   }
+
+  decodeToken(token: string): TokenPayload {
+
+    const decoded = jwtDecode(token);
+    const JSONdecoder = JSON.parse(JSON.stringify(decoded));
+    let currentUserId,currentUserName,currentUserRole;
+    for (const key in JSONdecoder) {
+          if (key.includes("nameidentifier")) {
+              currentUserName = JSONdecoder[key];
+          }
+          else{
+            if(key.includes("userid"))
+              currentUserId = JSONdecoder[key];
+            else
+              if(key.includes("role"))
+              currentUserRole = JSONdecoder[key];
+          }
+      }
+      
+      let currentUser:TokenPayload={
+        userName:currentUserName,
+        id:currentUserId,
+        role:currentUserRole
+      }
+
+     return currentUser;
+    }
 }
+
+
+
+
+

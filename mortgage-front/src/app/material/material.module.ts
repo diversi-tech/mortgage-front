@@ -25,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { MatTooltipModule } from '@angular/material/tooltip';
+// import { MatSnackBar } from '@angular/material/snack-bar';
 
 const modules=[
   MatTableModule,
@@ -46,7 +47,8 @@ const modules=[
    MatIcon,
    MatToolbarModule,
    MatFormField,
-   MatTooltipModule
+   MatTooltipModule,
+  //  MatSnackBar
 ]
 
 @NgModule({

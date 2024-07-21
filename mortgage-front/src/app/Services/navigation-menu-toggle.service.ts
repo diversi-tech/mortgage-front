@@ -16,8 +16,7 @@ export class NavigatioMenuToggleService {
   isOpened() {
     return this.isOpen;
   }
-  setOpen(value:boolean)
-  {
-    this.isOpen=value;
+  setOpen(value: boolean) {
+    this.isOpen = value;
   }
 }

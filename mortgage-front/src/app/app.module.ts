@@ -19,10 +19,9 @@ import { LeadListComponent } from './Components/lead-list/lead-list.component';
 import { leadService } from './Services/lead.service';
 import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dialog.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
 import { DocumentsListCustomerService } from './Services/documentListCustomer.service';
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { LeadComponent } from './Components/lead/lead.component';
 import { UserService } from './Services/user.service';
@@ -30,9 +29,8 @@ import { FooterComponent } from './Components/footer/footer.component';
 import { DocumentTypeDetailsComponent } from './Components/document-type-details/document-type-details.component';
 import { DocumentTypeListComponent } from './Components/document-type-list/document-type-list.component';
 import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
-import { magicLinkService } from './services/magicLinkService';
+import { magicLinkService } from './Services/magicLinkService';
 import { DocumentTypeService } from './Services/documentType.service';
-import { ExportToExcelComponent } from './Components/export-customers-to-excel/export-to-excel.component';
 import { loginService } from './services/login.service';
 import { CustomerPortalComponent } from './Components/customer-portal/customer-portal.component';
 import { AdminDashboardComponent } from "./Components/admin-dashboard/admin-dashboard.component";
@@ -41,6 +39,9 @@ import { MortgageCalculatorComponent } from './Components/mortgage-calculator/mo
 import { DownloadAccompanyingFormComponent } from './Components/download-accompanying-form/download-accompanying-form.component';
 import { CustomerListComponent } from './Components/customer-list/customer-list.component';
 // import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
+import { ExportToExcelComponent } from './Components/export-customers-to-excel/export-to-excel.component';
+import { MailingListComponent } from './Components/mailing-list/mailing-list.component';
+import { MailingListService } from './Services/mailing-list.service';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { CustomerListComponent } from './Components/customer-list/customer-list.
     AppComponent
   ],
   imports: [
+    MailingListComponent,
     UserListComponent,
     UserDetailComponent,
     ToolbarComponent,
@@ -63,13 +65,20 @@ import { CustomerListComponent } from './Components/customer-list/customer-list.
     LoginComponent,
     AdminDashboardComponent,
      ForgotPasswordComponent,CustomerListComponent,
-MortgageCalculatorComponent,DownloadAccompanyingFormComponent
-],
+MortgageCalculatorComponent,DownloadAccompanyingFormComponent,
+    HttpClientModule, MatFormFieldModule, MatInputModule
+    , CanvasJSAngularChartsModule, BrowserAnimationsModule,
+    NavigationMenuComponent, DataVisualizationComponent
+    , LoginComponent,
+    
+  ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
     customerService, leadService, DocumentsListCustomerService, UserService, DocumentTypeService,magicLinkService,
-    loginService
+    loginService,
+        MailingListService
+  
   ],
   bootstrap: [AppComponent],
 })

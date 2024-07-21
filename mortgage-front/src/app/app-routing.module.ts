@@ -6,7 +6,7 @@ import { MagicLinkComponent } from './Components/magic-link/magic-link.component
 import { CustomerListComponent } from './Components/customer-list/customer-list.component';
 import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
 import { LeadListComponent } from './Components/lead-list/lead-list.component';
-import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
+// import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
 import { LeadComponent } from './Components/lead/lead.component';
 import { UserListComponent } from './Components/user-list/user-list.component';
 import { UserDetailComponent } from './Components/user-detail/user-detail.component';
@@ -19,6 +19,8 @@ import { CustomerPortalComponent } from './Components/customer-portal/customer-p
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { MortgageCalculatorComponent } from './Components/mortgage-calculator/mortgage-calculator.component';
 import { DownloadAccompanyingFormComponent } from './Components/download-accompanying-form/download-accompanying-form.component';
+import { MailingListComponent } from './Components/mailing-list/mailing-list.component';
+import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
 
 
 const routes: Routes =
