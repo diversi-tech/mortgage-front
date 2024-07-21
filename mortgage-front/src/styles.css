@@ -11,3 +11,37 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Define custom colors using CSS variables */
+:root {
+    --custom-primary: #FF9800; /* Orange */
+    --custom-accent: #FF5722; /* Deep Orange */
+    --custom-warn: #b00020; /* Custom warning color */
+    --custom-background: #f8f9fa; /* Custom background color */
+    --custom-foreground: #212121; /* Custom foreground color */
+    --custom-container:#d3d8da;
+    
+    --mdc-filled-text-field-focus-label-text-color:var(--custom-primary);
+    --mdc-filled-text-field-focus-active-indicator-color:var(--custom-primary);
+  }
+  
+  /* Apply the custom theme to Angular Material components */
+  .mat-light-theme {
+    --primary: var(--custom-primary); /* Use custom primary color */
+    --accent: var(--custom-accent); /* Use custom accent color */
+    --warn: var(--custom-warn); /* Use custom warning color */
+  
+    /* Apply Material palette to background and text colors */
+    color: rgba(0, 0, 0, 0.87); /* Default text color */
+    background-color: var(--custom-background); /* Custom background color */
+  }
+  
+  /* Additional styles if needed */
+  
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* :host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+} */

@@ -1,0 +1,33 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+* {
+    // font-family: EFT_Globus Black
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+tr:hover{
+    background-color: rgba(178, 189, 202, 0.058)!important;
+  } 
+
+::-webkit-scrollbar-track {
+    background: #E7E5E8;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #6a859f;
+    border: 2px solid #E7E5E8;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #576d82;
+}

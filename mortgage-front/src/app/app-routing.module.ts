@@ -1,13 +1,45 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
 import { DocumentDefinitionComponent } from './Components/document-definition/document-definition.component';
 import { LoginComponent } from './Components/login/login.component';
+import { MagicLinkComponent } from './Components/magic-link/magic-link.component';
+import { CustomerListComponent } from './Components/customer-list/customer-list.component';
+import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
+import { LeadListComponent } from './Components/lead-list/lead-list.component';
+// import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
+import { LeadComponent } from './Components/lead/lead.component';
+import { UserListComponent } from './Components/user-list/user-list.component';
+import { UserDetailComponent } from './Components/user-detail/user-detail.component';
+import { DocumentTypeDetailsComponent } from './Components/document-type-details/document-type-details.component';
+import { DocumentTypeListComponent } from './Components/document-type-list/document-type-list.component';
+import { UploadComponent } from './Components/file-upload/file-upload.component';
+import { DocumentsListCustomerComponent } from './Components/documents-list-customer/documents-list-customer.component';
+import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
+import { MailingListComponent } from './Components/mailing-list/mailing-list.component';
+
+
 const routes: Routes =
   [
+    {path:'exel',component:AdminDashboardComponent},
     { path: 'data', component: DataVisualizationComponent },
-    { path: 'doc', component: DocumentDefinitionComponent },
-    { path: 'login', component: LoginComponent }
+    {path:'doc-list',component:DocumentsListCustomerComponent},
+    { path: 'doc', component: UploadComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'magic-link', component: MagicLinkComponent },
+    { path: 'customer-list', component: CustomerListComponent },
+    {path:'lead-list',component:LeadListComponent},
+    {path:'customer-details/:id',component:CustomerDetailModalComponent},
+    {path:'leadLogin',component:LeadComponent},
+    // {path:'lead-details/:id',component:LeadDetailComponent},
+    {path:'user-list',component:UserListComponent},
+    {path:'user-details/:id',component:UserDetailComponent},
+    {path:'customer-details-modal',component:CustomerDetailModalComponent},
+    {path:'documentType-details/:id',component:DocumentTypeDetailsComponent},
+    {path:'documentType-list',component:DocumentTypeListComponent},
+    {path:'user-details',component:UserDetailComponent},
+    {path:'mailing-list',component:MailingListComponent},
+
   ];
 
 @NgModule({
@@ -15,26 +47,3 @@ const routes: Routes =
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
-// import { NgModule } from '@angular/core';
-// import { RouterModule, Routes } from '@angular/router';
-// import { HomeComponent } from './home/home.component';
-// import { AboutComponent } from './about/about.component';
-// import { ServicesComponent } from './services/services.component';
-// import { ContactComponent } from './contact/contact.component';
-// import { ProfileComponent } from './profile/profile.component';
-
-// const routes: Routes = [
-//   { path: 'home', component: HomeComponent },
-//   { path: 'about', component: AboutComponent },
-//   { path: 'services', component: ServicesComponent },
-//   { path: 'contact', component: ContactComponent },
-//   { path: 'profile', component: ProfileComponent },
-//   { path: '', redirectTo: '/home', pathMatch: 'full' }
-// ];
-
-// @NgModule({
-//   imports: [RouterModule.forRoot(routes)],
-//   exports: [RouterModule]
-// })
-// export class AppRoutingModule { }

@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Injectable } from '@angular/core';
-import { Document } from "../Models/document";
+import { Document } from '../Models/Document';
+import { DocumentType,TransactionType } from '../Models/DocumentTypes.Model';
 
 
 @Injectable({
@@ -13,10 +14,11 @@ export class DocumentsListCustomerService {
   readonly apiUrl = 'https://localhost:7055/api'
   private documentsSubject = new BehaviorSubject<Document[]>([]);
   documents$ = this.documentsSubject.asObservable();
-
+  customerId: number = 4;
+  selectedDocuments: File[] = [];
 
   constructor(private http: HttpClient) {
-    this.fetchDocumentsByCustomerId(4).subscribe();
+    this.fetchDocumentsByCustomerId(this.customerId).subscribe();
   }
 
 
@@ -29,7 +31,7 @@ export class DocumentsListCustomerService {
     return this.http.get<DocumentType[]>(`${this.apiUrl}DocumentTypes`);
   }
 
-  
+
   fetchDocumentsByCustomerId(customerId: number): Observable<Document[]> {
     return this.http.get<Document[]>(this.apiUrl + `/CustomerTasksControllercs/customerId/${customerId}`)
       .pipe(
@@ -42,12 +44,14 @@ export class DocumentsListCustomerService {
   }
 
 
-  getDocumentsTypesById(customerId: number): Observable<DocumentType[]> {
-    return this.http.get<DocumentType[]>(`${this.apiUrl}/DocumentTypes/${customerId}`);
+  fetchDocumentsTypesById(customerId:number): Observable<DocumentType> {
+    return this.http.get<DocumentType>(`${this.apiUrl}/DocumentTypes/${customerId}`);
   }
 
 
-
+  addFile(file: File, index: number) {
+  this.selectedDocuments[index] = file;
+  }
 
 
 }

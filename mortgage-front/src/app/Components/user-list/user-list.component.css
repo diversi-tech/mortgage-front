@@ -1,0 +1,56 @@
+
+.form-field {
+  margin-top: 2%;
+}
+
+.mat-form-field {
+  width: 100%;
+
+}
+
+.page-div {
+  width: 100% !important;
+
+}
+
+.table-user {
+  background-color: white;
+  width: 100%;
+}
+
+* {
+  color: black;
+}
+
+
+.paginator {
+  width: 100% !important;
+  background-color: white;
+  /* רקע לבן */
+}
+
+mat-paginator {
+  width: 100%;
+}
+
+th,
+td {
+  word-wrap: break-word;
+
+}
+
+th {
+  font-weight: bold !important;
+
+ }
+ 
+ .rtl-table-wrapper {
+   width: 100%;
+ }
+ #content {
+  background-color: rgba(255, 255, 255, 0.602);
+  padding: 25px;
+  border-radius: 40px;
+  min-width: max-content;
+  min-height: 60vh;
+}

@@ -1,16 +1,23 @@
-import { Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation, HostListener, ElementRef } from '@angular/core';
 import { MaterialModule } from '../../material/material.module';
-import { Document,DocumentStatus } from '../../Models/document';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DocumentsListCustomerService } from '../../Services/documents-list-customer.service';
 import { Observable, Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Status, Document } from '../../Models/Document';
+import { DocumentType, TransactionType } from '../../Models/DocumentTypes.Model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { fileService } from '../../Services/fileService';
 
-
-
+interface myDocument
+{
+  document:Document;
+  ok: boolean;
+}
 
 @Component({
   selector: 'documents-list-customer',
@@ -26,31 +33,31 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   standalone: true,
   imports: [
     MaterialModule,
-  ]
+  ],
+  providers: [DatePipe]
 
 })
 
 
 export class DocumentsListCustomerComponent implements OnInit {
 
-  displayedColumns = ['name', 'type', 'status', 'icon','approval'];
-  // documents: any;
-  customerId: number = 4; // לדוגמה, ללקוח מסוים עם ID מסוים
-  documentStatusString: String = DocumentStatus[0];
+  displayedColumns = ['name', 'type', 'status', 'icon', 'date', 'approval'];
+  index: number = 0;
+
+  documentStatusString: String = '';
+  transactionType: DocumentType | undefined;
+  transactionTypeString: String = '';
   dataSource: MatTableDataSource<Document> = new MatTableDataSource<Document>();
   private documentSubscription?: Subscription;
-  documentTypes?: DocumentType[] = [];
-
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  constructor(private _service: DocumentsListCustomerService) { }
-
+ constructor(private _service: DocumentsListCustomerService, private datePipe: DatePipe, private dialog: MatDialog,private fileService:fileService) { }
 
   ngOnInit(): void {
     this.loadDocuments();
-  }
+    this.fetchdocumentType();
 
+  }
   loadDocuments(): void {
     this.documentSubscription = this._service.documents$.subscribe({
       next: documents => {
@@ -64,24 +71,82 @@ export class DocumentsListCustomerComponent implements OnInit {
     });
   }
 
-
+  //פילטר-חיפוש
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  //enumפונקציה להמרת המספר לערך המחרוזתי שלו ב
-  changeDocStatusToString(status: number): String {
-    this.documentStatusString = DocumentStatus[status];
+  //טעינת המסמכים לדפדפן
+  fetchdocumentType(): void {
+    this._service.fetchDocumentsTypesById(this._service.customerId).subscribe(
+      (data: DocumentType) => {
+        this.transactionType = data;
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
+  }
+
+  onCheckboxChange(checked: boolean, element: myDocument): void {
+    element.ok = checked; // Update the isOk property of the element object
+    console.log('Updated isOk:', element.ok);
+  }
+
+  //status enum פונקציה להמרת המספר לערך המחרוזתי שלו ב
+  changeDocStatusToString(index: number): String {
+    this.documentStatusString = Status[index];
     return this.documentStatusString;
   }
 
-
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    console.log('Selected file:', file);
+  //transactionType enum פונקציה להמרת המספר לערך המחרוזתי שלו ב 
+  changeTransacTypeToString(index: number): String {
+    this.transactionTypeString = TransactionType[index];
+    return this.transactionTypeString;
   }
 
+  //בחירת קובץ
+  onFileSelected(event: any, element: Document): void {
+    const files: FileList = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      const file: File = files[i];
+      this._service.addFile(file, element.id);
+      element.document_path = file.name;
+      element.status = 1;
+    }
+  }
+
+  view(ind: number): File {
+    return this._service.selectedDocuments[ind];
+  }
+
+  xfunc(document: Document): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { document } // Pass customer object as data to the dialog
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result)
+        document.status = 0;
+    });
+  }
+
+  //תצוגה של תאריך
+  formatDate(date: any) {
+    return this.datePipe.transform(date, 'dd/MM/yyyy');
+  }
+
+  viewDocument(file: File) {
+    const url = URL.createObjectURL(file);
+    window.open(url);
+  }
+saveFiles(){
+  console.log("in save");
+  
+this.fileService.uploadFiles(this._service.selectedDocuments,this._service.customerId.toString());
+}
 
 }
 

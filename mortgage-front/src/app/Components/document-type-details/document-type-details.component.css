@@ -1,0 +1,55 @@
+.document-type-edit-card {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  height: 40vh;
+  /* Black box shadow */
+
+}
+
+
+.div-warp-fields {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+mat-checkbox {
+  margin-right: 8%;
+}
+
+#content {
+  background-color: rgba(255, 255, 255, 0.602);
+  padding: 8%;
+  border-radius: 40px;
+  /* border: 3px solid rgb(178, 189, 202); */
+  /* min-width: max-content; */
+  height: 55vh;
+}
+
+.card-content {
+  margin-top: 3%;
+
+}
+
+@media screen and (max-width: 431px) {
+  .div-warp-fields {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+}
+
+/* display: flex;
+justify-content: center;
+align-items: center;
+flex-wrap: wrap; */
