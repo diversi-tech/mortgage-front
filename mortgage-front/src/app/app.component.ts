@@ -1,6 +1,7 @@
-import { Component} from '@angular/core';
+import { AfterViewInit, Component} from '@angular/core';
 import { ComponentInfo } from './Models/componentInfo';
 import { NavigatioMenuToggleService } from './Services/navigation-menu-toggle.service';
+import { UiStateService } from './Services/uiState.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,10 @@ import { NavigatioMenuToggleService } from './Services/navigation-menu-toggle.se
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  constructor(public navigationMenuService: NavigatioMenuToggleService) {}
+  constructor(public navigationMenuService: NavigatioMenuToggleService,private uiStateService: UiStateService) {}
+  get showGeneral(): boolean {
+      return this.uiStateService.showGeneral;
+  }
 
   componentArray = [
     new ComponentInfo("נתונים", "/data", "timeline"),
@@ -29,8 +33,3 @@ export class AppComponent {
 
   title = 'mortgage-client';
 }
-
-
-
-
-

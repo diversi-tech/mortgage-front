@@ -104,5 +104,4 @@ export class DocumentTypeDetailsComponent implements OnInit {
       transaction_Type: transactionTypeValue
     });
   }
-
 }

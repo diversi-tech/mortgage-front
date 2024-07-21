@@ -17,30 +17,35 @@ import { UploadComponent } from './Components/file-upload/file-upload.component'
 import { DocumentsListCustomerComponent } from './Components/documents-list-customer/documents-list-customer.component';
 import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 import { MailingListComponent } from './Components/mailing-list/mailing-list.component';
+import { ExportToExcelComponent } from './Components/export-to-excel/export-to-excel.component';
+import { authGuard, authGuardAdmin } from './Components/auth.guard';
+import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 
 
 const routes: Routes =
   [
-    {path:'exel',component:AdminDashboardComponent},
-    { path: 'data', component: DataVisualizationComponent },
-    {path:'doc-list',component:DocumentsListCustomerComponent},
-    { path: 'doc', component: UploadComponent },
+    {path:'exel',component:ExportToExcelComponent, canActivate: [authGuardAdmin]},
+    { path: 'data', component: DataVisualizationComponent , canActivate: [authGuardAdmin]},
+    {path:'doc-list',component:DocumentsListCustomerComponent, canActivate: [authGuardAdmin]},
+    { path: 'doc', component: UploadComponent, canActivate: [authGuard] },
     { path: 'login', component: LoginComponent },
-    { path: 'magic-link', component: MagicLinkComponent },
-    { path: 'customer-list', component: CustomerListComponent },
-    {path:'lead-list',component:LeadListComponent},
-    {path:'customer-details/:id',component:CustomerDetailModalComponent},
+    { path: 'magic-link', component: MagicLinkComponent , canActivate: [authGuardAdmin]},
+    {path: 'customer-list', component: CustomerListComponent , canActivate: [authGuardAdmin]},
+    {path:'lead-list',component:LeadListComponent, canActivate: [authGuardAdmin]},
+    {path:'customer-details/:id',component:CustomerDetailModalComponent, canActivate: [authGuard]},
+    // {path:'lead-tetails/:id',component:LeadDetailComponent, canActivate: [authGuardAdmin]},
     {path:'leadLogin',component:LeadComponent},
-    // {path:'lead-details/:id',component:LeadDetailComponent},
-    {path:'user-list',component:UserListComponent},
-    {path:'user-details/:id',component:UserDetailComponent},
-    {path:'customer-details-modal',component:CustomerDetailModalComponent},
-    {path:'documentType-details/:id',component:DocumentTypeDetailsComponent},
-    {path:'documentType-list',component:DocumentTypeListComponent},
-    {path:'user-details',component:UserDetailComponent},
-    {path:'mailing-list',component:MailingListComponent},
-
+    {path:'user-list',component:UserListComponent, canActivate: [authGuardAdmin]}, 
+    {path:'user-details/:id',component:UserDetailComponent, canActivate: [authGuardAdmin]},
+    {path:'customer-details-modal',component:CustomerDetailModalComponent, canActivate: [authGuardAdmin]},
+    {path:'documentType-details/:id',component:DocumentTypeDetailsComponent, canActivate: [authGuardAdmin]},
+    {path:'documentType-list',component:DocumentTypeListComponent, canActivate: [authGuardAdmin]},
+    {path:'user-details',component:UserDetailComponent, canActivate: [authGuardAdmin]},
+    {path:'mailing-list',component:MailingListComponent, canActivate: [authGuardAdmin]},
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
   ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

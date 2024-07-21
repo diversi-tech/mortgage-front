@@ -39,9 +39,7 @@ export class MailingListComponent {
 
  async onSubmit() {
     if (this.isFormValid()) {
-
       const recipients: string[] = await this.fetchCustomerEmails();
-      this.clearFormFields();
       const formValues = this.mailingListForm.value;
       this.sendMail(recipients, formValues.subject, formValues.message);
     }
@@ -50,8 +48,9 @@ export class MailingListComponent {
   async fetchCustomerEmails(): Promise<string[]> {
     try {
       const customers = await this.customerService.fetchCustomers().toPromise();
-      return customers?.filter(customer => customer.customer_type === 1 && customer.email !== undefined)
-      .map(customer => customer.email) as string[];    } catch (error) {
+      return customers?.filter(customer => customer.customer_type === 1 && customer.email !== undefined)//getting the permanent customers
+      .map(customer => customer.email) as string[];    }
+    catch (error) {
       console.error('Error fetching customers:', error);
       return [];
     }
@@ -59,12 +58,18 @@ export class MailingListComponent {
 
   sendMail(recipients: string[], subject: string, body: string) {
     this.mailingListService.sendMailingList(recipients, subject, body)
-      .subscribe({
-        next:(response:any)  => console.log('Mail sent successfully:',response),
-        error: (error:any) => console.error('Error sending mail:', error)
-      });
-      this.snackBar.open('ההודעה נשלחה בהצלחה!!', 'Close', {
-      });
+      .subscribe(
+        (event: any) => {
+            console.log('Message was sent successfully:');
+            this.snackBar.open('ההודעה נשלחה בהצלחה!!', 'Close', {
+            });
+        },
+        (error: any) => {
+          this.snackBar.open('ארעה שגיאה בעת שליחת ההודעה!!', 'Close', {
+          });          
+          console.error('Send error:', error);
+        }
+     );
       this.clearFormFields();
   }
 

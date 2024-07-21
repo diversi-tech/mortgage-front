@@ -30,7 +30,7 @@ export class UploadComponent {
   }
 
   openSnackBar(message: string, action: string) {
-    this._.open(message, action, {
+    this._snackBar.open(message, action, {
       duration: 5000,
     });
   }

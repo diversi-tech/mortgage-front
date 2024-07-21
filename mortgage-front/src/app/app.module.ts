@@ -34,6 +34,7 @@ import { DocumentTypeService } from './Services/documentType.service';
 import { ExportToExcelComponent } from './Components/export-to-excel/export-to-excel.component';
 import { MailingListComponent } from './Components/mailing-list/mailing-list.component';
 import { MailingListService } from './Services/mailing-list.service';
+import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { MailingListService } from './Services/mailing-list.service';
     AppComponent
   ],
   imports: [
+    PageNotFoundComponent,
     MailingListComponent,
     UserListComponent,
     UserDetailComponent,

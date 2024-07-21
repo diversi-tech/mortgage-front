@@ -1,0 +1,25 @@
+.background-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: stretch;
+    align-content: space-between;
+    flex-wrap: nowrap;
+    height: 100vh; /* Set the height to cover the full viewport height */
+    background-image: url('/assets/background.jpg'); /* Path to your background image */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Don't repeat the background image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white; /* Optional: Set text color to white for better visibility */
+  }
+  
+.logo{
+    width: 25%;
+}
+.h1{
+    margin-bottom: 8%;
+        color: black !important;
+}
