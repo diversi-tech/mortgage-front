@@ -3,7 +3,7 @@ import { MaterialModule } from '../../material/material.module';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { DocumentsListCustomerService } from '../../services/documents-list-customer.service';
+import { DocumentsListCustomerService } from '../../Services/documents-list-customer.service';
 import {  Subscription } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DocumentStatus,Document } from '../../Models/Document';

@@ -1,23 +1,23 @@
-
-export enum DocumentStatus {
+export enum Status {
     ממתין,
-    הושלם
+    הושלם 
 }
 export class Document {
 
-    id?: number;
-    customer_Id?: number;
-    task_description?: string;
-    document_type_id?: number;
+    id: number;
+    customer_Id: number;
+    task_description: string;
+    document_type_id: number;
     document_path?: string;
-    status?: DocumentStatus;
-    due_date?: Date;
-    created_at?: Date;
-    updated_at?: Date;
+    status: Status;
+    due_date: Date;
+    created_at: Date;
+    updated_at: Date;
 
 
     constructor(id: number, customer_Id: number, task_description: string, document_type_id: number, document_path: string,
-        status: number, due_date: Date, created_at: Date, updated_at: Date) {
+        status: number, due_date: Date, created_at: Date, updated_at: Date) 
+    {
         this.id = id;
         this.customer_Id = customer_Id;
         this.task_description = task_description;
@@ -29,10 +29,6 @@ export class Document {
         this.updated_at = updated_at;
     }
 
+
 }
-
-
-
-
-
 
