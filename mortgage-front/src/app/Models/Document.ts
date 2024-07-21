@@ -1,6 +1,6 @@
 export enum Status {
     "בחר מסמך",
-    "ממתין לאישור",
+    "ממתין לשליחה",
     "הושלם" 
 }
 export class Document {
