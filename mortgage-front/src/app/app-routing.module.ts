@@ -1,7 +1,6 @@
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
-import { DocumentDefinitionComponent } from './Components/document-definition/document-definition.component';
 import { LoginComponent } from './Components/login/login.component';
 import { MagicLinkComponent } from './Components/magic-link/magic-link.component';
 import { CustomerListComponent } from './Components/customer-list/customer-list.component';
@@ -13,11 +12,13 @@ import { UserListComponent } from './Components/user-list/user-list.component';
 import { UserDetailComponent } from './Components/user-detail/user-detail.component';
 import { DocumentTypeDetailsComponent } from './Components/document-type-details/document-type-details.component';
 import { DocumentTypeListComponent } from './Components/document-type-list/document-type-list.component';
-import { UploadComponent } from './Components/file-upload/file-upload.component';
+import { UploadComponent } from './Components/file/file.component';
 import { DocumentsListCustomerComponent } from './Components/documents-list-customer/documents-list-customer.component';
 import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 import { CustomerPortalComponent } from './Components/customer-portal/customer-portal.component';
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
+import { MortgageCalculatorComponent } from './Components/mortgage-calculator/mortgage-calculator.component';
+import { DownloadAccompanyingFormComponent } from './Components/download-accompanying-form/download-accompanying-form.component';
 
 
 const routes: Routes =
@@ -49,6 +50,7 @@ const routes: Routes =
         { path: 'customer-details/:id', component: CustomerDetailModalComponent },
         { path: 'customer-details-modal', component: CustomerDetailModalComponent },
         { path: 'user-details/:id', component: UserDetailComponent },
+        { path: 'mortgage-calculator', component: MortgageCalculatorComponent },
 
       ]
     },
@@ -68,6 +70,7 @@ const routes: Routes =
         { path: 'lead-tetails/:id', component: LeadDetailComponent },
         { path: 'documentType-details/:id', component: DocumentTypeDetailsComponent },
         { path: 'exel', component: AdminDashboardComponent },
+        {path:'download/:id',component:DownloadAccompanyingFormComponent}
       ]
     },
   ];

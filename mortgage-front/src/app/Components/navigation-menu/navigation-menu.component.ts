@@ -38,17 +38,16 @@ export class NavigationMenuComponent  implements OnInit {
       });
     }
   }
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
-    if (isPlatformBrowser(this.platformId)) {
-      const target = event.target as Window;
-      setTimeout(() => {
-        this.toggleSidenav(target.innerWidth);
-      });
-    }
+  private _componentsList?: Array<ComponentInfo>;
+  public get componentsList(): Array<ComponentInfo> | undefined {
+    return this._componentsList;
+  }
+  @Input()
+  public set componentsList(value: Array<ComponentInfo> | undefined) {
+    this._componentsList = value;
   }
 
-  private toggleSidenav(width: number): void {
+    private toggleSidenav(width: number): void {
     if (width < 900) {
       this.navigationMenuService.setOpen(false)
       this.sidenav?.close();
@@ -57,13 +56,13 @@ export class NavigationMenuComponent  implements OnInit {
       this.sidenav?.open();
     }
   }
-  private _componentsList?: Array<ComponentInfo>;
-  public get componentsList(): Array<ComponentInfo> | undefined {
-    return this._componentsList;
-  }
-  
-  @Input()
-  public set componentsList(value: Array<ComponentInfo> | undefined) {
-    this._componentsList = value;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const target = event.target as Window;
+      setTimeout(() => {
+        this.toggleSidenav(target.innerWidth);
+      });
+    }
   }
 }

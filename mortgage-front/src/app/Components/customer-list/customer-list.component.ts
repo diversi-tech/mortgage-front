@@ -11,14 +11,16 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.component';
-import { ExportToExcelComponent } from "../export-to-excel/export-to-excel.component";
+import { ExportToExcelComponent } from "../export-customers-to-excel/export-to-excel.component";
+import { DownloadAccompanyingFormComponent } from "../download-accompanying-form/download-accompanying-form.component";
 @Component({
   selector: 'customer-list',
   standalone: true,
   imports: [
     MaterialModule,
     CommonModule,
-    ExportToExcelComponent
+    ExportToExcelComponent,
+    DownloadAccompanyingFormComponent
 ],
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.scss'],

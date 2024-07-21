@@ -91,7 +91,6 @@ export class LoginComponent{
         else  {
           console.log('customer');
           this.router.navigate(['/customer-portal']);
-
         }
       },
       (error: any) => {

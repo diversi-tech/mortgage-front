@@ -46,7 +46,9 @@ export class customerService {
   }
   getCustomerById(id: number): Customer | undefined {
     const customers = this.customersSubject.getValue();
-    return customers.find(customer => customer.id === id);
+    const c=customers.find(customer => customer.id === id);
+    console.log(customers);
+    return c;
   }
   getLeadById(id: number): Observable<Lead> {
     return this.http.get<Lead>(`${this.basicURL}Leads/${id}`);

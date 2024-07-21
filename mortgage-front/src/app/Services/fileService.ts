@@ -16,7 +16,6 @@ export class UploadService {
     files.forEach((file, index) => {
       formData.append('files', file, `${id}_${file.name}`); // Adjusted file name with ID prefix
     });
-
     const uploadReq = new HttpRequest('POST', `${this.baseUrl}/uploadfiles`, formData, {
       reportProgress: true,
     });

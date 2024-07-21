@@ -17,6 +17,7 @@ export class CustomerPortalComponent {
     new ComponentInfo("מסמכים-לקוח", "/customer-portal/doc-list", "description"),
     new ComponentInfo("כניסה לאתר", "/login", "login"),
     new ComponentInfo("כניסת לידים", "/leadLogin", "login"),
-    new ComponentInfo('עריכת פרטי לקוח', "/customer-portal/customer-details/","description")
+    new ComponentInfo('עריכת פרטי לקוח', "/customer-portal/customer-details/","description"),
+    new ComponentInfo('מחשבון משכנתאות' , "/customer-portal/mortgage-calculator","calculate")
  ];   
 }

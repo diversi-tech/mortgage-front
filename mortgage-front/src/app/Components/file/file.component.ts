@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UploadService } from '../../services/fileUploadService';
+import { UploadService } from '../../services/fileService';
 import { MaterialModule } from '../../material/material.module';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from "@angular/forms";
@@ -8,8 +8,8 @@ import { FormsModule } from "@angular/forms";
   selector: 'app-upload',
   standalone: true,
   imports: [MaterialModule,FormsModule],
-  templateUrl: './file-upload.component.html',
-  styleUrls: ['./file-upload.component.css']
+  templateUrl: './file.component.html',
+  styleUrls: ['./file.component.css']
 })
 export class UploadComponent {
   selectedFiles: File[] = [];

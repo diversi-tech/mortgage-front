@@ -4,9 +4,10 @@ import * as FileSaver from 'file-saver';  // ייבוא נכון של file-saver
 import { customerService } from '../../Services/costumer.service';
 import { MaterialModule } from '../../material/material.module';
 import { Customer, Customer_type } from '../../Models/Customer';
+import { ExportToExcelService } from '../../services/exportToExcelService';
 @Component({
   selector: 'export-to-excel',
-  standalone:true,
+  standalone: true,
   imports: [MaterialModule],
   templateUrl: './export-to-excel.component.html',
   styleUrl: './export-to-excel.component.css'
@@ -50,11 +51,11 @@ export class ExportToExcelComponent {
     'created_at': 'נוצר בתאריך',
     'updated_at': 'עודכן בתאריך',
   };
-  constructor(private customerService: customerService) { }
+  constructor(private customerService: customerService, private exportToExcel: ExportToExcelService) { }
   @Input()
   typeOfCustomer?: number;
   fileName: string = "";
-
+  filteredCustomers: Customer[] = [];
   ngOnInit(): void {
     this.customerService.fetchCustomers().subscribe({
       next: (customers) => {
@@ -64,53 +65,20 @@ export class ExportToExcelComponent {
         else if (this.typeOfCustomer == 1)
           this.fileName = "כל_הלקוחות"
         else if (this.typeOfCustomer == 2)
-          this.fileName = "לקוחות_מהארכיון"
+          this.fileName = "לקוחות_מהארכיון";
+        this.filteredCustomers = this.customers.filter(customer => customer.customer_type == this.typeOfCustomer);
+
       },
       error: (error) => {
         console.error('Error fetching customers:', error);
       }
     });
   }
-
-  exportToExcel(): void {
-    // סינון הלקוחות לפי סוג הלקוח
-    const filteredCustomers = this.customers.filter(customer => customer.customer_type == this.typeOfCustomer);
-  
-    // המרת הכותרות
-    const translatedCustomers = filteredCustomers.map(customer => {
-      const translatedCustomer: { [key: string]: any } = {};
-      for (const key in customer) {
-        if (this.headerMapping[key]) {
-          translatedCustomer[this.headerMapping[key]] = customer[key];
-        } else {
-          translatedCustomer[key] = customer[key];
-        }
-      }
-      return translatedCustomer;
-    });
-  
-    // המרה ל-worksheet
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(translatedCustomers);
-  
-    // יצירת workbook
-    const workbook: XLSX.WorkBook = {
-      Sheets: { 'data': worksheet },
-      SheetNames: ['data']
-    };
-  
-    // ייצוא ה-Excel
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-  
-    // שמירת הקובץ
-    this.saveAsExcelFile(excelBuffer, 'data');
-  }
-
-  private saveAsExcelFile(buffer: any, fileName: string): void {
-    const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
-    // FileSaver.saveAs(data, `${fileName}_export_${new Date().getTime()}.xlsx`);
-    FileSaver.saveAs(data, `${this.fileName}${new Date().getTime()}.xlsx`);
-
+  export() {
+    if (this.filteredCustomers!=undefined)
+      this.exportToExcel.exportToExcel(this.filteredCustomers, this.fileName,this.headerMapping);
+    else
+      console.log('is null');
+      
   }
 }
-
-const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';

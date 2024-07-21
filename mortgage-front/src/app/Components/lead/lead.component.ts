@@ -11,7 +11,7 @@ import { Role,User } from '../../Models/user';
 import { UserService } from '../../Services/user.service';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { UploadComponent } from '../file-upload/file-upload.component';
+import { UploadComponent } from '../file/file.component';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

@@ -32,17 +32,20 @@ import { DocumentTypeListComponent } from './Components/document-type-list/docum
 import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
 import { magicLinkService } from './services/magicLinkService';
 import { DocumentTypeService } from './Services/documentType.service';
-import { ExportToExcelComponent } from './Components/export-to-excel/export-to-excel.component';
+import { ExportToExcelComponent } from './Components/export-customers-to-excel/export-to-excel.component';
 import { loginService } from './services/login.service';
 import { CustomerPortalComponent } from './Components/customer-portal/customer-portal.component';
 import { AdminDashboardComponent } from "./Components/admin-dashboard/admin-dashboard.component";
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
+import { MortgageCalculatorComponent } from './Components/mortgage-calculator/mortgage-calculator.component';
+import { DownloadAccompanyingFormComponent } from './Components/download-accompanying-form/download-accompanying-form.component';
+import { CustomerListComponent } from './Components/customer-list/customer-list.component';
 // import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     UserListComponent,
@@ -59,9 +62,8 @@ import { ForgotPasswordComponent } from './Components/forgot-password/forgot-pas
     NavigationMenuComponent, DataVisualizationComponent,
     LoginComponent,
     AdminDashboardComponent,
-     ForgotPasswordComponent,
-     ForgotPasswordComponent
-  
+     ForgotPasswordComponent,CustomerListComponent,
+MortgageCalculatorComponent,DownloadAccompanyingFormComponent
 ],
   providers: [
     provideClientHydration(),

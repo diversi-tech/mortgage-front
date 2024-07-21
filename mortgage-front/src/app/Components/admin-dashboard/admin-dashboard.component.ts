@@ -36,5 +36,6 @@ export class AdminDashboardComponent {
     new ComponentInfo(" פרטי לקוח", "/admin-dashboard/customer-details-modal", "list"),
     // new ComponentInfo("כניסת לידים", "/leadLogin", "login"),
     new ComponentInfo("רשימת מסמכים","/admin-dashboard/documentType-list","score"),
+    new ComponentInfo("הורדה",'/admin-dashboard/download/:id',"download")
   ];
 }

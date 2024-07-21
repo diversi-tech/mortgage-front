@@ -4,7 +4,6 @@ export enum DocumentStatus {
     הושלם
 }
 export class Document {
-
     id?: number;
     customer_Id?: number;
     task_description?: string;
