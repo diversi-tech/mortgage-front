@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Injectable } from '@angular/core';
 import { Document } from '../Models/Document';
-import { DocumentType,TransactionType } from '../Models/DocumentTypes.Model';
+import { DocumentType, TransactionType } from '../Models/DocumentTypes.Model';
 
 
 @Injectable({
@@ -15,6 +15,8 @@ export class DocumentsListCustomerService {
   private documentsSubject = new BehaviorSubject<Document[]>([]);
   documents$ = this.documentsSubject.asObservable();
   customerId: number = 4;
+  selectedDocuments: (File|null)[] = [];
+  // isSelected:boolean[]=[];
 
   constructor(private http: HttpClient) {
     this.fetchDocumentsByCustomerId(this.customerId).subscribe();
@@ -43,19 +45,21 @@ export class DocumentsListCustomerService {
   }
 
 
-  fetchDocumentsTypesById(customerId:number): Observable<DocumentType> {
+  fetchDocumentsTypesById(customerId: number): Observable<DocumentType> {
     return this.http.get<DocumentType>(`${this.apiUrl}/DocumentTypes/${customerId}`);
   }
 
 
-
+  addFile(file: File | null, index: number) {
+    if (file)
+      this.selectedDocuments[index] = file;
+    else
+    this.selectedDocuments[index]=null;
+  }
+  // addIsSelected(checked:boolean,index:number)
+  // {
+  //   this.isSelected[index]=checked;
+  // }
 
 
 }
-
-
-
-
-
-
-

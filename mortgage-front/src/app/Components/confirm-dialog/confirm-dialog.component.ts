@@ -46,6 +46,9 @@ export class ConfirmDialogComponent {
     } else if (this.data.lead) {
       return 'מחיקת ליד';
     }
+    else if(this.data.document){
+      return 'האם אתה בטוח רוצה להסיר?'
+    }
     else {
       return 'מחיקת פריט';
     }
@@ -54,14 +57,17 @@ export class ConfirmDialogComponent {
   getContent(): string {
     console.log(this.data.documentType);
 
-    var question = "בטוח שאתה רוצה למחוק את הלקוח ";
+    var question = "בטוח שאתה רוצה למחוק את  ";
     if (this.data.customer) {
       return question + `${this.data.customer.first_Name}?`;
     } else if (this.data.documentType) {
       return question + ` ${this.data.documentType.document_Name}?`;
     } else if (this.data.lead) {
       return question + `${this.data.lead.first_Name}?`;
-    } else {
+    }  else if(this.data.document){
+      return question+`${this.data.document.name}`
+    }
+     else {
       return question + " הפריט הזה?";
     }
   }

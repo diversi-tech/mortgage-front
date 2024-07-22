@@ -2,20 +2,27 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadService {
 
-  private baseUrl = 'https://localhost:7055/api/dropbox'; // Replace with your server URL
+  private baseUrl = 'https://localhost:7055/api/Dropbox'; // Replace with your server URL
 
   constructor(private http: HttpClient) { }
-  uploadFiles(files: File[], id: string): Observable<any> {
+
+  uploadFiles(files: (File | null)[], id: string): Observable<any> {
     const formData = new FormData();
-    files.forEach((file, index) => {
-      formData.append('files', file, `${id}_${file.name}`); // Adjusted file name with ID prefix
-    });
+    if (files)
+      files.forEach((file, index) => {
+        if (file)
+          formData.append('files', file, `${id}_${file.name}`);
+      });
+    console.log("after foreach");
+
     const uploadReq = new HttpRequest('POST', `${this.baseUrl}/uploadfiles`, formData, {
       reportProgress: true,
     });
@@ -29,13 +36,19 @@ export class UploadService {
           return event.body;
         }
         return `Unhandled event: ${event.type}`;
+      }),
+      catchError(error => {
+        console.error('Upload error:', error);
+        return throwError(error);
       })
     );
   }
 
-  uploadFile(file: File, id: string): Observable<any> {
+
+  uploadFile(file: File | null, id: string): Observable<any> {
     const formData = new FormData();
-    formData.append('file', file, `${id}_${file.name}`); // שינוי השם של הקובץ כאן
+    if (file)
+      formData.append('file', file, `${id}_${file.name}`); // שינוי השם של הקובץ כאן
 
     const uploadReq = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
       reportProgress: true,
