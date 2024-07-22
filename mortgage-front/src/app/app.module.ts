@@ -19,7 +19,7 @@ import { LeadListComponent } from './Components/lead-list/lead-list.component';
 import { leadService } from './Services/lead.service';
 import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dialog.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { DocumentsListCustomerService } from './Services/documentListCustomer.service';
+import { DocumentsListCustomerService } from './Services/documents-list-customer.service';
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';

@@ -138,6 +138,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       element.status = 1;
     }
   }
+ 
 
   view(ind: number): File | null {
     return this._service.selectedDocuments[ind];

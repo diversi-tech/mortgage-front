@@ -50,16 +50,8 @@ export class DocumentsListCustomerService {
   }
 
 
-  addFile(file: File | null, index: number) {
-    if (file)
-      this.selectedDocuments[index] = file;
-    else
-    this.selectedDocuments[index]=null;
+  addFile(file: File|null, index: number) {
+  this.selectedDocuments[index] = file;
   }
-  // addIsSelected(checked:boolean,index:number)
-  // {
-  //   this.isSelected[index]=checked;
-  // }
-
 
 }
