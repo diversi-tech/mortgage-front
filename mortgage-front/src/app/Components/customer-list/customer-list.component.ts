@@ -88,11 +88,11 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   addCustomer(): void {
-    this.router.navigate(['/customer-details']);
+    this.router.navigate(['/customer-details-modal/','']);
   }
 
   editCustomer(customer: Customer): void {
-    this.router.navigate(['/customer-details', customer.id]);
+    this.router.navigate(['/customer-details-modald/', customer.id]);
   }
 
   deleteCustomer(customer: Customer): void {

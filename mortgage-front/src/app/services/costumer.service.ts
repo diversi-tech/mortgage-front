@@ -53,6 +53,10 @@ export class customerService {
   getLeadById(id: number): Observable<Lead> {
     return this.http.get<Lead>(`${this.basicURL}Leads/${id}`);
   }
+  getById(id: number){
+    console.log("in get by log in");
+    return this.http.get<Customer>(`${this.basicURL}Customers/${id}`);
+  }
 
   sendLink(customerId: number): string {
     /*some logic */

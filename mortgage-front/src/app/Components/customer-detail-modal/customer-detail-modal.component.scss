@@ -1,105 +1,76 @@
-/* Use custom colors from global styles */
-
-.customer-all-detailes {
-  display: flex;
-  flex-direction: column;
-  width: 70vh;
-  // margin: auto;
-  align-items: flex-end;
-  
-
-  /* Center align the form */
-  h2 {
-    // color: #333;
-    color: var(--custom-primary);
-    ;
-    font-size: 24px;
-    margin: auto;
-    padding: 3vh;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  }
-
-  /* Apply orange background to form fields */
-  .mat-form-field {
-    background-color: var(--custom-primary);
-    margin-bottom: 15px;
-    width: 100%;
 
 
-    /* Ensure full width */
-
-    /* Ensure input/select are visible */
-    input.mat-input,
-    textarea.mat-input,
-    .mat-select-trigger {
-      color: white;
-    }
-  }
-
-  /* Override placeholder color if needed */
-  .mat-form-field-placeholder {
-    color: rgba(255, 255, 255, 0.7);
-    /* Placeholder text color */
-  }
-
-  /* Style labels */
-  .mat-form-field-label {
-    color: white;
-    /* Label text color */
-  }
-
-  /* Apply flex layout to rows */
-  .row-layout {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 15px;
-    align-items: center;
-    /* Add space between rows */
-
-
-    /* Adjust spacing between form fields */
-    .mat-form-field {
-      margin-right: 30px;
-      /* Add space between form fields */
-      flex: 1;
-      /* Equal width for fields */
-    }
-
-    .readonly-input {
-      border-top-left-radius: var(--mdc-filled-text-field-container-shape);
-      border-top-right-radius: var(--mdc-filled-text-field-container-shape);
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-      background-color: var(--mdc-filled-text-field-container-color);
-      width: 177.5px;
-      z-index: 0;
-      height: 50px;
-      margin-bottom: 15px;
-      padding: 0px 16px;
-    }
-
-    .readonly-input::placeholder {
-      color: var(--mdc-filled-text-field-label-text-color);
-      -webkit-font-smoothing: antialiased;
-      line-height: normal;
-      pointer-events: all;
-      font: 400 1rem / 1.5rem Roboto, sans-serif;
-      letter-spacing: .031rem;
-    }
-
-  }
-
-
-  .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
-
-    direction: rtl;
-    width: 30vh;
-
-    // :hover {
-    //   color: var(--custom-primary);
-    // }
-  }
-
-
+.lead-edit-card {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 }
 
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.mat-form-field {
+  margin: 10px !important;
+  width: 12vw;
+}
+
+#content {
+  background-color: rgba(255, 255, 255, 0.602);
+  padding: 25px;
+  border-radius: 40px;
+  /* border: 3px solid rgb(178, 189, 202); */
+  min-width: max-content;
+  height: 70vh;
+}
+
+.mat-mdc-form-field {
+  width: 23vh;
+}
+
+.is-properties-container {
+  display: flex;
+  flex-direction: row;
+  width: 25vh;
+}
+
+.inner-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#is-properties-lable {
+  color: var(--mdc-filled-text-field-label-text-color);
+  font-family: var(--mdc-filled-text-field-label-text-font);
+  font-size: var(--mdc-filled-text-field-label-text-size);
+  font-weight: var(--mdc-filled-text-field-label-text-weight);
+  letter-spacing: var(--mdc-filled-text-field-label-text-tracking);
+  margin-bottom: 3vh;
+  padding-left: 16px;
+ // padding-right: 16px;
+}
+
+#devider {
+  margin-bottom: 2vh;
+}
+
+#job-description {
+  width: 49vh;
+}
+
+@media screen and (max-width: 900px) {
+  .mat-form-field {
+    margin: 10px !important;
+    width: 15vw;
+    font-size: small;
+    height: 70px;
+  }
+
+  mat-label {
+    font-size: small;
+  }
+}

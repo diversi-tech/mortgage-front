@@ -1,0 +1,75 @@
+.lead-edit-card {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.mat-form-field {
+    margin: 10px !important;
+    width: 12vw;
+}
+
+#content {
+    background-color: rgba(255, 255, 255, 0.602);
+    padding: 25px;
+    border-radius: 40px;
+    /* border: 3px solid rgb(178, 189, 202); */
+    min-width: max-content;
+    height: 70vh;
+}
+
+.mat-mdc-form-field {
+    width: 23vh;
+}
+
+.is-properties-container {
+    display: flex;
+    flex-direction: row;
+    width: 25vh;
+}
+
+.inner-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#is-properties-lable {
+    color: var(--mdc-filled-text-field-label-text-color);
+    font-family: var(--mdc-filled-text-field-label-text-font);
+    font-size: var(--mdc-filled-text-field-label-text-size);
+    font-weight: var(--mdc-filled-text-field-label-text-weight);
+    letter-spacing: var(--mdc-filled-text-field-label-text-tracking);
+    margin-bottom: 3vh;
+    padding-left: 16px;
+    /* padding-right: 16px; */
+}
+
+#devider {
+    margin-bottom: 2vh;
+}
+
+#job-description {
+    width: 49vh;
+}
+
+@media screen and (max-width: 900px) {
+    .mat-form-field {
+        margin: 10px !important;
+        width: 15vw;
+        font-size: small;
+        height: 70px;
+    }
+
+    mat-label {
+        font-size: small;
+    }
+}

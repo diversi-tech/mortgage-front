@@ -23,6 +23,7 @@ import { ExportToExcelComponent } from './Components/export-customers-to-excel/e
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
 import { adminChildGuard, userChildGuard } from './Components/auth.guard'; // New import
+import { CustomerEditComponent } from './Components/customer-edit/customer-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -34,9 +35,10 @@ const routes: Routes = [
       { path: 'doc-list', component: DocumentsListCustomerComponent },
       { path: 'leadLogin/:id', component: LeadComponent },
       { path: 'customer-details/:id', component: CustomerDetailModalComponent },
-      { path: 'customer-details-modal', component: CustomerDetailModalComponent },
+      //{ path: 'customer-details-modal/:id', component: CustomerDetailModalComponent },
       { path: 'user-details/:id', component: UserDetailComponent },
       { path: 'mortgage-calculator', component: MortgageCalculatorComponent },
+      { path: 'customer-edit', component: CustomerEditComponent },
     ]
   },
   {
@@ -48,7 +50,7 @@ const routes: Routes = [
       { path: 'user-list', component: UserListComponent },
       { path: 'user-details/:id', component: UserDetailComponent },
       { path: 'lead-list', component: LeadListComponent },
-      { path: 'customer-details-modal', component: CustomerDetailModalComponent },
+      { path: 'customer-details-modal/:id', component: CustomerDetailModalComponent },
       { path: 'leadLogin', component: LeadComponent },
       { path: 'documentType-list', component: DocumentTypeListComponent },
       { path: 'customer-details/:id', component: CustomerDetailModalComponent },

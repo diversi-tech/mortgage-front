@@ -43,11 +43,13 @@ import { ExportToExcelComponent } from './Components/export-customers-to-excel/e
 import { MailingListComponent } from './Components/mailing-list/mailing-list.component';
 import { MailingListService } from './Services/mailing-list.service';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
+import { CustomerEditComponent } from './Components/customer-edit/customer-edit.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CustomerEditComponent
   ],
   imports: [
     PageNotFoundComponent,
