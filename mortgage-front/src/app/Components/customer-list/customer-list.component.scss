@@ -47,9 +47,9 @@ th {
 // margin-right: 10vw;
 }
 #mainAll{
-  border-radius: 25px;
-  padding: 25px;
-  background-color: rgba(255, 255, 255, 0.866);
+  border-radius: 10px;
+  border: 5px solid rgba(128, 128, 128, 0.13);  padding: 25px;
+  background-color: rgba(255, 255, 255, 0.394);
   margin: 0 auto;
 
 }
@@ -67,3 +67,7 @@ th {
   margin: 0 auto;
 }
 
+
+:host {
+  background-color: transparent;
+}

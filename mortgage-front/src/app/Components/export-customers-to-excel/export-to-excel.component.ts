@@ -4,7 +4,7 @@ import * as FileSaver from 'file-saver';  // ייבוא נכון של file-saver
 import { customerService } from '../../Services/costumer.service';
 import { MaterialModule } from '../../material/material.module';
 import { Customer, Customer_type } from '../../Models/Customer';
-import { ExportToExcelService } from '../../services/exportToExcelService';
+import { ExportToExcelService } from '../../Services/exportToExcelService';
 @Component({
   selector: 'export-to-excel',
   standalone: true,

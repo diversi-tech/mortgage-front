@@ -179,7 +179,7 @@ export class DownloadAccompanyingFormComponent implements OnInit {
       ],
     });
 
-    Packer.toBlob(doc).then((blob) => {
+    Packer.toBlob(doc).then((blob: string | Blob) => {
       saveAs(blob, `${this.customerId}_accompanying-form.docx`);
     });
   }

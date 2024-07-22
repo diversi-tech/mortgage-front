@@ -1,9 +1,9 @@
 export enum TransactionType {
-   ' חדש',
-   ' ישן',
-   ' שיפוץ',
-   ' אחר',
-    'מחיר למשתכן'
+    'מחיר למשתכן',
+    'חדש',
+    'ישן',
+    'שיפוץ',
+    'אחר'
 }
   
 export class DocumentType {

@@ -1,29 +1,32 @@
-// auth.guard.ts
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateChildFn, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../Services/auth.service';
+import { inject } from '@angular/core';
 
-export const authGuardAdmin: CanActivateFn = (route, state) => {
+export const adminChildGuard: CanActivateChildFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.isLoggedIn()) {//check if loggedIn
-    if(authService.isAdmin())//check if admin
-        return true;
-    return false;
-  } else {//if not loggedIn:
-    router.navigate(['/login']);
+  if (authService.isLoggedIn()) {
+    if (authService.isAdmin()) {
+      return true;
+    } else {   
+      window.history.back();
+      return false;
+    }
+  } else {
+    router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
 };
-export const authGuard: CanActivateFn = (route, state) => {
+
+export const userChildGuard: CanActivateChildFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.isLoggedIn()) {//check if loggedIn
-      return true;
-  } else {//if not loggedIn:
-    router.navigate(['/login']);
+  if (authService.isLoggedIn()) {
+    return true;
+  } else {
+    router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
 };

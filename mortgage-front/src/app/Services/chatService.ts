@@ -19,7 +19,7 @@ export class ChatService {
     this.hubConnection
       .start()
       .then(() => console.log('Connection started'))
-      .catch(err => console.log('Error while starting connection: ' + err));
+      .catch((err: string) => console.log('Error while starting connection: ' + err));
   }
 
   public sendMessage(senderId: number, receiverId: number, message: string) {

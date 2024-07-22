@@ -6,12 +6,12 @@ import { customerService } from '../../Services/costumer.service';
 import { MatStepper } from '@angular/material/stepper';
 import { MaterialModule } from '../../material/material.module';
 import { leadService } from '../../Services/lead.service';
-import { Role,User } from '../../Models/User';
+import { User,Role } from '../../Models/user';
 
 import { UserService } from '../../Services/user.service';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { UploadComponent } from '../file-upload/file-upload.component';
+import { UploadComponent } from '../file/file.component';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

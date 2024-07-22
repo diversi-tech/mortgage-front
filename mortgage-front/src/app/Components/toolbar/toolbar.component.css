@@ -3,6 +3,9 @@
     /* scroll-behavior: smooth; */
 }
 
+:host {
+    background-color: transparent;
+  }
 .mat-toolbar {
     display: flex;
     justify-content: space-between;

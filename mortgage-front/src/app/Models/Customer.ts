@@ -35,7 +35,7 @@ export class Customer {
      job_status?: Job_Status;
      work_business_name?: string;
      job_description?: string;
-     abstractvarage_monthly_salary?: number;
+     avarage_monthly_salary?: number;
      years_in_current_position?: number;
      income_rent?: number
      income_Government_Endorsement?: number

@@ -5,7 +5,15 @@
   scroll-behavior: smooth;
 }
 
+
 @keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
   from {
     transform: translateX(100%);
   }
@@ -23,6 +31,13 @@
   to {
     transform: translateX(100%);
   }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
 }
 
 .open {
@@ -33,15 +48,18 @@
   animation: slideOut 0.5s ease-in-out;
 }
 
-.sidenav-container{
-  // min-height:550px;
+
+.sidenav-container {
+  min-height:100vh;
   height: max-content;
+  flex-grow: 1;
 }
 
 
 .sidenav {
-  box-shadow: 0 7px 20px 5px #00000088;
+  box-shadow: 0 7px 20px 5px #00000012;
   width: 17vw;
+
 
   @media (min-width: 540px) {
     display: flex;
@@ -52,17 +70,21 @@
 
 a {
   padding: 30px !important;
+
+a {
+  padding: 30px !important;
 }
 
 
-.container{
+.container {
   height: max-content;
-  background-color: rgba(0, 0, 0, 0.05);
-  background-image: url("/assets/background.jpg");
-  background-size: cover;  
-  
+  position: sticky;
+  right: 0;
+  top: 0;
+  background: transparent;
 }
-.main-content{
+
+.main-content {
   height: 100vh;
   // background-image: url("/assets/back.jpg");
   // background-size: cover;
@@ -70,11 +92,13 @@ a {
 }
 
 
+}
 
 //main branch
 mat-icon {
   float: right;
 }
+
 
 //main branch
 .mat-sidenav-content {
@@ -86,18 +110,20 @@ mat-icon {
   a {
     padding: 5px !important;
   }
-
   span {
     font-size: 18px !important;
   }
+
 
   .mat-icon {
     float: right;
   }
 
+
   .sidenav {
-    box-shadow: 0 7px 20px 5px #00000088;
+    // box-shadow: 0 7px 20px 5px #00000088;
     width: 25vw;
+    margin: 0 !important;
     margin: 0 !important;
     min-width: max-content;
   }

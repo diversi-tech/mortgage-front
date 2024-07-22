@@ -10,6 +10,7 @@ import { CustomerServiceService } from '../../Services/customer-service.service'
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserService } from '../../Services/user.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MaterialModule } from '../../material/material.module';
 
 
 @Component({
@@ -17,6 +18,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   standalone: true,
   imports: [
     CommonModule,
+    MaterialModule,
     MatSelectModule,
     MatInputModule,
     MatFormFieldModule,

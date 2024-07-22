@@ -8,15 +8,17 @@ import { BidiModule } from '@angular/cdk/bidi';
 import { MaterialModule } from '../../material/material.module';
 import { MatSidenav } from '@angular/material/sidenav';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { NavigatioMenuToggleService } from '../../Services/navigation-menu-toggle.service';
+import { NavigatioMenuToggleService } from '../../services/navigation-menu-toggle.service';
+import { log } from 'console';
 
 @Component({
   selector: 'navigation-menu',
   standalone: true,
-  imports: [ BrowserAnimationsModule, BidiModule,CdkMenu,CdkMenuItem,RouterModule,
+  imports: [  BidiModule,CdkMenu,CdkMenuItem,RouterModule,
     CommonModule,
     CdkMenuTrigger,
-    AppRoutingModule
+    RouterModule
+    // AppRoutingModule
     ,MaterialModule
   ],
   templateUrl: './navigation-menu.component.html',
@@ -25,7 +27,9 @@ import { NavigatioMenuToggleService } from '../../Services/navigation-menu-toggl
 export class NavigationMenuComponent  implements OnInit {
   /*The logic of open-in-window>900 and close-in-window<900*/
   @ViewChild('sidenav') sidenav?: MatSidenav;
-  constructor(@Inject(PLATFORM_ID) private platformId: any,public navigationMenuService: NavigatioMenuToggleService) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: any,public navigationMenuService: NavigatioMenuToggleService) {
+    console.log('in navi');
+  }
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -34,18 +38,16 @@ export class NavigationMenuComponent  implements OnInit {
       });
     }
   }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
-    if (isPlatformBrowser(this.platformId)) {
-      const target = event.target as Window;
-      setTimeout(() => {
-        this.toggleSidenav(target.innerWidth);
-      });
-    }
+  private _componentsList?: Array<ComponentInfo>;
+  public get componentsList(): Array<ComponentInfo> | undefined {
+    return this._componentsList;
+  }
+  @Input()
+  public set componentsList(value: Array<ComponentInfo> | undefined) {
+    this._componentsList = value;
   }
 
-  private toggleSidenav(width: number): void {
+    private toggleSidenav(width: number): void {
     if (width < 900) {
       this.navigationMenuService.setOpen(false)
       this.sidenav?.close();
@@ -54,13 +56,13 @@ export class NavigationMenuComponent  implements OnInit {
       this.sidenav?.open();
     }
   }
-  private _componentsList?: Array<ComponentInfo>;
-  public get componentsList(): Array<ComponentInfo> | undefined {
-    return this._componentsList;
-  }
-  
-  @Input()
-  public set componentsList(value: Array<ComponentInfo> | undefined) {
-    this._componentsList = value;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const target = event.target as Window;
+      setTimeout(() => {
+        this.toggleSidenav(target.innerWidth);
+      });
+    }
   }
 }

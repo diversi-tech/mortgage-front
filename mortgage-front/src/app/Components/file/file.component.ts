@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UploadService } from '../../services/fileService';
+import { UploadService } from '../../Services/fileService';
 import { MaterialModule } from '../../material/material.module';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from "@angular/forms";

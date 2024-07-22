@@ -21,7 +21,7 @@ import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dial
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DocumentsListCustomerService } from './Services/documentListCustomer.service';
 import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { LeadComponent } from './Components/lead/lead.component';
 import { UserService } from './Services/user.service';
@@ -31,7 +31,15 @@ import { DocumentTypeListComponent } from './Components/document-type-list/docum
 import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
 import { magicLinkService } from './Services/magicLinkService';
 import { DocumentTypeService } from './Services/documentType.service';
-import { ExportToExcelComponent } from './Components/export-to-excel/export-to-excel.component';
+import { AuthService } from './Services/auth.service'; 
+import { CustomerPortalComponent } from './Components/customer-portal/customer-portal.component';
+import { AdminDashboardComponent } from "./Components/admin-dashboard/admin-dashboard.component";
+import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
+import { MortgageCalculatorComponent } from './Components/mortgage-calculator/mortgage-calculator.component';
+import { DownloadAccompanyingFormComponent } from './Components/download-accompanying-form/download-accompanying-form.component';
+import { CustomerListComponent } from './Components/customer-list/customer-list.component';
+// import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
+import { ExportToExcelComponent } from './Components/export-customers-to-excel/export-to-excel.component';
 import { MailingListComponent } from './Components/mailing-list/mailing-list.component';
 import { MailingListService } from './Services/mailing-list.service';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
@@ -47,21 +55,32 @@ import { PageNotFoundComponent } from './Components/page-not-found/page-not-foun
     UserListComponent,
     UserDetailComponent,
     ToolbarComponent,
-    FooterComponent,
+    FooterComponent, CustomerPortalComponent,
     DocumentTypeDetailsComponent,
     DocumentTypeListComponent,
     BrowserModule, MaterialModule, FormsModule, ReactiveFormsModule,
     AppRoutingModule, LeadComponent,
     RouterModule, CommonModule,
+    HttpClientModule, MatFormFieldModule, MatInputModule,
+    CanvasJSAngularChartsModule, BrowserAnimationsModule,
+    NavigationMenuComponent, DataVisualizationComponent,
+    LoginComponent,
+    AdminDashboardComponent,
+     ForgotPasswordComponent,CustomerListComponent,
+MortgageCalculatorComponent,DownloadAccompanyingFormComponent,
     HttpClientModule, MatFormFieldModule, MatInputModule
     , CanvasJSAngularChartsModule, BrowserAnimationsModule,
     NavigationMenuComponent, DataVisualizationComponent
-    , LoginComponent
+    , LoginComponent,
+    
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    customerService, leadService, DocumentsListCustomerService, UserService, DocumentTypeService,magicLinkService,MailingListService
+    customerService, leadService, DocumentsListCustomerService, UserService, DocumentTypeService,magicLinkService,
+    AuthService,
+        MailingListService
+  
   ],
   bootstrap: [AppComponent],
 })

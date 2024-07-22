@@ -3,18 +3,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenPayload } from '../Models/Login';
 import { jwtDecode } from "jwt-decode";
-
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   readonly basicURL = "https://localhost:7055/api";
-
-  constructor(private http: HttpClient) {}
-
+  constructor(private http: HttpClient,private router: Router) {}
   login(email: string, password: string): Observable<string> {
     const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
+    const returnUrl = this.router.routerState.snapshot.root.queryParams['returnUrl'] || '/';
+    this.router.navigateByUrl(returnUrl);
     return this.http.get(`${this.basicURL}/Users/${email}/${password}`, { headers, responseType: 'text' });
   }
 
@@ -54,8 +54,7 @@ export class AuthService {
     }
     isAdmin():boolean{
       // just for example:
-      return true;
-
+      return false;
       // after merge with the git :
       // if(this.isLoggedIn()){
       //   let currentUser:TokenPayload=this.decodeToken( localStorage.getItem('token'));

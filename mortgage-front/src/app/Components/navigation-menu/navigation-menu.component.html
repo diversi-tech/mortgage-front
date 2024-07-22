@@ -1,5 +1,5 @@
-<div class="container">
-  <mat-sidenav-container class="sidenav-container" style="background: none;">
+<div class="container" >
+  <mat-sidenav-container class="sidenav-container" style="background: transparent;">
     <mat-sidenav #sidenav mode="side" position="end" class="sidenav" dir="rtl"
       [opened]="navigationMenuService.isOpened()">
       <!-- <mat-sidenav #sidenav mode="side" position="end" class="sidenav" dir="rtl" opened *ngIf="navigationMenuService.isOpened()"> -->
@@ -17,5 +17,5 @@
         <router-outlet  style="background: none;"></router-outlet>
       </div>
     </mat-sidenav-content>
-  </mat-sidenav-container>
+  </mat-sidenav-container> 
 </div>

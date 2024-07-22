@@ -3,13 +3,19 @@ th{
   }
   // background-image: url(https://media.istockphoto.com/id/1393059175/photo/home.jpg?s=612x612&w=0&k=20&c=sgT3wRfpj4AAN08TQAACJ9_cp94yDnGa-uU2dKCOnhc=);
 
+  :host {
+    background-color: transparent;
+  }
   #content {
+    margin: 0 auto;
     background-color: rgba(255, 255, 255, 0.602);
     padding: 25px;
-    border-radius: 40px;
-    // border: 3px solid rgb(178, 189, 202);
+    border-radius: 10px;
+    border: 5px solid rgba(128, 128, 128, 0.13);    // border: 3px solid rgb(178, 189, 202);
     min-width: max-content;
     min-height: 60vh;
+    // max-width: 100vh;
+    max-width: 70%;
   }
   // .tr:hover{
   //   background-color: rgba(178, 189, 202, 0.058)!important;
