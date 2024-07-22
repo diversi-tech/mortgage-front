@@ -1,27 +1,28 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
-import { LoginComponent } from './Components/login/login.component';
-import { MagicLinkComponent } from './Components/magic-link/magic-link.component';
-import { CustomerListComponent } from './Components/customer-list/customer-list.component';
-import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
-import { LeadListComponent } from './Components/lead-list/lead-list.component';
-// import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
-import { LeadComponent } from './Components/lead/lead.component';
-import { UserListComponent } from './Components/user-list/user-list.component';
-import { UserDetailComponent } from './Components/user-detail/user-detail.component';
-import { DocumentTypeDetailsComponent } from './Components/document-type-details/document-type-details.component';
-import { DocumentTypeListComponent } from './Components/document-type-list/document-type-list.component';
-import { UploadComponent } from './Components/file/file.component';
-import { DocumentsListCustomerComponent } from './Components/documents-list-customer/documents-list-customer.component';
-import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
-import { CustomerPortalComponent } from './Components/customer-portal/customer-portal.component';
-import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
-import { MortgageCalculatorComponent } from './Components/mortgage-calculator/mortgage-calculator.component';
-import { DownloadAccompanyingFormComponent } from './Components/download-accompanying-form/download-accompanying-form.component';
-import { MailingListComponent } from './Components/mailing-list/mailing-list.component';
-import { LeadDetailComponent } from './Components/lead-detail-modal/lead-detail-modal.component';
+const routes: Routes = [
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+  { path: 'customer', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule) },
+  { path: 'lead', loadChildren: () => import('./lead/lead.module').then(m => m.LeadModule) },
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' }, // default route
+  //{ path: '**', component:PageNotFoundComponent } // route in error case
+];
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
 
+
+
+
+
+
+
+
+
+/*
 
 const routes: Routes =
   [
@@ -76,9 +77,4 @@ const routes: Routes =
       ]
     },
   ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
+*/

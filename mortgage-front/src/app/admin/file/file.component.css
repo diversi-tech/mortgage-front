@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+button {
+  margin-top: 10px;
+}
+
+.progress-bar {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.download-button {
+  margin-top: 10px;
+}

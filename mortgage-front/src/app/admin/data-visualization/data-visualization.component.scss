@@ -1,0 +1,43 @@
+#canvas {
+  width: 80vw;
+  border: 1px solid #000;
+  margin: 0 auto;
+}
+
+section {
+  display: table;
+}
+
+.example-label {
+  display: flex;
+  font-size: 20px;
+  margin-right: 90px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  max-width: 30vw;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 20px 20px 20px auto;
+}
+
+button {
+  background-color: rgba(255, 255, 255, 0.481) !important;
+  padding: 30px !important;
+}
+
+@media screen and (max-width: 900px) {
+  .example-label {
+    display: flex;
+    font-size: 8px;
+    margin-right: 3px;
+  }
+
+  button {
+    padding: 15px !important;
+    font-size: 10px !important;
+  }
+}
