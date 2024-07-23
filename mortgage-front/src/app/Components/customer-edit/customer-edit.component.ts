@@ -11,36 +11,37 @@ import { Subscription } from 'rxjs';
 })
 export class CustomerEditComponent implements OnInit {
   formData: Customer = {
-    first_Name: '',
-    last_Name: '',
-    email: '',
-    phone: '',
-    adress: '',
-    connection: 0,
-    t_z: '',
-    birthDate: new Date(),
-    family_status: 0,
-    number_of_people_in_house: 0,
-    job_status: 0,
-    work_business_name: '',
-    customer_type: 0,
-    job_description: '',
-    years_in_current_position: 0,
-    avarage_monthly_salary: 0,
-    income_rent: 0,
-    income_Government_Endorsement: 0,
-    income_other: 0,
-    expenses_rent: 0,
-    expenses_loans: 0,
-    expenses_other: 0,
-    property_city: '',
-    transaction_type: 0,
-    estimated_price_by_customer: 0,
-    estimated_price_by_sales_agreement: 0,
+    first_Name: null,
+    last_Name: null,
+    email: null,
+    phone: null,
+    address: null,
+    connection: null,
+    t_z: null,
+    lead_id: 0,
+    birthDate: null,
+    family_status: null,
+    number_of_people_in_house: null,
+    job_status: null,
+    work_business_name: null,
+    customer_type: null,
+    job_description: null,
+    years_in_current_position: null,
+    avarage_monthly_salary: null,
+    income_rent: null,
+    income_Government_Endorsement: null,
+    income_other: null,
+    expenses_rent: null,
+    expenses_loans: null,
+    expenses_other: null,
+    property_city: null,
+    transaction_type: null,
+    estimated_price_by_customer: null,
+    estimated_price_by_sales_agreement: null,
     has_other_properties: false,
-    amount_of_loan_requested: 0,
-    lastSynced: new Date(),
-    isArchived: false
+    amount_of_loan_requested: null,
+    lastSynced: null,
+    isArchived: null
   };
 
   options = [
@@ -71,6 +72,13 @@ export class CustomerEditComponent implements OnInit {
 
 
   submitForm() {
-    this.customerService.updateCustomer(this.customerId, this.formData).subscribe({});
+    this.customerService.updateCustomer(this.customerId, this.formData).subscribe({
+      next: (response) => {
+        console.log('Customer updated successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error creating customer:', error);
+      }
+    });
   }
 }

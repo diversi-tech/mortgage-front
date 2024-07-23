@@ -4,14 +4,14 @@ import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { User } from "../Models/user";
 
 @Injectable()
- export class UserService {
+export class UserService {
   readonly basicURL = "https://localhost:7055/api/";
   private usersSubject = new BehaviorSubject<User[]>([]);
   users$ = this.usersSubject.asObservable();
   constructor(private http: HttpClient) {
     this.fetchUsers().subscribe();
-   }
-   fetchUsers(): Observable<User[]> {
+  }
+  fetchUsers(): Observable<User[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ import { User } from "../Models/user";
         })
       );
   }
-   createUser(user: User) {
+  createUser(user: User) {
     const formData: FormData = new FormData();
     if (user.id !== undefined) formData.append('Id', user.id.toString());
     if (user.userName !== undefined) formData.append('UserName', user.userName);
@@ -37,7 +37,7 @@ import { User } from "../Models/user";
     if (user.created_at !== undefined) formData.append('Created_at', user.created_at.toISOString());
     if (user.updated_at !== undefined) formData.append('Updated_at', user.updated_at.toISOString());
     return this.http.post(`${this.basicURL}Users`, user);
-   }
+  }
   //  createUser(user: User): Observable<User> {
   //   console.log("in addLead");
   //   const updateUrl = `${this.basicURL}Users/`;
@@ -66,4 +66,17 @@ import { User } from "../Models/user";
   //   };
   //   return this.http.post<User>(`${this.basicURL}Users`, user, httpOptions);
   // }
+
+  login(password: string, email: string) {
+    const user = {
+      userName: "string",
+      password: password,
+      email: email,
+      role: 0,
+      created_at: "2024-07-22T16:45:56.650404",
+      updated_at: "2024-07-22T16:45:56.650408"
+    }
+    console.log("in login service");
+    return this.http.post(`${this.basicURL}Users/login`, user);
+  }
 }
