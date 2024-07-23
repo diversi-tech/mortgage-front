@@ -1,33 +1,39 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { MaterialModule } from '../material/material.module';
-import { FooterComponent } from './footer/footer.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
-import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component';
-import { RouterModule } from '@angular/router';
+import { MortgageCalculatorComponent } from './mortgage-calculator/mortgage-calculator.component';
+import { LeadDetailComponent } from './lead-detail-modal/lead-detail-modal.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { DocumentTypeListComponent } from './document-type-list/document-type-list.component';
+import { DocumentTypeDetailsComponent } from './document-type-details/document-type-details.component';
+import { CustomerDetailModalComponent } from './customer-detail-modal/customer-detail-modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [
-    ConfirmDialogComponent,
-    FooterComponent,
-    ToolbarComponent,
-    NavigationMenuComponent,
+    MortgageCalculatorComponent,
+    UserDetailComponent,
+    LeadDetailComponent,
+    DocumentTypeListComponent,
+    DocumentTypeDetailsComponent,
+    CustomerDetailModalComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     MaterialModule,
-    RouterModule
-    // BrowserAnimationsModule, BidiModule,CdkMenu,CdkMenuItem,,
-    // CdkMenuTrigger,
+    ReactiveFormsModule,
+
   ],
-  exports: [
-    ConfirmDialogComponent,
-    FooterComponent,
-    ToolbarComponent,
-    NavigationMenuComponent
+  exports:[
+    MortgageCalculatorComponent,
+    UserDetailComponent,
+    LeadDetailComponent,
+    DocumentTypeListComponent,
+    DocumentTypeDetailsComponent,
+    CustomerDetailModalComponent
   ]
 })
 export class SharedModule { }

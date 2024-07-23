@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationMenuComponent } from '../navigation-menu/navigation-menu.component';
-import { NavigatioMenuToggleService } from '../../global/Services/navigation-menu-toggle.service';
+import { NavigatioMenuToggleService } from '../../shared/Services/navigation-menu-toggle.service';
 
 @Component({
   selector: 'app-toolbar',

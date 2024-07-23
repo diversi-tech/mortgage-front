@@ -1,12 +1,11 @@
 import { Component, ViewChild,Inject } from '@angular/core';
-import { MaterialModule } from '../../material/material.module';
 import { DocumentType,TransactionType } from '../Models/DocumentTypes.Model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import {  Subscription } from 'rxjs';
-import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dialog.component';
 import { DocumentTypeService } from '../Services/documentType.service';
 import {  MatDialog } from '@angular/material/dialog';
 

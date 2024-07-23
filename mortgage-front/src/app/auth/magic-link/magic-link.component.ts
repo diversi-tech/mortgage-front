@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { leadService } from '../../global/Services/lead.service';
+import { leadService } from '../../shared/Services/lead.service';
 
 @Component({
   selector: 'app-magic-link',

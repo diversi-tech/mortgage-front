@@ -1,8 +1,8 @@
 import { Component, Input, ViewChild, HostListener, Inject, PLATFORM_ID, OnInit } from '@angular/core';
-import { ComponentInfo } from '../../global/Models/componentInfo';
+import { ComponentInfo } from '../../shared/Models/componentInfo';
 import { MatSidenav } from '@angular/material/sidenav';
 import { isPlatformBrowser } from '@angular/common';
-import { NavigatioMenuToggleService } from '../../global/Services/navigation-menu-toggle.service';
+import { NavigatioMenuToggleService } from '../../shared/Services/navigation-menu-toggle.service';
 
 @Component({
   selector: 'navigation-menu',

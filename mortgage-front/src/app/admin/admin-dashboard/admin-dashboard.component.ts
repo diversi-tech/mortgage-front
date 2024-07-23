@@ -1,5 +1,5 @@
 import { Component, } from '@angular/core';
-import { ComponentInfo } from '../../global/Models/componentInfo';
+import { ComponentInfo } from '../../shared/Models/componentInfo';
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',

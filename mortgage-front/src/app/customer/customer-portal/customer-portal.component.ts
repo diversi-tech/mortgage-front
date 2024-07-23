@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ComponentInfo } from '../../global/Models/componentInfo';
-import { NavigationMenuComponent } from '../../shared/navigation-menu/navigation-menu.component';
+import { ComponentInfo } from '../../shared/Models/componentInfo';
+import { NavigationMenuComponent } from '../../global/navigation-menu/navigation-menu.component';
 
 @Component({
   selector: 'app-customer-portal',

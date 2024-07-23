@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, Inject } from '@angular/core';
-import { Customer } from '../../global/Models/Customer';
+import { Customer } from '../../shared/Models/Customer';
 import { Router } from '@angular/router';
 import {  Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import {  MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { Lead } from '../../global/Models/Lead';
-import { leadService } from '../../global/Services/lead.service';
-import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
+import { Lead } from '../../shared/Models/Lead';
+import { leadService } from '../../shared/Services/lead.service';
+import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { magicLinkService } from '../../global/Services/magicLinkService';
+import { magicLinkService } from '../../shared/Services/magicLinkService';
 @Component({
   selector: 'lead-list',
   templateUrl: './lead-list.component.html',

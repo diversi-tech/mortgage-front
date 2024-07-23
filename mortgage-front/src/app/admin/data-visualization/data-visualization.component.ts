@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { customerService } from '../../global/Services/costumer.service';
-import { Customer } from '../../global/Models/Customer';
-import { Lead } from '../../global/Models/Lead';
-import { leadService } from '../../global/Services/lead.service';
-import { Document } from '../../global/Models/document';
-import { DocumentsListCustomerService } from '../../global/Services/documents-list-customer.service';
-import { DocumentType } from '../../global/Models/DocumentTypes.Model';
+import { customerService } from '../../shared/Services/costumer.service';
+import { Customer } from '../../shared/Models/Customer';
+import { Lead } from '../../shared/Models/Lead';
+import { leadService } from '../../shared/Services/lead.service';
+import { Document } from '../../shared/Models/document';
+import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
+import { DocumentType } from '../../shared/Models/DocumentTypes.Model';
 
 
 @Component({

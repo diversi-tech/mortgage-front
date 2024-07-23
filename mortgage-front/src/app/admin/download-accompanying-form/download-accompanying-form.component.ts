@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { saveAs } from 'file-saver';
 import { Document, Packer, Paragraph, TextRun, ImageRun, Table, TableCell, TableRow, WidthType, AlignmentType, VerticalAlign, Header, Footer, PageSize } from 'docx';
-import { customerService } from '../../global/Services/costumer.service';
+import { customerService } from '../../shared/Services/costumer.service';
 import { switchMap } from 'rxjs';
-import { Customer } from '../../global/Models/Customer';
+import { Customer } from '../../shared/Models/Customer';
 
 @Component({
   selector: 'app-download-accompanying-form',

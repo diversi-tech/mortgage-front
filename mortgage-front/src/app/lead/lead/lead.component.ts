@@ -1,12 +1,12 @@
 // lead.component.ts
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Customer, Family_Status } from '../../global/Models/Customer';
-import { customerService } from '../../global/Services/costumer.service';
+import { Customer, Family_Status } from '../../shared/Models/Customer';
+import { customerService } from '../../shared/Services/costumer.service';
 import { MatStepper } from '@angular/material/stepper';
-import { leadService } from '../../global/Services/lead.service';
-import { User,Role } from '../../global/Models/user';
-import { UserService } from '../../global/Services/user.service';
+import { leadService } from '../../shared/Services/lead.service';
+import { User,Role } from '../../shared/Models/user';
+import { UserService } from '../../shared/Services/user.service';
 
 @Component({
   selector: 'app-lead',

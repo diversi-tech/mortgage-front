@@ -2,15 +2,15 @@ import { Component, OnInit, ViewChild, ViewChildren, QueryList, AfterViewInit } 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { DocumentsListCustomerService } from '../../global/Services/documents-list-customer.service';
+import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
 import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Status,Document } from '../../global/Models/document';
-import { DocumentType,TransactionType } from '../../global/Models/DocumentTypes.Model';
+import { Status,Document } from '../../shared/Models/document';
+import { DocumentType,TransactionType } from '../../shared/Models/DocumentTypes.Model';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
-import { UploadService } from '../../global/Services/fileService';
+import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dialog.component';
+import { UploadService } from '../../shared/Services/fileService';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatCheckbox, } from '@angular/material/checkbox';
 

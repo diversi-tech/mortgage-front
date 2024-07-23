@@ -15,6 +15,7 @@ import { FileComponent } from './file/file.component';
 import { MailingListComponent } from './mailing-list/mailing-list.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { AdminRoutingModule } from './admin-routing.module';
+import { GlobalModule } from '../global/global.module';
 
 
 
@@ -39,7 +40,7 @@ import { AdminRoutingModule } from './admin-routing.module';
      ReactiveFormsModule,
      //Local modules
      AdminRoutingModule,
-     SharedModule
+     GlobalModule
   ],
 
 })

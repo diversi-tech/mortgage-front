@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { customerService } from '../../global/Services/costumer.service';
-import { Customer } from '../../global/Models/Customer';
-import { ExportToExcelService } from '../../global/Services/exportToExcelService';
+import { customerService } from '../../shared/Services/costumer.service';
+import { Customer } from '../../shared/Models/Customer';
+import { ExportToExcelService } from '../../shared/Services/exportToExcelService';
 @Component({
   selector: 'export-to-excel',
   templateUrl: './export-to-excel.component.html',

@@ -49,6 +49,10 @@ export class customerService {
     const c=customers.find(customer => customer.id === id);
     return c;
   }
+  getById(id: number): Observable<any>{
+    return this.http.get(`${this.basicURL}Customers/${id}`); // Use this.apiUrl
+  }
+
   getLeadById(id: number): Observable<Lead> {
     return this.http.get<Lead>(`${this.basicURL}Leads/${id}`);
   }

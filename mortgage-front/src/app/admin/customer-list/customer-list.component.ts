@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { Customer,Customer_type } from '../../global/Models/Customer';
-import { customerService } from '../../global/Services/costumer.service';
+import { Customer,Customer_type } from '../../shared/Models/Customer';
+import { customerService } from '../../shared/Services/costumer.service';
 import { Router } from '@angular/router';
 import {  Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import {  MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dialog.component';
 @Component({
   selector: 'customer-list',
   templateUrl: './customer-list.component.html',
