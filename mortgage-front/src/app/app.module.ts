@@ -2,90 +2,53 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { Route, RouterModule } from "@angular/router";
-import { NavigationMenuComponent } from './Components/navigation-menu/navigation-menu.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { ToolbarComponent } from './Components/toolbar/toolbar.component';
-import { MaterialModule } from './material/material.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { customerService } from './shared/Services/costumer.service';
+import { leadService } from './shared/Services/lead.service';
+import { DocumentsListCustomerService } from './shared/Services/documents-list-customer.service';
+import { UserService } from './shared/Services/user.service';
+import { magicLinkService } from './shared/Services/magicLinkService';
+import { DocumentTypeService } from './shared/Services/documentType.service';
+import { loginService } from './shared/Services/login.service';
+import { MailingListService } from './shared/Services/mailing-list.service';
+import { SharedModule } from './shared/shared.module';
+import { LeadModule } from './lead/lead.module';
+import { GlobalModule } from './global/global.module';
+import { CustomerModule } from './customer/customer.module';
+import { AuthModule } from './auth/auth.module';
+import { AdminModule } from './admin/admin.module';
 import { HttpClientModule } from '@angular/common/http';
-import { UserListComponent } from './Components/user-list/user-list.component';
-import { UserDetailComponent } from './Components/user-detail/user-detail.component';
-import { LoginComponent } from './Components/login/login.component';
-import { customerService } from './Services/costumer.service';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { LeadListComponent } from './Components/lead-list/lead-list.component';
-import { leadService } from './Services/lead.service';
-import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dialog.component';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { DocumentsListCustomerService } from './Services/documentListCustomer.service';
-import { DataVisualizationComponent } from './Components/data-visualization/data-visualization.component';
-import { CommonModule, DatePipe } from '@angular/common';
-import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
-import { LeadComponent } from './Components/lead/lead.component';
-import { UserService } from './Services/user.service';
-import { FooterComponent } from './Components/footer/footer.component';
-import { DocumentTypeDetailsComponent } from './Components/document-type-details/document-type-details.component';
-import { DocumentTypeListComponent } from './Components/document-type-list/document-type-list.component';
-import { CustomerDetailModalComponent } from './Components/customer-detail-modal/customer-detail-modal.component';
-import { magicLinkService } from './Services/magicLinkService';
-import { DocumentTypeService } from './Services/documentType.service';
-import { AuthService } from './Services/auth.service'; 
-import { CustomerPortalComponent } from './Components/customer-portal/customer-portal.component';
-import { AdminDashboardComponent } from "./Components/admin-dashboard/admin-dashboard.component";
-import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
-import { MortgageCalculatorComponent } from './Components/mortgage-calculator/mortgage-calculator.component';
-import { DownloadAccompanyingFormComponent } from './Components/download-accompanying-form/download-accompanying-form.component';
-import { CustomerListComponent } from './Components/customer-list/customer-list.component';
-// import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
-import { ExportToExcelComponent } from './Components/export-customers-to-excel/export-to-excel.component';
-import { MailingListComponent } from './Components/mailing-list/mailing-list.component';
-import { MailingListService } from './Services/mailing-list.service';
-import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
-import { CustomerEditComponent } from './Components/customer-edit/customer-edit.component';
-
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomerEditComponent
   ],
   imports: [
-    PageNotFoundComponent,
-    MailingListComponent,
-    UserListComponent,
-    UserDetailComponent,
-    ToolbarComponent,
-    FooterComponent, CustomerPortalComponent,
-    DocumentTypeDetailsComponent,
-    DocumentTypeListComponent,
-    BrowserModule, MaterialModule, FormsModule, ReactiveFormsModule,
-    AppRoutingModule, LeadComponent,
-    RouterModule, CommonModule,
-    HttpClientModule, MatFormFieldModule, MatInputModule,
-    CanvasJSAngularChartsModule, BrowserAnimationsModule,
-    NavigationMenuComponent, DataVisualizationComponent,
-    LoginComponent,
-    AdminDashboardComponent,
-     ForgotPasswordComponent,CustomerListComponent,
-MortgageCalculatorComponent,DownloadAccompanyingFormComponent,
-    HttpClientModule, MatFormFieldModule, MatInputModule
-    , CanvasJSAngularChartsModule, BrowserAnimationsModule,
-    NavigationMenuComponent, DataVisualizationComponent
-    , LoginComponent,
-    
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    //Local modules
+    SharedModule,
+    LeadModule,
+    GlobalModule,
+    CustomerModule,
+    AuthModule,
+    AdminModule
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    customerService, leadService, DocumentsListCustomerService, UserService, DocumentTypeService,magicLinkService,
-    AuthService,
-        MailingListService
-  
+    //All the services that are injected into the components
+    customerService,
+    leadService,
+    DocumentsListCustomerService,
+    UserService,
+    DocumentTypeService,
+    magicLinkService,
+    loginService,
+    MailingListService
   ],
   bootstrap: [AppComponent],
 })
 
-// entryComponents: [ConfirmDialog] // ensure your dialog component is listed here
 export class AppModule { }

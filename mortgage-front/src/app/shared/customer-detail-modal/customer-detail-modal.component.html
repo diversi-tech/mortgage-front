@@ -1,0 +1,202 @@
+
+<mat-card class="lead-edit-card">
+  <mat-card-title>פרטים אישיים</mat-card-title>
+  <mat-card-content>
+    <form (submit)="submitForm()">
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label> שם פרטי</mat-label>
+        <input matInput [(ngModel)]="formData['first_Name']" name="firstName">
+        <mat-error>שדה זה הינו חובה</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>שם משפחה</mat-label>
+        <input matInput [(ngModel)]="formData['last_Name']" name="lastName">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>טלפון</mat-label>
+        <input matInput [(ngModel)]="formData['phone']" name="phone">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>מייל</mat-label>
+        <input matInput [(ngModel)]="formData['email']" name="email">
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>כתובת </mat-label>
+        <input matInput [(ngModel)]="formData['adress']" name="adress">
+      </mat-form-field>
+
+
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>תעודת זהות</mat-label>
+        <input matInput [(ngModel)]="formData['t_z']" name="id">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>תאריך לידה</mat-label>
+        <input matInput type="date" [(ngModel)]="formData['birthDate']"  name="birthDate">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>התקשרות</mat-label>
+        <mat-select placeholder="Select your option" [(ngModel)]="formData['connection']" name="connection">
+          <mat-option *ngFor="let option of options" [value]="option.value">
+            <mat-icon>{{ option.icon }}</mat-icon>
+            {{ option.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-divider id="devider"></mat-divider>
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>סטטוס משפחתי</mat-label>
+        <mat-select placeholder="Select your option" [(ngModel)]="formData['family_status']" name="family_status">
+          <mat-option *ngFor="let status of family_status" [value]="status.value">
+            {{status.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>מספר אנשים בבית</mat-label>
+        <input matInput type="number" [(ngModel)]="formData['number_of_people_in_house']" name="number_of_people_in_house">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>סטטוס עבודה</mat-label>
+        <mat-select placeholder="Select your option" [(ngModel)]="formData['job_status']" name="job_status">
+          <mat-option *ngFor="let status of job_status" [value]="status.value">
+            {{status.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>מקום עבודה</mat-label>
+        <input matInput [(ngModel)]="formData['work_business_name']" name="work_business_name">
+      </mat-form-field>
+
+      <mat-form-field id="job-description" appearance="fill" class="mat-form-field">
+        <mat-label>תיאור מקום עבודה</mat-label>
+        <input matInput [(ngModel)]="formData['job_description']" name="job_description">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>מספר שנים במשרה</mat-label>
+        <input matInput type="number" [(ngModel)]="formData['years_in_current_position']" name="years_in_current_position">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>ממוצע משכורת חודשי</mat-label>
+        <input matInput [(ngModel)]="formData['avarage_monthly_salary']" name="avarage_monthly_salary">
+      </mat-form-field>
+
+      <mat-divider id="devider"></mat-divider>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>שכר דירה הכנסה</mat-label>
+        <input matInput [(ngModel)]="formData['income_rent']" name="income_rent">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>הכנסה מאושרת מהממשלה</mat-label>
+        <input matInput [(ngModel)]="formData['income_Government_Endorsement']" name="income_Government_Endorsement">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>הכנסה אחרת</mat-label>
+        <input matInput [(ngModel)]="formData['income_other']" name="income_other">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>גובה שכירות</mat-label>
+        <input matInput [(ngModel)]="formData['expenses_rent']" name="expenses_rent">
+      </mat-form-field>
+
+      <div class="inner-container">
+        <mat-form-field appearance="fill" class="mat-form-field">
+          <mat-label>גובה הלוואות</mat-label>
+          <input matInput [(ngModel)]="formData['expenses_loans']" name="expenses_loans">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="mat-form-field">
+          <mat-label>הוצאות אחרות</mat-label>
+          <input matInput [(ngModel)]="formData['expenses_other']" name="expenses_other">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="mat-form-field">
+          <mat-label>מיקום הנכס</mat-label>
+          <input matInput [(ngModel)]="formData['property_city']" name="property_city">
+        </mat-form-field>
+
+        <div class="is-properties-container">
+          <mat-label id="is-properties-lable">האם יש נכסים</mat-label>
+          <mat-slide-toggle [(ngModel)]="formData['has_other_properties']" name="has_other_properties" />
+        </div>
+      </div>
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>אומדן נכס - לקוח</mat-label>
+        <input matInput [(ngModel)]="formData['estimated_price_by_customer']" name="estimated_price_by_customer">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>אומדן נכס - הסכם מכירות</mat-label>
+        <input matInput [(ngModel)]="formData['estimated_price_by_sales_agreement']"
+          name="estimated_price_by_sales_agreement">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>סוג עסקה</mat-label>
+        <mat-select placeholder="Select your option" [(ngModel)]="formData['transaction_type']" name="transaction_type">
+          <mat-option *ngFor="let status of transaction_type" [value]="status.value">
+            {{status.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>שכיחות בקשת הלוואות</mat-label>
+        <input matInput type="number" [(ngModel)]="formData['amount_of_loan_requested']" name="amount_of_loan_requested">
+      </mat-form-field>
+
+      <mat-divider id="devider"></mat-divider>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>סוג משתמש</mat-label>
+        <mat-select placeholder="Select your option" [(ngModel)]="formData['customer_type']" name="customer_type">
+          <mat-option *ngFor="let status of customer_type" [value]="status.value">
+            {{status.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>סינכרון אחרון</mat-label>
+        <input matInput type="date" [(ngModel)]="formData['lastSynced']"  name="lastSynced">
+      </mat-form-field>
+
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>נוצר בתאריך</mat-label>
+        <input matInput disabled="true">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>עודכן בתאריך</mat-label>
+        <input matInput disabled="true">
+      </mat-form-field>
+
+      <div class="button-group">
+        <button mat-raised-button color="primary" type="submit">שמור</button>
+
+        <button mat-raised-button color="warn" type="button">ביטול</button>
+
+      </div>
+
+
+    </form>
+  </mat-card-content>
+</mat-card>

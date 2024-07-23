@@ -1,0 +1,25 @@
+th {
+  font-weight: bold !important;
+}
+
+:host {
+  background-color: transparent;
+}
+
+#content {
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.602);
+  padding: 25px;
+  border-radius: 10px;
+  border: 5px solid rgba(128, 128, 128, 0.13);
+  min-width: max-content;
+  min-height: 60vh;
+  max-width: 70%;
+}
+
+@media screen and (max-width: 900px) {
+  .mat-table {
+    padding: 1px !important;
+    font-size: 12px !important;
+  }
+}

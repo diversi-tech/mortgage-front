@@ -1,0 +1,18 @@
+<section>
+
+  <div class="example-button-row">
+    <button mat-stroked-button (click)=" initializeChart1()"> גרף נתונים</button>
+  </div>
+
+  <div class="example-button-row">
+    <button mat-stroked-button (click)=" initializeChart2()"> גרף לידים / לקוחות לפי חודשים</button>
+  </div>
+
+  <div class="example-button-row">
+    <button mat-stroked-button (click)="initializeChart3()">נתוני מסמכי לקוחות</button>
+  </div>
+</section>
+
+<div *ngIf="chartOptions" id="canvas">
+  <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
+</div>

@@ -1,0 +1,94 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; // גובה מינימלי של 100% מגובה המסך
+  background-color: #f5f5f5; // צבע רקע בהיר
+}
+
+.login-card {
+  text-align: right;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px; // גובה מקסימלי של הכרטיס
+}
+
+.card-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px; // רווח בין השדות
+
+}
+
+.form-input {
+  text-align: right;
+  width: 90%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.form-input:focus {
+  border-color: #4285f4; // צבע קו כאשר השדה בפוקוס
+  outline: none;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #4285f4;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #357ae8; // צבע כאשר מעבירים מעל הכפתור
+}
+
+.text-danger {
+  font-size: 0.875em;
+  color: red; // צבע טקסט אדום להודעות שגיאה
+}
+
+.forgot-password {
+  text-align: center;
+  margin-top: 15px; // מרווח מעל הקישור
+}
+
+.text-muted {
+  color: #6c757d; // צבע טקסט אפור לקישור
+}
+.material-icons{
+  float: right;
+}
+#see{
+  float: left;
+}
+#see:hover{
+  cursor: pointer;
+}
+#password{
+  width: 84%;
+}
+a{
+  text-decoration: underline;
+}
+a:hover{
+  cursor: pointer;
+}
+:host {
+  background-color: transparent;
+}

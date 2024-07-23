@@ -1,0 +1,99 @@
+main{
+  padding: 5vh;
+}
+
+.example-table-container {
+  /* position: relative; */
+  min-height: 200px;
+  max-height: 700px;
+  overflow: auto;
+  direction: rtl;
+}
+#content {
+  background-color: rgba(255, 255, 255, 0.602);
+
+  padding: 25px;
+  border-radius: 40px;
+  min-width: max-content;
+  min-height: 60vh;
+}
+table {
+  width: 100%;
+  direction: rtl;
+}
+
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-rate-limit-reached {
+  max-width: 360px;
+  text-align: center;
+}
+
+/* Column Widths */
+.mat-column-number,
+.mat-column-state {
+  max-width: 64px;
+}
+
+.mat-column-created {
+  max-width: 124px;
+}
+
+.okey-button-container {
+  margin: 2%;
+  display: flex;
+  justify-content: center;
+  /* width: 120px; */
+}
+
+.mat-header-cell{
+text-align: right;
+}
+
+.mat-cell{
+text-align: center;
+}
+
+.send-all{
+direction: ltr;
+display: flex;
+padding: 2%;
+text-align: right;
+}
+
+.button-text {
+margin-right: 8px; 
+}
+
+.icon-container {
+flex: 1; 
+}
+
+.file-name {
+
+background-color: lightblue;
+text-align: center; /* יישור הטקסט למרכז */
+/* padding: 2vh; רווח בין הטקסט לגבולות המלבן */
+
+}
+
+.centered-message {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%; /* כדי למלא את גובה הדף בכל המסך */
+}
+.span:hover{
+color:rgb(41, 53, 147);
+}
