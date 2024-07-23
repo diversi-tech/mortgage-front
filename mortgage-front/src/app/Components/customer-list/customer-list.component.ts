@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ViewEncapsulation, Inject } from '@angular/core';
-import { Customer, Customer_type } from '../../Models/Customer';
+import { ICustomer, Customer_type } from '../../Models/Customer';
 import { customerService } from '../../Services/costumer.service';
 import { MaterialModule } from '../../material/material.module';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { ExportToExcelComponent } from "../export-to-excel/export-to-excel.compo
   standalone: true,
   imports: [
     MaterialModule,
-    CommonModule, AdminDashboardComponent,
+    CommonModule,
     ExportToExcelComponent
 ],
   templateUrl: './customer-list.component.html',
@@ -26,9 +26,9 @@ import { ExportToExcelComponent } from "../export-to-excel/export-to-excel.compo
 })
 export class CustomerListComponent implements OnInit, OnDestroy {
   displayedColumns = ['name', 'address', 'phone', 'Customer_type', 'actions'];
-  leads: MatTableDataSource<Customer> = new MatTableDataSource<Customer>();
-  customers: MatTableDataSource<Customer> = new MatTableDataSource<Customer>();
-  archivedCustomers: MatTableDataSource<Customer> = new MatTableDataSource<Customer>();
+  leads: MatTableDataSource<ICustomer> = new MatTableDataSource<ICustomer>();
+  customers: MatTableDataSource<ICustomer> = new MatTableDataSource<ICustomer>();
+  archivedCustomers: MatTableDataSource<ICustomer> = new MatTableDataSource<ICustomer>();
   private customersSubscription?: Subscription;
   @ViewChild('leadsPaginator') leadsPaginator!: MatPaginator;
   @ViewChild('customersPaginator') customersPaginator!: MatPaginator;
@@ -89,11 +89,11 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/customer-details']);
   }
 
-  editCustomer(customer: Customer): void {
+  editCustomer(customer: ICustomer): void {
     this.router.navigate(['/customer-details', customer.id]);
   }
 
-  deleteCustomer(customer: Customer): void {
+  deleteCustomer(customer: ICustomer): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{
       data: { customer } // Pass customer object as data to the dialog
     });

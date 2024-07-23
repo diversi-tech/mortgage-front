@@ -33,6 +33,12 @@ import { CustomerDetailModalComponent } from './Components/customer-detail-modal
 import { magicLinkService } from './Services/magicLinkService';
 import { DocumentTypeService } from './Services/documentType.service';
 import { ExportToExcelComponent } from './Components/export-to-excel/export-to-excel.component';
+// import { loginService } from './Services/login.service';
+import { CustomerPortalComponent } from './Components/customer-portal/customer-portal.component';
+import { AdminDashboardComponent } from "./Components/admin-dashboard/admin-dashboard.component";
+import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
+import { loginService } from './Services/login.service';
+// import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 
 
 @NgModule({
@@ -43,21 +49,26 @@ import { ExportToExcelComponent } from './Components/export-to-excel/export-to-e
     UserListComponent,
     UserDetailComponent,
     ToolbarComponent,
-    FooterComponent,
+    FooterComponent, CustomerPortalComponent,
     DocumentTypeDetailsComponent,
     DocumentTypeListComponent,
     BrowserModule, MaterialModule, FormsModule, ReactiveFormsModule,
     AppRoutingModule, LeadComponent,
     RouterModule, CommonModule,
-    HttpClientModule, MatFormFieldModule, MatInputModule
-    , CanvasJSAngularChartsModule, BrowserAnimationsModule,
-    NavigationMenuComponent, DataVisualizationComponent
-    , LoginComponent
-  ],
+    HttpClientModule, MatFormFieldModule, MatInputModule,
+    CanvasJSAngularChartsModule, BrowserAnimationsModule,
+    NavigationMenuComponent, DataVisualizationComponent,
+    LoginComponent,
+    AdminDashboardComponent,
+     ForgotPasswordComponent,
+    
+  
+],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    customerService, leadService, DocumentsListCustomerService, UserService, DocumentTypeService,magicLinkService
+    customerService, leadService, DocumentsListCustomerService, UserService, DocumentTypeService,magicLinkService,
+    loginService
   ],
   bootstrap: [AppComponent],
 })

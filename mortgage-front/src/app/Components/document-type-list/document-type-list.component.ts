@@ -1,6 +1,6 @@
 import { Component, ViewChild,Inject } from '@angular/core';
 import { MaterialModule } from '../../material/material.module';
-import { DocumentType ,TransactionType} from '../../Models/DocumentTypes.Model';
+import { IDocumentType ,TransactionType} from '../../Models/DocumentTypes';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -22,7 +22,7 @@ export class DocumentTypeListComponent {
 
   doctransactionTypeString: String = TransactionType[0];
   displayedColumns = [ 'name', 'required', 'TransactionType','actions'];
-  dataSource: MatTableDataSource<DocumentType> = new MatTableDataSource<DocumentType>();
+  dataSource: MatTableDataSource<IDocumentType> = new MatTableDataSource<IDocumentType>();
   private documentSubscription?: Subscription;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -68,11 +68,11 @@ export class DocumentTypeListComponent {
     this.router.navigate(['/documentType-details', -1]);
   }
 
-  editDocument(selected: DocumentType): void {
+  editDocument(selected: IDocumentType): void {
     this.router.navigate(['/documentType-details', selected.id]);
   }
  
-  deleteDocument(documentType: DocumentType): void {
+  deleteDocument(documentType: IDocumentType): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{
       data: { documentType } // Pass documentType object as data to the dialog
     });

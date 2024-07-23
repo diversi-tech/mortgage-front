@@ -1,5 +1,4 @@
 <section>
-
   <div class="example-button-row">
     <button mat-stroked-button (click)=" initializeChart1()" >  גרף נתונים</button>
   </div>
@@ -13,10 +12,11 @@
   </div>
 </section>
 
-<div *ngIf="chartOptions" id="canvas">
-  <!-- <canvasjs-chart [options]="chartOptions"></canvasjs-chart> -->
-  <canvasjs-chart  [options]="chartOptions" ></canvasjs-chart>
-
+<div id="canvas">
+  @if(chartOptions)
+  {
+      <canvasjs-chart  [options]="chartOptions" ></canvasjs-chart>
+  }
 </div>
 
 

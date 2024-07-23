@@ -3,7 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { Role,User } from '../../Models/User';
+import { Role,IUser } from '../../Models/User';
 import { UserListService } from '../../Services/user-list.service';
 import { MaterialModule } from '../../material/material.module';
 import { MatPaginator } from '@angular/material/paginator';
@@ -29,7 +29,7 @@ import { Observable } from 'rxjs';
 })
 export class UserListComponent implements OnInit {
   displayedColumns: string[] = ['userName', 'id', 'role', 'email', 'actions'];
-  users$!: MatTableDataSource<User>;
+  users$!: MatTableDataSource<IUser>;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

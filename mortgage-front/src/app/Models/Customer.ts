@@ -15,10 +15,11 @@ export enum TransactionTypeEnum {
 export enum Customer_type{
      l,c,a
 }
-export class Customer {
-     id?: number;
+export class ICustomer {
+     id!: number;
      lead_id?: number;
      last_Name?: string;
+     user_id?:number;
      first_Name?: string;
      customer_type?:Customer_type;
      phone?: string

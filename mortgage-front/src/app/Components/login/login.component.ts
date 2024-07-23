@@ -1,33 +1,90 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../Services/login.service';
-import { TokenPayload } from '../../Models/Login';
-
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { MaterialModule } from '../../material/material.module';
+import { loginService } from '../../Services/login.service';
+import { ITokenPayload } from '../../Models/TokenPayload';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [MaterialModule, ReactiveFormsModule,
+    RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'] // תוקן ל-styleUrls
 })
-export class LoginComponent {
+export class LoginComponent{
+  loginForm: FormGroup;
+  userByToken?:ITokenPayload;
+  constructor(private route: ActivatedRoute,private loginService: loginService,private fb: FormBuilder,private snackBar: MatSnackBar, private router: Router) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required,Validators.minLength(6), Validators.pattern(/^\S*$/)]]
+    });
+    console.log("customer id current",this.loginService.GetCurrentUser());
 
-  // just example for creating token to an existing user and the decoded:
-
-
-  // currentToken: string = '';
-  // currentUser: TokenPayload | undefined;
-  // constructor(private auth: AuthService) {}
-
-  // ngOnInit() {
-  //   this.auth.login('brt', '8520').subscribe(token => {
-
-  // need to check what returned:a token-if the user exists,or a message :'the user not found' 
-
-  //     this.currentToken = token;
-  //     this.currentUser = this.auth.decodeToken(this.currentToken);
-  //     console.log("currentUser:",this.currentUser);
-
-  //   });
-
+  }
+  get email() {
+    return this.loginForm.get('email');
+  }
+  get password() {
+    return this.loginForm.get('password');
+  }
+  //Login function  by entering email and password
+  submit() {
+    if (this.loginForm.valid) {
+    const { email, password } = this.loginForm.value;
+    this.loginService.login(email,password).subscribe(
+      (response) => {
+        this.userByToken=this.loginService.decodeToken(response);
+        console.log('what the user and role',this.userByToken,this.userByToken.role);
+        if(String(this.userByToken.role)=='Admin')
+        { 
+          console.log('admin'); 
+         this.router.navigate(['/admin-dashboard']);
+        } 
+     else if (String(this.userByToken.role)=='Customer') {
+          console.log('customer');
+          this.router.navigate(['/customer-portal']);
+        }
+      },
+      (error: any) => {
+        console.log ('Login failed', error);
+        this.snackBar.open('המשתמש לא קיים במערכת', 'Close', {
+          duration: 8000,
+          panelClass: ['error-snackbar'] 
+        });
+      }
+    );
+    }
+  }
+  //Hidden by default
+  hidePassword = true; 
+  //Toggles between hidden and visible state
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword; 
+  }
+//Password reset function by sending an email to the password reset page
+  forgotPassword() {
+  this.snackBar.open('בבקשה תכניס כתובת מייל שלך השמורה במערכת', 'Close', {
+    duration: 5000,
+  });
+//send email
+const email = this.loginForm.get('email')!.value;
+this.loginService.resetPassword(email).subscribe(
+  (response) => {
+      this.snackBar.open('נשלח אימייל לאיפוס הסיסמה שלך', 'Close', {
+      duration: 8000,
+    })
+  },
+  (error) => {
+    this.snackBar.open('המשתמש לא קיים במערכת. בבקשה נסה שוב.', 'Close', {
+      duration: 5000,
+    });
+    console.log(error);
+    //Error printing in specific fields
+    console.log(error.error.errors);
+  }
+);
+} 
 }
-

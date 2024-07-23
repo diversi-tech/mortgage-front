@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Lead } from '../../Models/Lead';
+import { ILead } from '../../Models/Lead';
 import { MaterialModule } from '../../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -30,7 +30,7 @@ import { response } from 'express';
 export class LeadDetailComponent implements OnInit {
   leadForm: FormGroup;
   leadId?: number;
-  lead?: Lead;
+  lead?: ILead;
 
   constructor(
     private fb: FormBuilder,
@@ -64,8 +64,8 @@ export class LeadDetailComponent implements OnInit {
 
   saveLead() {
     if (this.leadForm.valid) {
-        const updatedLead: Lead = this.leadForm.value;
-        updatedLead.id = this.lead?.id; // Ensure ID is set
+        const updatedLead: ILead = this.leadForm.value;
+        updatedLead.id = this.lead!.id; // Ensure ID is set
         updatedLead.created_at = this.lead?.created_at;  // Preserve original date
         updatedLead.updated_at = this.lead?.updated_at;  // Preserve original dat
         updatedLead.expiration=this.lead?.expiration;
@@ -79,7 +79,7 @@ export class LeadDetailComponent implements OnInit {
               console.log('Lead updated successfully', response);
               console.log("id:"+response?.id);
               
-              this.router.navigate(['/lead-list']);
+              this.router.navigate(['admin-dashboard/lead-list']);
             })
           )
           .subscribe();
@@ -89,7 +89,7 @@ export class LeadDetailComponent implements OnInit {
           .pipe(
             tap(response => {
               console.log('Lead updated successfully', response);
-              this.router.navigate(['/lead-list']); // Navigate back to the lead list or any other route
+              this.router.navigate(['admin-dashboard/lead-list']); // Navigate back to the lead list or any other route
             })
           )
           .subscribe();
@@ -98,7 +98,7 @@ export class LeadDetailComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/lead-list']);
+    this.router.navigate(['admin-dashboard/lead-list']);
   }
 }
 export class Leads {

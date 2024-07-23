@@ -10,7 +10,7 @@ export class UploadService {
 
   private baseUrl = 'https://localhost:7055/api/dropbox'; // Replace with your server URL
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   uploadFiles(files: File[], id: string): Observable<any> {
     const formData = new FormData();
     files.forEach((file, index) => {
@@ -33,7 +33,7 @@ export class UploadService {
       })
     );
   }
-  
+
   uploadFile(file: File, id: string): Observable<any> {
     const formData = new FormData();
     formData.append('file', file, `${id}_${file.name}`); // שינוי השם של הקובץ כאן
@@ -44,7 +44,7 @@ export class UploadService {
 
     return this.http.request(uploadReq).pipe(
       map(event => {
-        if (event.type === HttpEventType.UploadProgress&&event.total) {
+        if (event.type === HttpEventType.UploadProgress && event.total) {
           const progress = Math.round(100 * event.loaded / event.total);
           return { status: 'progress', message: progress };
         } else if (event.type === HttpEventType.Response) {
@@ -54,9 +54,11 @@ export class UploadService {
       })
     );
   }
-  // downloadFile(fileName: string): Observable<Blob> {
-  //   return this.http.get(`${this.baseUrl}/download/${fileName}`, {
-  //     responseType: 'blob'
-  //   });
-  // }
+
+  downloadFile(id: string): Observable<HttpResponse<Blob>> {
+    return this.http.get(`${this.baseUrl}/download/${id}`, {
+      observe: 'response',
+      responseType: 'blob'
+    });
+  }
 }

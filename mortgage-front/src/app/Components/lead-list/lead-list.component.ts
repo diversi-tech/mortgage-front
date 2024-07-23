@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, Inject } from '@angular/core';
-import { Customer } from '../../Models/Customer';
+import { ICustomer } from '../../Models/Customer';
 import { Router } from '@angular/router';
 import {  Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import {  MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { Lead } from '../../Models/Lead';
+import { ILead } from '../../Models/Lead';
 import { leadService } from '../../Services/lead.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MaterialModule } from '../../material/material.module';
@@ -27,7 +27,7 @@ import { AdminDashboardComponent } from "../admin-dashboard/admin-dashboard.comp
 })
 export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
   displayedColumns = ['link','first_Name', 'phone', 'email', 'actions'];
-  dataSource: MatTableDataSource<Lead> = new MatTableDataSource<Lead>();
+  dataSource: MatTableDataSource<ILead> = new MatTableDataSource<ILead>();
   private leadsSubscription?: Subscription;
   emailSubject = 'לחץ על הקישור כדי להיכנס לאתר';
   link = this.leadService.sendLink();
@@ -87,12 +87,12 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
 
   addLead(): void {
 
-    this.router.navigate(['/lead-tetails/', -1]);  }
+    this.router.navigate(['admin-dashboard/lead-tetails/', -1]);  }
 
-  editLead(selected: Customer): void {
-    this.router.navigate(['/lead-tetails/', selected?.id]);
+  editLead(selected: ICustomer): void {
+    this.router.navigate(['admin-dashboard/lead-tetails/', selected?.id]);
   }
-  deleteLead(lead: Lead): void {
+  deleteLead(lead: ILead): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{
       data: { lead } // Pass customer object as data to the dialog
     });

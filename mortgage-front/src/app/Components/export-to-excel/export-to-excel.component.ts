@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';  // ייבוא נכון של file-saver
 import { customerService } from '../../Services/costumer.service';
 import { MaterialModule } from '../../material/material.module';
-import { Customer, Customer_type } from '../../Models/Customer';
+import { ICustomer, Customer_type } from '../../Models/Customer';
 @Component({
   selector: 'export-to-excel',
   standalone:true,
@@ -13,7 +13,7 @@ import { Customer, Customer_type } from '../../Models/Customer';
 })
 export class ExportToExcelComponent {
 
-  customers: Customer[] = [];
+  customers: ICustomer[] = [];
   readonly headerMapping: { [key: string]: string } = {
     'id': 'מזהה',
     'lead_id': 'מזהה ליד',

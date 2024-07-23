@@ -1,80 +1,54 @@
 import { Component, OnInit } from '@angular/core';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { customerService } from '../../Services/costumer.service';
-import { Customer } from '../../Models/Customer';
-import { Lead } from '../../Models/Lead';
+import { ICustomer } from '../../Models/Customer';
+import { ILead } from '../../Models/Lead';
 import { leadService } from '../../Services/lead.service';
-import { Document } from '../../Models/Document';
+import {IDocument } from '../../Models/Document';
 import { DocumentsListCustomerService } from '../../Services/documentListCustomer.service';
-import { DocumentType } from '../../Models/DocumentTypes.Model';
+import { IDocumentType } from '../../Models/DocumentTypes';
 import { MaterialModule } from '../../material/material.module';
 import { CommonModule } from '@angular/common';
-
-
 @Component({
   selector: 'app-data-visualization',
   standalone: true,
-  imports: [CanvasJSAngularChartsModule, 
-    MaterialModule,
-     CommonModule
-  ],
+  imports: [CanvasJSAngularChartsModule,MaterialModule,CommonModule],
   templateUrl: './data-visualization.component.html',
   styleUrl: './data-visualization.component.scss',
-
 })
 export class DataVisualizationComponent implements OnInit {
-
   constructor(private _serviceCustomer: customerService, private leadService: leadService, private documentService: DocumentsListCustomerService) { }
-  customers: Customer[] = [];
-  leads: Lead[] = [];
-  documents: Document[] = [];
-  documentTypes: DocumentType[] = [];
+  //The statement on the arrays
+  customers: ICustomer[] = [];
+  leads: ILead[] = [];
+  documents: IDocument[] = [];
+  documentTypes: IDocumentType[] = [];
   chartOptions: any;
   ngOnInit(): void {
     this.createArrys();
   }
 
   createArrys(): void {
-    console.log("in createArrays")
     this._serviceCustomer.getCustomers().subscribe(customersRes => {
-      console.log('here ');
       this.customers = customersRes;
-      console.log(this.customers[0]?.address);
-
     })
-
-    // this.leadSubscription = this.leadService.leads$.subscribe({
-    //   next: leads => {
-    //     console.log('accept the changes');
-    //     // this.leads = leads;
-    //   },
-    //   error: error => {
-    //     console.error('Error loading customers:', error);
-    //   }
-    // });
     this.leadService.getLeads().subscribe(leadRes => {
       this.leads = leadRes;
     })
     this.documentService.getAllDocuments().subscribe(documentRes => {
       this.documents = documentRes;
-      console.log("in getAllDocuments");
-
     }
     )
     this.documentService.getAllDocumentType().subscribe(documentTypeRes => {
       this.documentTypes = documentTypeRes;
-      console.log("in getAllDocumentType");
-
     }
     )
   }
-
   // ngOnDestroy() {
   //   if (this.leadSubscription) {
   //     this.leadSubscription.unsubscribe();
   //   }
   // }
-
   getJobStatusCounts() {
     var counts = { Employed: 0, SelfEmployed: 0 };
     this.customers.forEach(customer => {
@@ -83,7 +57,6 @@ export class DataVisualizationComponent implements OnInit {
     });
     return counts;
   }
-
   getFamilyStatusCounts() {
     const counts = { single: 0, married: 0, divorced: 0, widow: 0 };
     this.customers.forEach(customer => {
@@ -94,8 +67,57 @@ export class DataVisualizationComponent implements OnInit {
     });
     return counts;
   }
-  async initializeChart1() {
-    
+  getDocumentStatus() {
+    const countStatus = { pending: 0, completed: 0 };
+    this.documents.forEach(document => {
+      if (document.status === 0) countStatus.pending++;
+      if (document.status === 1) countStatus.completed++;
+    });
+    return countStatus;
+  }
+  getDocumentType() {
+    const countType = { New: 0, Old: 0, Renovation: 0, Other: 0, PricePerTenant: 0 };
+
+    this.documentTypes.forEach(documentType => {
+      if (documentType.transaction_Type === 0) { countType.New++; }
+      if (documentType.transaction_Type === 1) { countType.Old++; }
+      if (documentType.transaction_Type === 2) { countType.Renovation++; }
+      if (documentType.transaction_Type === 3) { countType.Other++; }
+      if (documentType.transaction_Type === 4) { countType.PricePerTenant++; }
+    });
+    return countType;
+  }
+  getCountsByMonth(items: any[]) {
+    var monthCounts = {
+      January: 0, February: 0, March: 0, April: 0,
+      May: 0, June: 0, July: 0, August: 0, September: 0,
+      October: 0, November: 0, December: 0
+    };
+    items.forEach(item => {
+      if (item.created_at) {
+        var date = new Date(item.created_at);
+        var month = date.getMonth();
+        switch (month) {
+          case 0: monthCounts.January++; break;
+          case 1: monthCounts.February++; break;
+          case 2: monthCounts.March++; break;
+          case 3: monthCounts.April++; break;
+          case 4: monthCounts.May++; break;
+          case 5: monthCounts.June++; break;
+          case 6: monthCounts.July++; break;
+          case 7: monthCounts.August++; break;
+          case 8: monthCounts.September++; break;
+          case 9: monthCounts.October++; break;
+          case 10: monthCounts.November++; break;
+          case 11: monthCounts.December++; break;
+          default: break;
+        }
+      }
+    });
+    return monthCounts;
+  }
+ // Show customer status status data
+ initializeChart1() {
     var leadCount = this.leads.length;
     var customerCount = this.customers.length;
     var familyStatusCounts = this.getFamilyStatusCounts();
@@ -126,43 +148,10 @@ export class DataVisualizationComponent implements OnInit {
 
     };
   }
-
-  getCountsByMonth(items: any[]) {
-    var monthCounts = {
-      January: 0, February: 0, March: 0, April: 0,
-      May: 0, June: 0, July: 0, August: 0, September: 0,
-      October: 0, November: 0, December: 0
-    };
-
-    items.forEach(item => {
-      if (item.created_at) {
-        var date = new Date(item.created_at);
-        var month = date.getMonth();
-        switch (month) {
-          case 0: monthCounts.January++; break;
-          case 1: monthCounts.February++; break;
-          case 2: monthCounts.March++; break;
-          case 3: monthCounts.April++; break;
-          case 4: monthCounts.May++; break;
-          case 5: monthCounts.June++; break;
-          case 6: monthCounts.July++; break;
-          case 7: monthCounts.August++; break;
-          case 8: monthCounts.September++; break;
-          case 9: monthCounts.October++; break;
-          case 10: monthCounts.November++; break;
-          case 11: monthCounts.December++; break;
-          default: break;
-        }
-      }
-    });
-
-    return monthCounts;
-  }
-
+  //Show the status of the number of customers / leads every month
   initializeChart2() {
     const monthCounts = this.getCountsByMonth(this.customers);
     const monthLeadCounts = this.getCountsByMonth(this.leads);
-
     this.chartOptions = {
       animationEnabled: true,
       theme: "light2",
@@ -230,27 +219,7 @@ export class DataVisualizationComponent implements OnInit {
     };
 
   }
-  getDocumentStatus() {
-    const countStatus = { pending: 0, completed: 0 };
-
-    this.documents.forEach(document => {
-      if (document.status === 0) countStatus.pending++;
-      if (document.status === 1) countStatus.completed++;
-    });
-    return countStatus;
-  }
-  getDocumentType() {
-    const countType = { New: 0, Old: 0, Renovation: 0, Other: 0, PricePerTenant: 0 };
-
-    this.documentTypes.forEach(documentType => {
-      if (documentType.transaction_Type === 0) { countType.New++; }
-      if (documentType.transaction_Type === 1) { countType.Old++; }
-      if (documentType.transaction_Type === 2) { countType.Renovation++; }
-      if (documentType.transaction_Type === 3) { countType.Other++; }
-      if (documentType.transaction_Type === 4) { countType.PricePerTenant++; }
-    });
-    return countType;
-  }
+//Show the status of the customer's documents + how many of each type of document
   initializeChart3() {
     const documentTypeCount = this.getDocumentType();
     const statusCount = this.getDocumentStatus();

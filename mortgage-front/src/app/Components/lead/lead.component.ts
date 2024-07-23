@@ -1,12 +1,12 @@
 // lead.component.ts
 import { AfterViewInit, Component, NgModule, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Customer, Family_Status, Job_Status, TransactionTypeEnum } from '../../Models/Customer';
+import { ICustomer, Family_Status, Job_Status, TransactionTypeEnum } from '../../Models/Customer';
 import { customerService } from '../../Services/costumer.service';
 import { MatStepper } from '@angular/material/stepper';
 import { MaterialModule } from '../../material/material.module';
 import { leadService } from '../../Services/lead.service';
-import { Role,User } from '../../Models/User';
+import { Role,IUser } from '../../Models/User';
 
 import { UserService } from '../../Services/user.service';
 import { CommonModule } from '@angular/common';
@@ -36,7 +36,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
 
 
 
-  user: User = {
+  user: IUser = {
     id: 0,
     userName: 'string',
     password: 'strings',
@@ -69,7 +69,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   fourthFormGroup: FormGroup;
   uploadedFiles: File[] = [];
 
-  customerData: Customer = {
+  customerData: ICustomer = {
     "id": 0,
     "lead_id": 0,
     "last_Name": "string",
@@ -269,13 +269,13 @@ export class LeadComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onInputChange(fieldName: keyof Customer, event: any) {
+  onInputChange(fieldName: keyof ICustomer, event: any) {
     const fieldValue = event.target.value;
     this.customerData[fieldName] = fieldValue;
     this.saveFormData();  // שמירת הנתונים לאחר כל שינוי
   }
 
-  onSelectionChange(fieldName: keyof Customer, event: any) {
+  onSelectionChange(fieldName: keyof ICustomer, event: any) {
     switch (event) {
       case Family_Status.Married:
       case Family_Status.Single:

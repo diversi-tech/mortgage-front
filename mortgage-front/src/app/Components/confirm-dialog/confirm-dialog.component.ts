@@ -2,7 +2,7 @@
 // import { MaterialModule } from '../../material/material.module';
 // import { CommonModule } from '@angular/common';
 // import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { DocumentType } from '../../Models/DocumentTypes.Model';
+import { IDocumentType } from '../../Models/DocumentTypes';
 // @Component({
 //   selector: 'confirm-dialog',
 //   standalone: true,

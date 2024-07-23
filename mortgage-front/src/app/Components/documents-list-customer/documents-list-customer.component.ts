@@ -3,10 +3,10 @@ import { MaterialModule } from '../../material/material.module';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { DocumentsListCustomerService } from '../../services/documents-list-customer.service';
+import { DocumentsListCustomerService } from '../../Services/documents-list-customer.service';
 import {  Subscription } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { DocumentStatus,Document } from '../../Models/Document';
+import { DocumentStatus,IDocument } from '../../Models/Document';
 
 
 @Component({
@@ -34,7 +34,7 @@ export class DocumentsListCustomerComponent implements OnInit {
   // documents: any;
   customerId: number = 4; // לדוגמה, ללקוח מסוים עם ID מסוים
   documentStatusString: String = DocumentStatus[0];
-  dataSource: MatTableDataSource<Document> = new MatTableDataSource<Document>();
+  dataSource: MatTableDataSource<IDocument> = new MatTableDataSource<IDocument>();
   private documentSubscription?: Subscription;
   documentTypes?: DocumentType[] = [];
 

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Document } from '../Models/Document';
-import { DocumentType } from '../Models/DocumentTypes.Model';
+import { IDocument } from '../Models/Document';
+import { IDocumentType } from '../Models/DocumentTypes';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +13,10 @@ export class DocumentsListCustomerService {
 
   constructor(private http: HttpClient) { }
 
-  getAllDocuments(): Observable<Document[]> {
-    return this.http.get<Document[]>(`${this.apiUrl}CustomerTasksControllercs`);
+  getAllDocuments(): Observable<IDocument[]> {
+    return this.http.get<IDocument[]>(`${this.apiUrl}CustomerTasksControllercs`);
   }
-   getAllDocumentType():Observable<DocumentType[]> {
-    return this.http.get<DocumentType[]>(`${this.apiUrl}DocumentTypes`);
+   getAllDocumentType():Observable<IDocumentType[]> {
+    return this.http.get<IDocumentType[]>(`${this.apiUrl}DocumentTypes`);
     }
 }

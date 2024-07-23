@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { UploadService } from '../../Services/fileUploadService';
 import { MaterialModule } from '../../material/material.module';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormsModule } from "@angular/forms";
+
 @Component({
   selector: 'app-upload',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule,FormsModule],
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.css']
 })
@@ -13,6 +15,7 @@ export class UploadComponent {
   selectedFiles: File[] = [];
   uploadProgress: number = 0;
   uploadedFiles: File[] = [];
+  fileId: string = '';
 
   constructor(private uploadService: UploadService, private _snackBar: MatSnackBar) { }
 
@@ -37,8 +40,8 @@ export class UploadComponent {
 
   onUpload(): void {
     if (this.selectedFiles && this.selectedFiles.length > 0) {
-      this.uploadService.uploadFiles(this.selectedFiles,"1").subscribe(
-        (event: any) => {          
+      this.uploadService.uploadFiles(this.selectedFiles, "2").subscribe(
+        (event: any) => {
           if (event.status === 'progress') {
             this.uploadProgress = event.message;
           } else if (!event.status) {
@@ -57,15 +60,34 @@ export class UploadComponent {
       );
     }
   }
-}
+ 
 
-  // onDownload(fileName: string): void {
-  //   this.uploadService.downloadFile(fileName).subscribe(blob => {
-  //     const url = window.URL.createObjectURL(blob);
-  //     const a = document.createElement('a');
-  //     a.href = url;
-  //     a.download = fileName; // Set the file name for download
-  //     a.click();
-  //     window.URL.revokeObjectURL(url);
-  //   });
-  // }
+  download() {
+    if (!this.fileId) {
+      alert('Please enter a file ID');
+      return;
+    }
+  
+    this.uploadService.downloadFile(this.fileId).subscribe(
+      (response) => {
+        const contentDisposition = response.headers.get('Content-Disposition');
+        const fileName = this.getFileNameFromContentDisposition(contentDisposition!);
+        this.saveFile(response.body!, fileName);
+      },
+      (error) => alert('Error downloading file')
+    );
+  }
+  
+  private getFileNameFromContentDisposition(contentDisposition: string): string {
+    const matches = /filename="(.+?)"/.exec(contentDisposition);
+    return matches && matches[1] ? matches[1] : 'unknown';
+  }
+  
+  private saveFile(blob: Blob, fileName: string) {
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = fileName;
+    link.click();
+    window.URL.revokeObjectURL(link.href);
+  }
+}

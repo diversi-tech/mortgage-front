@@ -1,0 +1,54 @@
+.mailing-list-card {
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    height: 54vh;
+  
+  }
+  
+  .message-field{
+    height: 17vh;
+    width: 47vw;
+  }
+
+  .subject-field{
+    width: 47vw;
+    height: 10vh;
+  }
+  .div-warp-fields {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  
+  #content {
+    background-color: rgba(255, 255, 255, 0.602);
+    padding: 8%;
+    border-radius: 40px;
+    /* border: 3px solid rgb(178, 189, 202); */
+    /* min-width: max-content; */
+    height: 55vh;
+  }
+  
+  .card-content {
+    margin-top: 3%;
+  
+  }
+  
+  @media screen and (max-width: 431px) {
+    .div-warp-fields {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+  
+  }

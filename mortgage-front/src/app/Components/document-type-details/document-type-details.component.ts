@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { DocumentType, TransactionType } from '../../Models/DocumentTypes.Model';
+import { IDocumentType, TransactionType } from '../../Models/DocumentTypes';
 import { DocumentTypeService } from '../../Services/documentType.service';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../material/material.module';
@@ -26,7 +26,7 @@ export class DocumentTypeDetailsComponent implements OnInit {
   docTypeId: number | null = null;
   documentTypeForm: FormGroup;
   transactionTypes = Object.values(TransactionType).filter(key => isNaN(Number(key)));
-  docType!: DocumentType
+  docType!: IDocumentType
 
   constructor(private route: ActivatedRoute, private router: Router, private fb: FormBuilder, private documentTypeService: DocumentTypeService, private snackBar: MatSnackBar) {
     this.documentTypeForm = this.fb.group({
@@ -66,10 +66,10 @@ export class DocumentTypeDetailsComponent implements OnInit {
     if (this.documentTypeForm.valid) {
       const formValues = this.documentTypeForm.value;
 
-      const documentTypeObject: DocumentType = {
+      const documentTypeObject: IDocumentType = {
         document_Name: formValues.document_Name,
         required: formValues.required as boolean,
-        transaction_Type: TransactionType[formValues.transaction_Type as unknown as keyof typeof TransactionType]
+        transaction_Type: TransactionType[formValues.transaction_Type as unknown as keyof typeof TransactionType],
       }
 
 

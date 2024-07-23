@@ -3,7 +3,7 @@ export enum DocumentStatus {
     ממתין,
     הושלם
 }
-export class Document {
+export class IDocument {
 
     id?: number;
     customer_Id?: number;

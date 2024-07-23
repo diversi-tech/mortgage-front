@@ -14,32 +14,61 @@ import { UserDetailComponent } from './Components/user-detail/user-detail.compon
 import { DocumentTypeDetailsComponent } from './Components/document-type-details/document-type-details.component';
 import { DocumentTypeListComponent } from './Components/document-type-list/document-type-list.component';
 import { UploadComponent } from './Components/file-upload/file-upload.component';
-
 import { DocumentsListCustomerComponent } from './Components/documents-list-customer/documents-list-customer.component';
 import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
+import { CustomerPortalComponent } from './Components/customer-portal/customer-portal.component';
+import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 
 
 const routes: Routes =
   [
-    {path:'exel',component:AdminDashboardComponent},
-    { path: 'data', component: DataVisualizationComponent },
-    {path:'doc-list',component:DocumentsListCustomerComponent},
-    { path: 'doc', component: UploadComponent },
+    { path: '', redirectTo: '/login', pathMatch: 'full' }, // ניתוב ברירת מחדל
     { path: 'login', component: LoginComponent },
-    { path: 'magic-link', component: MagicLinkComponent },
-    { path: 'customer-list', component: CustomerListComponent },
-    {path:'lead-list',component:LeadListComponent},
-    {path:'customer-details/:id',component:CustomerDetailModalComponent},
-    {path:'lead-tetails/:id',component:LeadDetailComponent},
-    {path:'leadLogin',component:LeadComponent},
-    {path:'lead-details/:id',component:LeadDetailComponent},
-    {path:'user-list',component:UserListComponent},
-    {path:'user-details/:id',component:UserDetailComponent},
-    {path:'customer-details-modal',component:CustomerDetailModalComponent},
-    {path:'documentType-details/:id',component:DocumentTypeDetailsComponent},
-    {path:'documentType-list',component:DocumentTypeListComponent},
-    {path:'user-details',component:UserDetailComponent},
-
+    { path: 'leadLogin/:id', component: LeadComponent },
+    { path: 'forgot-password/:id', component: ForgotPasswordComponent },
+    // { path: 'exel', component: AdminDashboardComponent },
+    // { path: 'data', component: DataVisualizationComponent },
+    // { path: 'doc-list', component: DocumentsListCustomerComponent },
+    // { path: 'doc', component: UploadComponent },
+    // { path: 'magic-link', component: MagicLinkComponent },
+    // { path: 'customer-list', component: CustomerListComponent },
+    // { path: 'lead-list', component: LeadListComponent },
+    // { path: 'customer-details/:id', component: CustomerDetailModalComponent },
+    // { path: 'lead-tetails/:id', component: LeadDetailComponent },
+    // { path: 'lead-details/:id', component: LeadDetailComponent },
+    // { path: 'user-list', component: UserListComponent },
+    // { path: 'user-details/:id', component: UserDetailComponent },
+    // { path: 'customer-details-modal', component: CustomerDetailModalComponent },
+    // { path: 'documentType-details/:id', component: DocumentTypeDetailsComponent },
+    // { path: 'documentType-list', component: DocumentTypeListComponent },
+    // { path: 'user-details', component: UserDetailComponent },
+    {
+      path: 'customer-portal', component: CustomerPortalComponent, children: [
+        { path: 'doc-list', component: DocumentsListCustomerComponent },
+        { path: 'leadLogin/:id', component: LeadComponent },
+        { path: 'customer-details/:id', component: CustomerDetailModalComponent },
+        { path: 'customer-details-modal', component: CustomerDetailModalComponent },
+        { path: 'user-details/:id', component: UserDetailComponent },
+      ]
+    },
+    {
+      path: 'admin-dashboard', component: AdminDashboardComponent, children: [
+        { path: 'customer-list', component: CustomerListComponent },
+        { path: 'doc', component: UploadComponent },
+        { path: 'data', component: DataVisualizationComponent },
+        { path: 'doc-list', component: DocumentsListCustomerComponent },
+        { path: 'user-list', component: UserListComponent },
+        { path: 'user-details/:id', component: UserDetailComponent },
+        { path: 'lead-list', component: LeadListComponent },
+        { path: 'customer-details-modal', component: CustomerDetailModalComponent },
+        { path: 'leadLogin', component: LeadComponent },
+        { path: 'documentType-list', component: DocumentTypeListComponent },
+        { path: 'customer-details/:id', component: CustomerDetailModalComponent },
+        { path: 'lead-tetails/:id', component: LeadDetailComponent },
+        { path: 'documentType-details/:id', component: DocumentTypeDetailsComponent },
+        { path: 'exel', component: AdminDashboardComponent },
+      ]
+    },
   ];
 
 @NgModule({

@@ -5,7 +5,7 @@
     Select Files
   </button>
 
-  <button mat-raised-button color="accent" [disabled]="!selectedFiles || selectedFiles.length === 0"
+  <button mat-raised-button color="primary" [disabled]="!selectedFiles || selectedFiles.length === 0"
     (click)="onUpload()">
     Upload
   </button>
@@ -36,4 +36,8 @@
       <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
       Upload Progress: {{ uploadProgress }}%
     </div>}
+</div>
+<div>
+  <input type="text" [(ngModel)]="fileId" placeholder="Enter file ID">
+  <button mat-raised-button color="primary" (click)="download()">Download File</button>
 </div>
