@@ -23,6 +23,9 @@ import { GlobalModule } from '../global/global.module';
     GlobalModule,
     CustomerRoutingModule
   ],
-
+  exports:[CustomerPortalComponent,
+    DocumentsListCustomerComponent
+    
+  ]
 })
 export class CustomerModule { }

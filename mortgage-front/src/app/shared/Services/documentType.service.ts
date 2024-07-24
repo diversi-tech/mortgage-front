@@ -55,4 +55,10 @@ editDocumentType(docType: DocumentType,id:number) :Observable<void>{
   getDocTypeById(id:number):Observable<DocumentType> {
     return this.http.get(`${this.basicURL}DocumentTypes/${id}`)
   }
+
+  getDocsByTransactionType(id:number):Observable<DocumentType[]> {
+
+    return this.http.get<any[]>(`${this.basicURL}DocumentTypes/TypesDocument/${id}`)
+
+  }
 }

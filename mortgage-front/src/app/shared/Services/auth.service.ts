@@ -52,7 +52,7 @@ export class AuthService {
   //   return ""
   // }
 
-    isLoggedIn(): boolean | null {
+  isLoggedIn(): boolean | null {
     // just for example:
     // return true;
     // after merge with the git :
@@ -69,6 +69,6 @@ export class AuthService {
     //   let currentUser: TokenPayload = this.decodeToken(sessionStorage.getItem('token'));
     //   return String(currentUser.role) === 'Admin';
     // }
-    return false;
+    return true;
   }
 }

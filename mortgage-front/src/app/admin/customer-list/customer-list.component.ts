@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { Customer,Customer_type } from '../../shared/Models/Customer';
+import { Customer, Customer_Type } from '../../shared/Models/Customer';
 import { customerService } from '../../shared/Services/costumer.service';
 import { Router } from '@angular/router';
 import {  Subscription } from 'rxjs';
@@ -99,7 +99,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     });
   }
 
-  getCustomerTypeString(customer_type: Customer_type): string {
+  getCustomerTypeString(customer_type: Customer_Type): string {
     switch (customer_type) {
       case 0:
         return 'ליד';

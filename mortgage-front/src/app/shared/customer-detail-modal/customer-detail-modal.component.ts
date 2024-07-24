@@ -9,14 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './customer-detail-modal.component.scss',
 })
 export class CustomerDetailModalComponent implements OnInit {
-  formData: Customer = {
-    first_Name: null,
-    last_Name: null,
-    email: null,
-    phone: null,
-    address: null,
-    connection: null,
-    t_z: null,
+
+
+  formData:Customer = {
+    first_Name: '',
+    last_Name: '',
+    email: '',
+    phone: '',
+    address: '',
+    connection: 0,
+    t_z: '',
     lead_id: 0,
     birthDate: null,
     family_status: null,
@@ -80,7 +82,8 @@ export class CustomerDetailModalComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.customerId = Number(params.get('id'));
       if (this.customerId) {
-        this.data = this.customerService.getById(this.customerId).subscribe({
+        console.log(`Customer ID: ${this.customerId}`);
+        this.customerService.getById(this.customerId).subscribe({
           next: (response) => {
             this.formData = { ...response };
             this.currentCustomerId = this.customerId;
