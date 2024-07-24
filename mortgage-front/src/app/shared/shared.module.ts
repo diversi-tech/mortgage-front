@@ -8,6 +8,8 @@ import { DocumentTypeListComponent } from './document-type-list/document-type-li
 import { DocumentTypeDetailsComponent } from './document-type-details/document-type-details.component';
 import { CustomerDetailModalComponent } from './customer-detail-modal/customer-detail-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CustomerExcelComponent } from '../admin/customer-excel/customer-excel.component';
+import { AdminModule } from '../admin/admin.module';
 
 
 
@@ -25,6 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
+    AdminModule
 
   ],
   exports:[

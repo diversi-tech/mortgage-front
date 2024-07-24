@@ -1,4 +1,3 @@
-
 <mat-card class="lead-edit-card">
   <mat-card-title>פרטים אישיים</mat-card-title>
   <mat-card-content>
@@ -38,7 +37,7 @@
 
       <mat-form-field appearance="fill" class="mat-form-field">
         <mat-label>תאריך לידה</mat-label>
-        <input matInput type="date" [(ngModel)]="formData['birthDate']"  name="birthDate">
+        <input matInput type="date" [(ngModel)]="formData['birthDate']" name="birthDate">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="mat-form-field">
@@ -62,7 +61,8 @@
 
       <mat-form-field appearance="fill" class="mat-form-field">
         <mat-label>מספר אנשים בבית</mat-label>
-        <input matInput type="number" [(ngModel)]="formData['number_of_people_in_house']" name="number_of_people_in_house">
+        <input matInput type="number" [(ngModel)]="formData['number_of_people_in_house']"
+          name="number_of_people_in_house">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="mat-form-field">
@@ -86,7 +86,8 @@
 
       <mat-form-field appearance="fill" class="mat-form-field">
         <mat-label>מספר שנים במשרה</mat-label>
-        <input matInput type="number" [(ngModel)]="formData['years_in_current_position']" name="years_in_current_position">
+        <input matInput type="number" [(ngModel)]="formData['years_in_current_position']"
+          name="years_in_current_position">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="mat-form-field">
@@ -159,7 +160,8 @@
 
       <mat-form-field appearance="fill" class="mat-form-field">
         <mat-label>שכיחות בקשת הלוואות</mat-label>
-        <input matInput type="number" [(ngModel)]="formData['amount_of_loan_requested']" name="amount_of_loan_requested">
+        <input matInput type="number" [(ngModel)]="formData['amount_of_loan_requested']"
+          name="amount_of_loan_requested">
       </mat-form-field>
 
       <mat-divider id="devider"></mat-divider>
@@ -175,7 +177,7 @@
 
       <mat-form-field appearance="fill" class="mat-form-field">
         <mat-label>סינכרון אחרון</mat-label>
-        <input matInput type="date" [(ngModel)]="formData['lastSynced']"  name="lastSynced">
+        <input matInput type="date" [(ngModel)]="formData['lastSynced']" name="lastSynced">
       </mat-form-field>
 
 
@@ -191,7 +193,7 @@
 
       <div class="button-group">
         <button mat-raised-button color="primary" type="submit">שמור</button>
-
+        <customer-excel *ngIf="!disabled" [customerId]="currentCustomerId"></customer-excel>
         <button mat-raised-button color="warn" type="button">ביטול</button>
 
       </div>
