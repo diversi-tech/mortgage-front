@@ -22,7 +22,7 @@ export class Document {
         this.id = id;
         this.customer_Id = customer_Id;
         this.task_description = task_description;
-        this.document_type_id = document_type_id;
+        this.document_type_id = document_type_id ;
         this.document_path = document_path !== undefined ? document_path : '';
         this.status = status;
         this.due_date = due_date;

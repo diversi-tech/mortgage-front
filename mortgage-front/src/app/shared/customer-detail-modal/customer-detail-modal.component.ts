@@ -16,7 +16,7 @@ export class CustomerDetailModalComponent implements OnInit {
     last_Name: '',
     email: '',
     phone: '',
-    adress: '',
+    address: '',
     connection: 0,
     t_z: '',
     lead_id: 0,
@@ -82,7 +82,7 @@ export class CustomerDetailModalComponent implements OnInit {
       this.customerId = Number(params.get('id'));
       if (this.customerId) {
         console.log(`Customer ID: ${this.customerId}`);
-        this.data = this.customerService.getById(this.customerId).subscribe({
+        this.customerService.getById(this.customerId).subscribe({
           next: (response) => {
             console.log('Customer come successfully:', response.birthDate);
             this.formData={...response};

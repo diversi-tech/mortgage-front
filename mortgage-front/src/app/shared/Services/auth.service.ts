@@ -38,22 +38,32 @@ export class AuthService {
     }
     return currentUser
   }
-  isLoggedIn(): string | null {
+  // isLoggedIn(): string | null {
+  //   // just for example:
+  //   // return true;
+  //   // after merge with the git :
+  //   if (typeof window !== 'undefined')
+  //     return sessionStorage.getItem('token');
+  //   return ""
+  // }
+
+  isLoggedIn(): boolean | null {
     // just for example:
     // return true;
     // after merge with the git :
-    if (typeof window !== 'undefined')
-      return sessionStorage.getItem('token');
-    return ""
+    // if (typeof window !== 'undefined')
+    //   return sessionStorage.getItem('token');
+    return true
   }
+
   isAdmin(): boolean {
     // just for example:
     // return true;
     // after merge with the git :
-    if (this.isLoggedIn()&&typeof window !== 'undefined') {
-      let currentUser: TokenPayload = this.decodeToken(sessionStorage.getItem('token'));
-      return String(currentUser.role) === 'Admin';
-    }
-    return false;
+    // if (this.isLoggedIn()&&typeof window !== 'undefined') {
+    //   let currentUser: TokenPayload = this.decodeToken(sessionStorage.getItem('token'));
+    //   return String(currentUser.role) === 'Admin';
+    // }
+    return true;
   }
 }

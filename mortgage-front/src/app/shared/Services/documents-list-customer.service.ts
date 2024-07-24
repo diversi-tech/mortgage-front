@@ -14,7 +14,7 @@ export class DocumentsListCustomerService {
   readonly apiUrl = 'https://localhost:7055/api'
   private documentsSubject = new BehaviorSubject<Document[]>([]);
   documents$ = this.documentsSubject.asObservable();
-  customerId: number = 4;
+  customerId: number = 1;
   selectedDocuments: (File | null)[] = [];
   // isSelected:boolean[]=[];
 
@@ -22,6 +22,17 @@ export class DocumentsListCustomerService {
     this.fetchDocumentsByCustomerId(this.customerId).subscribe();
   }
 
+
+
+  getDocumentsTypesById(customerId: number): Observable<DocumentType[]> {
+
+    return this.http.get<DocumentType[]>(`${this.apiUrl}/DocumentTypes/${customerId}`);
+
+  }
+  
+  addDocument(document : Document):Observable<Document>{
+    return this.http.post<Document>(`${this.apiUrl}/CustomerTasksControllercs`,document)
+  }
 
   getAllDocuments(): Observable<Document[]> {
     return this.http.get<Document[]>(`${this.apiUrl}/CustomerTasksControllercs`);
