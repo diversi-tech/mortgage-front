@@ -3,13 +3,14 @@ import { Observable, map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Document } from '../Models/Document';
 import { DocumentType } from '../Models/DocumentTypes.Model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocumentsListCustomerService {
 
-  private apiUrl = 'https://localhost:7055/api/'
+  private apiUrl = environment+'/api/'
 
   constructor(private http: HttpClient) { }
 

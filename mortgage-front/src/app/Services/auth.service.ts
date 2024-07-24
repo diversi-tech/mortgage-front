@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 import { TokenPayload } from '../Models/Login';
 import { jwtDecode } from "jwt-decode";
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  readonly basicURL = "https://localhost:7055/api";
+  readonly basicURL =environment;
   constructor(private http: HttpClient,private router: Router) {}
   login(email: string, password: string): Observable<string> {
     const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });

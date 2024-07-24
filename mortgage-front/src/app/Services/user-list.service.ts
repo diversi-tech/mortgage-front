@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../Models/user';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 
 export class UserListService {
-  apiUrl = 'https://localhost:7055/api'; // Define your API base URL here
+  apiUrl = environment; // Define your API base URL here
 
   constructor(private http: HttpClient) { } // Inject HttpClient in the constructor
 

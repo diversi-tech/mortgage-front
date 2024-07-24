@@ -2,10 +2,11 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { User } from "../Models/user";
+import { environment } from "../../environments/environment";
 
 @Injectable()
  export class UserService {
-  readonly basicURL = "https://localhost:7055/api/";
+  readonly basicURL =environment+ "/api/";
   private usersSubject = new BehaviorSubject<User[]>([]);
   users$ = this.usersSubject.asObservable();
   constructor(private http: HttpClient) {

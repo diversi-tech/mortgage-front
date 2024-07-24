@@ -47,7 +47,6 @@ export class DocumentTypeDetailsComponent implements OnInit {
   }
 
 
-
   setFormValues(id: number): void {
     if (this.docTypeId != -1) {
       this.documentTypeService.getDocTypeById(id).subscribe(docTypeById => {

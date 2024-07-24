@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Injectable } from '@angular/core';
 import { Document } from '../Models/Document';
 import { DocumentType,TransactionType } from '../Models/DocumentTypes.Model';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ import { DocumentType,TransactionType } from '../Models/DocumentTypes.Model';
 export class DocumentsListCustomerService {
 
 
-  readonly apiUrl = 'https://localhost:7055/api'
+  readonly apiUrl = environment+'/api'
   private documentsSubject = new BehaviorSubject<Document[]>([]);
   documents$ = this.documentsSubject.asObservable();
   customerId: number = 4;

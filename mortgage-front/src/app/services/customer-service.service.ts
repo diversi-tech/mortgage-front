@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class CustomerServiceService {
   
   //private customerURL = `${environment.apiURL}/api`; 
-  private apiUrl = 'https://localhost:7055/api/Customers'; // Define your API URL
+  private apiUrl = environment+'/api/Customers'; // Define your API URL
   
   constructor(private http: HttpClient) { }
 

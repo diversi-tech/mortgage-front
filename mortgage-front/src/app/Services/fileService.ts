@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadService {
 
-  private baseUrl = 'https://localhost:7055/api/dropbox'; // Replace with your server URL
+  private baseUrl = environment+'/api/dropbox'; // Replace with your server URL
 
   constructor(private http: HttpClient) { }
   uploadFiles(files: File[], id: string): Observable<any> {
