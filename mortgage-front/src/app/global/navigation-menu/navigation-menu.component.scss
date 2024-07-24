@@ -1,0 +1,32 @@
+* {
+  font-size: 20px;
+  text-align: right;
+}
+
+.sidenav-container {
+  min-height: 100vh;
+  height: max-content;
+  flex-grow: 1;
+}
+
+.mat-icon {
+  float: right;
+}
+
+.sidenav {
+  width: 17vw;
+  margin: 0 ;
+  min-width: max-content;
+}
+a {
+    padding: 30px ;
+}
+@media only screen and (max-width: 900px) {
+    a {
+      padding: 5px ;
+    }
+  
+    span {
+      font-size: 18px ;
+    }
+}
