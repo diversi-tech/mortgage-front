@@ -8,7 +8,7 @@ import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class DocumentTypeService {
-  readonly basicURL = environment;
+  readonly basicURL = environment.apiURL + "/api/";
   private documentSubject = new BehaviorSubject<DocumentType[]>([]);
   documentTypes$ = this.documentSubject.asObservable();
 
@@ -44,8 +44,10 @@ export class DocumentTypeService {
 
   addDocumentType(docType: DocumentType):Observable<any> {
     console.log('addDocumentType')
+    debugger
     return this.http.post(`${this.basicURL}DocumentTypes`, docType);
 }
+
 editDocumentType(docType: DocumentType,id:number) :Observable<void>{
   console.log('editDocumentType'); 
   return this.http.put<void>(`${this.basicURL}DocumentTypes/${id}`, docType);

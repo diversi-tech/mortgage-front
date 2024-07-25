@@ -6,7 +6,7 @@ import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class magicLinkService {
-    readonly basicURL=environment+'/api/Email/';
+    readonly basicURL=environment.apiURL+'/api/Email/';
     //https://localhost:7055/api/Email/send-magic-link?id=32
 
     constructor(private http:HttpClient) {}

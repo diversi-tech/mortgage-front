@@ -6,7 +6,7 @@ import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class leadService {
-  readonly basicURL = environment+"/api/";
+  readonly basicURL = environment.apiURL+"/api/";
   private LeadsSubject = new BehaviorSubject<Lead[]>([]);
   leads$ = this.LeadsSubject.asObservable();
   constructor(private http: HttpClient) {

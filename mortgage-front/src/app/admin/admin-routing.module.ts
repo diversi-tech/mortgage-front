@@ -25,7 +25,7 @@ const routes: Routes = [
             { path: "user-details/:id", component: UserDetailComponent },
             { path: "lead-details", component: LeadDetailComponent },
             { path: "customer-details/:id", component: CustomerDetailModalComponent },
-            { path: 'document-type-details', component: DocumentTypeDetailsComponent },
+            { path: 'document-type-details/:id', component: DocumentTypeDetailsComponent },
             { path: 'document-type-list', component: DocumentTypeListComponent },
             { path: 'calculator', component: MortgageCalculatorComponent },
         ]

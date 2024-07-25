@@ -7,7 +7,7 @@ import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class MailingListService {
-    readonly basicURL = environment;
+    readonly basicURL = environment.apiURL+"/api/";
 
     constructor(private http: HttpClient) { }
 

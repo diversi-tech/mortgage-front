@@ -8,7 +8,7 @@ import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class customerService {
-  readonly basicURL = environment+"/api/";
+  readonly basicURL = environment.apiURL+"/api/";
   private customersSubject = new BehaviorSubject<Customer[]>([]);
   customers$ = this.customersSubject.asObservable();
 
