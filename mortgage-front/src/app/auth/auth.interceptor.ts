@@ -2,16 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { loginService } from '../shared/Services/login.service';
-// import { AuthService } from '../shared/Services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private authService: loginService) {}
+  constructor(private loginService: loginService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const authToken = this.authService.token.getValue();
+    const authToken = this.loginService.token.getValue();
     // console.log("authToken"+authToken.getValue());
     
     const authReq = req.clone({

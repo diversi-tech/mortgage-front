@@ -1,13 +1,12 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-// import { AuthService } from '../shared/Services/auth.service';
 import { loginService } from '../shared/Services/login.service';
 
 export const authGuardAdmin: CanActivateFn = (route, state) => {
-  const authService = inject(loginService);
+  const loginservice = inject(loginService);
   const router = inject(Router);
-  if (authService.isLoggedIn()) {//check if loggedIn
-    if (authService.isAdmin())//check if admin
+  if (loginservice.isLoggedIn()) {//check if loggedIn
+    if (loginservice.isAdmin())//check if admin
       return true;
     window.history.back()
     return false;
@@ -18,9 +17,9 @@ export const authGuardAdmin: CanActivateFn = (route, state) => {
 };
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const authService = inject(loginService);
+  const loginservice = inject(loginService);
   const router = inject(Router);
-  if (authService.isLoggedIn()) {//check if loggedIn
+  if (loginservice.isLoggedIn()) {//check if loggedIn
     return true;
   } else {//if not loggedIn:
     router.navigate(['auth/login']);
