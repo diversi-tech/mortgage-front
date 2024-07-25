@@ -23,7 +23,7 @@ const routes: Routes = [
             { path: 'user-list', component: UserListComponent },
             { path: 'lead-list', component: LeadListComponent },
             { path: 'data-visualization', component: DataVisualizationComponent },
-            { path: "user-details", component: UserDetailComponent },
+            { path: "user-details/:id", component: UserDetailComponent },
             { path: "lead-details/:id", component: LeadDetailComponent },
             { path: "customer-details/:id", component: CustomerDetailModalComponent },
             { path: 'document-type-details', component: DocumentTypeDetailsComponent },

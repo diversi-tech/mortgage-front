@@ -4,13 +4,14 @@ import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 import { TokenPayload } from '../Models/Login';
 import { jwtDecode } from "jwt-decode";
 import { User } from '../Models/user';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class loginService {
-  readonly basicURL = "https://localhost:7055";
+  readonly basicURL = environment;
  currentUser:TokenPayload={};
  CurrentcustomerId?: number;
   constructor(private http: HttpClient,) {}
@@ -21,7 +22,8 @@ export class loginService {
   }
 
   decodeToken(token: string): TokenPayload {
-
+    console.log("token="+token);
+    
     const decoded = jwtDecode(token);
     const JSONdecoder = JSON.parse(JSON.stringify(decoded));
     let currentUserId,currentUserName,currentUserRole,currentCustomerId;

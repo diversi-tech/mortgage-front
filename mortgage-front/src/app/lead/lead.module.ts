@@ -4,6 +4,7 @@ import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LeadComponent } from './lead/lead.component';
 import { LeadRoutingModule } from './lead-routing.module';
+import { CustomerModule } from '../customer/customer.module';
 
 
 
@@ -15,7 +16,9 @@ import { LeadRoutingModule } from './lead-routing.module';
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    LeadRoutingModule
+    LeadRoutingModule,
+    CustomerModule
   ]
 })
 export class LeadModule { }
+

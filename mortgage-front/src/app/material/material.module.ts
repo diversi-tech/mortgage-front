@@ -20,6 +20,9 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatFormField } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const modules=[
   MatTableModule,
@@ -41,6 +44,8 @@ const modules=[
    MatToolbarModule,
    MatFormField,
    MatTooltipModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
    MatMenuModule
   //  MatSnackBar
 ]

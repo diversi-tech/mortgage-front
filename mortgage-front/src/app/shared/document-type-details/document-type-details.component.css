@@ -8,7 +8,6 @@
 
 }
 
-
 .div-warp-fields {
   display: flex;
   justify-content: space-evenly;
@@ -29,8 +28,6 @@ mat-checkbox {
   background-color: rgba(255, 255, 255, 0.602);
   padding: 8%;
   border-radius: 40px;
-  /* border: 3px solid rgb(178, 189, 202); */
-  /* min-width: max-content; */
   height: 55vh;
 }
 
@@ -48,8 +45,3 @@ mat-checkbox {
   }
 
 }
-
-/* display: flex;
-justify-content: center;
-align-items: center;
-flex-wrap: wrap; */

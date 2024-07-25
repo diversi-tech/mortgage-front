@@ -2,10 +2,11 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Lead } from "../Models/Lead";
+import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class leadService {
-  readonly basicURL = "https://localhost:7055/api/";
+  readonly basicURL = environment+"/api/";
   private LeadsSubject = new BehaviorSubject<Lead[]>([]);
   leads$ = this.LeadsSubject.asObservable();
   constructor(private http: HttpClient) {

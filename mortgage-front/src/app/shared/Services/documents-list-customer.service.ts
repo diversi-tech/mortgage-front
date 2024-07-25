@@ -3,18 +3,16 @@ import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Injectable } from '@angular/core';
 import { Document } from '../Models/document';
 import { DocumentType, TransactionType } from '../Models/DocumentTypes.Model';
-
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocumentsListCustomerService {
-
-
-  readonly apiUrl = 'https://localhost:7055/api'
+  readonly apiUrl = environment+'/api'
   private documentsSubject = new BehaviorSubject<Document[]>([]);
   documents$ = this.documentsSubject.asObservable();
-  customerId: number = 4;
+  customerId: number = 1;
   selectedDocuments: (File | null)[] = [];
   // isSelected:boolean[]=[];
 
@@ -22,6 +20,17 @@ export class DocumentsListCustomerService {
     this.fetchDocumentsByCustomerId(this.customerId).subscribe();
   }
 
+
+
+  getDocumentsTypesById(customerId: number): Observable<DocumentType[]> {
+
+    return this.http.get<DocumentType[]>(`${this.apiUrl}/DocumentTypes/${customerId}`);
+
+  }
+  
+  addDocument(document : Document):Observable<Document>{
+    return this.http.post<Document>(`${this.apiUrl}/CustomerTasksControllercs`,document)
+  }
 
   getAllDocuments(): Observable<Document[]> {
     return this.http.get<Document[]>(`${this.apiUrl}/CustomerTasksControllercs`);

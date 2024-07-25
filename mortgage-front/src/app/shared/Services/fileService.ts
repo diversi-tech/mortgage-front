@@ -4,13 +4,14 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadService {
 
-  private baseUrl = 'https://localhost:7055/api/Dropbox'; // Replace with your server URL
+  private baseUrl = environment+'/api/Dropbox'; // Replace with your server URL
 
   constructor(private http: HttpClient) { }
 

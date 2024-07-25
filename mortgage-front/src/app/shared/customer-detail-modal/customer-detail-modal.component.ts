@@ -16,37 +16,36 @@ export class CustomerDetailModalComponent implements OnInit {
     last_Name: '',
     email: '',
     phone: '',
-    adress: '',
+    address: '',
     connection: 0,
     t_z: '',
     lead_id: 0,
-    birthDate: new Date(),
-    family_status: 0,
-    number_of_people_in_house: 0,
-    job_status: 0,
-    work_business_name: '',
-    customer_type: 0,
-    job_description: '',
-    years_in_current_position: 0,
-    avarage_monthly_salary: 0,
-    income_rent: 0,
-    income_Government_Endorsement: 0,
-    income_other: 0,
-    expenses_rent: 0,
-    expenses_loans: 0,
-    expenses_other: 0,
-    property_city: '',
-    transaction_type: 0,
-    estimated_price_by_customer: 0,
-    estimated_price_by_sales_agreement: 0,
+    birthDate: undefined,
+    family_status: undefined,
+    number_of_people_in_house: undefined,
+    job_status: undefined,
+    work_business_name: undefined,
+    customer_type: undefined,
+    job_description: undefined,
+    years_in_current_position: undefined,
+    avarage_monthly_salary: undefined,
+    income_rent: undefined,
+    income_Government_Endorsement: undefined,
+    income_other: undefined,
+    expenses_rent: undefined,
+    expenses_loans: undefined,
+    expenses_other: undefined,
+    property_city: undefined,
+    transaction_type: undefined,
+    estimated_price_by_customer: undefined,
+    estimated_price_by_sales_agreement: undefined,
     has_other_properties: false,
-    amount_of_loan_requested: 0,
-    lastSynced: new Date(),
-    isArchived: false
+    amount_of_loan_requested: undefined,
+    lastSynced: undefined,
+    isArchived: undefined
   };
-
   options = [
-    { value: 0, viewValue: 'WhatsApp', icon: 'message' },
+    { value: 0, viewValue: 'Whatup', icon: 'message' },
     { value: 1, viewValue: 'Email', icon: 'email' },
   ];
 
@@ -76,42 +75,46 @@ export class CustomerDetailModalComponent implements OnInit {
   customerId: number | undefined = undefined;
   data: Customer | undefined = undefined;
   isEdit: boolean = false;
+  disabled: boolean = true;
+  currentCustomerId: number | null | undefined = undefined;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.customerId = Number(params.get('id'));
       if (this.customerId) {
         console.log(`Customer ID: ${this.customerId}`);
-        this.data = this.customerService.getById(this.customerId).subscribe({
+        this.customerService.getById(this.customerId).subscribe({
           next: (response) => {
-            console.log('Customer come successfully:', response.birthDate);
-            this.formData={...response};
+            this.formData = { ...response };
+            this.currentCustomerId = this.customerId;
+            this.disabled = false;
           },
           error: (error) => {
             console.error('Error creating customer:', error);
           }
         });
-        //this.formData = { ...this.data };
-        console.log("data", this.data);
         this.isEdit = true;
       } else {
-
         console.log('No Customer ID');
       }
     });
+
   }
-  constructor(private customerService: customerService, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private customerService: customerService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) { }
 
   submitForm() {
     if (this.isEdit) {
-      console.log(this.isEdit, this.formData);
       this.customerService.updateCustomer(this.customerId, this.formData).subscribe({});
     }
     else {
-      console.log(this.formData);
       this.customerService.createCustomer(this.formData).subscribe({
         next: (response) => {
-          console.log('Customer created successfully:', response);
+          this.currentCustomerId = response.id;
+          this.disabled = this.currentCustomerId ? false : true;
         },
         error: (error) => {
           console.error('Error creating customer:', error);
@@ -119,5 +122,4 @@ export class CustomerDetailModalComponent implements OnInit {
       });
     }
   }
-
 }

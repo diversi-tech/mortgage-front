@@ -27,7 +27,7 @@
           <br>
           <mat-form-field appearance="fill" class="mat-form-field">
             <mat-label>כתובת </mat-label>
-            <input matInput [(ngModel)]="formData['adress']" name="adress">
+            <input matInput [(ngModel)]="formData['address']" name="adress">
           </mat-form-field>
 
 
@@ -179,10 +179,10 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field appearance="fill" class="mat-form-field">
-            <mat-label>סינכרון אחרון</mat-label>
-            <input matInput type="date" [(ngModel)]="formData['lastSynced']" name="lastSynced">
-          </mat-form-field>
+      <mat-form-field appearance="fill" class="mat-form-field">
+        <mat-label>סינכרון אחרון</mat-label>
+        <input matInput type="date" [(ngModel)]="formData['lastSynced']"  name="lastSynced">
+      </mat-form-field>
 
 
           <mat-form-field appearance="fill" class="mat-form-field">
@@ -195,10 +195,10 @@
             <input matInput disabled="true">
           </mat-form-field>
 
-          <div class="button-group">
-            <button mat-raised-button color="primary" type="submit">שמור</button>
+      <div class="button-group">
+        <button mat-raised-button color="primary" type="submit">שמור</button>
 
-            <button mat-raised-button color="warn" type="button">ביטול</button>
+        <button mat-raised-button color="warn" type="button">ביטול</button>
 
           </div>
 

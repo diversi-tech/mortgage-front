@@ -3,12 +3,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenPayload } from '../Models/Login';
 import { jwtDecode } from "jwt-decode";
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  readonly basicURL = "https://localhost:7055/api";
-  constructor(private http: HttpClient) { }
+  private token:string=''
+
+  readonly basicURL = environment+"/api";
+  constructor(private http: HttpClient) {
+
+   }
   login(email: string, password: string): Observable<string> {
     const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
     return this.http.get(`${this.basicURL}/Users/${email}/${password}`, { headers, responseType: 'text' });
@@ -38,22 +43,32 @@ export class AuthService {
     }
     return currentUser
   }
-  isLoggedIn(): string | null {
+  // isLoggedIn(): string | null {
+  //   // just for example:
+  //   // return true;
+  //   // after merge with the git :
+  //   if (typeof window !== 'undefined')
+  //     return sessionStorage.getItem('token');
+  //   return ""
+  // }
+
+  isLoggedIn(): boolean | null {
     // just for example:
     // return true;
     // after merge with the git :
-    if (typeof window !== 'undefined')
-      return sessionStorage.getItem('token');
-    return ""
+    // if (typeof window !== 'undefined')
+    //   return sessionStorage.getItem('token');
+    return true
   }
+
   isAdmin(): boolean {
     // just for example:
     // return true;
     // after merge with the git :
-    if (this.isLoggedIn()&&typeof window !== 'undefined') {
-      let currentUser: TokenPayload = this.decodeToken(sessionStorage.getItem('token'));
-      return String(currentUser.role) === 'Admin';
-    }
-    return false;
+    // if (this.isLoggedIn()&&typeof window !== 'undefined') {
+    //   let currentUser: TokenPayload = this.decodeToken(sessionStorage.getItem('token'));
+    //   return String(currentUser.role) === 'Admin';
+    // }
+    return true;
   }
 }

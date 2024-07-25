@@ -1,11 +1,15 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
+import { HttpClient, HttpHeaders , HttpErrorResponse} from "@angular/common/http";
+import { BehaviorSubject, Observable, catchError, map, of, tap } from "rxjs";
 import { User } from "../Models/user";
+import { environment } from "../../../environments/environment";
+import { log } from "node:console";
+import { response } from "express";
+//import { Lead } from "../Models/Lead";
 
 @Injectable()
-export class UserService {
-  readonly basicURL = "https://localhost:7055/api/";
+ export class UserService {
+  readonly basicURL =environment+ "/api/";
   private usersSubject = new BehaviorSubject<User[]>([]);
   users$ = this.usersSubject.asObservable();
   constructor(private http: HttpClient) {
@@ -66,6 +70,58 @@ export class UserService {
   //   };
   //   return this.http.post<User>(`${this.basicURL}Users`, user, httpOptions);
   // }
+
+  
+
+  IsExist(user: User): Observable<string> {
+
+    console.log('Checking if user exists:', user); // הדפסה של המשתמש שנשלח לבדיקה
+
+    return this.http.post<User>('https://localhost:7055/login', user).pipe(
+
+      map(response=> {
+
+        console.log("IsExist response:", response);
+
+        if (response !== null && response !== undefined) {
+
+          console.log('User exists');
+
+          return '200';
+
+        } else  {
+
+          console.log('User does not exist');
+
+          return '404';
+
+        }
+
+      }),
+
+      catchError((error: HttpErrorResponse) => {
+
+        if (error.status === 404) {
+
+          console.error('User not found:', error.error);
+
+          return of('404'); // או התגובה המתאימה למקרה של משתמש שלא נמצא
+
+        } else {
+
+          console.error('Error checking if user exists:', error);
+
+          return of('Error: Unable to access the server');
+
+        }
+
+      })
+
+    );
+
+  }
+
+
 
   login(password: string, email: string) {
     const user = {

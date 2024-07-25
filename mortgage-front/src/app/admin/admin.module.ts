@@ -18,6 +18,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { GlobalModule } from '../global/global.module';
 import { SendNotificationComponent } from './send-notification/send-notification.component';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
+import { CustomerExcelComponent } from './customer-excel/customer-excel.component';
 
 
 
@@ -33,7 +34,9 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
     MailingListComponent,
     UserListComponent,
     SendNotificationComponent,
-    EditDialogComponent
+    EditDialogComponent,
+    UserListComponent,
+    CustomerExcelComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +49,9 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
      AdminRoutingModule,
      GlobalModule
   ],
+  exports:[
+    CustomerExcelComponent
+  ]
 
 })
 export class AdminModule { }

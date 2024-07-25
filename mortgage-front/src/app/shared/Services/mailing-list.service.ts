@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { environment } from "../../../environments/environment";
 
 
 
 @Injectable()
 export class MailingListService {
-    readonly basicURL = 'https://localhost:7055/api/Email/';
+    readonly basicURL = environment;
 
     constructor(private http: HttpClient) { }
 

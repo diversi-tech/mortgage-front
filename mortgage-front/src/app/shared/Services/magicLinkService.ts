@@ -2,10 +2,11 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Lead } from "../Models/Lead";
+import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class magicLinkService {
-    readonly basicURL='https://localhost:7055/api/Email/';
+    readonly basicURL=environment+'/api/Email/';
     //https://localhost:7055/api/Email/send-magic-link?id=32
 
     constructor(private http:HttpClient) {}
