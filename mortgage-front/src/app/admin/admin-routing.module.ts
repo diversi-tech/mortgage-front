@@ -12,6 +12,7 @@ import { DocumentTypeDetailsComponent } from '../shared/document-type-details/do
 import { DocumentTypeListComponent } from '../shared/document-type-list/document-type-list.component';
 import { MortgageCalculatorComponent } from '../shared/mortgage-calculator/mortgage-calculator.component';
 import { authGuardAdmin } from '../auth/auth.guard';
+import { SendNotificationComponent } from './send-notification/send-notification.component';
 
 const routes: Routes = [
     {
@@ -23,11 +24,12 @@ const routes: Routes = [
             { path: 'lead-list', component: LeadListComponent },
             { path: 'data-visualization', component: DataVisualizationComponent },
             { path: "user-details/:id", component: UserDetailComponent },
-            { path: "lead-details", component: LeadDetailComponent },
+            { path: "lead-details/:id", component: LeadDetailComponent },
             { path: "customer-details/:id", component: CustomerDetailModalComponent },
             { path: 'document-type-details/:id', component: DocumentTypeDetailsComponent },
             { path: 'document-type-list', component: DocumentTypeListComponent },
             { path: 'calculator', component: MortgageCalculatorComponent },
+            { path: 'send-notification/:id', component: SendNotificationComponent }
         ]
     },
 ];
@@ -36,4 +38,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }

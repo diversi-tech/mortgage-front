@@ -20,32 +20,32 @@ export class CustomerDetailModalComponent implements OnInit {
     connection: 0,
     t_z: '',
     lead_id: 0,
-    birthDate: null,
-    family_status: null,
-    number_of_people_in_house: null,
-    job_status: null,
-    work_business_name: null,
-    customer_type: null,
-    job_description: null,
-    years_in_current_position: null,
-    avarage_monthly_salary: null,
-    income_rent: null,
-    income_Government_Endorsement: null,
-    income_other: null,
-    expenses_rent: null,
-    expenses_loans: null,
-    expenses_other: null,
-    property_city: null,
-    transaction_type: null,
-    estimated_price_by_customer: null,
-    estimated_price_by_sales_agreement: null,
+    birthDate: undefined,
+    family_status: undefined,
+    number_of_people_in_house: undefined,
+    job_status: undefined,
+    work_business_name: undefined,
+    customer_type: undefined,
+    job_description: undefined,
+    years_in_current_position: undefined,
+    avarage_monthly_salary: undefined,
+    income_rent: undefined,
+    income_Government_Endorsement: undefined,
+    income_other: undefined,
+    expenses_rent: undefined,
+    expenses_loans: undefined,
+    expenses_other: undefined,
+    property_city: undefined,
+    transaction_type: undefined,
+    estimated_price_by_customer: undefined,
+    estimated_price_by_sales_agreement: undefined,
     has_other_properties: false,
-    amount_of_loan_requested: null,
-    lastSynced: null,
-    isArchived: null
+    amount_of_loan_requested: undefined,
+    lastSynced: undefined,
+    isArchived: undefined
   };
   options = [
-    { value: 0, viewValue: 'Whatup', icon: 'message' },
+    { value: 0, viewValue: 'WhatsApp', icon: 'message' },
     { value: 1, viewValue: 'Email', icon: 'email' },
   ];
 
@@ -121,5 +121,9 @@ export class CustomerDetailModalComponent implements OnInit {
         }
       });
     }
+    this.router.navigate(['admin/customer-list']);
+  }
+  cancel(){
+    this.router.navigate(['admin/customer-list']);
   }
 }

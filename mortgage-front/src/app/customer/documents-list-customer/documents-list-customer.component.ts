@@ -17,7 +17,7 @@ import { MatCheckbox, } from '@angular/material/checkbox';
 @Component({
   selector: 'documents-list-customer',
   templateUrl: './documents-list-customer.component.html',
-  styleUrl: './documents-list-customer.component.css',
+  // styleUrl: './documents-list-customer.component.css',
   animations: [
     trigger('detailExpand', [
       state('collapsed,void', style({ height: '0px', minHeight: '0' })),
@@ -165,6 +165,10 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      direction:'rtl',
+      panelClass: ['custom-snackbar']
     });
   }
   saveFiles() {

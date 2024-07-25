@@ -42,14 +42,15 @@ export class ConfirmDialogComponent {
     else if (this.data.document) {
       return 'האם אתה בטוח רוצה להסיר?'
     }
-    else {
-      return 'מחיקת פריט';
+    else if (this.data.notification) {
+      return 'מחיקת הודעה'
     }
+    return 'מחיקת פריט';
   }
 
   getContent(): string {
 
-    var question = "בטוח שאתה רוצה למחוק את  ";
+    var question = "?בטוח שאתה רוצה למחוק את  ";
     if (this.data.customer) {
       return question + `${this.data.customer.first_Name}?`;
     } else if (this.data.documentType) {
@@ -58,6 +59,9 @@ export class ConfirmDialogComponent {
       return question + `${this.data.lead.first_Name}?`;
     } else if (this.data.document1) {
       return question + `${this.data.document1.document_path}`
+    }
+    else if (this.data.notification) {
+      return question + `ההודעה הזו`
     }
     else {
       return question + " הפריט הזה?";

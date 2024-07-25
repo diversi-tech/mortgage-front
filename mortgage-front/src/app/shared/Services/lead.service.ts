@@ -47,7 +47,6 @@ export class leadService {
       );
   }
   updateLead(lead: any): Observable<Lead> {
-
     const updateUrl = `${this.basicURL}Leads/${lead.id}`;
     return this.http.put<Lead>(updateUrl, lead)
       .pipe(
@@ -57,7 +56,6 @@ export class leadService {
           if (index !== -1) {
             leads[index] = lead;
             this.LeadsSubject.next([...leads]);
-            this.fetchLeads().subscribe(); // אתחול לקוח
           } else {
             // console.error('Lead not found in the current list');
           }

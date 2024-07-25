@@ -75,13 +75,15 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   addCustomer(): void {
-    this.router.navigate(['/customer-details-modal/','']);
+    this.router.navigate(['admin/customer-details/','']);
   }
 
   editCustomer(customer: Customer): void {
-    this.router.navigate(['/customer-details/', customer.id]);
+    this.router.navigate(['admin/customer-details/', customer.id]);
   }
-
+  sendMsg(customer:Customer):void{
+    this.router.navigate(['admin/send-notification/', customer.id]);
+  }
   deleteCustomer(customer: Customer): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{
       data: { customer } // Pass customer object as data to the dialog

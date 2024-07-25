@@ -1,85 +1,90 @@
 <div id="main">
-<mat-card class="mortgage-calculator">
-  <mat-card-title  >מחשבון משכנתאות</mat-card-title>
-  <p class="warning-text">מחשבון המשכנתא הוא כלי עזר באמצעותו תוכלו לבצע סימולציות שיסייעו לכם בתהליך תכנון המשכנתא.
-<br>
-    יש להקליד את סכום ההלוואה המבוקש ולבחור את תקופת ההלוואה.</p>
-  <mat-card-content>
-    <form (ngSubmit)="calculate()" dir="rtl">
-      <mat-form-field appearance="outline">
-        <mat-label>סכום המשכנתא שנצטרך (₪):</mat-label>
-        <input matInput type="number" [(ngModel)]="loanAmount" placeholder="3,600,000" name="loanAmount" required />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>משכנתא לתקופה של:</mat-label>
-        <mat-select [(ngModel)]="loanTerm" name="loanTerm" required>
-          <mat-option *ngFor="let year of years" [value]="year">{{ year }} שנים</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <!-- <br> -->
-      <mat-form-field appearance="outline">
-        <mat-label>אחוז ריבית:</mat-label>
-        <input matInput type="number" [(ngModel)]="interestRate" placeholder="5" name="interestRate" required />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>מספר תשלומים שבוצעו:</mat-label>
-        <input matInput type="number" [(ngModel)]="paymentsMade" placeholder="24" name="paymentsMade" required />
-      </mat-form-field>
-
-      <button mat-raised-button color="primary" type="submit" style="width: 100%; font-size: 1.2em;">אישור</button>
-    </form>
-  </mat-card-content>
-  <br>
-  <mat-card-content *ngIf="results">
-    <p class="warning-text"><span style="color: red;">שימו ❤️</span><br>המחשבון אינו מהווה תחליף לייעוץ מקצועי.</p>
-
-    <table mat-table [dataSource]="plans" class="mat-elevation-z8">
-      <ng-container matColumnDef="type">
-        <th mat-header-cell *matHeaderCellDef> תמהיל ההלוואה </th>
-        <td mat-cell *matCellDef="let plan"> {{plan.type}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="loanAmount">
-        <th mat-header-cell *matHeaderCellDef> סכום הלוואה </th>
-        <td mat-cell *matCellDef="let plan"> {{plan.loanAmount}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="term">
-        <th mat-header-cell *matHeaderCellDef> תקופת הלוואה </th>
-        <td mat-cell *matCellDef="let plan"> {{plan.term}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="interestRate">
-        <th mat-header-cell *matHeaderCellDef> אחוז ריבית </th>
-        <td mat-cell *matCellDef="let plan"> {{plan.interestRate}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="firstPayment">
-        <th mat-header-cell *matHeaderCellDef> סכום החזר חודשי ראשון </th>
-        <td mat-cell *matCellDef="let plan"> {{plan.firstPayment}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="totalAmount">
-        <th mat-header-cell *matHeaderCellDef> סך כל הסכום הצפוי </th>
-        <td mat-cell *matCellDef="let plan"> {{plan.totalAmount}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="totalInterestRate">
-        <th mat-header-cell *matHeaderCellDef> הריבית הכוללת </th>
-        <td mat-cell *matCellDef="let plan"> {{plan.totalInterestRate}} </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <p style="text-align: center; font-weight: bold; margin-top: 20px;">
-      נותר להשלמת סכום המשכנתא: {{remainingAmount | number}} ₪
+  <mat-card class="mortgage-calculator">
+    <mat-card-title>מחשבון משכנתאות</mat-card-title>
+    <p class="warning-text">מחשבון המשכנתא הוא כלי עזר באמצעותו תוכלו לבצע סימולציות שיסייעו לכם בתהליך תכנון המשכנתא.
+      <br>
+      יש להקליד את סכום ההלוואה המבוקש ולבחור את תקופת ההלוואה.
     </p>
+    <mat-card-content>
+      <form (ngSubmit)="calculate()" dir="rtl">
+        <mat-form-field appearance="outline">
+          <mat-label>סכום המשכנתא שנצטרך (₪):</mat-label>
+          <input matInput type="number" [(ngModel)]="loanAmount" placeholder="3,600,000" name="loanAmount" required />
+        </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="download()" style="margin-top: 20px; width: 100%;">הורד מסמך</button>
-  </mat-card-content>
-</mat-card>
+        <mat-form-field appearance="outline">
+          <mat-label>משכנתא לתקופה של:</mat-label>
+          <mat-select [(ngModel)]="loanTerm" name="loanTerm" required>
+            <mat-option *ngFor="let year of years" [value]="year">{{ year }} שנים</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <br> -->
+        <mat-form-field appearance="outline">
+          <mat-label>אחוז ריבית:</mat-label>
+          <input matInput type="number" [(ngModel)]="interestRate" placeholder="5" name="interestRate" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>מספר תשלומים שבוצעו:</mat-label>
+          <input matInput type="number" [(ngModel)]="paymentsMade" placeholder="24" name="paymentsMade" required />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" style="width: 100%; font-size: 1.2em;">אישור</button>
+      </form>
+    </mat-card-content>
+    <br>
+    <mat-card-content *ngIf="results">
+      <p class="warning-text"><span style="color: red;">שימו ❤️</span><br>המחשבון אינו מהווה תחליף לייעוץ מקצועי.</p>
+
+      <table mat-table [dataSource]="plans" class="mat-elevation-z8">
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> תמהיל ההלוואה </th>
+          <td mat-cell *matCellDef="let plan"> {{plan.type}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="loanAmount">
+          <th mat-header-cell *matHeaderCellDef> סכום הלוואה </th>
+          <td mat-cell *matCellDef="let plan"> {{plan.loanAmount}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="term">
+          <th mat-header-cell *matHeaderCellDef> תקופת הלוואה </th>
+          <td mat-cell *matCellDef="let plan"> {{plan.term}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="interestRate">
+          <th mat-header-cell *matHeaderCellDef> אחוז ריבית </th>
+          <td mat-cell *matCellDef="let plan"> {{plan.interestRate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="firstPayment">
+          <th mat-header-cell *matHeaderCellDef> סכום החזר חודשי ראשון </th>
+          <td mat-cell *matCellDef="let plan"> {{plan.firstPayment}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="totalAmount">
+          <th mat-header-cell *matHeaderCellDef> סך כל הסכום הצפוי </th>
+          <td mat-cell *matCellDef="let plan"> {{plan.totalAmount}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="totalInterestRate">
+          <th mat-header-cell *matHeaderCellDef> הריבית הכוללת </th>
+          <td mat-cell *matCellDef="let plan"> {{plan.totalInterestRate}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <p style="text-align: center; font-weight: bold; margin-top: 20px;">
+        נותר להשלמת סכום המשכנתא: {{remainingAmount | number}} ₪
+      </p>
+
+      <button mat-raised-button color="primary"
+       matTooltip="הורדת תוצאות החישוב" matTooltipPosition="left" 
+      matTooltipShowDelay="1500"
+       (click)="download()"
+        style="margin-top: 20px; width: 100%;">הורד מסמך</button>
+    </mat-card-content>
+  </mat-card>
 </div>

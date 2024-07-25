@@ -48,8 +48,9 @@
             (click)="fileInput.click()"
             matTooltip="צירוף מסמך"
             matTooltipPosition="left"
+            class="icon-button attach"
           >
-            <mat-icon>attach_file</mat-icon>
+            <mat-icon class="icon">attach_file</mat-icon>
             <input
               type="file"
               #fileInput
@@ -108,15 +109,15 @@
   </div>
   <div class="send-all">
     <div class="example-button-row">
-      <button mat-flat-button (click)="saveFiles()">
-       <span class="button-text" >שלח מסמכים שנבחרו</span>
-        <span class="icon-container"><i class="fa-solid fa-paper-plane"></i></span>
+      <button mat-flat-button (click)="saveFiles()" class="icon-button send" dir="rtl">
+        <mat-icon  class="icon" style="float: right;">send</mat-icon>
+        <span class="button-text" >שלח מסמכים שנבחרו</span>
+        <!-- <span class="icon-container"><i class="fa-solid fa-paper-plane"></i></span> -->
       </button>
     </div>
   </div>
 
   } @else {
-  <div class="centered-message">לא נמצאו עבורך מסמכים</div>
   <div class="centered-message">לא נמצאו עבורך מסמכים</div>
   }
 </main>
