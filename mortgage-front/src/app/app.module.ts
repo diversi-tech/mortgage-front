@@ -49,7 +49,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     DocumentTypeService,
     magicLinkService,
     loginService,
-    MailingListService
+    MailingListService,
   ],
   bootstrap: [AppComponent],
 })
