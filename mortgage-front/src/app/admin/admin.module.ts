@@ -16,6 +16,8 @@ import { MailingListComponent } from './mailing-list/mailing-list.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { GlobalModule } from '../global/global.module';
+import { SendNotificationComponent } from './send-notification/send-notification.component';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 
 
 
@@ -29,7 +31,9 @@ import { GlobalModule } from '../global/global.module';
     DataVisualizationComponent,
     FileComponent,
     MailingListComponent,
-    UserListComponent
+    UserListComponent,
+    SendNotificationComponent,
+    EditDialogComponent
   ],
   imports: [
     CommonModule,

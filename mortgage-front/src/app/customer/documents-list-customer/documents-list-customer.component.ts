@@ -165,6 +165,10 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      direction:'rtl',
+      panelClass: ['custom-snackbar']
     });
   }
   saveFiles() {

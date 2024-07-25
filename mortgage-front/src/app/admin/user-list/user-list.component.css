@@ -50,7 +50,7 @@ th {
   width: 100%;
 }
 
-#content {
+/* #content {
   background-color: rgba(255, 255, 255, 0.602);
   padding: 25px;
   border-radius: 10px;
@@ -58,7 +58,7 @@ th {
   min-height: 60vh;
   max-width: 70vw;
   margin:  0 auto;
-}
+} */
 
 :host {
   background-color: transparent;

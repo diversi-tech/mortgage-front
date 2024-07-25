@@ -1,0 +1,52 @@
+.mat-dialog-title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.container {
+    max-height: 90vh;
+    padding: 60px;
+    margin: 50px auto;
+    overflow: auto;
+    position: fixed;
+    left: 30vw;
+    top: 20vh;
+    background-color: aliceblue;
+    border-radius: 25px;
+    width: 30vw;
+}
+
+mat-form-field {
+    display: block;
+}
+
+mat-form-field textarea {
+    width: 500px;
+}
+.mat-dialog-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 1000px;
+    /* להסיר רווחים חיצוניים אם יש */
+}
+
+
+.mat-form-field {
+    width: 100%;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px;
+}
+
+button {
+    margin-left: 8px;
+}
