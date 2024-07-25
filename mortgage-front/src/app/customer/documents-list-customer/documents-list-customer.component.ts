@@ -17,7 +17,7 @@ import { MatCheckbox, } from '@angular/material/checkbox';
 @Component({
   selector: 'documents-list-customer',
   templateUrl: './documents-list-customer.component.html',
-  styleUrl: './documents-list-customer.component.css',
+  // styleUrl: './documents-list-customer.component.css',
   animations: [
     trigger('detailExpand', [
       state('collapsed,void', style({ height: '0px', minHeight: '0' })),

@@ -8,29 +8,9 @@ import { Role, User } from '../../shared/Models/user';
 import { UserService } from '../../shared/Services/user.service';
 import { israeliIdValidator } from './birth-date-validator';
 import { birthDateValidator } from './israeli-id-validator';
-import { BlobOptions } from 'node:buffer';
 import { DocumentTypeService } from '../../shared/Services/documentType.service';
-import { DocumentType} from '../../shared/Models/DocumentTypes.Model'
-import { DocumentsListCustomerComponent } from '../../customer/documents-list-customer/documents-list-customer.component'
-import { MatStepperModule } from '@angular/material/stepper';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { HttpClientModule } from '@angular/common/http';
-import { MatButtonModule } from '@angular/material/button';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDivider } from '@angular/material/divider';
-import { MatSelectModule } from '@angular/material/select';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-import { AppRoutingModule } from '../../app-routing.module';
-//import { NavigationMenuComponent } from '../navigation-menu/navigation-menu.component';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
-//import { Document } from '../../Models/document';
-import { error } from 'node:console';
-import { concatMap } from 'rxjs/operators';
-import { of, Observable, forkJoin, firstValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { Document } from '../../shared/Models/document';
 import { customerService } from '../../shared/Services/costumer.service';
 
@@ -156,9 +136,9 @@ export class LeadComponent implements OnInit, AfterViewInit {
 
   constructor(private _formBuilder: FormBuilder, private customerService: customerService, private leadService: leadService, private userService: UserService, private documentType: DocumentTypeService, private customerTask: DocumentsListCustomerService) {
     this.firstFormGroup = new FormGroup({
-      userName: new FormControl({ value: '', disabled: false },[
+      userName: new FormControl({ value: '', disabled: false }, [
         Validators.required, Validators.email]),
-      password: new FormControl({ value: '', disabled: false },[
+      password: new FormControl({ value: '', disabled: false }, [
         Validators.required,
         Validators.minLength(10),
         this.passwordStrengthValidator
@@ -248,7 +228,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
       this.firstFormGroup.get('userName')?.disable();
       this.firstFormGroup.get('password')?.disable();
     }
-    
+
 
     const storedStep = localStorage.getItem('currentStep');
     if (storedStep !== null) {
@@ -296,8 +276,8 @@ export class LeadComponent implements OnInit, AfterViewInit {
     console.log("user", this.user);
     this.userService.IsExist(this.user).subscribe(
       (response: string) => {
-        localStorage.setItem('userName',JSON.stringify(this.user.userName));
-        localStorage.setItem('password',JSON.stringify(this.user.password));
+        localStorage.setItem('userName', JSON.stringify(this.user.userName));
+        localStorage.setItem('password', JSON.stringify(this.user.password));
         console.log('IsExist response:', response);
         this.r = response
         if (response === '200') {
@@ -331,7 +311,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
       },
       (error: any) => {
         console.error('Error during user existence check:', error);
-      })   
+      })
   }
 
   saveFormData() {
@@ -489,19 +469,19 @@ export class LeadComponent implements OnInit, AfterViewInit {
         await firstValueFrom(this.customerService.updateCustomer(1, this.customerData));
         console.log('step 3 created');
         await this.getDocuments();
-        if(localStorage.getItem('isAddDocuments')!=='true')
-             await this.addToCustomerTask();
-       console.log('All steps completed successfully');
+        if (localStorage.getItem('isAddDocuments') !== 'true')
+          await this.addToCustomerTask();
+        console.log('All steps completed successfully');
       } catch (error) {
         console.error('Error in the process', error);
 
       }
     }
   }
-  saveDocuments(){
-      this.customerService.updateCustomer(1, this.customerData).subscribe({
+  saveDocuments() {
+    this.customerService.updateCustomer(1, this.customerData).subscribe({
 
-        next: (response: any) =>{ 
+      next: (response: any) => {
 
         console.log("step 4 created");
         localStorage.removeItem('enterOrNot');
@@ -513,8 +493,8 @@ export class LeadComponent implements OnInit, AfterViewInit {
         localStorage.removeItem('isAddDocuments');
         // location.reload();
       }
-      })
-    
+    })
+
   }
 
 
@@ -642,7 +622,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
         due_date: new Date(Date.now()),
         created_at: new Date(Date.now()),
         updated_at: new Date(Date.now()),
-        isOk:false
+        isOk: false
       };
       console.log("document", this.document);
 

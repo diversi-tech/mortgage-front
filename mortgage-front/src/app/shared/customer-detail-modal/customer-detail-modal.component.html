@@ -139,6 +139,7 @@
             <div class="is-properties-container">
               <mat-label id="is-properties-lable">האם יש נכסים</mat-label>
               <mat-slide-toggle [(ngModel)]="formData['has_other_properties']" name="has_other_properties" />
+              <mat-slide-toggle [(ngModel)]="formData['has_other_properties']" name="has_other_properties" />
             </div>
           </div>
           <mat-form-field appearance="fill" class="mat-form-field">
@@ -179,10 +180,10 @@
             </mat-select>
           </mat-form-field>
 
-      <mat-form-field appearance="fill" class="mat-form-field">
-        <mat-label>סינכרון אחרון</mat-label>
-        <input matInput type="date" [(ngModel)]="formData['lastSynced']"  name="lastSynced">
-      </mat-form-field>
+          <mat-form-field appearance="fill" class="mat-form-field">
+            <mat-label>סינכרון אחרון</mat-label>
+            <input matInput type="date" [(ngModel)]="formData['lastSynced']" name="lastSynced">
+          </mat-form-field>
 
 
           <mat-form-field appearance="fill" class="mat-form-field">
@@ -195,10 +196,10 @@
             <input matInput disabled="true">
           </mat-form-field>
 
-      <div class="button-group">
-        <button mat-raised-button color="primary" type="submit">שמור</button>
+          <div class="button-group">
+            <button mat-raised-button color="primary" type="submit">שמור</button>
 
-        <button mat-raised-button color="warn" type="button">ביטול</button>
+            <button mat-raised-button color="warn" type="button" (click)="cancel()">ביטול</button>
 
           </div>
 

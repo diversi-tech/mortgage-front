@@ -45,7 +45,7 @@ export class CustomerDetailModalComponent implements OnInit {
     isArchived: undefined
   };
   options = [
-    { value: 0, viewValue: 'Whatup', icon: 'message' },
+    { value: 0, viewValue: 'WhatsApp', icon: 'message' },
     { value: 1, viewValue: 'Email', icon: 'email' },
   ];
 
@@ -121,5 +121,9 @@ export class CustomerDetailModalComponent implements OnInit {
         }
       });
     }
+    this.router.navigate(['admin/customer-list']);
+  }
+  cancel(){
+    this.router.navigate(['admin/customer-list']);
   }
 }
