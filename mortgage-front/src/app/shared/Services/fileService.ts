@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 })
 export class UploadService {
 
-  private baseUrl = environment+'/api/Dropbox'; // Replace with your server URL
+  private baseUrl = environment.apiURL+'/api/Dropbox'; // Replace with your server URL
 
   constructor(private http: HttpClient) { }
 
