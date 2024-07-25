@@ -145,8 +145,8 @@ export class LeadComponent implements OnInit, AfterViewInit {
     { value: TransactionTypeEnum.Other, label: 'לכל מטרה' }
   ];
   connectionOptions = [
-    { value: Connection.whatup, label: 'וואצאפ' },
-    { value: Connection.email, label: 'מייל' },
+    { value: Connection.Whatup, label: 'וואצאפ' },
+    { value: Connection.Email, label: 'מייל' },
   ];
   hasOtherProperties = [
     { value: true, label: 'כן' },
@@ -380,7 +380,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
       // this.customerData.customer_type = this.secondFormGroup.value.customer_type.toISOString
       this.customerData.work_business_name = this.secondFormGroup.value.work_business_name;
       this.customerData.job_description = this.secondFormGroup.value.job_description;
-      this.customerData.avarage_monthly_salary = this.secondFormGroup.value.avarage_monthly_salary.toISOString;
+      this.customerData['avarage_monthly_salary'] = this.secondFormGroup.value.avarage_monthly_salary.toISOString;
       this.customerData.years_in_current_position = this.secondFormGroup.value.years_in_current_position.toISOString;
       this.customerData.income_rent = this.secondFormGroup.value.income_rent.toISOString;
       this.customerData.income_Government_Endorsement = this.secondFormGroup.value.income_Government_Endorsement.toISOString;

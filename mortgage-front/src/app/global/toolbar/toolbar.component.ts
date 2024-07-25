@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationMenuComponent } from '../navigation-menu/navigation-menu.component';
 import { NavigatioMenuToggleService } from '../../shared/Services/navigation-menu-toggle.service';
+import { loginService } from '../../shared/Services/login.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -16,8 +17,7 @@ export class ToolbarComponent implements OnInit {
   showMainMenu: boolean = false;
   user: string = 'אורח';
 
-  // constructor(private authService:AuthLoginComponent) {}-variable to call the authService
-  constructor(private NavigationMenuToggleService: NavigatioMenuToggleService) {
+  constructor(private NavigationMenuToggleService: NavigatioMenuToggleService,private loginservice:loginService) {
     
    }
 
@@ -35,7 +35,7 @@ export class ToolbarComponent implements OnInit {
     }
     else {
       //after merge with git- call login function in the AuthService
-      this.user = 'משה שוורץ'
+      this.user = this.loginservice.GetCurrentUser()?.userName!
       this.isLoggedIn = true;
     }
   }

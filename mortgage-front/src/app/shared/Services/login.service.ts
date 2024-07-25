@@ -11,14 +11,21 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class loginService {
-  readonly basicURL = environment.apiURL;
+  public token: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
+
+  readonly basicURL = environment.apiURL+"/api";
  currentUser:TokenPayload={};
  CurrentcustomerId?: number;
   constructor(private http: HttpClient,) {}
 
   login(email: string, password: string): Observable<string> {
     const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
-    return this.http.get(`${this.basicURL}/api/Users/${email}/${password}`, { headers, responseType: 'text' });
+    return this.http.get(`${this.basicURL}/Users/${email}/${password}`, { headers, responseType: 'text'})
+      // .pipe(
+      //   tap(token => this.token.next(token))
+        
+      // );
+      
   }
 
   decodeToken(token: string): TokenPayload {

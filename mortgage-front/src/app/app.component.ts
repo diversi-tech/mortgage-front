@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from './shared/Services/auth.service';
 import { NavigatioMenuToggleService } from './shared/Services/navigation-menu-toggle.service';
 import { UiStateService } from './shared/Services/uiState.service';
 @Component({
@@ -8,7 +7,7 @@ import { UiStateService } from './shared/Services/uiState.service';
   styleUrl:'./app.component.css'
 })
 export class AppComponent  {
-  constructor(public loginService:AuthService,public navigationMenuService: NavigatioMenuToggleService,private uiStateService: UiStateService) { 
+  constructor(public navigationMenuService: NavigatioMenuToggleService,private uiStateService: UiStateService) { 
   }
   get showGeneral(): boolean {
     return this.uiStateService.showGeneral;
