@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
 })
 
 export class UserListService {
-  apiUrl = environment; // Define your API base URL here
+  apiUrl = environment.apiURL+'/api'; // Define your API base URL here
 
   constructor(private http: HttpClient) { } // Inject HttpClient in the constructor
 

@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class loginService {
-  readonly basicURL = environment;
+  readonly basicURL = environment.apiURL;
  currentUser:TokenPayload={};
  CurrentcustomerId?: number;
   constructor(private http: HttpClient,) {}

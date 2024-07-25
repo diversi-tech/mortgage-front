@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'lead', loadChildren: () => import('./lead/lead.module').then(m => m.LeadModule) },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' }, // default route
-  { path: '**', component:PageNotFoundComponent } // route in error case
+  // { path: '**', component:PageNotFoundComponent } // route in error case
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -51,7 +51,6 @@ export class DocumentTypeDetailsComponent implements OnInit {
   }
 
 
-
   onSubmit(): void {
     if (this.documentTypeForm.valid) {
       const formValues = this.documentTypeForm.value;

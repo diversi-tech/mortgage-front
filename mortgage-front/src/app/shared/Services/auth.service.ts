@@ -1,23 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable} from 'rxjs';
 import { TokenPayload } from '../Models/Login';
 import { jwtDecode } from "jwt-decode";
 import { environment } from '../../../environments/environment';
+import { tap } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private token:string=''
+  public token: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
-  readonly basicURL = environment+"/api";
-  constructor(private http: HttpClient) {
-
-   }
-  login(email: string, password: string): Observable<string> {
+  readonly basicURL = environment.apiURL+"/api";
+  constructor(private http: HttpClient) {    }
+   login(email: string, password: string): Observable<string> {
     const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
-    return this.http.get(`${this.basicURL}/Users/${email}/${password}`, { headers, responseType: 'text' });
+    return this.http.get(`${this.basicURL}/Users/${email}/${password}`, { headers, responseType: 'text'})
+      // .pipe(
+      //   tap(token => this.token.next(token))
+        
+      // );
+      
   }
+  
   decodeToken(token: string | null): TokenPayload {
     let currentUserId = -1, currentUserName = '', currentUserRole = -1;
     if (token) {//check if not null
@@ -58,6 +64,8 @@ export class AuthService {
     // after merge with the git :
     // if (typeof window !== 'undefined')
     //   return sessionStorage.getItem('token');
+    // console.log("token",this.token.getValue());
+    
     return true
   }
 

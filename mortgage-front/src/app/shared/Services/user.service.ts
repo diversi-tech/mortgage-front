@@ -9,7 +9,7 @@ import { response } from "express";
 
 @Injectable()
  export class UserService {
-  readonly basicURL =environment+ "/api/";
+  readonly basicURL =environment.apiURL+ "/api/";
   private usersSubject = new BehaviorSubject<User[]>([]);
   users$ = this.usersSubject.asObservable();
   constructor(private http: HttpClient) {

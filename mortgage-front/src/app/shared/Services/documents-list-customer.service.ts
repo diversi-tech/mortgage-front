@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class DocumentsListCustomerService {
-  readonly apiUrl = environment+'/api'
+  readonly apiUrl = environment.apiURL+'/api'
   private documentsSubject = new BehaviorSubject<Document[]>([]);
   documents$ = this.documentsSubject.asObservable();
   customerId: number = 1;
