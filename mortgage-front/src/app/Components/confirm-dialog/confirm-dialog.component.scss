@@ -1,0 +1,34 @@
+.confirm-dialog-container {
+    text-align: center; /* כל הטקסט יהיה מימין לשמאל */
+    padding: 20px;
+    border-radius: 0%;
+  }
+  
+  .mat-dialog-title {
+    font-size: 24px; /* גודל כותרת גדול */
+    text-align: center; /* מרכז את הכותרת באמצעות */
+  }
+  
+  .title {
+    font-size: 18px; /* גודל גופן גדול יותר */
+    font-family: 'Segoe UI';
+    margin-bottom: 20px; /* מרווח מתחת לתוכן */
+  }
+  
+  .mat-dialog-actions {
+    justify-content: center; /* מרכז את הכפתורים באמצעות */
+    margin-top: 20px; /* מרווח מעל לכפתורים */
+  }
+  
+  button.mat-button {
+    margin: 3px; /* מרווח בין הכפתורים */
+  }
+  
+.what_icon{
+    color: crimson;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+

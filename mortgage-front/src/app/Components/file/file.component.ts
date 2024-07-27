@@ -40,7 +40,7 @@ export class UploadComponent {
 
   onUpload(): void {
     if (this.selectedFiles && this.selectedFiles.length > 0) {
-      this.uploadService.uploadFiles(this.selectedFiles, "2").subscribe(
+      this.uploadService.uploadFiles(this.selectedFiles).subscribe(
         (event: any) => {
           if (event.status === 'progress') {
             this.uploadProgress = event.message;
@@ -49,7 +49,7 @@ export class UploadComponent {
             this.uploadProgress = 0;
             this.selectedFiles = [];
             this.uploadedFiles = event.files;
-            this.openSnackBar('המסמכים הועלו בהצלחה!', 'Close');
+            this.openSnackBar('!המסמכים הועלו בהצלחה', 'Close');
           }
         },
         (error: any) => {

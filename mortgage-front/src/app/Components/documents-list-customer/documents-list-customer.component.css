@@ -95,5 +95,8 @@ align-items: center;
 height: 100%; /* כדי למלא את גובה הדף בכל המסך */
 }
 .span:hover{
-color:rgb(41, 53, 147);
+color:#4469d8;
 }
+
+
+

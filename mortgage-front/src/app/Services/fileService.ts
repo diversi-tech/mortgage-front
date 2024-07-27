@@ -14,12 +14,17 @@ export class UploadService {
 
   constructor(private http: HttpClient) { }
 
-  uploadFiles(files: (File | null)[], id: string): Observable<any> {
+  uploadFiles(files: (File | null)[]): Observable<any> {
     const formData = new FormData();
+    var id=0;
     if (files)
       files.forEach((file, index) => {
         if (file)
+        {
+          id= files.findIndex(obj => obj?.name === file.name);
+          if(id!=-1)
           formData.append('files', file, `${id}_${file.name}`);
+        }
       });
     console.log("after foreach");
 
@@ -42,6 +47,7 @@ export class UploadService {
         return throwError(error);
       })
     );
+
   }
 
 
@@ -73,4 +79,8 @@ export class UploadService {
       responseType: 'blob'
     });
   }
+
+
+
+  
 }

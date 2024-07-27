@@ -31,3 +31,15 @@ tr:hover{
 ::-webkit-scrollbar-thumb:hover {
     background: #576d82;
 }
+
+.icon-button {
+    transition: transform 0.8s, color 0.3s;
+  }
+  
+  .icon {
+    transition: transform 0.3s, color 0.3s;
+  } 
+  .icon-button.attach:hover .icon {
+    transform: rotate(45deg) scale(1);
+    color:#4469d8;
+  }

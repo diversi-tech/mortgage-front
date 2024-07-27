@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
+import { BehaviorSubject, Observable, catchError, tap, throwError } from "rxjs";
 import { Injectable } from '@angular/core';
 import { Document } from '../Models/Document';
 import { DocumentType, TransactionType } from '../Models/DocumentTypes.Model';
@@ -15,7 +15,8 @@ export class DocumentsListCustomerService {
   private documentsSubject = new BehaviorSubject<Document[]>([]);
   documents$ = this.documentsSubject.asObservable();
   customerId: number = 4;
-  selectedDocuments: (File|null)[] = [];
+  selectedDocuments: (File | null)[] = [];
+
   // isSelected:boolean[]=[];
 
   constructor(private http: HttpClient) {
@@ -45,13 +46,26 @@ export class DocumentsListCustomerService {
   }
 
 
+  updateMultipleDocuments(documents: Document[]): Observable<any> {
+    return this.http.put<any>(this.apiUrl+`/CustomerTasksControllercs`, documents)
+      .pipe(
+        catchError(error => {
+          console.error('שגיאה בעדכון מסמכים בשרת:', error);
+          return throwError('משהו השתבש בעדכון המסמכים. נסה שוב מאוחר יותר.');
+        })
+      );
+  }
+
+
   fetchDocumentsTypesById(customerId: number): Observable<DocumentType> {
     return this.http.get<DocumentType>(`${this.apiUrl}/DocumentTypes/${customerId}`);
   }
 
 
-  addFile(file: File|null, index: number) {
-  this.selectedDocuments[index] = file;
+  addFile(file: File | null, index: number) {
+    this.selectedDocuments[index] = file;
   }
+
+
 
 }
