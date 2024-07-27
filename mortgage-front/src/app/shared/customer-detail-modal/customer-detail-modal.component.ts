@@ -9,8 +9,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './customer-detail-modal.component.scss',
 })
 export class CustomerDetailModalComponent implements OnInit {
-
-
   formData:Customer = {
     first_Name: '',
     last_Name: '',

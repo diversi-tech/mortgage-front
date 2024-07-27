@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 import { TokenPayload } from '../Models/Login';
 import { jwtDecode } from "jwt-decode";
-import { User } from '../Models/user';
+import { Role, User } from '../Models/user';
 import { environment } from '../../../environments/environment';
 
 
@@ -29,7 +29,7 @@ export class loginService {
   decodeToken(token: string): TokenPayload {
     console.log("token="+token);
     
-    const decoded = jwtDecode(token);
+    const decoded:any = jwtDecode(token);
     const JSONdecoder = JSON.parse(JSON.stringify(decoded));
     let currentUserId,currentUserName,currentUserRole,currentCustomerId;
     for (const key in JSONdecoder) {
@@ -51,29 +51,21 @@ export class loginService {
       this.currentUser.role=currentUserRole;
       this.currentUser.id=currentUserId;
       this.currentUser.customerId=currentCustomerId;
+
      return this.currentUser;
     }
 
     GetCurrentUser(){
       return this.currentUser;
     }
-    isLoggedIn(): boolean {
-      // just for example:
-      return true;
-      // after merge with the git :
-      // return !!localStorage.getItem('token');
+    isLoggedIn(): boolean {    
+      return this.token.getValue()!=null;
     }
     isAdmin():boolean{
-      // just for example:
-      return true;
-      // after merge with the git :
-      // if(this.isLoggedIn()){
-      //   let currentUser:TokenPayload=this.decodeToken( localStorage.getItem('token'));
-      //   return currentUser.role===0;
-      // }
-      // return false;
+        let currentUser:TokenPayload=this.decodeToken(this.token.getValue()!);
+        return currentUser.role===Role.Admin
     }
-
+    
     resetPassword(email: string): Observable<any> {
       return this.http.post(`${this.basicURL}/password/${email}`, {});
     }

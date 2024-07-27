@@ -9,7 +9,7 @@ import { response } from "express";
 
 @Injectable()
  export class UserService {
-  readonly basicURL =environment.apiURL+ "/api/";
+  readonly basicURL =environment.apiURL;
   private usersSubject = new BehaviorSubject<User[]>([]);
   users$ = this.usersSubject.asObservable();
   constructor(private http: HttpClient) {
@@ -22,7 +22,7 @@ import { response } from "express";
       }),
       withCredentials: true // שורה זו חשובה לפיתוח
     };
-    return this.http.get<User[]>(`${this.basicURL}Users`, httpOptions)
+    return this.http.get<User[]>(`${this.basicURL}/api/Users`, httpOptions)
       .pipe(
         tap(users => this.usersSubject.next(users)),
         catchError(error => {
@@ -77,7 +77,7 @@ import { response } from "express";
 
     console.log('Checking if user exists:', user); // הדפסה של המשתמש שנשלח לבדיקה
 
-    return this.http.post<User>('https://localhost:7055/login', user).pipe(
+    return this.http.post<User>(this.basicURL+'/login', user).pipe(
 
       map(response=> {
 
@@ -133,6 +133,6 @@ import { response } from "express";
       updated_at: "2024-07-22T16:45:56.650408"
     }
     console.log("in login service");
-    return this.http.post(`${this.basicURL}Users/login`, user);
+    return this.http.post(`${this.basicURL}/api/Users/login`, user);
   }
 }

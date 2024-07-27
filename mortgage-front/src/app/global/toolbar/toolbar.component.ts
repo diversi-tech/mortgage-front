@@ -10,34 +10,11 @@ import { loginService } from '../../shared/Services/login.service';
   providers: [NavigationMenuComponent]
 })
 
-
 export class ToolbarComponent implements OnInit {
-  isLoggedIn: boolean = false;
-  showLogout: boolean = false;
-  showMainMenu: boolean = false;
-  user: string = 'אורח';
-
-  constructor(private NavigationMenuToggleService: NavigatioMenuToggleService,private loginservice:loginService) {
-    
-   }
-
+  constructor(private NavigationMenuToggleService: NavigatioMenuToggleService,public loginservice:loginService) {  }
 
   ngOnInit(): void {
-    this.isLoggedIn = false;
     this.NavigationMenuToggleService.toggle();
-  }
-  loginOrLogout(): void {
-    if (this.isLoggedIn) {
-      // after merge with git- call logout function in the AuthService
-      //this.user= this.authService.login()        
-      this.user = 'אורח'
-      this.isLoggedIn = false;
-    }
-    else {
-      //after merge with git- call login function in the AuthService
-      this.user = this.loginservice.GetCurrentUser()?.userName!
-      this.isLoggedIn = true;
-    }
   }
   
   toggleNavigationMenu() {
