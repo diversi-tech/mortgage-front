@@ -8,6 +8,7 @@ import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { CustomerRoutingModule } from './customer-routing.module';
 import { GlobalModule } from '../global/global.module';
+import { MortgageHelperComponent } from './mortgage-helper/mortgage-helper.component';
 
 
 
@@ -15,6 +16,7 @@ import { GlobalModule } from '../global/global.module';
   declarations: [
     CustomerPortalComponent,
     DocumentsListCustomerComponent,
+    MortgageHelperComponent,
   ],
   imports: [
     CommonModule,

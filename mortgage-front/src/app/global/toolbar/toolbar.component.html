@@ -10,13 +10,15 @@
     <div class="welcome-message">
       <span class="span">!שלום {{ user }}</span>
       <!-- Bell icon for notifications -->
-      <button mat-icon-button (click)="openNotifications()">
+       @if(!this.loginService.isAdmin()){
+      <button mat-icon-button (click)="openNotifications()" >
         <mat-icon [matBadge]="unreadNotificationsCount" [matBadgeHidden]="!hasUnreadNotifications"
           matBadgeColor="warn">notifications</mat-icon>
       </button>
+    }
       <!-- Document icon for pending documents -->
-      <button mat-icon-button (click)="openDocuments()" matBadge="1" matBadgeSize="small" class="demo-section"
-        matTooltip="מסמכים שהועלו ולא נשמרו" matTooltipPosition="below" *ngIf="hasPendingDocuments">
+      <button mat-icon-button (click)="openDocuments()" matBadge="!" matBadgeSize="large" class="demo-section"
+        matTooltip="ישנם מסמכים שהועלו ולא נשמרו" matTooltipPosition="below" *ngIf="hasPendingDocuments">
         <mat-icon>description</mat-icon>
       </button>
     </div>

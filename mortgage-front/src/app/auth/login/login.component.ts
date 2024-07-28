@@ -12,12 +12,13 @@ import { TokenPayload } from '../../shared/Models/Login';
 export class LoginComponent {
   loginForm: FormGroup;
   userByToken?: TokenPayload;
+  color:string="rgba(255, 255, 255, 0.553)";
   constructor(private route: ActivatedRoute, private loginService: loginService, private fb: FormBuilder, private snackBar: MatSnackBar, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^\S*$/)]]
     });
-    console.log("customer id current", this.loginService.GetCurrentUser());
+    // console.log("customer id current", this.loginService.GetCurrentUser());
 
   }
   get email() {
@@ -33,6 +34,7 @@ export class LoginComponent {
       this.loginService.login(email, password).subscribe(
         (response) => {
           this.userByToken = this.loginService.decodeToken(response);
+
           console.log('what the user and role', this.userByToken, this.userByToken.role);
           if (String(this.userByToken.role) == 'Admin') {
             console.log('admin');

@@ -10,9 +10,10 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const authToken = this.loginService.token.getValue();
+    let authToken = this.loginService.token.getValue();
     // console.log("authToken"+authToken.getValue());
-    
+    if (typeof window !== 'undefined' && window.sessionStorage) 
+      authToken=sessionStorage.getItem('token');
     const authReq = req.clone({
       headers: req.headers.set('Authorization', `Bearer ${authToken}`)
     });

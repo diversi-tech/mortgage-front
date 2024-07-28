@@ -9,6 +9,7 @@ import { DocumentTypeDetailsComponent } from '../shared/document-type-details/do
 import { DocumentTypeListComponent } from '../shared/document-type-list/document-type-list.component';
 import { MortgageCalculatorComponent } from '../shared/mortgage-calculator/mortgage-calculator.component';
 import { authGuard } from '../auth/auth.guard';
+import { MortgageHelperComponent } from './mortgage-helper/mortgage-helper.component';
 
 const routes: Routes = [
     { path: "", component: CustomerPortalComponent,
@@ -22,6 +23,8 @@ const routes: Routes = [
         { path: 'document-type-details', component: DocumentTypeDetailsComponent },
         { path: 'document-type-list', component: DocumentTypeListComponent },
         { path: 'calculator', component: MortgageCalculatorComponent },
+        { path: 'mortgage-helper', component: MortgageHelperComponent },
+
     ],
  },
 ];

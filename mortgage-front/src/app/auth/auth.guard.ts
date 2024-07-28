@@ -8,7 +8,7 @@ export const authGuardAdmin: CanActivateFn = (route, state) => {
   if (loginservice.isLoggedIn()) {//check if loggedIn
     if (loginservice.isAdmin())//check if admin
       return true;
-    window.history.back()
+    // window.history.back()
     return false;
   } else {//if not loggedIn:
     router.navigate(['auth/login']);

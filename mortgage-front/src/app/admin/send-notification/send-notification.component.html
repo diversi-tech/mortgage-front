@@ -1,52 +1,74 @@
-<div class="container">
-    <!-- חלק ראשון: שליחת הודעה -->
-    <div class="message-section">
-      <h2> שליחת הודעה חדשה ללקוח/ה {{customer?.first_Name}} {{customer?.last_Name}}</h2>
-      <form (ngSubmit)="sendNotification()" #notificationForm="ngForm">
-        <mat-form-field appearance="fill">
-          <mat-label>יש להכניס פה את ההודעה שרוצים לשלוח</mat-label>
-          <textarea matInput [(ngModel)]="newMessage" name="message" required rows="4"></textarea>
-          <mat-error *ngIf="notificationForm.submitted && !newMessage">חובה להכניס הודעה</mat-error>
-        </mat-form-field>
-        <div class="actions">
-          <button mat-raised-button color="primary" type="submit">
-            <mat-icon>send</mat-icon>
-            שלח
-          </button>
-        </div>
-      </form>
-    </div>
-  
-    <!-- חלק שני: היסטורית הודעות -->
-    <div class="history-section">
-      <h2>היסטורית הודעות</h2>
-      <div *ngIf="notifications.length">
-        <div *ngFor="let notification of notifications" class="notification-item">
-          <div class="message-bubble" [ngClass]="{ 'message-bubble-unread': !notification.isRead }"
-               [matTooltip]="!notification.isRead ? 'הודעה לא נקראה' : 'ההודעה נקראה'"
-               matTooltipPosition="above">
-            <!-- More options button and menu -->
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="More options" class="menu" dir="rtl">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" dir="rtl">
-              <button mat-menu-item (click)="openEditDialog(notification)">
-                <mat-icon>edit</mat-icon>
-                <span>ערוך</span>
-              </button>
-              <button mat-menu-item (click)="deleteNotification(notification)">
-                <mat-icon>delete</mat-icon>
-                <span>מחק</span>
-              </button>
-            </mat-menu>
-            <div class="message-text" [ngClass]="{ 'unread': !notification.isRead }">{{ notification.message }}</div>
-            <div class="message-timestamp">{{ notification.created_at | date:'short' }}</div>
+<div class="mainAll">
+  <!-- <div class="container"> -->
+  <!-- חלק ראשון: שליחת הודעה -->
+  <div class="message-section">
+    <h2> שליחת הודעה חדשה ללקוח/ה {{customer?.first_Name}} {{customer?.last_Name}}</h2>
+    <form (ngSubmit)="sendNotification()" #notificationForm="ngForm">
+      <mat-form-field appearance="fill">
+        <mat-label>יש להכניס פה את ההודעה שרוצים לשלוח</mat-label>
+        <textarea matInput [(ngModel)]="newMessage" name="message" required rows="4"></textarea>
+        <mat-error *ngIf="notificationForm.submitted && !newMessage">חובה להכניס הודעה</mat-error>
+      </mat-form-field>
+      <div class="actions">
+        <button mat-raised-button color="primary" type="submit">
+          <mat-icon>send</mat-icon>
+          שלח
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <button mat-raised-button color="accent" (click)="toggleStatistics()" class="statistic">
+    {{ showStatistics ? 'הסתר סטטיסטיקות' : 'הצג סטטיסטיקות' }}
+  </button>
+
+  <!-- אזור הסטטיסטיקות -->
+  <div *ngIf="showStatistics" class="statistics-section">
+    <!-- <h2 class="statistics-title">סטטיסטיקות הודעות</h2> -->
+    <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
+  </div>
+  <!-- חלק שני: היסטורית הודעות -->
+  <div class="history-section">
+    <h2>היסטורית הודעות</h2>
+    <div *ngIf="notifications.length">
+      <div *ngFor="let notification of notifications" class="notification-item">
+        <div class="message-bubble" [ngClass]="{ 'message-bubble-unread': !notification.isRead }"
+          [matTooltip]="!notification.isRead ? 'הודעה לא נקראה' : 'ההודעה נקראה'" matTooltipPosition="above">
+          <div class="profile-picture">
+            <img src="assets/profile.png" alt="Profile Picture">
           </div>
+          <div class="message-icons" >
+            <mat-icon *ngIf="notification.isRead" class="icon">drafts</mat-icon>
+            <mat-icon *ngIf="!notification.isRead" class="icon">markunread</mat-icon>
+          </div>     
+          <!-- More options button and menu -->
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="More options" class="menu" dir="rtl">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" dir="rtl">
+            <button mat-menu-item (click)="openEditDialog(notification)">
+              <mat-icon>edit</mat-icon>
+              <span>ערוך</span>
+            </button>
+            <button mat-menu-item (click)="deleteNotification(notification)">
+              <mat-icon>delete</mat-icon>
+              <span>מחק</span>
+            </button>
+            <a (click)="sendEmail(notification)" mat-menu-item>
+              <mat-icon>share</mat-icon>
+              <span>שתף הודעה במייל</span>
+            </a>
+          </mat-menu>
+          <!--כדי שירד שורה בהתאם לשליחת ההודעה [innerHTML]זה בכוונה ב -->
+          <div [innerHTML]="notification.message" class="message-text" [ngClass]="{ 'unread': !notification.isRead }  ">
+          </div>
+          <div class="message-timestamp">{{ notification.created_at | date:'short' }}</div>
         </div>
       </div>
-      <div *ngIf="!notifications.length">
-        עדיין לא נשלחו התראות ללקוח זה
-      </div>
+    </div>
+    <div *ngIf="!notifications.length">
+      עדיין לא נשלחו התראות ללקוח זה
     </div>
   </div>
-  
+</div>
+<!-- </div> -->

@@ -1,0 +1,18 @@
+<div class="mainAll">
+<mat-card class="helper-card">
+    <mat-card-header>
+      <mat-card-title>עוזר אישי למשכנתאות</mat-card-title>
+      <mat-card-subtitle><pre>מידע וטיפים שיעזרו לך לנהל את המשכנתא שלך בצורה הטובה ביותר💡</pre></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-expansion-panel *ngFor="let tip of tips">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ tip.title }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{ tip.description }}</p>
+      </mat-expansion-panel>
+    </mat-card-content>
+  </mat-card>
+  </div>
