@@ -42,6 +42,7 @@ export class LoginComponent {
 
           if (String(this.userByToken.role) == 'Admin') {
             console.log('admin');
+            debugger
             // sessionStorage.setItem("token", response);
             this.router.navigate(['/admin']);
             console.log('after navigate');
@@ -49,6 +50,7 @@ export class LoginComponent {
           }
           else if (String(this.userByToken.role) == 'Customer') {
             console.log('customer');
+            debugger
             // sessionStorage.setItem("token", response);
             // console.log(' herere=' + this.loginService.CurrentcustomerId);
             this.loginService.CurrentcustomerId = this.userByToken.customerId;

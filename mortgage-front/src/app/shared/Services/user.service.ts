@@ -135,4 +135,39 @@ import { response } from "express";
     console.log("in login service");
     return this.http.post(`${this.basicURL}/api/Users/login`, user);
   }
-}
+
+  updateUser(updatedUser: User): Observable<User> {
+     
+    const updateUrl = `${this.basicURL}/Users/${updatedUser.id}`;
+    return this.http.put<User>(updateUrl, updatedUser).pipe(
+      tap(() => {
+        const users = this.usersSubject.getValue();          
+        const index = users.findIndex(l => l.id === updatedUser?.id);       
+        if (index !== -1) {
+          users[index] = updatedUser;        
+          this.usersSubject.next([...users]);
+          this.fetchUsers().subscribe(); 
+        }  
+      }),  
+      
+    );
+  }
+  
+  getUserById(id: number): Observable<User | undefined> {
+    return this.users$.pipe(
+      map(users => users.find(user => user.id === id)),
+    );
+  }
+ 
+    addUser(user: User): Observable<User> {
+      const updateUrl = `${this.basicURL}/Users`;
+      return this.http.post<User>(updateUrl, user).pipe(
+        map(newUser => {
+          this.http.get<User[]>(updateUrl).subscribe(users => this.usersSubject.next(users));
+          return newUser;
+        })
+      );
+    }
+  }
+  
+ 
