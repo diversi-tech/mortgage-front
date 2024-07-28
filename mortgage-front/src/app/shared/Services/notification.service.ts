@@ -7,6 +7,9 @@ import { INotification } from '../Models/Notification';
   providedIn: 'root'
 })
 export class NotificationService {
+  getNotifications() {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = 'https://localhost:7055/api/Notification';
 
   constructor(private http: HttpClient) { }

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "ngx-notifications": "^0.0.6"
+  }
+}

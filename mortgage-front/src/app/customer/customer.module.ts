@@ -23,7 +23,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
     MaterialModule,
     //Local modules
     GlobalModule,
-    CustomerRoutingModule
+    CustomerRoutingModule,
+
   ],
   exports:[CustomerPortalComponent,
     DocumentsListCustomerComponent

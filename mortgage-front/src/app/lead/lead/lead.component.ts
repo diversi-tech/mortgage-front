@@ -13,6 +13,7 @@ import { DocumentsListCustomerService } from '../../shared/Services/documents-li
 import { firstValueFrom } from 'rxjs';
 import { Document } from '../../shared/Models/document';
 import { customerService } from '../../shared/Services/costumer.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
 
   @ViewChild('stepper')
   stepper!: MatStepper;
+
   user: User = {
     id: 0,
     userName: '',
@@ -43,7 +45,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   r = "";
   role: Role = 0;
   isLead: boolean = false
-  lead_id: number = 1;
+  lead_id: number |null=null ;
   customerId!: number | undefined
   password1!: string
   username1!: string
@@ -52,7 +54,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
-
+//0773213450
   uploadedFiles: File[] = [];
   selectedTransactionType: TransactionTypeEnum | undefined;
   showTable: boolean = false;
@@ -134,7 +136,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   ];
   passwordStrength: { valid: string[], invalid: string[] } = { valid: [], invalid: [] };
 
-  constructor(private _formBuilder: FormBuilder, private customerService: customerService, private leadService: leadService, private userService: UserService, private documentType: DocumentTypeService, private customerTask: DocumentsListCustomerService) {
+  constructor(private route: ActivatedRoute,private _formBuilder: FormBuilder, private customerService: customerService, private leadService: leadService, private userService: UserService, private documentType: DocumentTypeService, private customerTask: DocumentsListCustomerService) {
     this.firstFormGroup = new FormGroup({
       userName: new FormControl({ value: '', disabled: false }, [
         Validators.required, Validators.email]),
@@ -213,6 +215,9 @@ export class LeadComponent implements OnInit, AfterViewInit {
     return { passwordStrength: true };
   }
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.lead_id = params['id'];})
+
     if (localStorage.getItem('enterOrNot') === null) {
       localStorage.setItem('enterOrNot', 'false');
     }
@@ -262,7 +267,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
     return localStorage.getItem('enterOrNot') === 'true';
   }
   checkUserNameAndPassword() {
-    let lead = this.leadService.getLeadById(this.lead_id)
+    let lead = this.leadService.getLeadById(this.lead_id!)
     this.customerData.phone = lead?.phone
     this.customerData.email = lead?.email
     this.customerData.first_Name = lead?.first_Name
@@ -297,7 +302,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
           this.userService.createUser(this.user).subscribe({
             next: (res: any) => {
               console.log('User created:', this.user);
-              this.customerData.lead_id = this.lead_id;
+              this.customerData.lead_id = this.lead_id!;
               this.customerService.createCustomer(this.customerData).subscribe({
                 next: (res: any) => { console.log('Customer created:', this.customerData) },
                 error: (error: any) => console.error('Error creating customer:', error)

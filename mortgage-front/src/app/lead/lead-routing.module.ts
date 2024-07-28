@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LeadComponent } from './lead/lead.component';
 
 const routes: Routes = [
-    {path:'lead',component:LeadComponent},
+    {path:'lead/:id',component:LeadComponent},
     {path:'',component:LeadComponent}
 ];
 

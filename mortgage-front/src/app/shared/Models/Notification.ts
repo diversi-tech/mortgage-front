@@ -1,4 +1,5 @@
 export interface INotification {
+    [x: string]: any;
     id: number;
     userId: number;
     message: string;

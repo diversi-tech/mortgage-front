@@ -1,0 +1,18 @@
+  <!-- חלק שני: היסטורית הודעות -->
+  <div class="history-section">
+    <h2>היסטורית הודעות</h2>
+    <div *ngIf="notifications.length">
+      <div *ngFor="let notification of notifications" class="notification-item">
+        <div class="message-bubble" [ngClass]="{ 'message-bubble-unread': !notification.isRead }"
+             [matTooltip]="!notification.isRead ? 'הודעה לא נקראה' : 'ההודעה נקראה'"
+             matTooltipPosition="above">
+          <!-- More options button and menu -->
+          <div class="message-text" [ngClass]="{ 'unread': !notification.isRead }">{{ notification.message }}</div>
+          <div class="message-timestamp">{{ notification.created_at | date:'short' }}</div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!notifications.length">
+      עדיין לא נשלחו התראות ללקוח זה
+    </div>
+  </div>
