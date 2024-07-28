@@ -33,7 +33,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = false;
     this.NavigationMenuToggleService.toggle();
     this.checkNotifications();
 
@@ -61,6 +60,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.checkPendingDocuments();
   }
 
+  
   toggleNavigationMenu() {
     this.NavigationMenuToggleService.toggle();
   }

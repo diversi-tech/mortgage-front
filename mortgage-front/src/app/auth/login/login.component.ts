@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { loginService } from '../../shared/Services/login.service';
 import { TokenPayload } from '../../shared/Models/Login';
+import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -32,20 +33,23 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.loginService.login(email, password).subscribe(
-        (response) => {
-          this.userByToken = this.loginService.decodeToken(response);
+        (response:string) => {
+          this.loginService.token.next(response); // שמירת הטוקן ב-BehaviorSubject
 
+          this.userByToken = this.loginService.decodeToken(this.loginService.token.getValue()!);
           console.log('what the user and role', this.userByToken, this.userByToken.role);
+          // debugger
+
           if (String(this.userByToken.role) == 'Admin') {
             console.log('admin');
-            sessionStorage.setItem("token", response);
+            // sessionStorage.setItem("token", response);
             this.router.navigate(['/admin']);
             console.log('after navigate');
 
           }
           else if (String(this.userByToken.role) == 'Customer') {
             console.log('customer');
-            sessionStorage.setItem("token", response);
+            // sessionStorage.setItem("token", response);
             // console.log(' herere=' + this.loginService.CurrentcustomerId);
             this.loginService.CurrentcustomerId = this.userByToken.customerId;
             this.router.navigate(['/customer']);

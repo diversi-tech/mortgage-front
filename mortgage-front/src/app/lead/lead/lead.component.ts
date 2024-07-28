@@ -30,7 +30,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
     userName: '',
     password: '',
     email: '',
-    role: 0,
+    role: Role.Admin,
     created_at: new Date(Date.now()),
     updated_at: new Date(Date.now())
   };
@@ -41,7 +41,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   isLinear = true;
   isAddDocuments = false;
   r = "";
-  role: Role = 0;
+  role: Role = Role.Admin;
   isLead: boolean = false
   lead_id: number = 1;
   customerId!: number | undefined

@@ -16,7 +16,8 @@ export class AdminDashboardComponent {
     new ComponentInfo("רשימת משתמשים", "/admin/user-list", "list"),
     new ComponentInfo(" פרטי לקוח", "/admin/customer-details/", "list"),
     // new ComponentInfo("שליחת הודעה","/admin/send-notification/:id","send")
-    new ComponentInfo("שליחת הודעה","/admin/send-notification/","send")
+    new ComponentInfo("שליחת הודעה","/admin/send-notification/","send"),
+    new ComponentInfo("רשימת תפוצה","/admin/mailing-list/","send")
 
   ];
 }
