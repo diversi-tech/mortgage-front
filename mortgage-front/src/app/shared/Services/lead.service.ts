@@ -1,18 +1,18 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
-import { Lead } from "../Models/Lead";
+import { ILead } from "../Models/Lead";
 
 @Injectable()
 export class leadService {
   readonly basicURL = "https://localhost:7055/api/";
-  private LeadsSubject = new BehaviorSubject<Lead[]>([]);
+  private LeadsSubject = new BehaviorSubject<ILead[]>([]);
   leads$ = this.LeadsSubject.asObservable();
   constructor(private http: HttpClient) {
     this.fetchLeads().subscribe(); // אתחול לקוח
   }
-  fetchLeads(): Observable<Lead[]> {
-    return this.http.get<Lead[]>(`${this.basicURL}Leads`)
+  fetchLeads(): Observable<ILead[]> {
+    return this.http.get<ILead[]>(`${this.basicURL}Leads`)
       .pipe(
         tap(leads => this.LeadsSubject.next(leads)),
         catchError(error => {
@@ -21,10 +21,10 @@ export class leadService {
         })
       );
   }
-  getLeads():Observable<Lead[]>{
+  getLeads():Observable<ILead[]>{
     return this.LeadsSubject.asObservable();
   }
-  getLeadById(id: number): Lead | undefined {
+  getLeadById(id: number): ILead | undefined {
     const leads = this.LeadsSubject.getValue();
     const l = leads.find(lead => lead.id === id);
     return l;
@@ -45,10 +45,10 @@ export class leadService {
         })
       );
   }
-  updateLead(lead: any): Observable<Lead> {
+  updateLead(lead: any): Observable<ILead> {
 
     const updateUrl = `${this.basicURL}Leads/${lead.id}`;
-    return this.http.put<Lead>(updateUrl, lead)
+    return this.http.put<ILead>(updateUrl, lead)
       .pipe(
         tap(() => {
           const leads = this.LeadsSubject.getValue();          
@@ -67,9 +67,9 @@ export class leadService {
         })
       );
   }
-  addLead(lead: Lead): Observable<Lead> {
+  addLead(lead: ILead): Observable<ILead> {
     const updateUrl = `${this.basicURL}Leads/`;
-    return this.http.post<Lead>(updateUrl, lead)
+    return this.http.post<ILead>(updateUrl, lead)
       .pipe(
         tap((res) => {
           const leads = this.LeadsSubject.getValue();

@@ -2,21 +2,21 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
-import { Customer } from "../Models/Customer";
-import { Lead } from "../Models/Lead";
+import { ICustomer } from "../Models/Customer";
+import { ILead } from "../Models/Lead";
 
 @Injectable()
 export class customerService {
   readonly basicURL = "https://localhost:7055/api/";
-  private customersSubject = new BehaviorSubject<Customer[]>([]);
+  private customersSubject = new BehaviorSubject<ICustomer[]>([]);
   customers$ = this.customersSubject.asObservable();
 
   constructor(private http: HttpClient) {
     this.fetchCustomers().subscribe(); // אתחול לקוחות בהפעלת השירות
   }
 
-  fetchCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(`${this.basicURL}Customers`)
+  fetchCustomers(): Observable<ICustomer[]> {
+    return this.http.get<ICustomer[]>(`${this.basicURL}Customers`)
       .pipe(
         tap(customers => this.customersSubject.next(customers)),
         catchError(error => {
@@ -41,10 +41,10 @@ export class customerService {
       );
   }
 
-  getCustomers(): Observable<Customer[]> {
+  getCustomers(): Observable<ICustomer[]> {
     return (this.customersSubject.asObservable());
   }
-  getCustomerById(id: number): Customer | undefined {
+  getCustomerById(id: number): ICustomer | undefined {
     const customers = this.customersSubject.getValue();
     const c=customers.find(customer => customer.id === id);
     return c;
@@ -53,8 +53,8 @@ export class customerService {
     return this.http.get(`${this.basicURL}Customers/${id}`); // Use this.apiUrl
   }
 
-  getLeadById(id: number): Observable<Lead> {
-    return this.http.get<Lead>(`${this.basicURL}Leads/${id}`);
+  getLeadById(id: number): Observable<ILead> {
+    return this.http.get<ILead>(`${this.basicURL}Leads/${id}`);
   }
 
 
@@ -63,12 +63,12 @@ export class customerService {
     return `${this.basicURL}/${customerId}/SendLink`;
   }
 
-  createCustomer(customer: Customer): Observable<Customer> {
-    return this.http.post<Customer>(`${this.basicURL}Customers`, customer);
+  createCustomer(customer: ICustomer): Observable<ICustomer> {
+    return this.http.post<ICustomer>(`${this.basicURL}Customers`, customer);
   }
 
-  updateCustomer(customerId: number|undefined, customer: Customer|undefined): Observable<Customer> {
-    return this.http.put<Customer>(`${this.basicURL}Customers/${customerId}`,customer);
+  updateCustomer(customerId: number|undefined, customer: ICustomer|undefined): Observable<ICustomer> {
+    return this.http.put<ICustomer>(`${this.basicURL}Customers/${customerId}`,customer);
   }
 }
 

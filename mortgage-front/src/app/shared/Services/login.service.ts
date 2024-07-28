@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
-import { TokenPayload } from '../Models/Login';
+import { ITokenPayload } from '../Models/TokenPayload';
 import { jwtDecode } from "jwt-decode";
-import { User } from '../Models/user';
+import { IUser } from '../Models/User';
 
 
 @Injectable({
@@ -11,7 +11,7 @@ import { User } from '../Models/user';
 })
 export class loginService {
   readonly basicURL = "https://localhost:7055";
- currentUser:TokenPayload={};
+ currentUser:ITokenPayload={id:0,userName:'',role:NaN,customerId:0};
  CurrentcustomerId?: number;
   constructor(private http: HttpClient,) {}
 
@@ -20,7 +20,7 @@ export class loginService {
     return this.http.get(`${this.basicURL}/api/Users/${email}/${password}`, { headers, responseType: 'text' });
   }
 
-  decodeToken(token: string): TokenPayload {
+  decodeToken(token: string): ITokenPayload {
 
     const decoded = jwtDecode(token);
     const JSONdecoder = JSON.parse(JSON.stringify(decoded));

@@ -1,24 +1,24 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
-import { User } from "../Models/user";
+import { IUser } from "../Models/User";
 
 @Injectable()
 export class UserService {
   readonly basicURL = "https://localhost:7055/api/";
-  private usersSubject = new BehaviorSubject<User[]>([]);
+  private usersSubject = new BehaviorSubject<IUser[]>([]);
   users$ = this.usersSubject.asObservable();
   constructor(private http: HttpClient) {
     this.fetchUsers().subscribe();
   }
-  fetchUsers(): Observable<User[]> {
+  fetchUsers(): Observable<IUser[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
       withCredentials: true // שורה זו חשובה לפיתוח
     };
-    return this.http.get<User[]>(`${this.basicURL}Users`, httpOptions)
+    return this.http.get<IUser[]>(`${this.basicURL}Users`, httpOptions)
       .pipe(
         tap(users => this.usersSubject.next(users)),
         catchError(error => {
@@ -27,7 +27,7 @@ export class UserService {
         })
       );
   }
-  createUser(user: User) {
+  createUser(user: IUser) {
     const formData: FormData = new FormData();
     if (user.id !== undefined) formData.append('Id', user.id.toString());
     if (user.userName !== undefined) formData.append('UserName', user.userName);

@@ -1,5 +1,5 @@
 import { customerService } from '../Services/costumer.service';
-import { Customer } from '../Models/Customer';
+import { ICustomer } from '../Models/Customer';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class CustomerDetailModalComponent implements OnInit {
 
 
-  formData:Customer = {
+  formData:ICustomer = {
     first_Name: '',
     last_Name: '',
     email: '',
@@ -74,7 +74,7 @@ export class CustomerDetailModalComponent implements OnInit {
   ];
 
   customerId: number | undefined = undefined;
-  data: Customer | undefined = undefined;
+  data: ICustomer | undefined = undefined;
   isEdit: boolean = false;
 
   ngOnInit(): void {

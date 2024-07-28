@@ -1,5 +1,5 @@
 import { Component, } from '@angular/core';
-import { ComponentInfo } from '../../shared/Models/componentInfo';
+import { IComponentInfo } from '../../shared/Models/ComponentInfo';
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -8,12 +8,12 @@ import { ComponentInfo } from '../../shared/Models/componentInfo';
 export class AdminDashboardComponent {
 
   componentArrayOfAdmin = [
-    new ComponentInfo("נתונים", "/admin/data-visualization", "timeline"),
-    new ComponentInfo("מסמכים", "/admin/document-type-list", "description"),
-    new ComponentInfo("כניסה לאתר", "/login", "login"),
-    new ComponentInfo("רשימת לקוחות", "/admin/customer-list", "checklist"),
-    new ComponentInfo("רשימת לידים", "/admin/lead-list", "list"),
-    new ComponentInfo("רשימת משתמשים", "/admin/user-list", "list"),
-    new ComponentInfo(" פרטי לקוח", "/admin/customer-details", "list"),
+    new IComponentInfo("נתונים", "/admin/data-visualization", "timeline"),
+    new IComponentInfo("מסמכים", "/admin/document-type-list", "description"),
+    new IComponentInfo("כניסה לאתר", "/login", "login"),
+    new IComponentInfo("רשימת לקוחות", "/admin/customer-list", "checklist"),
+    new IComponentInfo("רשימת לידים", "/admin/lead-list", "list"),
+    new IComponentInfo("רשימת משתמשים", "/admin/user-list", "list"),
+    new IComponentInfo(" פרטי לקוח", "/admin/customer-details", "list"),
   ];
 }

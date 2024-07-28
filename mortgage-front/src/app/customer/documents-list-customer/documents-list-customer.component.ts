@@ -6,8 +6,8 @@ import { DocumentsListCustomerService } from '../../shared/Services/documents-li
 import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Status,Document } from '../../shared/Models/document';
-import { DocumentType,TransactionType } from '../../shared/Models/DocumentTypes.Model';
+import { Status,IDocument } from '../../shared/Models/Document';
+import { IDocumentType,TransactionType } from '../../shared/Models/DocumentTypes.Model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dialog.component';
 import { UploadService } from '../../shared/Services/fileService';
@@ -35,9 +35,9 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   isOkCount: number = 0;
 
   documentStatusString: String = '';
-  transactionType: DocumentType | undefined;
+  transactionType: IDocumentType | undefined;
   transactionTypeString: String = '';
-  dataSource: MatTableDataSource<Document> = new MatTableDataSource<Document>();
+  dataSource: MatTableDataSource<IDocument> = new MatTableDataSource<IDocument>();
   private documentSubscription?: Subscription;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -62,7 +62,6 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.loadDocuments();
     this.fetchdocumentType();
-
   }
   loadDocuments(): void {
     this.documentSubscription = this._service.documents$.subscribe({
@@ -86,7 +85,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   //load documents
   fetchdocumentType(): void {
     this._service.fetchDocumentsTypesById(this._service.customerId).subscribe(
-      (data: DocumentType) => {
+      (data: IDocumentType) => {
         this.transactionType = data;
       },
       (error) => {
@@ -95,7 +94,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     );
   }
 
-  onCheckboxChange(checked: boolean, element: Document): void {
+  onCheckboxChange(checked: boolean, element: IDocument): void {
     console.log('Updated isOk:', element);
     if (checked)
       this.isOkCount++;
@@ -116,7 +115,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   }
 
   //file selection
-  onFileSelected(event: any, element: Document): void {
+  onFileSelected(event: any, element: IDocument): void {
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
@@ -131,7 +130,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     return this._service.selectedDocuments[ind];
   }
 
-  xfunc(document1: Document, index: number): void {
+  xfunc(document1: IDocument, index: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: { document1 } // Pass customer object as data to the dialog
 

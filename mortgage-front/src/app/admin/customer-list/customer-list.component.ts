@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { Customer,Customer_type } from '../../shared/Models/Customer';
+import { ICustomer,Customer_type } from '../../shared/Models/Customer';
 import { customerService } from '../../shared/Services/costumer.service';
 import { Router } from '@angular/router';
 import {  Subscription } from 'rxjs';
@@ -15,9 +15,9 @@ import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dial
 })
 export class CustomerListComponent implements OnInit, OnDestroy {
   displayedColumns = ['name', 'address', 'phone', 'Customer_type', 'actions'];
-  leads: MatTableDataSource<Customer> = new MatTableDataSource<Customer>();
-  customers: MatTableDataSource<Customer> = new MatTableDataSource<Customer>();
-  archivedCustomers: MatTableDataSource<Customer> = new MatTableDataSource<Customer>();
+  leads: MatTableDataSource<ICustomer> = new MatTableDataSource<ICustomer>();
+  customers: MatTableDataSource<ICustomer> = new MatTableDataSource<ICustomer>();
+  archivedCustomers: MatTableDataSource<ICustomer> = new MatTableDataSource<ICustomer>();
   private customersSubscription?: Subscription;
   @ViewChild('leadsPaginator') leadsPaginator!: MatPaginator;
   @ViewChild('customersPaginator') customersPaginator!: MatPaginator;
@@ -75,14 +75,14 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   addCustomer(): void {
-    this.router.navigate(['/customer-details-modal/','']);
+    this.router.navigate(['admin/customer-details-modal/','']);
   }
 
-  editCustomer(customer: Customer): void {
-    this.router.navigate(['/customer-details/', customer.id]);
+  editCustomer(customer: ICustomer): void {
+    this.router.navigate(['admin/customer-details/', customer.id]);
   }
 
-  deleteCustomer(customer: Customer): void {
+  deleteCustomer(customer: ICustomer): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{
       data: { customer } // Pass customer object as data to the dialog
     });

@@ -20,8 +20,8 @@ export enum Connection{
      Whatup,
      Email
 }
-export class Customer {
-     id?: number|null;
+export interface ICustomer {
+     id?: number;
      lead_id?: number ;
      last_Name?: string |null;
      first_Name?: string |null;

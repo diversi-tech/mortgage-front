@@ -6,9 +6,9 @@ export enum TransactionType {
     'אחר'
 }
   
-export class DocumentType {
+export interface IDocumentType {
     id?: number;
-    transaction_Type?: TransactionType;
-    document_Name?: string;
-    required?: boolean
+    transaction_Type: TransactionType;
+    document_Name: string;
+    required: boolean;
 }  

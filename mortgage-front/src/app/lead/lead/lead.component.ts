@@ -1,11 +1,11 @@
 // lead.component.ts
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Customer, Family_Status } from '../../shared/Models/Customer';
+import { ICustomer, Family_Status } from '../../shared/Models/Customer';
 import { customerService } from '../../shared/Services/costumer.service';
 import { MatStepper } from '@angular/material/stepper';
 import { leadService } from '../../shared/Services/lead.service';
-import { User,Role } from '../../shared/Models/user';
+import { IUser,Role } from '../../shared/Models/User';
 import { UserService } from '../../shared/Services/user.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   @ViewChild('stepper')
   stepper!: MatStepper;
   
-  user: User = {
+  user: IUser = {
     id: 0,
     userName: 'string',
     password: 'strings',
@@ -41,7 +41,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   fourthFormGroup: FormGroup;
   uploadedFiles: File[] = [];
 
-  customerData: Customer = {
+  customerData: ICustomer = {
     "id": 0,
     "lead_id": 0,
     "last_Name": "string",
@@ -173,12 +173,12 @@ export class LeadComponent implements OnInit, AfterViewInit {
 
     //פה צריך לשלוח לבדיקה אם השם משתמש והסיסמא כבר קיימים בטבלת לקוחות ואם כן לשנות את השם או הסיסמא
     let lead = this.leadService.getLeadById(this.lead_id)
-    let email = lead?.email;
+    let email = lead!.email;
 
     this.user.id = 0
     this.user.userName = this.firstFormGroup.value.userName
     this.user.password = this.firstFormGroup.value.password
-    this.user.email = email
+    this.user.email = email!
     this.user.role = this.role
     this.user.created_at = new Date(Date.now())
     this.user.updated_at = new Date(Date.now())
@@ -237,13 +237,13 @@ export class LeadComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onInputChange(fieldName: keyof Customer, event: any) {
+  onInputChange(fieldName: keyof ICustomer, event: any) {
     const fieldValue = event.target.value;
     this.customerData[fieldName] = fieldValue;
     this.saveFormData();  // שמירת הנתונים לאחר כל שינוי
   }
 
-  onSelectionChange(fieldName: keyof Customer, event: any) {
+  onSelectionChange(fieldName: keyof ICustomer, event: any) {
     switch (event) {
       case Family_Status.Married:
       case Family_Status.Single:

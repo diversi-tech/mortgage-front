@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Injectable } from '@angular/core';
-import { Document } from '../Models/document';
-import { DocumentType, TransactionType } from '../Models/DocumentTypes.Model';
+import { IDocument } from '../Models/Document';
+import { IDocumentType, TransactionType } from '../Models/DocumentTypes.Model';
 
 
 @Injectable({
@@ -12,7 +12,7 @@ export class DocumentsListCustomerService {
 
 
   readonly apiUrl = 'https://localhost:7055/api'
-  private documentsSubject = new BehaviorSubject<Document[]>([]);
+  private documentsSubject = new BehaviorSubject<IDocument[]>([]);
   documents$ = this.documentsSubject.asObservable();
   customerId: number = 4;
   selectedDocuments: (File | null)[] = [];
@@ -23,18 +23,18 @@ export class DocumentsListCustomerService {
   }
 
 
-  getAllDocuments(): Observable<Document[]> {
-    return this.http.get<Document[]>(`${this.apiUrl}/CustomerTasksControllercs`);
+  getAllDocuments(): Observable<IDocument[]> {
+    return this.http.get<IDocument[]>(`${this.apiUrl}/CustomerTasksControllercs`);
   }
 
 
-  getAllDocumentType(): Observable<DocumentType[]> {
-    return this.http.get<DocumentType[]>(`${this.apiUrl}/DocumentTypes`);
+  getAllDocumentType(): Observable<IDocumentType[]> {
+    return this.http.get<IDocumentType[]>(`${this.apiUrl}/DocumentTypes`);
   }
 
 
-  fetchDocumentsByCustomerId(customerId: number): Observable<Document[]> {
-    return this.http.get<Document[]>(this.apiUrl + `/CustomerTasksControllercs/customerId/${customerId}`)
+  fetchDocumentsByCustomerId(customerId: number): Observable<IDocument[]> {
+    return this.http.get<IDocument[]>(this.apiUrl + `/CustomerTasksControllercs/customerId/${customerId}`)
       .pipe(
         tap(customers => this.documentsSubject.next(customers)),
         catchError(error => {
@@ -45,8 +45,8 @@ export class DocumentsListCustomerService {
   }
 
 
-  fetchDocumentsTypesById(customerId: number): Observable<DocumentType> {
-    return this.http.get<DocumentType>(`${this.apiUrl}/DocumentTypes/${customerId}`);
+  fetchDocumentsTypesById(customerId: number): Observable<IDocumentType> {
+    return this.http.get<IDocumentType>(`${this.apiUrl}/DocumentTypes/${customerId}`);
   }
 
 
