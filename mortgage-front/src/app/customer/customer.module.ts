@@ -9,6 +9,8 @@ import { SharedModule } from '../shared/shared.module';
 import { CustomerRoutingModule } from './customer-routing.module';
 import { GlobalModule } from '../global/global.module';
 import { MortgageHelperComponent } from './mortgage-helper/mortgage-helper.component';
+import { CustomerUpdateDetailesComponent } from './customer-update-detailes/customer-update-detailes.component';
+import { Router, RouterModule } from '@angular/router';
 
 
 
@@ -17,13 +19,15 @@ import { MortgageHelperComponent } from './mortgage-helper/mortgage-helper.compo
     CustomerPortalComponent,
     DocumentsListCustomerComponent,
     MortgageHelperComponent,
+    CustomerUpdateDetailesComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
     //Local modules
     GlobalModule,
-    CustomerRoutingModule
+    CustomerRoutingModule,
+    RouterModule
   ],
   exports:[CustomerPortalComponent,
     DocumentsListCustomerComponent
