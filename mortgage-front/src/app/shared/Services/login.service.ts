@@ -56,7 +56,8 @@ export class loginService {
     }
 
     GetCurrentUser(){
-      return this.currentUser;
+      return this.currentUser=this.decodeToken(sessionStorage)
+     
     }
     isLoggedIn(): boolean {    
       return this.token.getValue()!=null;
@@ -64,6 +65,9 @@ export class loginService {
     isAdmin():boolean{
         let currentUser:TokenPayload=this.decodeToken(this.token.getValue()!);
         return currentUser.role===Role.Admin
+    }
+    Logout(){
+      
     }
     
     resetPassword(email: string): Observable<any> {

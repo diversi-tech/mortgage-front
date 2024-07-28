@@ -10,7 +10,7 @@ import { loginService } from '../../shared/Services/login.service';
 export class CustomerPortalComponent {
   constructor(private loginService:loginService){}
   componentArrayOfCustomer = [
-    new ComponentInfo("מסמכים-לקוח", "/customer/document-list", "description"),
+    new ComponentInfo("מסמכים-לקוח", `/customer/document-list/${this.loginService.CurrentcustomerId}`, "description"),
     new ComponentInfo('עריכת פרטי לקוח', `/customer/customer-details/${this.loginService.CurrentcustomerId}`, "description"),
     new ComponentInfo('מחשבון משכנתאות', "/customer/calculator", "calculate")
   ];

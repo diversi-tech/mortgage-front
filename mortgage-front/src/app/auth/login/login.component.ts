@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { loginService } from '../../shared/Services/login.service';
 import { TokenPayload } from '../../shared/Models/Login';
 import { BehaviorSubject } from 'rxjs';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,15 +20,15 @@ export class LoginComponent {
       password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^\S*$/)]]
     });
     console.log("customer id current", this.loginService.GetCurrentUser());
-
   }
+
   get email() {
     return this.loginForm.get('email');
   }
   get password() {
     return this.loginForm.get('password');
   }
-  //Login function  by entering email and password
+  //Login function by entering email and password
   submit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
@@ -41,14 +42,14 @@ export class LoginComponent {
 
           if (String(this.userByToken.role) == 'Admin') {
             console.log('admin');
-            // sessionStorage.setItem("token", response);
+            sessionStorage.setItem("token", response);
             this.router.navigate(['/admin']);
             console.log('after navigate');
 
           }
           else if (String(this.userByToken.role) == 'Customer') {
             console.log('customer');
-            // sessionStorage.setItem("token", response);
+             sessionStorage.setItem("token", response);
             // console.log(' herere=' + this.loginService.CurrentcustomerId);
             this.loginService.CurrentcustomerId = this.userByToken.customerId;
             this.router.navigate(['/customer']);
