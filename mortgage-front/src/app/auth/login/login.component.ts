@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { loginService } from '../../shared/Services/login.service';
-import { TokenPayload } from '../../shared/Models/Login';
-import { BehaviorSubject } from 'rxjs';
+import { ITokenPayload } from '../../shared/Models/TokenPayload';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,7 +11,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  userByToken?: TokenPayload;
+  userByToken!: ITokenPayload;
   color:string="rgba(255, 255, 255, 0.553)";
   constructor(private route: ActivatedRoute, private loginService: loginService, private fb: FormBuilder, private snackBar: MatSnackBar, private router: Router) {
     this.loginForm = this.fb.group({
@@ -46,7 +45,6 @@ export class LoginComponent {
             // sessionStorage.setItem("token", response);
             this.router.navigate(['/admin']);
             console.log('after navigate');
-
           }
           else if (String(this.userByToken.role) == 'Customer') {
             console.log('customer');
@@ -75,25 +73,32 @@ export class LoginComponent {
   }
   //Password reset function by sending an email to the password reset page
   forgotPassword() {
-    this.snackBar.open('בבקשה תכניס כתובת מייל שלך השמורה במערכת', 'Close', {
-      duration: 5000,
+  if(!this.loginForm.value.email)
+    {
+       this.snackBar.open('בבקשה תכניס כתובת מייל שלך השמורה במערכת', 'Close', {
+      duration: 7000,
     });
-    //send email
+    }
+  else
+   {
     const email = this.loginForm.get('email')!.value;
-    this.loginService.resetPassword(email).subscribe(
-      (response) => {
-        this.snackBar.open('נשלח אימייל לאיפוס הסיסמה שלך', 'Close', {
-          duration: 8000,
-        })
-      },
-      (error) => {
-        this.snackBar.open('המשתמש לא קיים במערכת. בבקשה נסה שוב.', 'Close', {
-          duration: 5000,
-        });
-        console.log(error);
-        //Error printing in specific fields
-        console.log(error.error.errors);
-      }
-    );
-  }
+     this.loginService.resetPassword(email).subscribe(
+    (response) => {
+      this.snackBar.open('נשלח אימייל לאיפוס הסיסמה שלך', 'Close', {
+        duration: 7000,
+      })
+    },
+    (error) => {
+      this.snackBar.open('המשתמש לא קיים במערכת. בבקשה נסה שוב.', 'Close', {
+        duration: 7000,
+      });
+      console.log(error);
+      //Error printing in specific fields
+      console.log(error.error.errors);
+    }
+  );
+}
+}
+    //send email
+   
 }

@@ -1,4 +1,4 @@
-export class ComponentInfo {
+export class IComponentInfo {
    public name: string = "home";
    public path: string = "/home";
    public icon?: string;

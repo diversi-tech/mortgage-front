@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
-import { TokenPayload } from '../Models/Login';
+import { ITokenPayload } from '../Models/TokenPayload';
 import { jwtDecode } from "jwt-decode";
 import { environment } from '../../../environments/environment';
+import { Role } from '../Models/User';
 
 
 @Injectable({
@@ -13,7 +14,12 @@ export class loginService {
   public token: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
   readonly basicURL = environment.apiURL;
-  currentUser: TokenPayload = {};
+  currentUser: ITokenPayload = {
+      id: 0,
+      userName: '',
+      role: Role.None,
+      customerId: 0
+  };
   CurrentcustomerId?: number;
   constructor(private http: HttpClient) { }
 
@@ -33,7 +39,7 @@ export class loginService {
 
   }
 
-  decodeToken(token: string): TokenPayload {
+  decodeToken(token: string): ITokenPayload {
     // console.log("token=" + token);
     const decoded = jwtDecode(token);
     const JSONdecoder = JSON.parse(JSON.stringify(decoded));
@@ -85,7 +91,7 @@ export class loginService {
     // return false;
     if (this.isLoggedIn()) {
       let token = sessionStorage.getItem('token') || "";
-      let currentUser: TokenPayload = this.decodeToken(token);
+      let currentUser: ITokenPayload = this.decodeToken(token);
       return String(currentUser.role) == "Admin";
     }
     return false;
