@@ -5,8 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialModule } from '../../material/material.module';
 import { CommonModule } from '@angular/common';
 import { isDate } from 'util/types';
-import { Role, User } from '../Models/user';
+import { Role  } from '../Models/User';
 import { UserService } from '../Services/user.service';
+import { IUser } from '../Models/User';
  
  
 @Component({
@@ -20,7 +21,7 @@ import { UserService } from '../Services/user.service';
   export class UserDetailComponent implements OnInit {
     userForm: FormGroup;
     userId: number | undefined;
-    user: User| undefined;
+    user!: IUser;
     roles = ['מנהל מערכת', 'לקוח'];
     formattedCreatedAt: string=''; 
     formattedUpdatedAt: string=''; 
@@ -44,16 +45,15 @@ import { UserService } from '../Services/user.service';
        ngOnInit(): void {
         this.route.params.subscribe(params => {
             this.userId = +params['id'];
-            if (this.userId === -1) {
-              this.user = { role: undefined }; 
-          } else {
+            if (this.userId !== -1) {
+       
             this.getUserById(this.userId);
          }
         });
     }
 
     getUserById(id: number): void {  
-      this.userService.getUserById(id).subscribe((user: User | undefined) => {      
+      this.userService.getUserById(id).subscribe((user: IUser ) => {      
           this.user = user;      
           if (this.user) {        
               if (this.user.created_at) {
@@ -67,9 +67,8 @@ import { UserService } from '../Services/user.service';
             }
             
               if (this.user.role !== undefined) {
-                const userRole = this.roles.indexOf(this.user.role);
-
-                  // const userRole = this.roles[this.user.role];
+          
+                  const userRole = this.roles.indexOf(Role[this.user.role]);
                   if (userRole) {                 
                      this.user.role = userRole as unknown as Role;
                   
@@ -93,9 +92,9 @@ import { UserService } from '../Services/user.service';
   
   saveUser() {
     if (this.userForm.valid) {
-      const updatedUser: User = this.userForm.value;
-      updatedUser.id = this.user?.id;
-      updatedUser.created_at = this.user?.created_at;
+      const updatedUser: IUser = this.userForm.value;
+      updatedUser.id = this.user!.id;
+      updatedUser.created_at = this.user!.created_at;
       updatedUser.userName = updatedUser.email
       updatedUser.updated_at = new Date(); 
       updatedUser.role = this.userForm.value.role === 'מנהל מערכת' ? Role.Admin : Role.Customer;

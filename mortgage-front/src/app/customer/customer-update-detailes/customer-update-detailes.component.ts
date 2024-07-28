@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { customerService } from '../../shared/Services/costumer.service';
-import { Customer } from '../../shared/Models/Customer';
+import { ICustomer } from '../../shared/Models/Customer';
 import { loginService } from '../../shared/Services/login.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { loginService } from '../../shared/Services/login.service';
   styleUrl: './customer-update-detailes.component.css'
 })
 export class CustomerUpdateDetailesComponent {
-  formData: Customer = {
+  formData: ICustomer = {
     first_Name: '',
     last_Name: '',
     email: '',

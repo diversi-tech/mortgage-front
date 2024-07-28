@@ -136,10 +136,10 @@ import { response } from "express";
     return this.http.post(`${this.basicURL}/api/Users/login`, user);
   }
 
-  updateUser(updatedUser: User): Observable<User> {
+  updateUser(updatedUser: IUser): Observable<IUser> {
      
     const updateUrl = `${this.basicURL}/Users/${updatedUser.id}`;
-    return this.http.put<User>(updateUrl, updatedUser).pipe(
+    return this.http.put<IUser>(updateUrl, updatedUser).pipe(
       tap(() => {
         const users = this.usersSubject.getValue();          
         const index = users.findIndex(l => l.id === updatedUser?.id);       
@@ -153,17 +153,17 @@ import { response } from "express";
     );
   }
   
-  getUserById(id: number): Observable<User | undefined> {
+  getUserById(id: number): Observable<any> {
     return this.users$.pipe(
       map(users => users.find(user => user.id === id)),
     );
   }
  
-    addUser(user: User): Observable<User> {
+    addUser(user: IUser): Observable<IUser> {
       const updateUrl = `${this.basicURL}/Users`;
-      return this.http.post<User>(updateUrl, user).pipe(
+      return this.http.post<IUser>(updateUrl, user).pipe(
         map(newUser => {
-          this.http.get<User[]>(updateUrl).subscribe(users => this.usersSubject.next(users));
+          this.http.get<IUser[]>(updateUrl).subscribe(users => this.usersSubject.next(users));
           return newUser;
         })
       );
