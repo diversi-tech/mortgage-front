@@ -10,6 +10,7 @@ import { DocumentTypeListComponent } from '../shared/document-type-list/document
 import { MortgageCalculatorComponent } from '../shared/mortgage-calculator/mortgage-calculator.component';
 import { authGuard } from '../auth/auth.guard';
 import { MortgageHelperComponent } from './mortgage-helper/mortgage-helper.component';
+import { CustomerUpdateDetailesComponent } from './customer-update-detailes/customer-update-detailes.component';
 
 const routes: Routes = [
     { path: "", component: CustomerPortalComponent,
@@ -24,7 +25,7 @@ const routes: Routes = [
         { path: 'document-type-list', component: DocumentTypeListComponent },
         { path: 'calculator', component: MortgageCalculatorComponent },
         { path: 'mortgage-helper', component: MortgageHelperComponent },
-
+        { path: 'customer-detailes/:id', component: CustomerUpdateDetailesComponent },
     ],
  },
 ];

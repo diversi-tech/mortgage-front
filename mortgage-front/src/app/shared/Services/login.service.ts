@@ -17,12 +17,20 @@ export class loginService {
   CurrentcustomerId?: number;
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string): Observable<string> {
-    const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
-    return this.http.get(`${this.basicURL}/api/Users/${email}/${password}`, { headers, responseType: 'text' })
-      .pipe(
-        tap(token => this.token.next(token))
-      );
+  login(email: string, password: string): Observable<string> { 
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const user = {
+      userName: "string",
+      password: password,
+      email: email,
+      role: 0,
+      created_at: null,
+      updated_at: null
+    };
+    return this.http.post(`${this.basicURL}/api/Users/login`, user, { headers, responseType: 'text'}).pipe(
+      tap(token => this.token.next(token))
+    );;
+
   }
 
   decodeToken(token: string): TokenPayload {
