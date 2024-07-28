@@ -12,6 +12,7 @@ export class CustomerPortalComponent {
   componentArrayOfCustomer = [
     new IComponentInfo("מסמכים-לקוח", "/customer/document-list", "description"),
     new IComponentInfo('עריכת פרטי לקוח', `/customer/customer-details/${this.loginService.CurrentcustomerId}`, "description"),
-    new IComponentInfo('מחשבון משכנתאות', "/customer/calculator", "calculate")
+    new IComponentInfo('מחשבון משכנתאות', "/customer/calculator", "calculate"),
+    new IComponentInfo('מילון עזר למשכנתא',"mortgage-helper","help_outline")
   ];
 }

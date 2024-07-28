@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ILead } from '../Models/Lead';
@@ -9,6 +8,7 @@ import { tap } from 'rxjs';
 
 @Component({
   selector: 'lead-detail-modal',
+  styleUrl:'./lead-detail-modal.component.css',
   templateUrl: './lead-detail-modal.component.html',
 })
 export class LeadDetailComponent implements OnInit {
@@ -62,7 +62,7 @@ export class LeadDetailComponent implements OnInit {
               console.log('Lead updated successfully', response);
               console.log("id:"+response?.id);
               
-              this.router.navigate(['admin-dashboard/lead-list']);
+              this.router.navigate(['admin/lead-list']);
             })
           )
           .subscribe();
@@ -71,7 +71,7 @@ export class LeadDetailComponent implements OnInit {
         this.leadService.updateLead(updatedLead)
           .pipe(
             tap(response => {
-              this.router.navigate(['admin-dashboard/lead-list']); // Navigate back to the lead list or any other route
+              this.router.navigate(['admin/lead-list']); // Navigate back to the lead list or any other route
             })
           )
           .subscribe();
@@ -80,7 +80,7 @@ export class LeadDetailComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['admin-dashboard/lead-list']);
+    this.router.navigate(['admin/lead-list']);
   }
 }
 export class Leads {

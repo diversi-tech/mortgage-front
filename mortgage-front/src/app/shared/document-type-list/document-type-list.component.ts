@@ -58,10 +58,11 @@ export class DocumentTypeListComponent {
     }
   }
   addCustomer(): void {
-    this.router.navigate(['/documentType-details', -1]);
+    this.router.navigate(['admin/documentType-details', -1]);
   }
+
   editDocument(selected: IDocumentType): void {
-    this.router.navigate(['document-type-details', selected.id]);
+    this.router.navigate(['admin/documentType-details', selected.id]);
   }
  
   deleteDocument(documentType: IDocumentType): void {

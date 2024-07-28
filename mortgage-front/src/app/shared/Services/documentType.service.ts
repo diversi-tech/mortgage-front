@@ -1,39 +1,14 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
-import { ICustomer } from "../Models/Customer";
-import { ILead } from "../Models/Lead";
 import { IDocumentType } from '../Models/DocumentTypes.Model';
+import { environment } from "../../../environments/environment";
 
-//my
-// @Injectable({
-//   providedIn: 'root'
-// })
-
-// export class DocumentTypeService {
-//   apiUrl = 'https://localhost:7055/api'; // Define your API base URL here
-
-//   constructor(private http: HttpClient) { } // Inject HttpClient in the constructor
-
-//   addDocumentType(docType: DocumentType):Observable<any> {
-//     console.log('addDocumentType')
-//     return this.http.post(`${this.apiUrl}/DocumentTypes`, docType);
-// }
-// editDocumentType(docType: DocumentType,id:number) :Observable<void>{
-//   console.log('editDocumentType'); 
-//   return this.http.put<void>(`${this.apiUrl}/DocumentTypes/${id}`, docType);
-// }
-
-
-//   getDocTypeById(id:number):Observable<DocumentType> {
-//     return this.http.get(`${this.apiUrl}/DocumentTypes/${id}`)
-//   }
-// }
 
 
 @Injectable()
 export class DocumentTypeService {
-  readonly basicURL = "https://localhost:7055/api/";
+  readonly basicURL = environment.apiURL + "/api/";
   private documentSubject = new BehaviorSubject<IDocumentType[]>([]);
   documentTypes$ = this.documentSubject.asObservable();
 
@@ -68,16 +43,21 @@ export class DocumentTypeService {
   }
 
   addDocumentType(docType: IDocumentType):Observable<any> {
-    console.log('addDocumentType')
     return this.http.post(`${this.basicURL}DocumentTypes`, docType);
 }
+
 editDocumentType(docType: IDocumentType,id:number) :Observable<void>{
-  console.log('editDocumentType'); 
   return this.http.put<void>(`${this.basicURL}DocumentTypes/${id}`, docType);
 }
 
 
   getDocTypeById(id:number):Observable<any> {
     return this.http.get(`${this.basicURL}DocumentTypes/${id}`)
+  }
+
+  getDocsByTransactionType(id:number):Observable<IDocumentType[]> {
+
+    return this.http.get<any[]>(`${this.basicURL}DocumentTypes/TypesDocument/${id}`)
+
   }
 }

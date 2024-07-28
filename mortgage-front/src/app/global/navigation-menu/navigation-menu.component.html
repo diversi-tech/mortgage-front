@@ -5,6 +5,7 @@
       <mat-nav-list dir="rtl">
         @for (c of componentsList; track c) {
         <a mat-list-item [routerLink]="c.path">
+          <!-- <span style="color: transparent;">p</span> -->
           <span>{{ c.name }}</span>
           <mat-icon>{{ c.icon }}</mat-icon>
         </a>

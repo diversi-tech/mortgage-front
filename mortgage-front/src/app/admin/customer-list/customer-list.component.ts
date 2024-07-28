@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { ICustomer,Customer_type } from '../../shared/Models/Customer';
+import { ICustomer, Customer_Type } from '../../shared/Models/Customer';
 import { customerService } from '../../shared/Services/costumer.service';
 import { Router } from '@angular/router';
 import {  Subscription } from 'rxjs';
@@ -32,7 +32,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   loadCustomers(): void {
     this.customersSubscription = this.customerService.customers$.subscribe({
-      next: customers => {
+      next: (customers: any[]) => {
         this.leads.data = customers.filter(customer => customer.customer_type === 0);
         this.customers.data = customers.filter(customer => customer.customer_type === 1);
         this.archivedCustomers.data = customers.filter(customer => customer.customer_type === 2);
@@ -45,7 +45,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
         this.customers.paginator = this.customersPaginator;
         this.archivedCustomers.paginator = this.archivedCustomersPaginator;
       },
-      error: error => {
+      error: (error: any) => {
         console.error('Error loading customers:', error);
       }
     });
@@ -75,13 +75,15 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   addCustomer(): void {
-    this.router.navigate(['admin/customer-details-modal/','']);
+    this.router.navigate(['admin/customer-details/','']);
   }
 
   editCustomer(customer: ICustomer): void {
     this.router.navigate(['admin/customer-details/', customer.id]);
   }
-
+  sendMsg(customer:ICustomer):void{
+    this.router.navigate(['admin/send-notification/', customer.id]);
+  }
   deleteCustomer(customer: ICustomer): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{
       data: { customer } // Pass customer object as data to the dialog
@@ -99,7 +101,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     });
   }
 
-  getCustomerTypeString(customer_type: Customer_type): string {
+  getCustomerTypeString(customer_type: Customer_Type): string {
     switch (customer_type) {
       case 0:
         return 'ליד';

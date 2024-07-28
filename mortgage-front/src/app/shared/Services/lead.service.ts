@@ -2,10 +2,11 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { ILead } from "../Models/Lead";
+import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class leadService {
-  readonly basicURL = "https://localhost:7055/api/";
+  readonly basicURL = environment.apiURL+"/api/";
   private LeadsSubject = new BehaviorSubject<ILead[]>([]);
   leads$ = this.LeadsSubject.asObservable();
   constructor(private http: HttpClient) {
@@ -46,7 +47,6 @@ export class leadService {
       );
   }
   updateLead(lead: any): Observable<ILead> {
-
     const updateUrl = `${this.basicURL}Leads/${lead.id}`;
     return this.http.put<ILead>(updateUrl, lead)
       .pipe(
@@ -56,7 +56,6 @@ export class leadService {
           if (index !== -1) {
             leads[index] = lead;
             this.LeadsSubject.next([...leads]);
-            this.fetchLeads().subscribe(); // אתחול לקוח
           } else {
             // console.error('Lead not found in the current list');
           }

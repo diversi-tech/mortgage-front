@@ -32,7 +32,7 @@
           </div>
       }
       </div>
-      <button type="submit" class="submit-btn" [disabled]="loginForm.invalid">התחברות</button>
+      <button type="submit"  matRipple [matRippleColor]="color" class="submit-btn" [disabled]="loginForm.invalid">התחברות</button>
     </form>
     <div class="forgot-password">
       <a  (click)="forgotPassword()" class="text-muted">שכחת סיסמא?</a>

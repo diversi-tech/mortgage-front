@@ -67,7 +67,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     this.documentSubscription = this._service.documents$.subscribe({
       next: documents => {
         this.dataSource.data = documents;
-        this.dataSource.sort = this.sort;
+        this.dataSource   .sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
       error: error => {
@@ -84,6 +84,8 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
   //load documents
   fetchdocumentType(): void {
+    console.log("customer id="+this._service.customerId);
+    
     this._service.fetchDocumentsTypesById(this._service.customerId).subscribe(
       (data: IDocumentType) => {
         this.transactionType = data;
@@ -164,6 +166,10 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      direction:'rtl',
+      panelClass: ['custom-snackbar']
     });
   }
   saveFiles() {

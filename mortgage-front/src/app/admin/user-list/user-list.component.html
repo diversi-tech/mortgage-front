@@ -1,8 +1,10 @@
-<div id="content">
+<div class="mainAll">
+<div class="contents">
     <div class="form-field-div">
         <mat-form-field class="form-field" dir="rtl">
             <mat-label>חפש</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="לדוג. שם">
+            <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </div>        
     <div class="rtl-table-wrapper">
@@ -56,4 +58,5 @@
 
         <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons dir="rtl"></mat-paginator>
     </div> -->
+</div>
 </div>

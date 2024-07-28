@@ -1,179 +1,223 @@
-<div id="content">
-<mat-horizontal-stepper  [linear]="isLinear" #stepper  (selectionChange)="onStepChange($event)">
+<mat-horizontal-stepper [linear]="isLinear" #stepper (selectionChange)="onStepChange($event)" dir="rtl">
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>הגדרת שם משתמש וסיסמא</ng-template>
       <mat-form-field>
-        <mat-label>שם משתמש</mat-label>
-        <input matInput formControlName="userName"  required>
+        <mat-label>אימייל</mat-label>
+        <input matInput formControlName="userName" required>
+        <mat-error *ngIf="firstFormGroup.get('userName')?.hasError('required')">שדה חובה</mat-error>
+        <mat-error *ngIf="firstFormGroup.get('userName')?.hasError('email')">אימייל לא תקין</mat-error>
       </mat-form-field>
-    
       <mat-form-field>
-        <mat-label> סיסמא</mat-label>
+        <mat-label>סיסמא</mat-label>
         <input matInput formControlName="password" type="password" required>
-       </mat-form-field>
-
-         <div>
-        <button mat-button  matStepperNext  (click)="checkUserNameAndPassword()">הבא</button>
+        <mat-error *ngIf="firstFormGroup.get('password')?.hasError('required')">שדה חובה</mat-error>
+      </mat-form-field>
+      
+      <div *ngIf="firstFormGroup.get('password')?.touched">
+        <p>דרישות לסיסמה חזקה:</p>
+        <ul>
+          <li *ngFor="let requirement of passwordStrength.valid" style="color: green;">
+            {{ requirement }}
+          </li>
+          <li *ngFor="let requirement of passwordStrength.invalid" style="color: red;">
+            {{ requirement }}
+          </li>
+        </ul>
+      </div>
+      <div>
+        <button mat-button #myButton (click)="checkUserNameAndPassword()" [disabled]="firstFormGroup.invalid">הבא</button>
       </div>
     </form>
   </mat-step>
-
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
       <ng-template matStepLabel>עדכון פרטים אישיים</ng-template>
       <mat-form-field>
         <mat-label>שם משפחה</mat-label>
-        <input matInput formControlName="lastName" (input)="onInputChange('last_Name', $event)">
+        <input matInput formControlName="last_Name" (input)="onInputChange('last_Name', $event)">
+        <mat-error *ngIf="secondFormGroup.get('last_Name')?.hasError('required')">שדה זה הוא שדה חובה</mat-error>
+        <mat-error *ngIf="secondFormGroup.get('last_Name')?.hasError('pattern')">
+          יש לכתוב בשדה זה רק אותיות
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>חיבור</mat-label>
+        <mat-select matInput type="number" formControlName="connection"
+          (selectionChange)="onSelectionChange('connection', $event.value)">
+          <mat-option *ngFor="let status of connectionOptions" [value]="status.value">{{status.label}}</mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>ת.ז.</mat-label>
-        <input matInput type="number" formControlName="t_z" (input)="onInputChange('t_z', $event)">
+        <input matInput type="text" formControlName="t_z" (input)="onInputChange('t_z', $event)">
+        <mat-error>
+          מספר תעודת זהות לא תקין
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>תאריך לידה</mat-label>
         <input matInput formControlName="birthDate" type="date" (input)="onInputChange('birthDate', $event)">
+        <mat-error>
+         נא להכניס תאריך תקין עד לתאריך הנוכחי
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>מצב משפחתי</mat-label>
-        <mat-select formControlName="family_status" (selectionChange)="onSelectionChange('family_status', $event.value)">
-          <mat-option value="Married">Married</mat-option>
-          <mat-option value="Single">Single</mat-option>
-          <mat-option value="Divorced">Divorced</mat-option>
-          <mat-option value="Widow">Widow</mat-option>
+        <mat-select formControlName="family_status"
+          (selectionChange)="onSelectionChange('family_status', $event.value)">
+          <mat-option *ngFor="let status of familyStatusOptions" [value]="status.value">{{status.label}}</mat-option>
         </mat-select>
-      </mat-form-field>      
+      </mat-form-field>
       <mat-form-field>
         <mat-label>מספר אנשים בבית</mat-label>
-        <input matInput formControlName="number_of_people_in_house" type="number" (input)="onInputChange('number_of_people_in_house', $event)">
+        <input matInput formControlName="number_of_people_in_house" type="number"
+          (input)="onInputChange('number_of_people_in_house', $event)">
+        <mat-error *ngIf="secondFormGroup.get('number_of_people_in_house')?.hasError('required')">שדה זה הוא שדה
+          חובה</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>כתובת</mat-label>
-        <input matInput formControlName="address" (input)="onInputChange('address', $event)">
+        <input matInput formControlName="address" type="text" (input)="onInputChange('address', $event)">
+        <mat-error *ngIf="secondFormGroup.get('address')?.hasError('required')">שדה זה הוא שדה חובה</mat-error>
       </mat-form-field>
       <h3>פרטי תעסוקה</h3>
       <mat-form-field>
         <mat-label>סטטוס</mat-label>
-        <mat-select formControlName="job_Status" (selectionChange)="onInputChange('job_status', $event)">
-          <mat-option value="שכיר">שכיר</mat-option>
-          <mat-option value="עצמאי">עצמאי</mat-option>
+        <mat-select formControlName="job_status" (selectionChange)="onSelectionChange('job_status', $event.value)">
+          <mat-option *ngFor="let status of jobStatusOptions" [value]="status.value">{{status.label}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>מקום עבודה</mat-label>
-        <input matInput formControlName="work_business_name" (input)="onInputChange('work_business_name', $event)">
+        <input matInput formControlName="work_business_name" type="text"
+          (input)="onInputChange('work_business_name', $event)">
+        <mat-error *ngIf="secondFormGroup.get('work_business_name')?.hasError('required')">שדה זה הוא שדה
+          חובה</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>תפקיד</mat-label>
-        <input matInput formControlName="job_description" (input)="onInputChange('job_description', $event)">
+        <input matInput formControlName="job_description" type="text"
+          (input)="onInputChange('job_description', $event)">
+        <mat-error *ngIf="secondFormGroup.get('job_description')?.hasError('required')">שדה זה הוא שדה חובה</mat-error>
       </mat-form-field>
-      <!-- <mat-form-field>
+      <mat-form-field>
         <mat-label>משכורת חודשית ממוצעת נטו</mat-label>
-        <input matInput formControlName="avarage_monthly_salary" type="number" (input)="onInputChange('avarage_monthly_salary', $event)">
-      </mat-form-field> -->
+        <input matInput formControlName="avarage_monthly_salary" type="number"
+          (input)="onInputChange('avarage_monthly_salary', $event)">
+        <mat-error *ngIf="secondFormGroup.get('avarage_monthly_salary')?.hasError('required')">שדה זה הוא שדה
+          חובה</mat-error>
+      </mat-form-field>
       <mat-form-field>
         <mat-label>ותק</mat-label>
-        <input matInput formControlName="years_in_current_position" (input)="onInputChange('years_in_current_position', $event)">
+        <input matInput formControlName="years_in_current_position" type="number"
+          (input)="onInputChange('years_in_current_position', $event)">
+        <mat-error *ngIf="secondFormGroup.get('years_in_current_position')?.hasError('required')">שדה זה הוא שדה
+          חובה</mat-error>
       </mat-form-field>
       <h3>הכנסות</h3>
       <mat-form-field>
         <mat-label>קצבאות</mat-label>
         <input matInput formControlName="income_rent" type="number" (input)="onInputChange('income_rent', $event)">
+        <mat-error *ngIf="secondFormGroup.get('income_rent')?.hasError('required')">שדה זה הוא שדה חובה במידה ואין
+          קצבאות נא להקיש 0</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>מזונות</mat-label>
-        <input matInput formControlName="income_Government_Endorsement" type="number" (input)="onInputChange('income_Government_Endorsement', $event)">
+        <input matInput formControlName="income_Government_Endorsement" type="number"
+          (input)="onInputChange('income_Government_Endorsement', $event)">
+        <mat-error *ngIf="secondFormGroup.get('income_Government_Endorsement')?.hasError('required')">שדה זה הוא שדה
+          חובה במידה ואין מזונות נא להקיש 0</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>מקור אחר</mat-label>
         <input matInput formControlName="income_other" type="number" (input)="onInputChange('income_other', $event)">
+        <mat-error *ngIf="secondFormGroup.get('income_other')?.hasError('required')">שדה זה הוא שדה חובה במידה ואין עוד
+          מקור נא להקיש 0</mat-error>
       </mat-form-field>
       <h3>הוצאות</h3>
       <mat-form-field>
         <mat-label>שכר דירה</mat-label>
         <input matInput formControlName="expenses_rent" type="number" (input)="onInputChange('expenses_rent', $event)">
+        <mat-error *ngIf="secondFormGroup.get('expenses_rent')?.hasError('required')">שדה זה הוא שדה חובה במידה ואין נא
+          להקיש 0</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>הלוואות</mat-label>
-        <input matInput formControlName="expenses_loans" type="number" (input)="onInputChange('expenses_loans', $event)">
+        <input matInput formControlName="expenses_loans" type="number"
+          (input)="onInputChange('expenses_loans', $event)">
+        <mat-error *ngIf="secondFormGroup.get('expenses_loans')?.hasError('required')">שדה זה הוא שדה חובה במידה ואין נא
+          להקיש 0</mat-error>
       </mat-form-field>
-      <!-- <mat-form-field>
-        <mat-label>משכנתאות</mat-label>
-        <input matInput formControlName="mortgages" type="number" (input)="onInputChange('mortgages', $event)">
-      </mat-form-field> -->
-      
       <mat-form-field>
         <mat-label>מקור אחר</mat-label>
         <input matInput formControlName="expenses_other" type="number" (input)="onInputChange('expenses_other', $event)">
+        <mat-error *ngIf="secondFormGroup.get('expenses_other')?.hasError('required')">שדה זה הוא שדה חובה במידה ואין נא
+          להקיש 0</mat-error>
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>חזור</button>
-        <button mat-button matStepperNext>הבא</button>
+        <button mat-button  matStepperNext>הבא</button>
       </div>
     </form>
   </mat-step>
-
   <mat-step [stepControl]="thirdFormGroup">
     <form [formGroup]="thirdFormGroup">
       <ng-template matStepLabel>פרטי הנכס</ng-template>
       <mat-form-field>
         <mat-label>יישוב</mat-label>
-        <input matInput formControlName="property_city" (input)="onInputChange('property_city', $event)">
+        <input matInput formControlName="property_city" type="text" (input)="onInputChange('property_city', $event)">
+        <mat-error *ngIf="thirdFormGroup.get('property_city')?.hasError('required')">שדה חובה</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>סוג עסקה</mat-label>
-        <mat-select formControlName="transaction_type" (selectionChange)="onInputChange('transaction_type', $event)">
-          <mat-option value="מחיר_למשתכן">מחיר למשתכן</mat-option>
-          <mat-option value="New">יד ראשונה</mat-option>
-          <mat-option value="Old">יד שניה</mat-option>
-          <mat-option value="Renovation">שיפוצים</mat-option>
-          <mat-option value="Other">לכל מטרה</mat-option>
+        <mat-select formControlName="transaction_type"
+          (selectionChange)="onSelectionChange('transaction_type', $event.value)">
+          <mat-option *ngFor="let status of transactiontypeOptions" (click)="saveSelectionType(status.value)" [value]="status.value">{{status.label}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>שווי הנכס לפי הערכת לווה</mat-label>
-        <input matInput formControlName="estimated_price_by_customer" type="number" (input)="onInputChange('estimated_price_by_customer', $event)">
+        <input matInput formControlName="estimated_price_by_customer" type="number"
+          (input)="onInputChange('estimated_price_by_customer', $event)">
+        <mat-error *ngIf="thirdFormGroup.get('estimated_price_by_customer')?.hasError('required')">שדה חובה</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>שווה הנכס לפי הסכם מכר</mat-label>
-        <input matInput formControlName="estimated_price_by_sales_agreement" type="number" (input)="onInputChange('estimated_price_by_sales_agreement', $event)">
+        <input matInput formControlName="estimated_price_by_sales_agreement" type="number"
+          (input)="onInputChange('estimated_price_by_sales_agreement', $event)">
+        <mat-error *ngIf="thirdFormGroup.get('estimated_price_by_sales_agreement')?.hasError('required')">שדה
+          חובה</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>יש נכסים נוספים ללווה</mat-label>
-        <mat-select formControlName="has_other_properties" (selectionChange)="onInputChange('has_other_properties', $event)">
-          <mat-option value="כן">כן</mat-option>
-          <mat-option value="לא">לא</mat-option>
+        <mat-select formControlName="has_other_properties"
+          (selectionChange)="onSelectionChange('has_other_properties', $event.value)">
+          <mat-option *ngFor="let status of hasOtherProperties" [value]="status.value">{{status.label}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>סכום ההלוואה</mat-label>
-        <input matInput formControlName="amount_of_loan_requested" type="number" (input)="onInputChange('amount_of_loan_requested', $event)">
+        <input matInput formControlName="amount_of_loan_requested" type="number"
+          (input)="onInputChange('amount_of_loan_requested', $event)">
+        <mat-error *ngIf="thirdFormGroup.get('amount_of_loan_requested')?.hasError('required')">שדה חובה</mat-error>
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>חזור</button>
-        <button mat-button matStepperNext>הבא</button>
+        <button mat-button matStepperNext  (click)="save()">הבא</button>
       </div>
     </form>
   </mat-step>
-
-  <mat-step [stepControl]="fourthFormGroup">
+  <mat-step [stepControl]="fourthFormGroup" >
     <form [formGroup]="fourthFormGroup">
       <ng-template matStepLabel>העלאת מסמכים</ng-template>
-      <!-- <app-upload></app-upload> -->
-       <!-- <app-file></app-file> -->
-      <input type="file" (change)="onFileChange($event)" multiple>
-      <div *ngFor="let file of uploadedFiles; let i = index">
-        <span (click)="viewDocument(file)" style="cursor:pointer; color:blue;">
-          {{ file.name }}
-        </span>
-        <button mat-button color="warn" (click)="removeFile(i)">מחק</button>
-      </div>
+     
+      <documents-list-customer></documents-list-customer>
+
       <div>
         <button mat-button matStepperPrevious>חזור</button>
-        <button mat-button (click)="uploadDocuments()">העלאה</button>
-        <button mat-button type="submit">שמור</button>
+        <button mat-button (click)="saveDocuments()">שמור</button>
       </div>
     </form>
   </mat-step>
 </mat-horizontal-stepper>
-</div>

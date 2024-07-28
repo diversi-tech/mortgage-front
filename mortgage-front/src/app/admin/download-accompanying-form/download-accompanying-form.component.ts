@@ -23,11 +23,11 @@ export class DownloadAccompanyingFormComponent implements OnInit {
     this.route.paramMap.pipe(
       switchMap(params => {
         // this.customerId = +params.get('id')!;
-        return this.customerService.getCustomers(); // מחכה לקבלת לקוחות
+        return this.customerService.getCustomers(); 
       })
     ).subscribe(customers => {
       this.customer = this.customerService.getCustomerById(this.customerId);
-      console.log(this.customer); // כעת הלקוח לא אמור להיות undefined
+      console.log(this.customer); 
     });
   }
 
@@ -138,40 +138,7 @@ export class DownloadAccompanyingFormComponent implements OnInit {
                 after: 300,
               },
             }),
-            // new Paragraph({
-            //   alignment: AlignmentType.RIGHT,
-            //   children: [
-            //     new TextRun({
-            //       text: 'פרטי הלווים\t\t\t\t\t\t\t\t\t\t\t\t\t',
-            //       bold: true,
-            //       size: 40,
-            //       font: "David",       
-            //     }),
-            //   ],
-            //   alignment: AlignmentType.CENTER,
-            //   spacing: {
-            //     after: 200,
-            //   },
-              
-            // }),
             this.generateCustomerTable(),
-            // new Paragraph({
-            //   children: [
-            //     new TextRun({
-            //       text: 'כתובת: ז\'בוטינסקי 71 בני ברק | נייד: 0502222222 | מייל: dghf5464@gmail.com',
-            //       bold: true,
-            //       color: 'FFFFFF',
-            //     }),
-            //   ],
-            //   alignment: AlignmentType.CENTER,
-            //   shading: {
-            //     type: 'clear',
-            //     fill: '#020268',
-            //   },
-            //   spacing: {
-            //     before: 200,
-            //   },
-            // }),
           ],
         },
       ],

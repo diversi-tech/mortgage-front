@@ -1,12 +1,15 @@
-* {
-  font-size: 20px;
-  text-align: right;
-}
+// * {
+//   font-size: 20px;
+//   text-align: right;
+// }
 
 .sidenav-container {
   min-height: 100vh;
-  height: max-content;
+  // height: max-content;
+  height: 100vh;
+
   flex-grow: 1;
+overflow: auto;
 }
 
 .mat-icon {
@@ -14,13 +17,14 @@
 }
 
 .sidenav {
-  width: 17vw;
+  width: 13vw;
   margin: 0 ;
   min-width: max-content;
+  height: 100vh;
 }
-a {
-    padding: 30px ;
-}
+// a {
+//     padding: 30px ;
+// }
 @media only screen and (max-width: 900px) {
     a {
       padding: 5px ;

@@ -1,11 +1,15 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
+import { HttpClient, HttpHeaders , HttpErrorResponse} from "@angular/common/http";
+import { BehaviorSubject, Observable, catchError, map, of, tap } from "rxjs";
 import { IUser } from "../Models/User";
+import { environment } from "../../../environments/environment";
+import { log } from "node:console";
+import { response } from "express";
+//import { Lead } from "../Models/Lead";
 
 @Injectable()
-export class UserService {
-  readonly basicURL = "https://localhost:7055/api/";
+ export class UserService {
+  readonly basicURL =environment.apiURL;
   private usersSubject = new BehaviorSubject<IUser[]>([]);
   users$ = this.usersSubject.asObservable();
   constructor(private http: HttpClient) {
@@ -18,7 +22,7 @@ export class UserService {
       }),
       withCredentials: true // שורה זו חשובה לפיתוח
     };
-    return this.http.get<IUser[]>(`${this.basicURL}Users`, httpOptions)
+    return this.http.get<IUser[]>(`${this.basicURL}/api/Users`, httpOptions)
       .pipe(
         tap(users => this.usersSubject.next(users)),
         catchError(error => {
@@ -67,6 +71,58 @@ export class UserService {
   //   return this.http.post<User>(`${this.basicURL}Users`, user, httpOptions);
   // }
 
+  
+
+  IsExist(user: IUser): Observable<string> {
+
+    console.log('Checking if user exists:', user); // הדפסה של המשתמש שנשלח לבדיקה
+
+    return this.http.post<IUser>(this.basicURL+'/login', user).pipe(
+
+      map(response=> {
+
+        console.log("IsExist response:", response);
+
+        if (response !== null && response !== undefined) {
+
+          console.log('User exists');
+
+          return '200';
+
+        } else  {
+
+          console.log('User does not exist');
+
+          return '404';
+
+        }
+
+      }),
+
+      catchError((error: HttpErrorResponse) => {
+
+        if (error.status === 404) {
+
+          console.error('User not found:', error.error);
+
+          return of('404'); // או התגובה המתאימה למקרה של משתמש שלא נמצא
+
+        } else {
+
+          console.error('Error checking if user exists:', error);
+
+          return of('Error: Unable to access the server');
+
+        }
+
+      })
+
+    );
+
+  }
+
+
+
   login(password: string, email: string) {
     const user = {
       userName: "string",
@@ -77,6 +133,6 @@ export class UserService {
       updated_at: "2024-07-22T16:45:56.650408"
     }
     console.log("in login service");
-    return this.http.post(`${this.basicURL}Users/login`, user);
+    return this.http.post(`${this.basicURL}/api/Users/login`, user);
   }
 }

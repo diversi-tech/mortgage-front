@@ -14,7 +14,10 @@
                     </mat-form-field>
                 </div>
                 <div class="button-group">
-                    <button mat-raised-button color="primary" type="submit" [disabled]="!isFormValid()">שלח</button>
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!isFormValid()">
+                        <mat-icon>send</mat-icon>
+                        שלח
+                    </button>
                     <button mat-raised-button color="warn" type="button" (click)="clearFormFields()">מחק</button>
                 </div>
             </form>
