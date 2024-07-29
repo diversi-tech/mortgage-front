@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, timeout } from 'rxjs';
 import { TokenPayload } from '../Models/Login';
 import { jwtDecode } from "jwt-decode";
 import { environment } from '../../../environments/environment';
@@ -18,7 +18,7 @@ export class loginService {
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<string> { 
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });  
     const user = {
       userName: "string",
       password: password,
@@ -27,11 +27,14 @@ export class loginService {
       created_at: null,
       updated_at: null
     };
-    return this.http.post(`${this.basicURL}/api/Users/login`, user, { headers, responseType: 'text'}).pipe(
-      tap(token => this.token.next(token))
+    return this.http.post(`${this.basicURL}/api/Users/login`, user, { headers, responseType: 'text'}).pipe( 
+      tap(token => {this.token.next(token);
+      })
     );;
 
   }
+
+
 
   decodeToken(token: string): TokenPayload {
     // console.log("token=" + token);

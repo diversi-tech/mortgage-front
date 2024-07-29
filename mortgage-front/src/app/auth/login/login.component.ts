@@ -13,7 +13,7 @@ import { BehaviorSubject } from 'rxjs';
 export class LoginComponent {
   loginForm: FormGroup;
   userByToken?: TokenPayload;
-  color:string="rgba(255, 255, 255, 0.553)";
+  color: string = "rgba(255, 255, 255, 0.553)";
   constructor(private route: ActivatedRoute, private loginService: loginService, private fb: FormBuilder, private snackBar: MatSnackBar, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -42,14 +42,14 @@ export class LoginComponent {
 
           if (String(this.userByToken.role) == 'Admin') {
             console.log('admin');
-            // sessionStorage.setItem("token", response);
+            sessionStorage.setItem("token", response);
             this.router.navigate(['/admin']);
             console.log('after navigate');
 
           }
           else if (String(this.userByToken.role) == 'Customer') {
             console.log('customer');
-            // sessionStorage.setItem("token", response);
+            sessionStorage.setItem("token", response);
             // console.log(' herere=' + this.loginService.CurrentcustomerId);
             this.loginService.CurrentcustomerId = this.userByToken.customerId;
             this.router.navigate(['/customer']);

@@ -6,6 +6,7 @@ export const authGuardAdmin: CanActivateChildFn = (route, state) => {
   const loginservice = inject(loginService);
   const router = inject(Router);
   if (loginservice.isLoggedIn()) {//check if loggedIn
+    console.log("here");
     if (loginservice.isAdmin())//check if admin
       return true;
     // window.history.back()
