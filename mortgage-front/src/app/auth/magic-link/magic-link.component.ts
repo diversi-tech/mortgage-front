@@ -24,8 +24,8 @@ export class MagicLinkComponent implements OnInit {
       this.leadService.checkToken(this.id).subscribe(
         response => {
           if (response.status === 200) {
-            this.router.navigate(['/lead-tetails/', this?.id]);
-            console.log("hiiii");
+            //this.router.navigate(['lead', this?.id]);
+            this.router.navigate(['lead']);
           }
           else {
             this.isNotValid = true;
