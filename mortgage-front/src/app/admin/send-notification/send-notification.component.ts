@@ -5,7 +5,7 @@ import { INotification } from '../../shared/Models/Notification';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dialog.component';
-import { Customer } from '../../shared/Models/Customer';
+import { ICustomer } from '../../shared/Models/Customer';
 import { customerService } from '../../shared/Services/costumer.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class SendNotificationComponent implements OnInit {
   notifications: INotification[] = [];
   newMessage: string = '';
   showActions: boolean = false;
-  customer?: Customer;
+  customer?: ICustomer;
 
   constructor(
     private route: ActivatedRoute,

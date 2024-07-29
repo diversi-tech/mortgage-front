@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
-import { Lead } from "../Models/Lead";
+import { ILead } from "../Models/Lead";
 import { environment } from "../../../environments/environment";
 
 @Injectable()

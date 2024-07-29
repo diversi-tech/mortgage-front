@@ -22,7 +22,7 @@ export enum TransactionType {
      'מחיר למשתכן'=4
  }
    
- export class DocumentType {
+ export interface IDocumentType {
      id?: number;
      transaction_Type?: TransactionType;
      document_Name?: string;

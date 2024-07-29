@@ -6,8 +6,8 @@ import { DocumentsListCustomerService } from '../../shared/Services/documents-li
 import { map, Observable, startWith, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Status, Document } from '../../shared/Models/document';
-import { DocumentType, TransactionType } from '../../shared/Models/DocumentTypes.Model';
+import { Status, IDocument } from '../../shared/Models/Document';
+import { IDocumentType, TransactionType } from '../../shared/Models/DocumentTypes.Model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dialog.component';
 import { UploadService } from '../../shared/Services/fileService';
@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatCheckbox, } from '@angular/material/checkbox';
 import { loginService } from '../../shared/Services/login.service';
 import { Router } from '@angular/router';
-import { Customer } from '../../shared/Models/Customer';
+import { ICustomer } from '../../shared/Models/Customer';
 import { FormControl } from '@angular/forms';
 import { customerService } from '../../shared/Services/costumer.service';
 
@@ -41,9 +41,9 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   isOkCount: number = 0;
   customerId!: number;
   documentStatusString: String = '';
-  transactionType: DocumentType | undefined;
+  transactionType: IDocumentType | undefined;
   transactionTypeString: String = '';
-  dataSource: MatTableDataSource<Document> = new MatTableDataSource<Document>();
+  dataSource: MatTableDataSource<IDocument> = new MatTableDataSource<IDocument>();
   private documentSubscription?: Subscription;
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -59,25 +59,21 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     public loginService: loginService,
     private customerService: customerService) { }
 
-
-  //========================================================
+  //Variables for the customers search 
   customerControl = new FormControl();
-  customers: Customer[] = [];
-  filteredCustomers?: Observable<Customer[]>;
+  customers: ICustomer[] = [];
+  filteredCustomers?: Observable<ICustomer[]>;
 
-  private _filterCustomers(name: string): Customer[] {
+  private _filterCustomers(name: string): ICustomer[] {
     const filterValue = name.toLowerCase();
     return this.customers.filter(customer => customer.first_Name?.toLowerCase().includes(filterValue));
   }
-
-  displayCustomer(customer: Customer): string {
+  //To display the customer who typed his name
+  displayCustomer(customer: ICustomer): string {
     return customer && customer.first_Name ? customer.first_Name : '';
   }
 
-  async onCustomerSelected(customer: Customer) {
-    console.log('Customer selected:', customer);
-    // this.loadDocuments();
-    // this.fetchdocumentType(customer.id||0);
+  async onCustomerSelected(customer: ICustomer) {
     this.customerId = customer.id!;
     this._service.fetchDocumentsByCustomerId(customer.id || 0).subscribe({
       next: documents => {
@@ -91,10 +87,9 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     });
   }
 
-  //====================================================================================
   loadCustomers() {
     this.customerService.getCustomers().subscribe(
-      (customers: Customer[]) => {
+      (customers: ICustomer[]) => {
         this.customers = customers;
         this.filteredCustomers = this.customerControl.valueChanges
           .pipe(
@@ -111,34 +106,34 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     if (this.loginService.isAdmin()) {
       if (typeof window && window.sessionStorage != undefined) {
         let currentId = +window.sessionStorage.getItem("customerId")!;
-        if (currentId) { 
+        if (currentId) {
           this.fetchdocumentType(currentId);
-          this.customerId=currentId;
-         }
+          this.customerId = currentId;
+        }
       }
+      this.loadDocuments();
       this.loadCustomers();
     }
     else {
       this.fetchdocumentType(this.loginService.GetCurrentUser().customerId!);
-      console.log('in feych in if:' + this.loginService.GetCurrentUser().customerId);
       this.customerId = this.loginService.GetCurrentUser().customerId!;
     }
     this.loadDocuments();
-    if(this.customerId)
-    this._service.fetchDocumentsByCustomerId(this.customerId).subscribe({
-      next: documents => {
-        this.dataSource.data = documents;
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      },
-      error: error => {
-        console.error('Error loading documents for customer:', error);
-      }
-    });
+    if (this.customerId)
+      this._service.fetchDocumentsByCustomerId(this.customerId).subscribe({
+        next: documents => {
+          this.dataSource.data = documents;
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        },
+        error: error => {
+          console.error('Error loading documents for customer:', error);
+        }
+      });
   }
+
   ngAfterViewInit() {
     this.checkboxes.forEach((checkbox, index) => {
-      console.log(`Checkbox ${index} checked: ${checkbox.checked}`);
     });
   }
 
@@ -150,8 +145,6 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     this.documentSubscription = this._service.documents$.subscribe({
       next: documents => {
         this.dataSource.data = documents;
-        console.log(documents);
-
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
@@ -170,7 +163,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
   fetchdocumentType(id: number): void {
     this._service.fetchDocumentsTypesById(id).subscribe(
-      (data: DocumentType) => {
+      (data: IDocumentType) => {
         this.transactionType = data;
       },
       (error) => {
@@ -179,7 +172,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     );
   }
 
-  onCheckboxChange(checked: boolean, element: Document): void {
+  onCheckboxChange(checked: boolean, element: IDocument): void {
     if (checked == true) {
       this.isOkCount++;
       this.documentsSendIndex.push(element.id);
@@ -206,7 +199,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   }
 
 
-  onFileSelected(event: any, element: Document): void {
+  onFileSelected(event: any, element: IDocument): void {
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
@@ -222,7 +215,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   }
 
 
-  cancelDocument(document1: Document): void {
+  cancelDocument(document1: IDocument): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: { document1 } // Pass customer object as data to the dialog
 
@@ -343,7 +336,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   }
 
 
-  deleteTask(element: Document) {
+  deleteTask(element: IDocument) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '300px',
       data: { message: 'האם אתה בטוח שברצונך למחוק את המסמך?' }
@@ -367,11 +360,15 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   }
 
 
-  editTask(element: Document) {
+  editTask(element: IDocument) {
+    if (typeof window && window.sessionStorage != undefined)
+      window.sessionStorage.setItem("customerId", element.customer_Id.toString());
     this.router.navigate([`customer/task-edit/${element.id}`]);
   }
   addTask() {
     this._service.customerId = this.customerId;
+    if (typeof window && window.sessionStorage != undefined)
+      window.sessionStorage.setItem("customerId", this.customerId.toString());
     this.router.navigate([`customer/task-edit/${-1}`]);
   }
 

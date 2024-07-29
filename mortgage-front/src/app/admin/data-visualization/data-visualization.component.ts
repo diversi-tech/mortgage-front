@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { customerService } from '../../shared/Services/costumer.service';
-import { Customer } from '../../shared/Models/Customer';
-import { Lead } from '../../shared/Models/Lead';
+import { ICustomer } from '../../shared/Models/Customer';
+import { ILead } from '../../shared/Models/Lead';
 import { leadService } from '../../shared/Services/lead.service';
-import { Document } from '../../shared/Models/document';
+import { IDocument } from '../../shared/Models/Document';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
-import { DocumentType } from '../../shared/Models/DocumentTypes.Model';
+import { IDocumentType } from '../../shared/Models/DocumentTypes.Model';
 
 
 @Component({
@@ -17,10 +17,10 @@ import { DocumentType } from '../../shared/Models/DocumentTypes.Model';
 export class DataVisualizationComponent implements OnInit {
 
   constructor(private _serviceCustomer: customerService, private leadService: leadService, private documentService: DocumentsListCustomerService) { }
-  customers: Customer[] = [];
-  leads: Lead[] = [];
-  documents: Document[] = [];
-  documentTypes: DocumentType[] = [];
+  customers: ICustomer[] = [];
+  leads: ILead[] = [];
+  documents: IDocument[] = [];
+  documentTypes: IDocumentType[] = [];
   chartOptions: any;
   ngOnInit(): void {
     this.createArrys();

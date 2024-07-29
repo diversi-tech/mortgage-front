@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ComponentInfo } from '../../shared/Models/componentInfo';
+import { IComponentInfo } from '../../shared/Models/componentInfo';
 import { loginService } from '../../shared/Services/login.service';
 
 @Component({
@@ -10,9 +10,9 @@ import { loginService } from '../../shared/Services/login.service';
 export class CustomerPortalComponent {
   constructor(private loginService:loginService){}
   componentArrayOfCustomer = [
-    new ComponentInfo("מסמכים-לקוח", "/customer/document-list", "description"),
-    new ComponentInfo('עריכת פרטי לקוח', `/customer/customer-details/${this.loginService.CurrentcustomerId}`, "description"),
-    new ComponentInfo('מחשבון משכנתאות', "/customer/calculator", "calculate"),
-    new ComponentInfo('מילון עזר למשכנתא',"mortgage-helper","help_outline")
+    new IComponentInfo("מסמכים-לקוח", "/customer/document-list", "description"),
+    new IComponentInfo('עריכת פרטי לקוח', `/customer/customer-details/${this.loginService.CurrentcustomerId}`, "description"),
+    new IComponentInfo('מחשבון משכנתאות', "/customer/calculator", "calculate"),
+    new IComponentInfo('מילון עזר למשכנתא',"mortgage-helper","help_outline")
   ];
 }

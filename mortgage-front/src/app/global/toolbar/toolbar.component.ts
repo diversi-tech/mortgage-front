@@ -6,7 +6,7 @@ import { DocumentsListCustomerService } from '../../shared/Services/documents-li
 import { NotificationService } from '../../shared/Services/notification.service';
 import { loginService } from '../../shared/Services/login.service';
 import { Router } from '@angular/router';
-import { Customer } from '../../shared/Models/Customer';
+import { ICustomer } from '../../shared/Models/Customer';
 import { customerService } from '../../shared/Services/costumer.service';
 
 @Component({
@@ -54,7 +54,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   loginOrLogout(): void {
     if (this.isLoggedIn) {
       var customerId:number=this.loginService.GetCurrentUser().customerId||0;
-      var currentCustomer:Customer|undefined;
+      var currentCustomer:ICustomer|undefined;
       currentCustomer =this.customerService.getCustomerById(customerId);
       this.user=currentCustomer?.first_Name+" "+currentCustomer?.last_Name;
       // this.user = 'אורח';

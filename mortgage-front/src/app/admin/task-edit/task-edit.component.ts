@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DocumentType, TransactionType } from '../../shared/Models/DocumentTypes.Model';
+import { IDocumentType, TransactionType } from '../../shared/Models/DocumentTypes.Model';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
-import { Document } from '../../shared/Models/document';
+import { IDocument } from '../../shared/Models/Document';
 import { loginService } from '../../shared/Services/login.service';
 @Component({
   selector: 'app-task-edit',
@@ -12,7 +12,7 @@ import { loginService } from '../../shared/Services/login.service';
 })
 export class TaskEditComponent implements OnInit {
   taskForm!: FormGroup;
-  documentTypes: DocumentType[] = [];
+  documentTypes: IDocumentType[] = [];
   taskId: number = -1; // -1 indicates creating a new task
   transactionTypeString: String = '';
 
@@ -56,7 +56,7 @@ export class TaskEditComponent implements OnInit {
   }
 
   loadTaskData(taskId: number): void {
-    this.documentsService.getDocumentById(taskId).subscribe((task: Document) => {
+    this.documentsService.getDocumentById(taskId).subscribe((task: IDocument) => {
       this.taskForm.patchValue(task);
     });
   }
@@ -72,7 +72,7 @@ export class TaskEditComponent implements OnInit {
     if (this.taskForm.valid) {
       const taskData = this.taskForm.getRawValue();
       if (this.taskId === -1) {
-        var docForSave: Document = taskData;
+        var docForSave: IDocument = taskData;
         docForSave.id = 0;
         docForSave.created_at = new Date();
         docForSave.updated_at = new Date();
