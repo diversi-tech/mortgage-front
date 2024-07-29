@@ -16,6 +16,7 @@ export class Document {
     updated_at: Date;
     isOk:boolean=false;
 
+
     constructor(id: number, customer_Id: number, task_description: string, document_type_id: number, document_path: string,
         status: number, due_date: Date, created_at: Date, updated_at: Date) 
     {
