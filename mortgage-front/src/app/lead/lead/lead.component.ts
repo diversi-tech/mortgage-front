@@ -1,17 +1,17 @@
 // lead.component.ts
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, RequiredValidator, Validators } from '@angular/forms';
-import { Connection, Customer, Family_Status, Job_Status, TransactionTypeEnum } from '../../shared/Models/Customer';
+import { Connection, ICustomer, Family_Status, Job_Status, TransactionTypeEnum } from '../../shared/Models/Customer';
 import { MatStepper } from '@angular/material/stepper';
 import { leadService } from '../../shared/Services/lead.service';
-import { Role, User } from '../../shared/Models/user';
+import { Role, IUser } from '../../shared/Models/User';
 import { UserService } from '../../shared/Services/user.service';
 import { israeliIdValidator } from './birth-date-validator';
 import { birthDateValidator } from './israeli-id-validator';
 import { DocumentTypeService } from '../../shared/Services/documentType.service';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
 import { firstValueFrom } from 'rxjs';
-import { Document } from '../../shared/Models/document';
+import { IDocument } from '../../shared/Models/Document';
 import { customerService } from '../../shared/Services/costumer.service';
 
 
@@ -25,7 +25,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
 
   @ViewChild('stepper')
   stepper!: MatStepper;
-  user: User = {
+  user: IUser = {
     id: 0,
     userName: '',
     password: '',
@@ -58,7 +58,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   showTable: boolean = false;
   tableData: any[] = [];
 
-  document: Document = {
+  document: IDocument = {
     id: 0,
     customer_Id: 0,
     task_description: "",
@@ -71,7 +71,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
     isOk: false
   };
 
-  customerData: Customer = {
+  customerData: ICustomer = {
     id: 0,
     lead_id: 0,
     last_Name: '',
@@ -269,7 +269,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
     this.user.id = 0
     this.user.userName = this.firstFormGroup.value.userName
     this.user.password = this.firstFormGroup.value.password
-    this.user.email = this.customerData.email
+    this.user.email = this.customerData.email!
     this.user.role = this.role
     this.user.created_at = new Date(Date.now())
     this.user.updated_at = new Date(Date.now())
@@ -380,12 +380,12 @@ export class LeadComponent implements OnInit, AfterViewInit {
     }
     const savedData = localStorage.getItem('customerData');
   }
-  onInputChange(fieldName: keyof Customer, event: any) {
+  onInputChange(fieldName: keyof ICustomer, event: any) {
     const fieldValue = event.target.value;
     this.customerData[fieldName] = fieldValue;
     this.saveFormData();
   }
-  onSelectionChange(fieldName: keyof Customer, value: any) {
+  onSelectionChange(fieldName: keyof ICustomer, value: any) {
     if (fieldName == 'family_status') {
       this.customerData[fieldName] = value as Family_Status;
       this.customerData.family_status = Number(this.customerData.family_status);

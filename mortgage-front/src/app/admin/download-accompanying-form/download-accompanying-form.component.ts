@@ -4,7 +4,8 @@ import { saveAs } from 'file-saver';
 import { Document, Packer, Paragraph, TextRun, ImageRun, Table, TableCell, TableRow, WidthType, AlignmentType, VerticalAlign, Header, Footer, PageSize } from 'docx';
 import { customerService } from '../../shared/Services/costumer.service';
 import { switchMap } from 'rxjs';
-import { Customer } from '../../shared/Models/Customer';
+import { ICustomer } from '../../shared/Models/Customer';
+import { MaterialModule } from '../../material/material.module';
 
 @Component({
   selector: 'app-download-accompanying-form',
@@ -14,7 +15,7 @@ import { Customer } from '../../shared/Models/Customer';
 export class DownloadAccompanyingFormComponent implements OnInit {
   @Input()
   customerId: number=0;
-  customer?:Customer;
+  customer?:ICustomer;
 
   constructor(private route: ActivatedRoute, private customerService: customerService) { }
 

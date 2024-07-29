@@ -39,7 +39,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },//adding the token to every request
-    provideClientHydration(),
+    // provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
     //All the services that are injected into the components

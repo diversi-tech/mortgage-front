@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { Injectable } from '@angular/core';
-import { Document } from '../Models/document';
-import { DocumentType, TransactionType } from '../Models/DocumentTypes.Model';
+import { IDocument } from '../Models/Document';
+import { IDocumentType, TransactionType } from '../Models/DocumentTypes.Model';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 export class DocumentsListCustomerService {
   readonly apiUrl = environment.apiURL+'/api';
   customerId:number=7;
-  private documentsSubject = new BehaviorSubject<Document[]>([]);
+  private documentsSubject = new BehaviorSubject<IDocument[]>([]);
   documents$ = this.documentsSubject.asObservable();
   
   private selectedDocumentsSubject = new BehaviorSubject<(File | null)[]>([]);
@@ -36,20 +36,20 @@ export class DocumentsListCustomerService {
     return this.http.get<DocumentType[]>(`${this.apiUrl}/DocumentTypes/${customerId}`);
   }
   
-  addDocument(document : Document):Observable<Document>{
+  addDocument(document : IDocument):Observable<Document>{
     return this.http.post<Document>(`${this.apiUrl}/CustomerTasksControllercs`, document);
   }
 
-  getAllDocuments(): Observable<Document[]> {
-    return this.http.get<Document[]>(`${this.apiUrl}/CustomerTasksControllercs`);
+  getAllDocuments(): Observable<IDocument[]> {
+    return this.http.get<IDocument[]>(`${this.apiUrl}/CustomerTasksControllercs`);
   }
 
-  getAllDocumentType(): Observable<DocumentType[]> {
-    return this.http.get<DocumentType[]>(`${this.apiUrl}/DocumentTypes`);
+  getAllDocumentType(): Observable<IDocumentType[]> {
+    return this.http.get<IDocumentType[]>(`${this.apiUrl}/DocumentTypes`);
   }
 
-  fetchDocumentsByCustomerId(customerId: number): Observable<Document[]> {
-    return this.http.get<Document[]>(`${this.apiUrl}/CustomerTasksControllercs/customerId/${customerId}`)
+  fetchDocumentsByCustomerId(customerId: number): Observable<IDocument[]> {
+    return this.http.get<IDocument[]>(`${this.apiUrl}/CustomerTasksControllercs/customerId/${customerId}`)
       .pipe(
         tap(documents => this.documentsSubject.next(documents)),
         catchError(error => {
@@ -59,8 +59,8 @@ export class DocumentsListCustomerService {
       );
   }
 
-  fetchDocumentsTypesById(customerId: number): Observable<DocumentType> {
-    return this.http.get<DocumentType>(`${this.apiUrl}/DocumentTypes/${customerId}`);
+  fetchDocumentsTypesById(customerId: number): Observable<IDocumentType> {
+    return this.http.get<IDocumentType>(`${this.apiUrl}/DocumentTypes/${customerId}`);
   }
 
   addFile(file: File | null, index: number) {
