@@ -6,7 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { MatInputModule } from '@angular/material/input';
+import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -20,9 +20,11 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatFormField } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 const modules=[
   MatTableModule,
@@ -46,7 +48,12 @@ const modules=[
    MatTooltipModule,
   MatDatepickerModule,
   MatNativeDateModule,
-   MatMenuModule
+   MatMenuModule,
+   MatBadgeModule,
+   MatRippleModule,
+   MatExpansionModule,
+   MatInput,
+   FormsModule
   //  MatSnackBar
 ]
 

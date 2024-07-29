@@ -13,6 +13,7 @@ import { DocumentTypeListComponent } from '../shared/document-type-list/document
 import { MortgageCalculatorComponent } from '../shared/mortgage-calculator/mortgage-calculator.component';
 import { authGuardAdmin } from '../auth/auth.guard';
 import { SendNotificationComponent } from './send-notification/send-notification.component';
+import { MailingListComponent } from './mailing-list/mailing-list.component';
 
 const routes: Routes = [
     {
@@ -26,10 +27,12 @@ const routes: Routes = [
             { path: "user-details/:id", component: UserDetailComponent },
             { path: "lead-details/:id", component: LeadDetailComponent },
             { path: "customer-details/:id", component: CustomerDetailModalComponent },
-            { path: 'document-type-details/:id', component: DocumentTypeDetailsComponent },
+            { path: 'documentType-details/:id', component: DocumentTypeDetailsComponent },
             { path: 'document-type-list', component: DocumentTypeListComponent },
             { path: 'calculator', component: MortgageCalculatorComponent },
-            { path: 'send-notification/:id', component: SendNotificationComponent }
+            { path: 'send-notification/:id', component: SendNotificationComponent },
+            { path: 'mailing-list', component: MailingListComponent }
+
         ]
     },
 ];

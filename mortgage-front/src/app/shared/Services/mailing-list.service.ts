@@ -4,10 +4,9 @@ import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
 
 
-
 @Injectable()
 export class MailingListService {
-    readonly basicURL = environment.apiURL+"/api/";
+    readonly basicURL = environment.apiURL+"/api/Email/";
 
     constructor(private http: HttpClient) { }
 

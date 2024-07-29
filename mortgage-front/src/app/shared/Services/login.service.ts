@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
-import { TokenPayload } from '../Models/Login';
+import { ITokenPayload } from '../Models/TokenPayload';
 import { jwtDecode } from "jwt-decode";
-import { User } from '../Models/user';
 import { environment } from '../../../environments/environment';
+import { Role } from '../Models/user';
 
 
 @Injectable({
@@ -14,79 +14,115 @@ export class loginService {
   public token: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
   readonly basicURL = environment.apiURL;
- currentUser:TokenPayload={};
- CurrentcustomerId?: number;
-  constructor(private http: HttpClient) {}
+  currentUser: ITokenPayload = {
+      id: 0,
+      userName: '',
+      role: Role.None,
+      customerId: 0
+  };
+  CurrentcustomerId?: number;
+  constructor(private http: HttpClient) { }
+
+  // login(email: string, password: string): Observable<string> { 
+  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  //   const user = {
+  //     userName: "string",
+  //     password: password,
+  //     email: email,
+  //     role: 0,
+  //     created_at: null,
+  //     updated_at: null
+  //   };
+  //   return this.http.post(`${this.basicURL}/api/Users/login`, user, { headers, responseType: 'text'}).pipe(
+  //     tap(token => this.token.next(token))
+  //   );;
+
+  // }
 
   login(email: string, password: string): Observable<string> {
     const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
-    return this.http.get(`${this.basicURL}/api/Users/${email}/${password}`, { headers, responseType: 'text'})
-      .pipe(
-        tap(token => this.token.next(token))
-      );   
+    console.log(email,password);
+    return this.http.get(`${this.basicURL}/api/Users/${email}/${password}`, { headers, responseType: 'text' });
   }
 
-  decodeToken(token: string): TokenPayload {
-    console.log("token="+token);
-    
+
+//   login(email: string, password: string): Observable<string> {
+//     const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
+//     return this.http.get<string>(`${this.basicURL}/api/Users/${email}/${password}`, { headers, responseType: 'text' as 'json' });
+// }
+
+
+  decodeToken(token: string): ITokenPayload {
+    // console.log("token=" + token);
     const decoded = jwtDecode(token);
     const JSONdecoder = JSON.parse(JSON.stringify(decoded));
-    let currentUserId,currentUserName,currentUserRole,currentCustomerId;
+    let currentUserId, currentUserName, currentUserRole, currentCustomerId;
     for (const key in JSONdecoder) {
-          if (key.includes("nameidentifier")) {
-              currentUserName = JSONdecoder[key];
-          }
-          else{
-            if(key.includes("userid"))
-              currentUserId = JSONdecoder[key];
-            else
-              if(key.includes("role"))
-              currentUserRole = JSONdecoder[key];
-            else 
-               if(key.includes("customerId"))
-              currentCustomerId=JSONdecoder[key];
-          }
+      if (key.includes("nameidentifier")) {
+        currentUserName = JSONdecoder[key];
       }
-      this.currentUser.userName=currentUserName;
-      this.currentUser.role=currentUserRole;
-      this.currentUser.id=currentUserId;
-      this.currentUser.customerId=currentCustomerId;
-     return this.currentUser;
+      else {
+        if (key.includes("userid"))
+          currentUserId = JSONdecoder[key];
+        else
+          if (key.includes("role"))
+            currentUserRole = JSONdecoder[key];
+          else
+            if (key.includes("customerId"))
+              currentCustomerId = JSONdecoder[key];
+      }
     }
+    this.currentUser.userName = currentUserName;
+    this.currentUser.role = currentUserRole;
+    this.currentUser.id = currentUserId;
+    this.currentUser.customerId = currentCustomerId;
+    return this.currentUser;
+  }
 
-    GetCurrentUser(){
-      return this.currentUser;
+  GetCurrentUser() {
+    if (typeof window !== 'undefined' && window.sessionStorage)
+      this.currentUser = this.decodeToken(sessionStorage.getItem("token") || "");
+    return this.currentUser;
+  }
+  isLoggedIn(): boolean {
+    // just for example:
+    // return true;
+    // after merge with the git :
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      return !!sessionStorage.getItem('token');
     }
-    isLoggedIn(): boolean {
-      // just for example:
-      return true;
-      // after merge with the git :
-      // return !!localStorage.getItem('token');
+    return false;
+  }
+  isAdmin(): boolean {
+    // just for example:
+    // return true;
+    // after merge with the git :
+    // if(this.isLoggedIn()){
+    //   let currentUser:TokenPayload=this.decodeToken( localStorage.getItem('token'));
+    //   return currentUser.role===0;
+    // }
+    // return false;
+    if (this.isLoggedIn()) {
+      let token = sessionStorage.getItem('token') || "";
+      let currentUser: ITokenPayload = this.decodeToken(token);
+      return String(currentUser.role) == "Admin";
     }
-    isAdmin():boolean{
-      // just for example:
-      return true;
-      // after merge with the git :
-      // if(this.isLoggedIn()){
-      //   let currentUser:TokenPayload=this.decodeToken( localStorage.getItem('token'));
-      //   return currentUser.role===0;
-      // }
-      // return false;
-    }
+    return false;
+  }
 
-    resetPassword(email: string): Observable<any> {
-      return this.http.post(`${this.basicURL}/password/${email}`, {});
-    }
-    updatePassword(password:string,id:number): Observable<any> {
-      console.log("in updatePassword");
-      const user={
-        userName: "string",
-        password:password ,
-        email: "string",
-        role: 0,
-        created_at: null,
-        updated_at: null
-      };
-      return this.http.put(`${this.basicURL}/api/Users/${id}`, user) ;
-}
+  resetPassword(email: string): Observable<any> {
+    return this.http.post(`${this.basicURL}/password/${email}`, {});
+  }
+  updatePassword(password: string, id: number): Observable<any> {
+    console.log("in updatePassword");
+    const user = {
+      userName: "string",
+      password: password,
+      email: "string",
+      role: 0,
+      created_at: null,
+      updated_at: null
+    };
+    return this.http.put(`${this.basicURL}/api/Users/${id}`, user);
+  }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders , HttpErrorResponse} from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, map, of, tap } from "rxjs";
-import { User } from "../Models/user";
+import { IUser } from "../Models/user";
 import { environment } from "../../../environments/environment";
 import { log } from "node:console";
 import { response } from "express";
@@ -9,20 +9,20 @@ import { response } from "express";
 
 @Injectable()
  export class UserService {
-  readonly basicURL =environment.apiURL+ "/api/";
-  private usersSubject = new BehaviorSubject<User[]>([]);
+  readonly basicURL =environment.apiURL;
+  private usersSubject = new BehaviorSubject<IUser[]>([]);
   users$ = this.usersSubject.asObservable();
   constructor(private http: HttpClient) {
     this.fetchUsers().subscribe();
   }
-  fetchUsers(): Observable<User[]> {
+  fetchUsers(): Observable<IUser[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
       withCredentials: true // שורה זו חשובה לפיתוח
     };
-    return this.http.get<User[]>(`${this.basicURL}Users`, httpOptions)
+    return this.http.get<IUser[]>(`${this.basicURL}/api/Users`, httpOptions)
       .pipe(
         tap(users => this.usersSubject.next(users)),
         catchError(error => {
@@ -31,7 +31,7 @@ import { response } from "express";
         })
       );
   }
-  createUser(user: User) {
+  createUser(user: IUser) {
     const formData: FormData = new FormData();
     if (user.id !== undefined) formData.append('Id', user.id.toString());
     if (user.userName !== undefined) formData.append('UserName', user.userName);
@@ -73,11 +73,11 @@ import { response } from "express";
 
   
 
-  IsExist(user: User): Observable<string> {
+  IsExist(user: IUser): Observable<string> {
 
     console.log('Checking if user exists:', user); // הדפסה של המשתמש שנשלח לבדיקה
 
-    return this.http.post<User>('https://localhost:7055/login', user).pipe(
+    return this.http.post<IUser>(this.basicURL+'/login', user).pipe(
 
       map(response=> {
 
@@ -133,6 +133,6 @@ import { response } from "express";
       updated_at: "2024-07-22T16:45:56.650408"
     }
     console.log("in login service");
-    return this.http.post(`${this.basicURL}Users/login`, user);
+    return this.http.post(`${this.basicURL}/api/Users/login`, user);
   }
 }

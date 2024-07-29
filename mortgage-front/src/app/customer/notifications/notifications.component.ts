@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { INotification } from '../../shared/Models/Notification';
-import { Customer } from '../../shared/Models/Customer';
+import { ICustomer } from '../../shared/Models/Customer';
 import { NotificationService } from '../../shared/Services/notification.service';
 import { ActivatedRoute, Route } from '@angular/router';
 import { customerService } from '../../shared/Services/costumer.service';
@@ -16,7 +16,7 @@ export class NotificationsComponent implements OnInit{
   notifications:INotification[] = [];
   newMessage: string = '';
   showActions: boolean = false;
-  customer?: Customer;
+  customer?: ICustomer;
   // notifications = [
   //   { id: 1, message: 'הודעה חדשה מהבוס', read: false },
   //   { id: 2, message: 'פגישה מתקרבת', read: true },
@@ -34,13 +34,13 @@ export class NotificationsComponent implements OnInit{
  async ngOnInit(): Promise<void> {
     this.userId = +this.route.snapshot.paramMap.get('id')!;
     //await this.notificationService.getNotifications();
-    this.customer=this.customerService.getCustomerById(this.userId);
+    this.customer=this.customerService.getCustomerById(1);
     this.loadNotifications();
   }
 
 
   loadNotifications():void{
-   this.notificationService.getNotificationsByUserId(this.userId).subscribe({
+   this.notificationService.getNotificationsByUserId(1).subscribe({
     next:(res)=>{
       this.notifications =res;
     },

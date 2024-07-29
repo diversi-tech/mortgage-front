@@ -8,12 +8,9 @@ mat-form-field {
   h3 {
     margin-top: 20px;
   }
-
-
   .invalid-requirement {
     color: red;
   }
-  
   .valid-requirement {
     color: green;
   }

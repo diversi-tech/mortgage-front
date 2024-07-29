@@ -3,14 +3,14 @@ export function birthDateValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const inputDate = new Date(control.value);
     const today = new Date();
-    // אם התאריך הנכנס גדול מהיום
+// If the incoming date is greater than today
     if (inputDate > today) {
       return { invalidBirthDate: true };
     }
-    // בדיקת השנה
+    // Checking the year
     if (inputDate.getFullYear() > today.getFullYear()) {
       return { invalidBirthDate: true };
     }
-    return null; // התאריך תקין
+    return null; // The date is correct
   };
 }

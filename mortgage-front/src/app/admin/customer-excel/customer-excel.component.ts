@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';  // ייבוא נכון של file-saver
 import { customerService } from '../../shared/Services/costumer.service';
 import { MaterialModule } from '../../material/material.module';
-import { Customer } from '../../shared/Models/Customer';
+import { ICustomer } from '../../shared/Models/Customer';
 
 @Component({
   selector: 'customer-excel',
@@ -53,7 +53,7 @@ export class CustomerExcelComponent {
   @Input() customerId?: number |null |undefined = undefined;
    
   
-  customer: Customer|any;
+  customer: ICustomer|any;
   EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
   ngOnInit(): void {

@@ -1,123 +1,104 @@
-
-
-<main>
-  @if(dataSource.data.length>0){
-  <div dir="rtl">
-    <mat-form-field>
-      <mat-label>חפש</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="" #input />
+<main style="background-color: rgba(255, 255, 255, 0.708);padding-bottom: 150px;padding-top: 20px;">
+  <!-- כותרת הדף -->
+ <!-- כותרת הדף -->
+<header class="header-container">
+  <div class="header-content">
+    
+  <!-- שדה חיפוש -->
+  <!-- <div class="search-container" >
+    <mat-form-field appearance="fill" class="search-field">
+      <mat-label>חפש מסמך</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="הקלד לחיפוש" #input  />
+      <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
+  </div> -->
+    <h1 class="header-title">ניהול מסמכים</h1>
+    <h2 class="header-subtitle">העלה, נהל וצפה במסמכים שלך בקלות</h2>
   </div>
+</header>
 
-  <div>
-    <table 
-      mat-table
-      [dataSource]="dataSource"
-      class="mat-elevation-z8"
-      dir="rtl"
-    >
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef><b> שם מסמך </b></th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.task_description }}
-        </td>
-      </ng-container>
 
-      <ng-container matColumnDef="type">
-        <th mat-header-cell *matHeaderCellDef><b> סוג עסקה </b></th>
-        <td mat-cell *matCellDef="let element">
-          {{ changeTransacTypeToString(element.document_type_id) }}
-        </td>
-      </ng-container>
+  <!-- תוכן עיקרי -->
+  <div class="content-container">
+    @if(dataSource.data.length > 0) {
+      <div class="cards-container">
+        <ng-container *ngFor="let element of dataSource.data, let i=index">
+          <mat-card class="document-card" >
+            <mat-card-header>
+              <mat-card-title>{{ element.task_description }}</mat-card-title>
+              <mat-card-subtitle>{{ changeTransacTypeToString(element.document_type_id) }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p><b>סטטוס:</b> {{ changeDocStatusToString(element.status) }}</p>
+              <p><b>תאריך עדכון:</b> {{ element.status == 2 ? formatDate(element.created_at) : 'לא זמין' }}</p>
+              <div class="document-actions">
+                @if(element.status == 0) {
+                  <button
+                    mat-icon-button
+                    aria-label="upload file"
+                    (click)="fileInput.click()"
+                    matTooltip="צירוף מסמך"
+                    matTooltipPosition="left"
+                  >
+                    <mat-icon>attach_file</mat-icon>
+                    <input
+                      type="file"
+                      #fileInput
+                      (change)="onFileSelected($event, element)"
+                      style="display: none"
+                    />
+                  </button>
+                } @if (element.status == 1) {
+                  <span class="document-name" (click)="viewDocument(view(element.id))" style="max-width: 80%;">
+                    {{ view(element.id)?.name }}
+                  </span>
+                  <button mat-button (click)="xfunc(element,i)">ביטול</button>
+                } @if (element.status == 2) {
+                  <span class="document-name">
+                    {{ view(element.id)?.name }}
+                  </span>
+                }
+                <mat-checkbox
+                  (change)="onCheckboxChange($event.checked, element)"
+                  [disabled]="element.status !== 1"
+                  [matTooltip]="element.status === 0 ? 'עדיין לא נבחר מסמך' : ''"
+                ></mat-checkbox>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+      </div>
 
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef><b> סטטוס </b></th>
-        <td mat-cell *matCellDef="let element">
-          {{ changeDocStatusToString(element.status) }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="icon">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell  *matCellDef="let element; let i = index">
-          @if(element.status==0){
-          <button
-            mat-icon-button
-            aria-label="upload file"
-            mat-icon-button
-            (click)="fileInput.click()"
-            matTooltip="צירוף מסמך"
-            matTooltipPosition="left"
-            class="icon-button attach"
-          >
-            <mat-icon class="icon">attach_file</mat-icon>
-            <input
-              type="file"
-              #fileInput
-              (change)="onFileSelected($event, element)"
-              style="display: none"
-            />
-          </button>
-          } @if (element.status==1) {
-            <span (click)="viewDocument(view(element.id))" style="cursor:pointer;" class="span">
-              {{ view(element.id)?.name }}
-            </span>
-          <!-- {{ view(element.id).name }} -->
-          <button mat-button (click)="xfunc(element,i)">ביטול</button>
-          } @if (element.status==2) {
-          {{ view(element.id)?.name }}
-          }
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef><b> תאריך עדכון </b></th>
-        <td mat-cell *matCellDef="let element">
-          @if(element.status==2){
-          @if(element.status==2){
-          {{ formatDate(element.created_at) }}
-        }
-        }
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="approval">
-        <th mat-header-cell *matHeaderCellDef><b> אישור פעולה </b></th>
-        <td mat-cell *matCellDef="let element">
-          @if (element.status === 1) {
-          <section class="example-section">
-            <mat-checkbox  #myCheckbox id="mat-checkbox"
-            (change)="onCheckboxChange($event.checked, element)"
-              class="example-margin"
-              [disabled]="element.status !== 1"
-              [matTooltip]="element.status === 0 ? 'עדיין לא נבחר מסמך' : ''"
-            ></mat-checkbox>
-          </section>
-          }
-          @else {
-              <mat-checkbox #myCheckbox  id="mat-checkbox"
-              (change)="onCheckboxChange($event.checked, element)"
-                class="example-margin"
-                [disabled]="true"
-              ></mat-checkbox>
-          }
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+      <!-- כפתור שליחה -->
+      <div class="send-container">
+        <button mat-flat-button (click)="saveFiles()" class="send-button" dir="rtl">
+          <mat-icon class="send-icon">send</mat-icon>
+          <span class="button-text">שלח מסמכים שנבחרו</span>
+        </button>
+      </div>
+    } @else {
+      <div class="no-docs-message">
+        <mat-card class="no-docs-card">
+          <mat-card-content>לא נמצאו עבורך מסמכים</mat-card-content>
+        </mat-card>
+      </div>
+    }
   </div>
-  <div class="send-all">
-    <div class="example-button-row">
-      <button mat-flat-button (click)="saveFiles()" class="icon-button send" dir="rtl">
-        <mat-icon  class="icon" style="float: right;">send</mat-icon>
-        <span class="button-text" >שלח מסמכים שנבחרו</span>
-        <!-- <span class="icon-container"><i class="fa-solid fa-paper-plane"></i></span> -->
-      </button>
-    </div>
-  </div>
-
-  } @else {
-  <div class="centered-message">לא נמצאו עבורך מסמכים</div>
-  }
 </main>
+<!-- טיפים לניהול מסמכים -->
+<div class="tips-container">
+  <mat-card class="tips-card">
+    <mat-card-title class="tips-title">טיפים לניהול מסמכים</mat-card-title>
+    <mat-card-content class="tips-content">
+      <div class="tips-item">
+        <b>שמור על סדר:</b> ארגן את המסמכים שלך לפי קטגוריות ברורות כדי למצוא אותם בקלות.
+      </div>
+      <div class="tips-item">
+        <b>גיבוי תקופתי:</b> ודא שיש לך גיבוי מסודר של המסמכים החשובים שלך.
+      </div>
+      <div class="tips-item">
+        <b>עדכון שוטף:</b> בדוק את המסמכים שלך מדי פעם כדי להבטיח שהם מעודכנים ותקינים.
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -23,7 +23,7 @@ const routes: Routes = [
         { path: 'document-type-details', component: DocumentTypeDetailsComponent },
         { path: 'document-type-list', component: DocumentTypeListComponent },
         { path: 'calculator', component: MortgageCalculatorComponent },
-        { path: 'notification/:id', component:NotificationsComponent},
+        {path:'notifications',component:NotificationsComponent}
     ],
  },
 ];

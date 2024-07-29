@@ -1,16 +1,16 @@
 import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
-// בדיקת תעודת זהות ישראלית
+// Checking an Israeli ID card
 export function israeliIdValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const id = control.value;
     if (!id) {
-      return null; // שדה ריק
+      return null;
     }
-    // בדיקה שהתעודה הזהות מורכבת מ-9 ספרות
+ // Check that the identity card consists of 9 digits
     if (!/^\d{9}$/.test(id)) {
       return { invalidIsraeliId: true };
     }
-    // בדיקת חישוב בקריבות
+ // Proximity calculation check
     const sum = Array.from(id, Number)
       .reduce((counter, digit, index) => {
         const step = digit * ((index % 2) + 1);
@@ -19,6 +19,6 @@ export function israeliIdValidator(): ValidatorFn {
     if (sum % 10 !== 0) {
       return { invalidIsraeliId: true };
     }
-    return null; // התעודה הזהות תקינה
+    return null; // The identity card is valid
   };
 }

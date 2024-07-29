@@ -1,5 +1,5 @@
 import { Component, ViewChild,Inject } from '@angular/core';
-import { DocumentType,TransactionType } from '../Models/DocumentTypes.Model';
+import { IDocumentType,TransactionType } from '../Models/DocumentTypes.Model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -19,16 +19,16 @@ export class DocumentTypeListComponent {
 
   doctransactionTypeString: String = TransactionType[0];
   displayedColumns = [ 'name', 'required', 'TransactionType','actions'];
-  dataSource: MatTableDataSource<DocumentType> = new MatTableDataSource<DocumentType>();
+  dataSource: MatTableDataSource<IDocumentType> = new MatTableDataSource<IDocumentType>();
   private documentSubscription?: Subscription;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  constructor(private _documentTypeservice: DocumentTypeService, private router: Router, public dialog: MatDialog) { }
-
+  constructor(private _documentTypeservice: DocumentTypeService, private router: Router, public dialog: MatDialog) { 
+    
+  }
   ngOnInit(): void {
     this.loadDocumentType();
   }
-
   loadDocumentType(): void {
     this.documentSubscription = this. _documentTypeservice.documentTypes$.subscribe({
       next: documentType => {
@@ -41,7 +41,6 @@ export class DocumentTypeListComponent {
       }
     });    
   }
-
   ngOnDestroy(): void {
     if (this.documentSubscription) {
       this.documentSubscription.unsubscribe();
@@ -51,25 +50,22 @@ export class DocumentTypeListComponent {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
-
   addCustomer(): void {
-    this.router.navigate(['/documentType-details', -1]);
+    this.router.navigate(['admin/documentType-details', -1]);
   }
 
-  editDocument(selected: DocumentType): void {
-    this.router.navigate(['/documentType-details', selected.id]);
+  editDocument(selected: IDocumentType): void {
+    this.router.navigate(['admin/documentType-details', selected.id]);
   }
  
-  deleteDocument(documentType: DocumentType): void {
+  deleteDocument(documentType: IDocumentType): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{
       data: { documentType } // Pass documentType object as data to the dialog
     });
@@ -93,9 +89,9 @@ export class DocumentTypeListComponent {
   }
    changeRequired(required:boolean):String
    {
-    if(required==true)
-        return "כן";
-  return "לא";
+    if(required==false)
+        return "לא";
+  return "כן";
    }
   
 }

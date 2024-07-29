@@ -1,5 +1,5 @@
 import { customerService } from '../Services/costumer.service';
-import { Customer } from '../Models/Customer';
+import { ICustomer } from '../Models/Customer';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,14 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './customer-detail-modal.component.scss',
 })
 export class CustomerDetailModalComponent implements OnInit {
-
-
-  formData:Customer = {
+  formData:ICustomer = {
     id: 0,
     lead_id: 0,
-    last_Name: '',
     first_Name: '',
-    email: '',
+    last_Name: '',
+       email: '',
     phone: '',
     connection: 0,
     t_z: '',
@@ -76,7 +74,7 @@ export class CustomerDetailModalComponent implements OnInit {
   ];
 
   customerId: number | undefined = undefined;
-  data: Customer | undefined = undefined;
+  data: ICustomer | undefined = undefined;
   isEdit: boolean = false;
   disabled: boolean = true;
   currentCustomerId: number | null | undefined = undefined;

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LeadComponent } from './lead/lead.component';
+import { LeadComponent } from './lead.component';
 
 const routes: Routes = [
     {path:'lead/:id',component:LeadComponent},
