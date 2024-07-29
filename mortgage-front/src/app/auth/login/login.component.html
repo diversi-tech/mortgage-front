@@ -1,41 +1,45 @@
 <div class="login-container">
   <div class="login-card">
-    <h3 class="card-title" style="font-size: 40px;"><i class="material-icons" style="font-size: 30px;float: none;">account_circle</i>הירשם לכניסה</h3>
+    <h3 class="card-title" style="font-size: 40px;"><i class="material-icons"
+        style="font-size: 30px;float: none;">account_circle</i>הירשם לכניסה</h3>
     <form [formGroup]="loginForm" (ngSubmit)="submit()">
       <div class="form-group">
         <label for="email"><i class="material-icons">email</i> כתובת אמייל</label>
         <input type="email" class="form-input" id="email" formControlName="email" placeholder="you@example.com">
         @if(email?.invalid && (email?.dirty || email?.touched)){
-          <div  class="text-danger">
-              @if(email?.errors?.['required']){
-            <div>Email is required.</div>}
-            @if(email?.errors?.['email']){<div>אימייל לא תקין.</div>}
-          </div>
-      }
+        <div class="text-danger">
+          @if(email?.errors?.['required']){
+          <div>Email is required.</div>}
+          @if(email?.errors?.['email']){<div>אימייל לא תקין.</div>}
+        </div>
+        }
       </div>
       <div class="form-group">
         <label for="password"><i class="material-icons">lock</i> סיסמה</label>
-<div class="password-input">
-  <input type="password" class="form-input" id="password" formControlName="password" placeholder="Password" [type]="hidePassword ? 'password' : 'text'">
-  <i class="material-icons" id="see" (click)="togglePasswordVisibility()">{{ hidePassword ? 'visibility_off' : 'visibility' }}</i>
-</div>
+        <div class="password-input">
+          <input type="password" class="form-input" id="password" formControlName="password" placeholder="Password"
+            [type]="hidePassword ? 'password' : 'text'">
+          <i class="material-icons" id="see" (click)="togglePasswordVisibility()">{{ hidePassword ? 'visibility_off' :
+            'visibility' }}</i>
+        </div>
 
         @if(password?.invalid && (password?.dirty || password?.touched)){
-          <div  class="text-danger">
-              @if(password?.errors?.['required']){
-            <div >שדה חובה</div>
-              }
-              @if (password?.errors?.['minlength']) {
-            <div >הסיסמא חייבת להכיל לפחות 6 תווים</div>}
-            @if(password?.errors?.['pattern']){
-            <div >הסיסמא לא יכולה להכיל רווחים</div>}
-          </div>
-      }
+        <div class="text-danger">
+          @if(password?.errors?.['required']){
+          <div>שדה חובה</div>
+          }
+          @if (password?.errors?.['minlength']) {
+          <div>הסיסמא חייבת להכיל לפחות 6 תווים</div>}
+          @if(password?.errors?.['pattern']){
+          <div>הסיסמא לא יכולה להכיל רווחים</div>}
+        </div>
+        }
       </div>
-      <button type="submit"  matRipple [matRippleColor]="color" class="submit-btn" [disabled]="loginForm.invalid">התחברות</button>
+      <button type="submit" matRipple [matRippleColor]="color" class="submit-btn"
+        [disabled]="loginForm.invalid">התחברות</button>
     </form>
     <div class="forgot-password">
-      <a  (click)="forgotPassword()" class="text-muted">שכחת סיסמא?</a>
+      <a (click)="forgotPassword()" class="text-muted">שכחת סיסמא?</a>
     </div>
   </div>
 </div>

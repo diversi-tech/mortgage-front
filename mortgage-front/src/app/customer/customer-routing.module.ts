@@ -11,6 +11,7 @@ import { MortgageCalculatorComponent } from '../shared/mortgage-calculator/mortg
 import { authGuard } from '../auth/auth.guard';
 import { MortgageHelperComponent } from './mortgage-helper/mortgage-helper.component';
 import { CustomerUpdateDetailesComponent } from './customer-update-detailes/customer-update-detailes.component';
+import { TaskEditComponent } from '../admin/task-edit/task-edit.component';
 
 const routes: Routes = [
     { path: "", component: CustomerPortalComponent,
@@ -20,12 +21,13 @@ const routes: Routes = [
         { path: "document-list", component: DocumentsListCustomerComponent },
         { path: "user-details", component: UserDetailComponent },
         { path: "lead-details", component: LeadDetailComponent },
-        { path: "customer-details/:id", component: CustomerDetailModalComponent },
+        { path: "customer-details/:id", component: CustomerUpdateDetailesComponent },
         { path: 'document-type-details', component: DocumentTypeDetailsComponent },
         { path: 'document-type-list', component: DocumentTypeListComponent },
         { path: 'calculator', component: MortgageCalculatorComponent },
         { path: 'mortgage-helper', component: MortgageHelperComponent },
         { path: 'customer-detailes/:id', component: CustomerUpdateDetailesComponent },
+        { path: 'task-edit/:id', component: TaskEditComponent },
     ],
  },
 ];

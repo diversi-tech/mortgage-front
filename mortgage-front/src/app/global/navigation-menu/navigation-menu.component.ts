@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, HostListener, Inject, PLATFORM_ID, OnInit } from '@angular/core';
-import { IComponentInfo } from '../../shared/Models/ComponentInfo';
+import { IComponentInfo } from '../../shared/Models/componentInfo';
 import { MatSidenav } from '@angular/material/sidenav';
 import { isPlatformBrowser } from '@angular/common';
 import { NavigatioMenuToggleService } from '../../shared/Services/navigation-menu-toggle.service';

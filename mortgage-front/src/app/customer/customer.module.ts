@@ -11,6 +11,7 @@ import { GlobalModule } from '../global/global.module';
 import { MortgageHelperComponent } from './mortgage-helper/mortgage-helper.component';
 import { CustomerUpdateDetailesComponent } from './customer-update-detailes/customer-update-detailes.component';
 import { Router, RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -27,6 +28,7 @@ import { Router, RouterModule } from '@angular/router';
     //Local modules
     GlobalModule,
     CustomerRoutingModule,
+    ReactiveFormsModule,
     RouterModule
   ],
   exports:[CustomerPortalComponent,

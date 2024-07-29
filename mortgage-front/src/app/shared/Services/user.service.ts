@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders , HttpErrorResponse} from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, map, of, tap } from "rxjs";
-import { IUser } from "../Models/User";
+import { IUser } from "../Models/user";
 import { environment } from "../../../environments/environment";
 import { log } from "node:console";
 import { response } from "express";

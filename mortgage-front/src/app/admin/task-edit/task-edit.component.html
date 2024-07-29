@@ -1,0 +1,59 @@
+<div class="mainAll">
+    <div class="task-edit-container">
+      <form [formGroup]="taskForm" (ngSubmit)="saveTask()">
+        <!-- Display only fields -->  
+        <div class="display-section">
+          <mat-form-field appearance="fill" class="display-field">
+            <mat-label>מזהה לקוח</mat-label>
+            <input matInput [value]="taskForm.get('customer_Id')?.value" disabled>
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="display-field">
+            <mat-label>סטטוס מסמך</mat-label>
+            <input matInput [value]="taskForm.get('status')?.value" disabled>
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="display-field">
+            <mat-label>נוצר בתאריך</mat-label>
+            <input matInput [value]="taskForm.get('created_at')?.value | date: 'short'" disabled>
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="display-field">
+            <mat-label>התעדכן בתאריך</mat-label>
+            <input matInput [value]="taskForm.get('updated_at')?.value | date: 'short'" disabled>
+          </mat-form-field>
+        </div>
+  
+        <!-- Editable fields -->
+        <mat-form-field appearance="fill">
+          <mat-label>תאור המשימה</mat-label>
+          <input matInput formControlName="task_description" required>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>סוג המסמך</mat-label>
+          <mat-select formControlName="document_type_id" required>
+            <mat-option *ngFor="let type of documentTypes" [value]="type.id">
+              {{ type.document_Name }},   סוג:{{changeTransacTypeToString(type.transaction_Type) }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>שם המסמך (אופציונלי)</mat-label>
+          <input matInput formControlName="document_path">
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>תאריך הגשה</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="due_date" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+  
+        <button mat-raised-button color="primary" type="submit">Save</button>
+        <button mat-raised-button color="warn" (click)="cancel()">cancel</button>
+      </form>
+    </div>
+  </div>
+  

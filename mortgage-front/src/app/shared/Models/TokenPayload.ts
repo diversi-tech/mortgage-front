@@ -1,4 +1,4 @@
-import { Role } from "./User";
+import { Role } from "../Models/user";
 export interface ITokenPayload {
   id: number;
   userName: string;

@@ -7,7 +7,7 @@ import { ITokenPayload } from '../../shared/Models/TokenPayload';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'] // תוקן ל-styleUrls
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -32,13 +32,10 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.loginService.login(email, password).subscribe(
-        (response:string) => {
-          this.loginService.token.next(response); // שמירת הטוקן ב-BehaviorSubject
+        (response) => {
+          this.userByToken = this.loginService.decodeToken(response);
 
-          this.userByToken = this.loginService.decodeToken(this.loginService.token.getValue()!);
           console.log('what the user and role', this.userByToken, this.userByToken.role);
-          // debugger
-
           if (String(this.userByToken.role) == 'Admin') {
             console.log('admin');
             sessionStorage.setItem("token", response);

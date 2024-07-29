@@ -14,6 +14,8 @@ import { MortgageCalculatorComponent } from '../shared/mortgage-calculator/mortg
 import { authGuardAdmin } from '../auth/auth.guard';
 import { SendNotificationComponent } from './send-notification/send-notification.component';
 import { MailingListComponent } from './mailing-list/mailing-list.component';
+import { TaskEditComponent } from './task-edit/task-edit.component';
+import { DocumentsListCustomerComponent } from '../customer/documents-list-customer/documents-list-customer.component';
 
 const routes: Routes = [
     {
@@ -31,8 +33,9 @@ const routes: Routes = [
             { path: 'document-type-list', component: DocumentTypeListComponent },
             { path: 'calculator', component: MortgageCalculatorComponent },
             { path: 'send-notification/:id', component: SendNotificationComponent },
-            { path: 'mailing-list', component: MailingListComponent }
-
+            { path: 'mailing-list', component: MailingListComponent },
+            {path:'task-edit',component:TaskEditComponent},
+            {path:'document-list',component:DocumentsListCustomerComponent}
         ]
     },
 ];

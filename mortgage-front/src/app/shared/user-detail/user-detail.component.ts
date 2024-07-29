@@ -5,9 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialModule } from '../../material/material.module';
 import { CommonModule } from '@angular/common';
 import { isDate } from 'util/types';
-import { Role  } from '../Models/User';
+import { Role  } from '../Models/user';
 import { UserService } from '../Services/user.service';
-import { IUser } from '../Models/User';
+import { IUser } from '../Models/user';
  
  
 @Component({

@@ -12,7 +12,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private uiStateService: UiStateService,
     private _snackBar: MatSnackBar,
     private router: Router) {}
-    private timeoutDuration = 30 * 60 * 1000; // 30 דקות
+    private timeoutDuration = 20 * 60 * 1000; // 30 דקות
     private alertDuration = 60 * 1000; // 60 שניות
     private lastActivityTime: number = 0;
     private timeoutId: any;

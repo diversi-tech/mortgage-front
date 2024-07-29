@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { Connection, ICustomer, Family_Status, Job_Status, TransactionTypeEnum } from '../../shared/Models/Customer';
 import { MatStepper } from '@angular/material/stepper';
 import { leadService } from '../../shared/Services/lead.service';
-import { Role, IUser } from '../../shared/Models/User';
+import { Role, IUser } from '../../shared/Models/user';
 import { UserService } from '../../shared/Services/user.service';
 import { israeliIdValidator } from './birth-date-validator';
 import { birthDateValidator } from './israeli-id-validator';
@@ -60,6 +60,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
 
   document: IDocument = {
     id: 0,
+    id2:0,
     customer_Id: 0,
     task_description: "",
     document_type_id: 0,
@@ -614,6 +615,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
     const addDocumentPromises = this.tableData.map((item: any) => {
       this.document = {
         id: 0,
+        id2:0,
         customer_Id: 1,
         task_description: item.document_Name,
         document_type_id: Number(this.customerData.transaction_type),

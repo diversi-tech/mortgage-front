@@ -3,7 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dialog.component';
-import { Role,IUser } from '../../shared/Models/User';
+import { Role,IUser } from '../../shared/Models/user';
 import { UserListService } from '../../shared/Services/user-list.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IComponentInfo } from '../../shared/Models/ComponentInfo';
+import { IComponentInfo } from '../../shared/Models/componentInfo';
 import { loginService } from '../../shared/Services/login.service';
 
 @Component({

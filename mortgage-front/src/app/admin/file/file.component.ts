@@ -34,7 +34,7 @@ export class FileComponent {
 
   onUpload(): void {
     if (this.selectedFiles && this.selectedFiles.length > 0) {
-      this.uploadService.uploadFiles(this.selectedFiles, "2").subscribe(
+      this.uploadService.uploadFiles(this.selectedFiles).subscribe(
         (event: any) => {
           if (event.status === 'progress') {
             this.uploadProgress = event.message;

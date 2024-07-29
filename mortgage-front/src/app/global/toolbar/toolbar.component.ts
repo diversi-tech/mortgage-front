@@ -6,6 +6,8 @@ import { DocumentsListCustomerService } from '../../shared/Services/documents-li
 import { NotificationService } from '../../shared/Services/notification.service';
 import { loginService } from '../../shared/Services/login.service';
 import { Router } from '@angular/router';
+import { ICustomer } from '../../shared/Models/Customer';
+import { customerService } from '../../shared/Services/costumer.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -28,6 +30,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private NavigationMenuToggleService: NavigatioMenuToggleService,
     private notificationService: NotificationService,
     private documentService: DocumentsListCustomerService,
+    private customerService:customerService,
     public loginService: loginService,
     private router: Router
   ) { }
@@ -50,7 +53,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   loginOrLogout(): void {
     if (this.isLoggedIn) {
-      this.user = 'אורח';
+      var customerId:number=this.loginService.GetCurrentUser().customerId||0;
+      var currentCustomer:ICustomer|undefined;
+      currentCustomer =this.customerService.getCustomerById(customerId);
+      this.user=currentCustomer?.first_Name+" "+currentCustomer?.last_Name;
+      // this.user = 'אורח';
       this.isLoggedIn = false;
     } else {
       this.user = 'משה שוורץ';
@@ -60,16 +67,15 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.checkPendingDocuments();
   }
 
-  
+
   toggleNavigationMenu() {
     this.NavigationMenuToggleService.toggle();
   }
 
   checkNotifications() {
-    // const userId = this.loginService.CurrentcustomerId ?? -1;
-    let userId:number=0;
+    let userId: number = 0;
     if (typeof window !== 'undefined' && window.sessionStorage)
-    userId=this.loginService.decodeToken(sessionStorage.getItem('token')||"").customerId||-1;
+      userId = this.loginService.decodeToken(sessionStorage.getItem('token') || "").customerId || -1;
     this.notificationService.getNotificationsByUserId(userId).subscribe(
       (notifications) => {
         const unreadNotifications = notifications.filter(notification => !notification.isRead);
@@ -85,24 +91,20 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any): void {
-    if(this.hasPendingDocuments )
-    // הצגת הודעת אזהרה בעת רענון או עזיבת הדף
-    $event.returnValue = 'שינויים שביצעת לא ישמרו אם תעזוב את הדף!';
+    if (this.hasPendingDocuments)
+      $event.returnValue = 'שינויים שביצעת לא ישמרו אם תעזוב את הדף!';
   }
 
   checkPendingDocuments() {
     this.hasPendingDocuments = this.documentService.selectedDocuments.filter(file => file != null && file != undefined).length > 0;
-    // console.log("this.hasPendingDocuments=" + this.hasPendingDocuments);
 
   }
 
   openNotifications() {
-    // console.log('Opening notifications');
-    // console.log("this.unreadNotificationsCount=" + this.unreadNotificationsCount);
+    //After the merger, navigate to the notifications component
   }
 
   openDocuments() {
-    // console.log('Opening documents');
     this.router.navigate(['customer/document-list'])
   }
 }

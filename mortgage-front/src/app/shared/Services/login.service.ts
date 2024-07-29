@@ -4,7 +4,7 @@ import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 import { ITokenPayload } from '../Models/TokenPayload';
 import { jwtDecode } from "jwt-decode";
 import { environment } from '../../../environments/environment';
-import { Role } from '../Models/User';
+import { Role } from '../Models/user';
 
 
 @Injectable({
