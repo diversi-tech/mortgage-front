@@ -50,7 +50,7 @@ export class CustomerUpdateDetailesComponent {
 
 
 
-  customerId: number | undefined = undefined;
+  customerId: number | undefined=this.loginService.GetCurrentUser().customerId;
 
   ngOnInit(): void {
     // this.route.paramMap.subscribe(params => {
@@ -69,7 +69,7 @@ export class CustomerUpdateDetailesComponent {
     //     console.log('No Customer ID');
     //   }
     // });
-    const id=this.loginService.CurrentcustomerId;
+    const id=this.loginService.GetCurrentUser().customerId;
     if (id) {
           this.customerService.getById(id).subscribe({
             next: (response) => {
@@ -93,5 +93,9 @@ export class CustomerUpdateDetailesComponent {
 
   submitForm() {
     this.customerService.updateCustomer(this.customerId, this.formData).subscribe({});
+    this.router.navigate(['/customer']);
+  }
+  cancel(){
+    this.router.navigate(['/customer']);
   }
 }

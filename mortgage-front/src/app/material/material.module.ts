@@ -25,6 +25,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 const modules=[
   MatTableModule,
@@ -53,7 +54,8 @@ const modules=[
    MatRippleModule,
    MatExpansionModule,
    MatInput,
-   FormsModule
+   FormsModule,
+   MatAutocompleteModule,
   //  MatSnackBar
 ]
 

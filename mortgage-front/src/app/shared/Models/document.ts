@@ -6,10 +6,13 @@ export enum Status {
 export class Document {
 
     id: number;
+    id2:number;
     customer_Id: number;
     task_description: string;
     document_type_id: number;
     document_path?: string;
+    document_path2?: string;
+
     status: Status;
     due_date: Date;
     created_at: Date;
@@ -17,9 +20,10 @@ export class Document {
     isOk:boolean=false;
 
     constructor(id: number, customer_Id: number, task_description: string, document_type_id: number, document_path: string,
-        status: number, due_date: Date, created_at: Date, updated_at: Date) 
+        status: number, due_date: Date, created_at: Date, updated_at: Date,id2:number) 
     {
         this.id = id;
+        this.id2=id2;
         this.customer_Id = customer_Id;
         this.task_description = task_description;
         this.document_type_id = document_type_id ;

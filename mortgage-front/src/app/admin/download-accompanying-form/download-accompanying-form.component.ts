@@ -26,7 +26,6 @@ export class DownloadAccompanyingFormComponent implements OnInit {
       })
     ).subscribe(customers => {
       this.customer = this.customerService.getCustomerById(this.customerId);
-      console.log(this.customer); 
     });
   }
 

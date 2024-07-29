@@ -60,6 +60,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
 
   document: Document = {
     id: 0,
+    id2:0,
     customer_Id: 0,
     task_description: "",
     document_type_id: 0,
@@ -614,6 +615,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
     const addDocumentPromises = this.tableData.map((item: any) => {
       this.document = {
         id: 0,
+        id2:0,
         customer_Id: 1,
         task_description: item.document_Name,
         document_type_id: Number(this.customerData.transaction_type),

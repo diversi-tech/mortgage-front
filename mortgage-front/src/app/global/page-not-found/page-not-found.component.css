@@ -1,26 +1,51 @@
-.background-container {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: stretch;
-    align-content: space-between;
-    flex-wrap: nowrap;
-    height: 100vh; /* Set the height to cover the full viewport height */
-    background-image: url('/assets/background.jpg'); /* Path to your background image */
-    background-size: cover; /* Cover the entire container */
-    background-position: center; /* Center the background image */
-    background-repeat: no-repeat; /* Don't repeat the background image */
+.page-not-found-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
     text-align: center;
-    color: white; /* Optional: Set text color to white for better visibility */
+    background-color: #f5f5f5; /* צבע רקע כללי */
+    
+    .error-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      /* max-width: 80%; */
+      width: 80vw!important;
+
+      background: #ffffff; /* צבע רקע לבן למרכז התוכן */
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* צל קל לכרטיס */
+    }
+  
+    .error-title {
+      font-size: 3rem; /* גודל גדול לכותרת */
+      color: #333333; /* צבע כהה לטקסט */
+      margin-bottom: 10px;
+    }
+  
+    .error-message {
+      font-size: 1.5rem; /* גודל טקסט גדול לקריאות טובה יותר */
+      color: #666666; /* צבע אפור כהה */
+      margin-bottom: 20px;
+    }
+  
+    .error-image {
+      margin-bottom: 20px;
+      
+      img {
+        max-width: 100%; /* התמונה תתפוס את רוחב הקונטיינר */
+        height: auto;
+      }
+    }
+  
+    .error-actions {
+      button {
+        margin-top: 10px;
+        margin-right: 10px;
+      }
+    }
   }
   
-.logo{
-    width: 25%;
-}
-
-.h1{
-    margin-bottom: 8%;
-        color: black !important;
-}
