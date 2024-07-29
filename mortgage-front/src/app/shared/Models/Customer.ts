@@ -89,7 +89,7 @@ export enum Family_Status {
       c=1,
       a=2
   }
-  export class Customer {
+  export class ICustomer {
       id?: number;
       lead_id?: number;
       first_Name?: string

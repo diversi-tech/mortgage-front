@@ -42,6 +42,21 @@ import { response } from "express";
     if (user.updated_at !== undefined) formData.append('Updated_at', user.updated_at.toISOString());
     return this.http.post(`${this.basicURL}Users`, user);
   }
+
+
+createUserForLead(user:User,leadId:number)
+{
+    const formData: FormData = new FormData();
+    if (user.id !== undefined) formData.append('Id', user.id.toString());
+    if (user.userName !== undefined) formData.append('UserName', user.userName);
+    if (user.password !== undefined) formData.append('Password', user.password);
+    if (user.email !== undefined) formData.append('Email', user.email);
+    if (user.role !== undefined) formData.append('Role', user.role.toString());
+    if (user.created_at !== undefined) formData.append('Created_at', user.created_at.toISOString());
+    if (user.updated_at !== undefined) formData.append('Updated_at', user.updated_at.toISOString());
+    return this.http.post(`${this.basicURL}Users/Lead${leadId}`, user);
+}
+  
   //  createUser(user: User): Observable<User> {
   //   console.log("in addLead");
   //   const updateUrl = `${this.basicURL}Users/`;

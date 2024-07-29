@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { customerService } from '../../shared/Services/costumer.service';
-import { Customer } from '../../shared/Models/Customer';
+import { ICustomer } from '../../shared/Models/Customer';
 import { ExportToExcelService } from '../../shared/Services/exportToExcelService';
 @Component({
   selector: 'export-to-excel',
@@ -8,7 +8,7 @@ import { ExportToExcelService } from '../../shared/Services/exportToExcelService
 })
 export class ExportToExcelComponent {
 
-  customers: Customer[] = [];
+  customers: ICustomer[] = [];
   readonly headerMapping: { [key: string]: string } = {
     'id': 'מזהה',
     'lead_id': 'מזהה ליד',
@@ -49,7 +49,7 @@ export class ExportToExcelComponent {
   @Input()
   typeOfCustomer?: number;
   fileName: string = "";
-  filteredCustomers: Customer[] = [];
+  filteredCustomers: ICustomer[] = [];
   ngOnInit(): void {
     this.customerService.fetchCustomers().subscribe({
       next: (customers) => {

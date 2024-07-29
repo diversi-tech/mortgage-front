@@ -1,0 +1,190 @@
+/* סגנון כותרת הדף */
+.header-card {
+  margin: 20px;
+  background-color: #e3f2fd;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.header-card mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #0d47a1;
+}
+
+.header-card mat-card-subtitle {
+  font-size: 16px;
+  color: #1565c0;
+}
+
+.header-card mat-card-content {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #424242;
+}
+
+/* סגנון שדה החיפוש */
+.search-container {
+  /* margin: 20px; */
+  position: absolute;
+  right: 3vw;
+}
+
+.search-field {
+  width: 100%;
+}
+
+mat-form-field mat-icon {
+  color: #1976d2;
+}
+.document-actions {
+  display: flex;
+  align-items: center;
+}
+/* סגנון לתוכן העיקרי */
+.content-container {
+  margin: 20px;
+}
+
+/* סגנון כרטיסי המסמכים */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.document-card {
+  width: 100%;
+  max-width: 300px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+mat-card-title {
+  font-size: 18px;
+  color: #0d47a1;
+}
+
+mat-card-subtitle {
+  font-size: 14px;
+  color: #1565c0;
+}
+
+mat-card-content {
+  font-size: 14px;
+  color: #424242;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* סגנון כפתור שליחה */
+.send-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px;
+}
+
+/* .send-button {
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+}
+ */
+
+.send-icon {
+  margin-right: 8px;
+}
+
+/* הודעה על העדר מסמכים */
+.no-docs-message {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.no-docs-card {
+  padding: 20px;
+  background-color: #7098bb;
+  color: #000;
+  border-radius: 8px;
+}
+.document-name{
+  text-decoration: underline;
+  color:#1565c0;
+}
+.document-name:hover{
+  cursor: pointer;
+  color: #0d47a1;
+}
+ mat-checkbox {
+  position: absolute; /* מיקום מוחלט בתוך ההורה */
+  top: 0;
+  left: 0;
+}
+/* סגנון כותרת הדף */
+.header-container {
+  margin: 0 auto;
+  width: 75vw;
+  background: linear-gradient(to right, #e3f2fd38, #bbdefb67); 
+  padding: 20px;
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 100px
+}
+
+.header-content {
+  text-align: center; /* מיקום טקסט במרכז */
+}
+
+.header-title {
+  font-size: 28px; /* גודל פונטים */
+  font-weight: 600; /* עובי פונטים */
+  color: #0d47a1; /* צבע טקסט הכותרת */
+  margin: 0; /* ביטול רווחים מעל ומתחת */
+}
+
+.header-subtitle {
+  font-size: 18px; /* גודל פונטים */
+  color: #1565c0; /* צבע טקסט הכותרת */
+  margin: 0; /* ביטול רווחים מעל ומתחת */
+}
+/* סגנון לטיפים */
+.tips-container {
+  /* margin: 20px 0; */
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.561);
+}
+
+.tips-card {
+  background-color: #f0f4f8c5;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tips-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #0d47a1;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.tips-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  font-size: 16px;
+  color: #424242;
+}
+
+.tips-item {
+  width: 45%;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}

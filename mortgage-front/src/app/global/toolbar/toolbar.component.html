@@ -3,15 +3,27 @@
     <div class="logo-container">
       <img src="assets/logo.png" alt="Logo" class="logo">
     </div>
-    <button class="buttonLog" mat-button routerLink="/auth/login" >
-      <mat-icon>{{ loginservice.isLoggedIn() ? 'logout' : 'login' }}</mat-icon>
-      {{ loginservice.isLoggedIn() ? 'יציאה' : 'התחברות' }}
+    <button class="buttonLog" mat-button routerLink="/auth/login" (click)="logOut()">
+      <mat-icon>{{ loginService.isLoggedIn() ? 'logout' : 'login' }}</mat-icon>
+      {{ loginService.isLoggedIn() ? 'יציאה' : 'התחברות' }}
     </button>
     <div class="welcome-message">
-      <span class="span">!שלום {{this.loginservice.GetCurrentUser().userName!=undefined?this.loginservice.GetCurrentUser().userName:'אורח' }}</span>
+      <span class="span">!שלום {{ loginService.GetCurrentUser().userName!=null? loginService.GetCurrentUser().userName:'אורח'}}</span>
+      <!-- Bell icon for notifications -->
+       @if(!this.loginService.isAdmin()){
+      <button mat-icon-button (click)="openNotifications()" >
+        <mat-icon [matBadge]="unreadNotificationsCount" [matBadgeHidden]="!hasUnreadNotifications"
+          matBadgeColor="warn">notifications</mat-icon>
+      </button>
+    }
+      <!-- Document icon for pending documents -->
+      <button mat-icon-button (click)="openDocuments()" matBadge="!" matBadgeSize="large" class="demo-section"
+        matTooltip="ישנם מסמכים שהועלו ולא נשמרו" matTooltipPosition="below" *ngIf="hasPendingDocuments">
+        <mat-icon>description</mat-icon>
+      </button>
     </div>
   </div>
-  <button mat-icon-button (click)="toggleNavigationMenu()" >
+  <button mat-icon-button (click)="toggleNavigationMenu()">
     <mat-icon>menu</mat-icon>
   </button>
 </mat-toolbar>

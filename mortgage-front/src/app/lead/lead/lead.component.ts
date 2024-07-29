@@ -1,7 +1,7 @@
 // lead.component.ts
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, RequiredValidator, Validators } from '@angular/forms';
-import { Connection, Customer, Family_Status, Job_Status, TransactionTypeEnum } from '../../shared/Models/Customer';
+import { Connection, ICustomer, Family_Status, Job_Status, TransactionTypeEnum } from '../../shared/Models/Customer';
 import { MatStepper } from '@angular/material/stepper';
 import { leadService } from '../../shared/Services/lead.service';
 import { Role, User } from '../../shared/Models/user';
@@ -14,6 +14,7 @@ import { firstValueFrom } from 'rxjs';
 import { Document } from '../../shared/Models/document';
 import { customerService } from '../../shared/Services/costumer.service';
 import { ActivatedRoute } from '@angular/router';
+import { loginService } from '../../shared/Services/login.service';
 
 
 @Component({
@@ -72,7 +73,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
     isOk: false
   };
 
-  customerData: Customer = {
+  customerData: ICustomer = {
     id: 0,
     lead_id: 0,
     last_Name: '',
@@ -135,7 +136,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   ];
   passwordStrength: { valid: string[], invalid: string[] } = { valid: [], invalid: [] };
 
-  constructor(  private route: ActivatedRoute, private _formBuilder: FormBuilder, private customerService: customerService, private leadService: leadService, private userService: UserService, private documentType: DocumentTypeService, private customerTask: DocumentsListCustomerService) {
+  constructor(private loginservice:loginService, private route: ActivatedRoute, private _formBuilder: FormBuilder, private customerService: customerService, private leadService: leadService, private userService: UserService, private documentType: DocumentTypeService, private customerTask: DocumentsListCustomerService) {
     this.firstFormGroup = new FormGroup({
       userName: new FormControl({ value: '', disabled: false }, [
         Validators.required, Validators.email]),
@@ -214,11 +215,12 @@ export class LeadComponent implements OnInit, AfterViewInit {
     return { passwordStrength: true };
   }
   ngOnInit(): void {
+    debugger
     this.route.queryParams.subscribe(params => {
       this.lead_id = params['id'];})
     if (localStorage.getItem('enterOrNot') === null) {
       localStorage.setItem('enterOrNot', 'false');
-    }
+    } 
 
     const storedUserName = localStorage.getItem('userName');
     const storedPassword = localStorage.getItem('password');
@@ -297,12 +299,24 @@ export class LeadComponent implements OnInit, AfterViewInit {
           // localStorage.setItem('ifEnter','true')
           localStorage.setItem('enterOrNot', 'true')
           this.stepper.next()
-          this.userService.createUser(this.user).subscribe({
+          this.userService.createUserForLead(this.user,this.lead_id!).subscribe({
             next: (res: any) => {
               console.log('User created:', this.user);
               this.customerData.lead_id = this.lead_id!;
-              this.customerService.createCustomer(this.customerData).subscribe({
-                next: (res: any) => { console.log('Customer created:', this.customerData) },
+              this.customerService.createCustomerForLead(this.customerData,this.lead_id!).subscribe({
+                next: (res: any) => { 
+                  
+                console.log('Customer created:', this.customerData)
+
+                this.loginservice.login(this.user.email!, this.user.password!).subscribe(
+                  (response:string) => {
+                    sessionStorage.setItem("token", response);
+                  },
+                  (error: any) => {
+                    console.log('Login failed', error);
+                  }
+                );
+               },
                 error: (error: any) => console.error('Error creating customer:', error)
               });
             },
@@ -383,12 +397,12 @@ export class LeadComponent implements OnInit, AfterViewInit {
     }
     const savedData = localStorage.getItem('customerData');
   }
-  onInputChange(fieldName: keyof Customer, event: any) {
+  onInputChange(fieldName: keyof ICustomer, event: any) {
     const fieldValue = event.target.value;
     this.customerData[fieldName] = fieldValue;
     this.saveFormData();
   }
-  onSelectionChange(fieldName: keyof Customer, value: any) {
+  onSelectionChange(fieldName: keyof ICustomer, value: any) {
     if (fieldName == 'family_status') {
       this.customerData[fieldName] = value as Family_Status;
       this.customerData.family_status = Number(this.customerData.family_status);
@@ -469,7 +483,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
       // });
 
       try {
-        await firstValueFrom(this.customerService.updateCustomer(1, this.customerData));
+        await firstValueFrom(this.customerService.updateCustomer(this.customerId, this.customerData));
         console.log('step 3 created');
         await this.getDocuments();
         if (localStorage.getItem('isAddDocuments') !== 'true')
@@ -482,7 +496,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
     }
   }
   saveDocuments() {
-    this.customerService.updateCustomer(1, this.customerData).subscribe({
+    this.customerService.updateCustomer(this.customerId, this.customerData).subscribe({
 
       next: (response: any) => {
 

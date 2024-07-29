@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, Inject } from '@angular/core';
-import { Customer } from '../../shared/Models/Customer';
+import { ICustomer } from '../../shared/Models/Customer';
 import { Router } from '@angular/router';
 import {  Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
@@ -80,7 +80,7 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
 
     this.router.navigate(['admin/lead-details/', -1]);  }
 
-  editLead(selected: Customer): void {
+  editLead(selected: ICustomer): void {
     this.router.navigate(['admin/lead-details/', selected?.id]);
   }
   deleteLead(lead: Lead): void {

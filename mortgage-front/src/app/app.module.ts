@@ -17,7 +17,7 @@ import { GlobalModule } from './global/global.module';
 import { CustomerModule } from './customer/customer.module';
 import { AuthModule } from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 
 
@@ -39,8 +39,9 @@ import { AuthInterceptor } from './auth/auth.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },//adding the token to every request
-    provideClientHydration(),
+    // provideClientHydration(),
     provideAnimationsAsync(),
+    provideHttpClient(withFetch()),
     //All the services that are injected into the components
     customerService,
     leadService,
@@ -49,7 +50,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     DocumentTypeService,
     magicLinkService,
     loginService,
-    MailingListService
+    MailingListService,
   ],
   bootstrap: [AppComponent],
 })

@@ -17,7 +17,7 @@ import { MatCheckbox, } from '@angular/material/checkbox';
 @Component({
   selector: 'documents-list-customer',
   templateUrl: './documents-list-customer.component.html',
-  // styleUrl: './documents-list-customer.component.css',
+  styleUrl: './documents-list-customer.component.css',
   animations: [
     trigger('detailExpand', [
       state('collapsed,void', style({ height: '0px', minHeight: '0' })),
@@ -85,6 +85,8 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
   //load documents
   fetchdocumentType(): void {
+    console.log("customer id="+this._service.customerId);
+    
     this._service.fetchDocumentsTypesById(this._service.customerId).subscribe(
       (data: DocumentType) => {
         this.transactionType = data;

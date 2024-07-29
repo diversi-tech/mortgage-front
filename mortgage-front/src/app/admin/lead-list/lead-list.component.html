@@ -4,6 +4,7 @@
   <mat-form-field dir="rtl">
     <mat-label>חפש</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="לדוג. שם">
+    <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" dir="rtl">
