@@ -13,6 +13,8 @@ export class CustomerPortalComponent {
     new IComponentInfo("מסמכים-לקוח", "/customer/document-list", "description"),
     new IComponentInfo('עריכת פרטי לקוח', `/customer/customer-details/${this.loginService.CurrentcustomerId}`, "description"),
     new IComponentInfo('מחשבון משכנתאות', "/customer/calculator", "calculate"),
-    new IComponentInfo('מילון עזר למשכנתא',"mortgage-helper","help_outline")
+    new IComponentInfo('מילון עזר למשכנתא',"mortgage-helper","help_outline"),
+    new IComponentInfo('התראות', `/customer/notifications/${this.loginService.GetCurrentUser().customerId}`, "notifications"),
+
   ];
 }

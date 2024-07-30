@@ -1,0 +1,62 @@
+  <!-- חלק שני: היסטורית הודעות -->
+  <!-- <div class="history-section">
+    <h2>היסטורית הודעות</h2>
+    <div *ngIf="notifications.length">
+      <div *ngFor="let notification of notifications" class="notification-item">
+        <div class="message-bubble" [ngClass]="{ 'message-bubble-unread': !notification.isRead }"
+             [matTooltip]="!notification.isRead ? 'הודעה לא נקראה' : 'ההודעה נקראה'"
+             matTooltipPosition="above"> -->
+          <!-- More options button and menu -->
+          <!-- <div class="message-text" [ngClass]="{ 'unread': !notification.isRead }">{{ notification.message }}</div>
+          <div class="message-timestamp">{{ notification.created_at | date:'short' }}</div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!notifications.length">
+      עדיין לא נשלחו התראות ללקוח זה
+    </div>
+  </div> -->
+  
+<!-- 
+  <button mat-icon-button [matMenuTriggerFor]="notificationMenu" (click)="toggleNotifications()">
+    <mat-icon>notifications</mat-icon>
+    <span *ngIf="unreadCount > 0" class="notification-badge">{{ unreadCount }}</span>
+  </button> -->
+  <!-- <mat-menu #notificationMenu="matMenu" class="notification-menu"> -->
+    <!-- <ng-template matMenuContent> -->
+      <div class="notifications-list" >
+        <ng-container *ngIf="notifications.length; else noNotifications">
+          <div class="notification-item" *ngFor="let notification of notifications" [ngClass]="{ 'message-bubble-unread': !notification.isRead }">
+            <div class="message-bubble" >
+              <div class="message-text">{{ notification.message }}</div>
+              <div class="message-timestamp">{{ notification.created_at | date:'short' }}</div>
+               <!-- <button mat-button color="accent" (click)="markAsRead(notification)" *ngIf="!notification.isRead">סמן כהתקרא</button>  -->
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noNotifications>
+          <div class="no-notifications">
+            <p>עדיין לא נשלחו התראות ללקוח זה</p>
+          </div>
+        </ng-template>
+      </div>
+
+    <!-- </ng-template> -->
+  <!-- </mat-menu> -->
+  
+
+  <!-- <div class="notifications-container">
+    <h2>התרעות</h2>
+    <div *ngIf="notifications.length; else noNotifications">
+      <div *ngFor="let notification of notifications" class="notification-item">
+        <div class="message-bubble" [ngClass]="{ 'message-bubble-unread': !notification.isRead }">
+          <div class="message-text">{{ notification.message }}</div>
+          <div class="message-timestamp">{{ notification.created_at | date:'short' }}</div>
+          <button mat-button color="accent" (click)="markAsRead(notification)" *ngIf="!notification.isRead">סמן כהתקרא</button>
+        </div>
+      </div>
+    </div>
+    <ng-template #noNotifications>
+      <p>עדיין לא נשלחו התראות ללקוח זה</p>
+    </ng-template>
+  </div> -->

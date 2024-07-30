@@ -8,6 +8,7 @@ import { loginService } from '../../shared/Services/login.service';
 import { Router } from '@angular/router';
 import { ICustomer } from '../../shared/Models/Customer';
 import { customerService } from '../../shared/Services/costumer.service';
+import { INotification } from '../../shared/Models/Notification';
 
 @Component({
   selector: 'app-toolbar',
@@ -23,6 +24,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   unreadNotificationsCount: number = 0;
   hasUnreadNotifications: boolean = false;
   hasPendingDocuments: boolean = false;
+  display:boolean=false;
+
+  notifications: INotification[] = [];
+  unreadNotificationsCount2: number = 0;
+  hasUnreadNotifications2: boolean = false;
 
   private subscription?: Subscription;
 
@@ -38,11 +44,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.NavigationMenuToggleService.toggle();
     this.checkNotifications();
-
     // Subscribe to selectedDocuments changes
     this.subscription = this.documentService.selectedDocuments$.subscribe(() => {
       this.checkPendingDocuments();
     });
+   // this.loadNotifications();
+
   }
 
   ngOnDestroy(): void {
@@ -79,13 +86,13 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.notificationService.getNotificationsByUserId(userId).subscribe(
       (notifications) => {
         const unreadNotifications = notifications.filter(notification => !notification.isRead);
-        this.unreadNotificationsCount = unreadNotifications.length;
-        this.hasUnreadNotifications = this.unreadNotificationsCount > 0;
+        this.unreadNotificationsCount2 = unreadNotifications.length;
+        this.hasUnreadNotifications = this.unreadNotificationsCount2 > 0;
       },
       (error) => {
         console.error('שגיאה בטעינת התראות:', error);
-        this.unreadNotificationsCount = 0;
-        this.hasUnreadNotifications = false;
+        this.unreadNotificationsCount2 = 0;
+        this.hasUnreadNotifications2 = false;
       }
     );
   }
@@ -101,7 +108,34 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   openNotifications() {
-    //After the merger, navigate to the notifications component
+  // this.display=!this.display; 
+  // console.log('in display='+this.display);
+  this.router.navigate([`customer/notifications/${this.loginService.GetCurrentUser().customerId}`])
+  }
+  // loadNotifications() {
+  //   this.notificationService.getNotificationsByUserId(this.loginService.GetCurrentUser().id).subscribe({
+  //     next: (res) => {
+  //       this.notifications = res;
+  //       this.updateUnreadCount();
+  //     },
+  //     error: (error) => {
+  //       console.error('Error fetching notifications', error);
+  //     }
+  //   });
+  // }
+
+
+  updateUnreadCount() {
+    this.unreadNotificationsCount2 = this.notifications.filter(n => !n.isRead).length;
+    this.hasUnreadNotifications2 = this.unreadNotificationsCount2 > 0;
+  }
+
+  onNotificationRead(notification: INotification) {
+    const index = this.notifications.findIndex(n => n.id === notification.id);
+    if (index !== -1) {
+      this.notifications[index] = notification;
+      this.updateUnreadCount();
+    }
   }
 
   openDocuments() {
