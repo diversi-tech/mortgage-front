@@ -1,0 +1,51 @@
+.confirm-dialog-container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px; /* פינות מעוגלות */
+    background-color: #f9f9f9; /* צבע רקע בהיר */
+}
+
+.mat-dialog-title {
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold; /* כותרת מודגשת */
+}
+
+.title {
+    font-size: 18px;
+    font-family: 'Segoe UI', sans-serif;
+    margin-bottom: 20px;
+}
+
+.mat-dialog-content {
+    font-size: 16px; /* גודל גופן של התוכן */
+    margin-bottom: 20px;
+}
+
+.mat-dialog-actions {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+button.mat-button {
+    margin: 3px;
+}
+
+.cancel-button {
+    color: #fff; /* צבע טקסט לבן */
+    background-color: #f44336; /* צבע רקע אדום */
+    border: none; /* הסרת הגבול */
+}
+
+.cancel-button:hover {
+    background-color: #d32f2f; /* צבע רקע אדום כהה בעת מעבר עם העכבר */
+}
+
+.what_icon {
+    color: crimson;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px; /* גודל אייקון גדול יותר */
+    margin-bottom: 10px;
+}

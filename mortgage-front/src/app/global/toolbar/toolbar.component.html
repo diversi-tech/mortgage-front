@@ -3,38 +3,25 @@
     <div class="logo-container">
       <img src="assets/logo.png" alt="Logo" class="logo">
     </div>
-    <button class="buttonLog" mat-button routerLink="/auth/login" >
+    <button class="buttonLog" mat-button routerLink="/auth/login">
       <mat-icon>{{ loginService.isLoggedIn() ? 'logout' : 'login' }}</mat-icon>
       {{ loginService.isLoggedIn() ? 'יציאה' : 'התחברות' }}
     </button>
     <div class="welcome-message">
-      <span class="span">!שלום {{ user }}</span>
+      <span class="span">!שלום {{ loginService.GetCurrentUser().userName!=null? loginService.GetCurrentUser().userName:'אורח'}}</span>
       <!-- Bell icon for notifications -->
-       @if(!this.loginService.isAdmin()){
-      <button mat-icon-button (click)="openNotifications()" >
+      @if(!this.loginService.isAdmin()){
+      <button mat-icon-button (click)="openNotifications()">
         <mat-icon [matBadge]="unreadNotificationsCount" [matBadgeHidden]="!hasUnreadNotifications"
           matBadgeColor="warn">notifications</mat-icon>
       </button>
-    }
-<!-- @if(this.display==true){
-  <notifications></notifications>
-} -->
-      <!-- @if(!this.loginService.isAdmin()){
-    <button mat-icon-button [matMenuTriggerFor]="notificationMenu" (click)="loadNotifications()">
-      <mat-icon [matBadge]="unreadNotificationsCount" [matBadgeHidden]="!hasUnreadNotifications"
-        matBadgeColor="warn">notifications</mat-icon>
-    </button>
-    <mat-menu #notificationMenu="matMenu" class="notification-menu">
-      <ng-template matMenuContent>
-        <notifications [notifications]="notifications" [unreadCount]="unreadNotificationsCount" (notificationRead)="onNotificationRead($event)"></notifications>
-      </ng-template>
-    </mat-menu>
-  } -->
-      <!-- Document icon for pending documents -->
       <button mat-icon-button (click)="openDocuments()" matBadge="!" matBadgeSize="large" class="demo-section"
-        matTooltip="ישנם מסמכים שהועלו ולא נשמרו" matTooltipPosition="below" *ngIf="hasPendingDocuments">
+        matTooltip="ישנם מסמכים שעדיין לא העלית" matTooltipPosition="below" *ngIf="hasPendingDocuments">
         <mat-icon>description</mat-icon>
       </button>
+      }
+      <!-- Document icon for pending documents -->
+
     </div>
   </div>
   <button mat-icon-button (click)="toggleNavigationMenu()">

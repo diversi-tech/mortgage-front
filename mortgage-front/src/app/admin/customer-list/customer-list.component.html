@@ -6,7 +6,7 @@
   </mat-form-field>
   <div id="main">
 
-   
+
     <!-- customers table -->
     <div class="contents" style="padding: 25px;">
       <h2>לקוחות</h2>
@@ -37,15 +37,15 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #actionsMenu="matMenu">
-              <button mat-menu-item (click)="editCustomer(customer)"  class="icon-button edit">
+              <button mat-menu-item (click)="editCustomer(customer)" class="icon-button edit">
                 <mat-icon>edit</mat-icon>
                 <span>עריכת לקוח</span>
               </button>
-              <button mat-menu-item (click)="deleteCustomer(customer)"  class="icon-button delete">
+              <button mat-menu-item (click)="deleteCustomer(customer)" class="icon-button delete">
                 <mat-icon>delete</mat-icon>
                 <span>מחיקת לקוח</span>
               </button>
-              <button mat-menu-item (click)="sendMsg(customer)"  class="icon-button send-msg">
+              <button mat-menu-item (click)="sendMsg(customer)" class="icon-button send-msg">
                 <mat-icon>message</mat-icon>
                 <span>שליחת מסר</span>
               </button>
@@ -54,14 +54,17 @@
               matTooltipPosition="left" class="icon-button download"></app-download-accompanying-form>
           </td>
         </ng-container>
-        
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
       <mat-paginator #customersPaginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
       <br>
+      <button mat-fab color="primary" class="icon-button add" (click)="addCustomer()" matTooltip="הוספת לקוח חדש למערכת"
+        matTooltipPosition="above" style="bottom: -1vh;left: 1vw;z-index: 1000;">
+        <mat-icon class="icon">add</mat-icon>
+      </button>
       <export-to-excel [typeOfCustomer]="1"></export-to-excel>
-
     </div>
     <div class="contents" style="padding: 25px;">
       <!-- archived table -->
@@ -97,11 +100,11 @@
                 <mat-icon>edit</mat-icon>
                 <span>עריכת לקוח ארכיון</span>
               </button>
-              <button mat-menu-item (click)="deleteCustomer(customer)"  class="icon-button delete">
+              <button mat-menu-item (click)="deleteCustomer(customer)" class="icon-button delete">
                 <mat-icon>delete</mat-icon>
                 <span>מחיקת לקוח ארכיון</span>
               </button>
-              <button mat-menu-item (click)="sendMsg(customer)"  class="icon-button send-msg">
+              <button mat-menu-item (click)="sendMsg(customer)" class="icon-button send-msg">
                 <mat-icon>message</mat-icon>
                 <span>שליחת מסר ללקוח ארכיון</span>
               </button>
@@ -110,15 +113,12 @@
               matTooltipPosition="left" class="icon-button download"></app-download-accompanying-form>
           </td>
         </ng-container>
-        
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
       <mat-paginator #archivedCustomersPaginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
-      <button mat-fab color="primary" class="icon-button add" (click)="addCustomer()" matTooltip="הוספת לקוח חדש למערכת"
-        matTooltipPosition="above" style="position: fixed;bottom: 8vh;left: 2vw;z-index: 1000;">
-        <mat-icon class="icon" >add</mat-icon>
-      </button>
+
       <export-to-excel [typeOfCustomer]="2"></export-to-excel>
     </div>
     <div class="contents" style="padding: 25px;">
@@ -151,11 +151,11 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #actionsMenu="matMenu">
-              <button mat-menu-item (click)="editCustomer(customer)"  class="icon-button edit">
+              <button mat-menu-item (click)="editCustomer(customer)" class="icon-button edit">
                 <mat-icon>edit</mat-icon>
                 <span>עריכת ליד</span>
               </button>
-              <button mat-menu-item (click)="deleteCustomer(customer)"  class="icon-button delete">
+              <button mat-menu-item (click)="deleteCustomer(customer)" class="icon-button delete">
                 <mat-icon>delete</mat-icon>
                 <span>מחיקת ליד</span>
               </button>
@@ -168,7 +168,7 @@
               matTooltipPosition="left" class="icon-button download"></app-download-accompanying-form>
           </td>
         </ng-container>
-        
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>

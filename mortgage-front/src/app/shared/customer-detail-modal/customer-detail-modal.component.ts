@@ -125,3 +125,4 @@ export class CustomerDetailModalComponent implements OnInit {
     this.router.navigate(['admin/customer-list']);
   }
 }
+

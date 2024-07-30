@@ -1,5 +1,4 @@
 <div class="mainAll">
-  <div class="contents">
     <mat-card class="lead-edit-card">
       <mat-card-title>פרטים אישיים</mat-card-title>
       <mat-card-content>
@@ -138,7 +137,6 @@
 
             <div class="is-properties-container">
               <mat-label id="is-properties-lable">האם יש נכסים</mat-label>
-              <!-- <mat-slide-toggle [(ngModel)]="formData['has_other_properties']" name="has_other_properties" /> -->
               <mat-slide-toggle [(ngModel)]="formData['has_other_properties']" name="has_other_properties" />
             </div>
           </div>
@@ -198,7 +196,7 @@
 
           <div class="button-group">
             <button mat-raised-button color="primary" type="submit">שמור</button>
-
+            <customer-excel *ngIf="!disabled" [customerId]="currentCustomerId"></customer-excel>
             <button mat-raised-button color="warn" type="button" (click)="cancel()">ביטול</button>
 
           </div>
@@ -207,5 +205,4 @@
         </form>
       </mat-card-content>
     </mat-card>
-  </div>
 </div>

@@ -25,7 +25,7 @@ export class MagicLinkComponent implements OnInit {
         response => {
           if (response.status === 200) {
             //this.router.navigate(['lead', this?.id]);
-            this.router.navigate(['lead']);
+            this.router.navigate([`lead/lead/${this.id}`]);
           }
           else {
             this.isNotValid = true;

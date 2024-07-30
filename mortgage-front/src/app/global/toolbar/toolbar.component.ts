@@ -36,7 +36,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private NavigationMenuToggleService: NavigatioMenuToggleService,
     private notificationService: NotificationService,
     private documentService: DocumentsListCustomerService,
-    private customerService:customerService,
+    private customerService: customerService,
     public loginService: loginService,
     private router: Router
   ) { }
@@ -60,10 +60,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   loginOrLogout(): void {
     if (this.isLoggedIn) {
-      var customerId:number=this.loginService.GetCurrentUser().customerId||0;
-      var currentCustomer:ICustomer|undefined;
-      currentCustomer =this.customerService.getCustomerById(customerId);
-      this.user=currentCustomer?.first_Name+" "+currentCustomer?.last_Name;
+      var customerId: number = this.loginService.GetCurrentUser().customerId || 0;
+      var currentCustomer: ICustomer | undefined;
+      currentCustomer = this.customerService.getCustomerById(customerId);
+      this.user = currentCustomer?.first_Name + " " + currentCustomer?.last_Name;
       // this.user = 'אורח';
       this.isLoggedIn = false;
     } else {
@@ -98,12 +98,29 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any): void {
-    if (this.hasPendingDocuments)
-      $event.returnValue = 'שינויים שביצעת לא ישמרו אם תעזוב את הדף!';
-  }
+    if (this.hasNotSavedDoc) {
+       $event.returnValue = 'שינויים שביצעת לא ישמרו אם תעזוב את הדף!';
+       console.log('in if');
+       
+       }
+    else {
+      console.log('in');
 
+    }
+  }
+  hasNotSavedDoc:boolean=false;
   checkPendingDocuments() {
-    this.hasPendingDocuments = this.documentService.selectedDocuments.filter(file => file != null && file != undefined).length > 0;
+
+    this.documentService.documents$.subscribe(
+      (documents) => {
+        this.hasNotSavedDoc = this.documentService.selectedDocuments.filter(file => file != null && file != undefined).length > 0;
+        this.hasPendingDocuments = documents.some(document => document.status === 0);
+      },
+      (error) => {
+        console.error('שגיאה בטעינת ד');
+      }
+    )
+    // this.hasPendingDocuments = this.documentService.selectedDocuments.filter(file => file != null && file != undefined).length > 0;
 
   }
 
