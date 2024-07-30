@@ -1,21 +1,25 @@
 <main style="background-color: rgba(255, 255, 255, 0.708);padding-bottom: 150px;padding-top: 20px;">
   <header class="header-container">
     <div class="header-content">
-      @if (this.loginService.isAdmin()) {
-        <mat-form-field appearance="fill" style="float: left;"> 
-          <mat-label>חפש לקוח</mat-label>
-          <input type="text" matInput [formControl]="customerControl" [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCustomer" (optionSelected)="onCustomerSelected($event.option.value)">
-            <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer">
-              {{ customer.first_Name }} {{customer.last_Name}} {{customer.phone}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-        
-        }
       <h1 class="header-title">ניהול מסמכים</h1>
       <h2 class="header-subtitle">העלה, נהל וצפה במסמכים שלך בקלות</h2>
     </div>
+  @if (this.loginService.isAdmin()) {
+    <!-- החלק ב-HTML -->
+    <mat-form-field appearance="outline" style=" width: 68vw; margin-left: 50px;margin-right: 50px;">
+      <mat-label>חפש לקוח</mat-label>
+      <input type="text" matInput [formControl]="customerControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCustomer"
+        (optionSelected)="onCustomerSelected($event.option.value)">
+        <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer">
+          {{ customer.first_Name }} {{customer.last_Name}} {{customer.phone}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-icon matSuffix>search</mat-icon>
+      <mat-hint>חפש לקוח על מנת לנהל את המסמכים שלו</mat-hint>
+    </mat-form-field>
+
+    }
   </header>
 
   <!-- תוכן עיקרי -->
@@ -28,34 +32,43 @@
             <mat-card-title>{{ element.task_description }}</mat-card-title>
             <mat-card-subtitle>{{ changeTransacTypeToString(element.document_type_id) }}</mat-card-subtitle>
           </mat-card-header>
-          <mat-card-content> 
-            <p><b>סטטוס:</b> {{ changeDocStatusToString(element.status) }}</p>
+          <mat-card-content>
+            <p><b>סטטוס מסמך הלקוח:</b> {{ changeDocStatusToString(element.status) }}</p>
             <p><b>תאריך עדכון:</b> {{ element.status == 2 ? formatDate(element.created_at) : 'לא זמין' }}</p>
+            <!-- מה שהאדמין רואה -->
+            @if(loginService.isAdmin()){
+            <hr class="separator" />
             <div class="document-actions">
-              @if(element.status == 0) {
-              <button mat-icon-button aria-label="upload file" (click)="fileInput.click()" matTooltip="צירוף מסמך"
+              @if(element.status2 == 0) {
+              <button mat-icon-button aria-label="upload file" (click)="fileInput.click()" matTooltip="צרף מסמך"
                 matTooltipPosition="left">
                 <mat-icon>attach_file</mat-icon>
                 <input type="file" #fileInput (change)="onFileSelected($event, element)" style="display: none" />
               </button>
-              } @if (element.status == 1) {
-              <span class="document-name" (click)="viewDocument(view(element.id))" style="max-width: 80%;">
-                {{ element.document_path }}
+              } @if (element.status2 == 1) {<b>מסמך שהעלית:</b>
+              <span class="document-name" (click)="viewDocument(element.adminFile!)" style="max-width: 80%;">
+                {{ element.document_path2 }}
               </span>
               <button mat-button (click)="cancelDocument(element)">ביטול</button>
-              } @if (element.status == 2) {
-              <span class="document-name" (click)="download(element.id.toString())">
+              } @if (element.status2 == 2) {<b>מסמך ששמרת:</b>
+              <span class="document-name" (click)="download(element.document_path2!,element.id+'_'+element.id2)">
+                {{ element.document_path2}}
+              </span>
+              }
+              @if (element.status2==2||element.status2==0) {
+              <mat-checkbox [disabled]="true"
+                [matTooltip]="element.status2 === 2? 'נבחר מסמך':'עדיין לא נבחר מסמך'"></mat-checkbox>}
+              @else{
+              <mat-checkbox (change)="onCheckboxChange($event.checked, element)" [disabled]="element.status2 !== 1"
+                [matTooltip]=" 'אשר מסמך' "></mat-checkbox>}
+              <br>
+
+              @if(element.status==2){<b> מסמך לקוח:</b>
+              <span class="document-name" (click)="download(element.document_path!,element.id.toString())">
                 {{ element.document_path}}
               </span>
               }
-              @if (element.status==2||element.status==0) {
-              <mat-checkbox (change)="onCheckboxChange($event.checked, element)" [disabled]="true"
-                [matTooltip]="element.status === 2? 'נבחר מסמך':'עדיין לא נבחר מסמך'"></mat-checkbox>}
-              @else{
-              <mat-checkbox (change)="onCheckboxChange($event.checked, element)" [disabled]="element.status !== 1"
-                [matTooltip]=" 'אשר מסמך' "></mat-checkbox>}
             </div>
-            @if(this.loginService.isAdmin()){
             <button mat-icon-button [matMenuTriggerFor]="actionsMenu" matTooltip="אפשרויות נוספות"
               matTooltipPosition="left" class="icon-button">
               <mat-icon>more_vert</mat-icon>
@@ -70,7 +83,41 @@
                 <span>מחיקת משימה</span>
               </button>
             </mat-menu>
-          }
+            }
+            <!-- מה שהלקוח רואה -->
+            @else{
+            <hr class="separator" />
+            <div class="document-actions">
+              @if(element.status == 0) {
+              <button mat-icon-button aria-label="upload file" (click)="fileInput.click()" matTooltip="צרף מסמך"
+                matTooltipPosition="left">
+                <mat-icon>attach_file</mat-icon>
+                <input type="file" #fileInput (change)="onFileSelected($event, element)" style="display: none" />
+              </button>
+              } @if (element.status == 1) {<b>מסמך שהעלית:</b>
+              <span class="document-name" (click)="viewDocument(element.customerFile!)" style="max-width: 80%;">
+                {{ element.document_path }}
+              </span>
+              <button mat-button (click)="cancelDocument(element)">ביטול</button>
+              } @if (element.status == 2) { <b>מסמך ששמרת:</b>
+              <span class="document-name" (click)="download(element.document_path!,element.id.toString())">
+                {{ element.document_path}}
+              </span>
+              }
+              @if (element.status==2||element.status==0) {
+              <mat-checkbox [disabled]="true"
+                [matTooltip]="element.status === 2? 'נבחר מסמך':'עדיין לא נבחר מסמך'"></mat-checkbox>}
+              @else{
+              <mat-checkbox (change)="onCheckboxChange($event.checked, element)" [disabled]="element.status !== 1"
+                [matTooltip]=" 'אשר מסמך' "></mat-checkbox>}
+              <br>
+              @if(element.status2==2){ <b>מסמך עזר:</b>
+              <span class="document-name" (click)="download(element.document_path2!,element.id+'_'+element.id2)">
+                {{ element.document_path2}}
+              </span>
+              }
+            </div>
+            }
           </mat-card-content>
         </mat-card>
       </ng-container>
@@ -96,7 +143,7 @@
 </main>
 <!-- טיפים לניהול מסמכים -->
 <div class="tips-container">
-  
+
   <mat-card class="tips-card">
     <mat-card-title class="tips-title">טיפים לניהול מסמכים</mat-card-title>
     <mat-card-content class="tips-content">

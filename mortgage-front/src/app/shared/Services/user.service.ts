@@ -137,8 +137,9 @@ import { response } from "express";
   }
 
   updateUser(updatedUser: IUser): Observable<IUser> {
+     console.log("in update id="+updatedUser.id);
      
-    const updateUrl = `${this.basicURL}/Users/${updatedUser.id}`;
+    const updateUrl = `${this.basicURL}/api/Users/${updatedUser.id}`;
     return this.http.put<IUser>(updateUrl, updatedUser).pipe(
       tap(() => {
         const users = this.usersSubject.getValue();          

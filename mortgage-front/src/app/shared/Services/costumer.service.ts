@@ -12,7 +12,7 @@ export class customerService {
   customers$ = this.customersSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    this.fetchCustomers().subscribe(); // אתחול לקוחות בהפעלת השירות
+    // this.fetchCustomers().subscribe(); // אתחול לקוחות בהפעלת השירות
   }
 
   fetchCustomers(): Observable<ICustomer[]> {

@@ -16,20 +16,20 @@ export class DocumentsListCustomerService {
   private documentsSubject = new BehaviorSubject<IDocument[]>([]);
   documents$ = this.documentsSubject.asObservable();
 
-  private selectedDocumentsSubject = new BehaviorSubject<(File | null)[]>([]);
+  private selectedDocumentsSubject = new BehaviorSubject<(IDocument)[]>([]);
   selectedDocuments$ = this.selectedDocumentsSubject.asObservable();
 
-  private _selectedDocuments: (File | null)[] = [];
+  private _selectedDocuments: (IDocument)[] = [];
 
   constructor(private http: HttpClient, private customerService: customerService) {
     // this.fetchDocumentsByCustomerId(7).subscribe();
   }
 
-  get selectedDocuments(): (File | null)[] {
+  get selectedDocuments(): (IDocument )[] {
     return this._selectedDocuments;
   }
 
-  set selectedDocuments(documents: (File | null)[]) {
+  set selectedDocuments(documents: (IDocument)[]) {
     this._selectedDocuments = documents;
     this.selectedDocumentsSubject.next(documents);
   }
@@ -75,11 +75,6 @@ export class DocumentsListCustomerService {
     return this.http.get<IDocumentType>(`${this.apiUrl}/DocumentTypes/${customerId}`);
   }
 
-  addFile(file: File | null, index: number) {
-    const documents = [...this.selectedDocuments];
-    documents[index] = file;
-    this.selectedDocuments = documents;
-  }
   deleteDocument(docId: number) {
     return this.http.delete(`${this.apiUrl}/CustomerTasksControllercs/${docId}`);
   }
@@ -90,17 +85,7 @@ export class DocumentsListCustomerService {
     return this.http.post(`${this.apiUrl}/CustomerTasksControllercs`, documentData);
   }
   getCustomerByDocumentId(doc: IDocument): ICustomer | undefined {
-    // var doc:Document|undefined;
-    // this.documents$.subscribe(
-    //   (data: Document[]) => {
-    //     doc = data.find((doc: Document) => doc.customer_Id == id);
-    //     // return customer;
-    //     console.log("doc="+doc);
-
-    //   }
-    // );
     console.log(doc);
-
     var customer = this.customerService.getCustomerById(doc?.customer_Id || 0);
     console.log("customer=" + customer);
 
