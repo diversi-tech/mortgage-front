@@ -13,6 +13,7 @@ import { DocumentsListCustomerService } from '../../shared/Services/documents-li
 import { firstValueFrom } from 'rxjs';
 import { IDocument } from '../../shared/Models/Document';
 import { customerService } from '../../shared/Services/costumer.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -66,6 +67,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
     document_type_id: 0,
     document_path: "",
     status: 0,
+    status2:0,
     due_date: new Date(Date.now()),
     created_at: new Date(Date.now()),
     updated_at: new Date(Date.now()),
@@ -135,7 +137,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   ];
   passwordStrength: { valid: string[], invalid: string[] } = { valid: [], invalid: [] };
 
-  constructor(private _formBuilder: FormBuilder, private customerService: customerService, private leadService: leadService, private userService: UserService, private documentType: DocumentTypeService, private customerTask: DocumentsListCustomerService) {
+  constructor(private _formBuilder: FormBuilder, private customerService: customerService, private leadService: leadService, private userService: UserService, private documentType: DocumentTypeService, private customerTask: DocumentsListCustomerService,private route: ActivatedRoute) {
     this.firstFormGroup = new FormGroup({
       userName: new FormControl({ value: '', disabled: false }, [
         Validators.required, Validators.email]),
@@ -621,10 +623,12 @@ export class LeadComponent implements OnInit, AfterViewInit {
         document_type_id: Number(this.customerData.transaction_type),
         document_path: "לבדוק מה כותבים פה",
         status: 0,
+        status2:0,
         due_date: new Date(Date.now()),
         created_at: new Date(Date.now()),
         updated_at: new Date(Date.now()),
-        isOk: false
+        isOk: false,
+
       };
       console.log("document", this.document);
 

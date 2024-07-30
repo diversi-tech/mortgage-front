@@ -16,7 +16,6 @@ import { AdminModule } from '../admin/admin.module';
 @NgModule({
   declarations: [
     MortgageCalculatorComponent,
-
     LeadDetailComponent,
     DocumentTypeListComponent,
     DocumentTypeDetailsComponent,
@@ -28,7 +27,8 @@ import { AdminModule } from '../admin/admin.module';
     MaterialModule,
     ReactiveFormsModule,
     AdminModule,
-    UserDetailComponent
+    UserDetailComponent,
+  
   ],
   exports:[
     MortgageCalculatorComponent,
