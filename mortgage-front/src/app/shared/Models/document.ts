@@ -11,14 +11,13 @@ export interface IDocument {
     document_type_id: number;
     document_path?: string;
     document_path2?: string;
-
     status: Status;
+    status2:Status;
     due_date: Date;
     created_at: Date;
     updated_at: Date;
     isOk:boolean;
-
- 
-
+    adminFile?:File;
+    customerFile?:File;
 }
 

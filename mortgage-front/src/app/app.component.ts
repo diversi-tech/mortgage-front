@@ -12,8 +12,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private uiStateService: UiStateService,
     private _snackBar: MatSnackBar,
     private router: Router) {}
-    private timeoutDuration = 20 * 60 * 1000; // 30 דקות
-    private alertDuration = 60 * 1000; // 60 שניות
+    private timeoutDuration = 20 * 60 * 1000; // 30 minutes
+    private alertDuration = 60 * 1000; // 60 seconds
     private lastActivityTime: number = 0;
     private timeoutId: any;
     private intervalId: any;
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
       alert('זמן התוקף פג בגלל חוסר פעילות.');
       if(typeof window && window.sessionStorage!=undefined)
         sessionStorage.removeItem('token');
-      this.router.navigate(['/login']);
+      this.router.navigate(['auth/login']);
     }
   
     private updateTimerDisplay() {

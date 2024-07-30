@@ -102,13 +102,15 @@ import { IUser } from '../Models/user';
       if (this.userId === -1) {
         this.userService.addUser(updatedUser).subscribe({
           next: () => {
-            this.router.navigate(['/user-list']);
+            this.router.navigate(['/admin/user-list']);
           },
         }); 
       } else {
+        // console.log('in else');
+        
         this.userService.updateUser(updatedUser).subscribe({
           next: (response) => {          
-            this.router.navigate(['/user-list']);
+            this.router.navigate(['/admin/user-list']);
           },
         });
       }
@@ -116,7 +118,7 @@ import { IUser } from '../Models/user';
   }
      
       cancel(): void {
-        this.router.navigate(['/user-list']);
+        this.router.navigate(['admin/user-list']);
       }
     }
 

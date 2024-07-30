@@ -1,26 +1,16 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { loginService } from '../../shared/Services/login.service';
 
 @Component({
   selector: 'confirm-dialog',
-  styles: [``],
-  template: `
-    <div  style="text-align: right;padding:20px">
-      <h3 mat-dialog-title dir="rtl">{{ getTitle() }}</h3>
-      <h5 mat-dialog-content>
-        {{ getContent() }}
-      </h5>
-      <div mat-dialog-actions >
-        <button mat-button (click)="onNoClick()">לא</button>
-        <button mat-button color="primary" (click)="onYesClick()" cdkFocusInitial>כן</button>
-      </div>
-    </div>
-  `
+  styleUrl:"confirm-dialog.component.scss",
+  templateUrl: "confirm-dialog.component.html"
 })
 export class ConfirmDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,private loginService:loginService
   ) { }
 
   onNoClick(): void {
@@ -52,19 +42,21 @@ export class ConfirmDialogComponent {
 
     var question = "?בטוח שאתה רוצה למחוק את  ";
     if (this.data.customer) {
-      return question + `${this.data.customer.first_Name}?`;
+      return question + `${this.data.customer.first_Name}`;
     } else if (this.data.documentType) {
-      return question + ` ${this.data.documentType.document_Name}?`;
+      return question + ` ${this.data.documentType.document_Name}`;
     } else if (this.data.lead) {
-      return question + `${this.data.lead.first_Name}?`;
-    } else if (this.data.document1) {
+      return question + `${this.data.lead.first_Name}`;
+    } else if (this.data.document1&&this.loginService.isAdmin()) {
+      return question + `${this.data.document1.document_path2}`
+    }else if (this.data.document1){
       return question + `${this.data.document1.document_path}`
     }
     else if (this.data.notification) {
       return question + `ההודעה הזו`
     }
     else {
-      return question + " הפריט הזה?";
+      return question + " הפריט הזה";
     }
   }
 }

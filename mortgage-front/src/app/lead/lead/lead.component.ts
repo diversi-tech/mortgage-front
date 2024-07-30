@@ -66,6 +66,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
     document_type_id: 0,
     document_path: "",
     status: 0,
+    status2:0,
     due_date: new Date(Date.now()),
     created_at: new Date(Date.now()),
     updated_at: new Date(Date.now()),
@@ -621,10 +622,12 @@ export class LeadComponent implements OnInit, AfterViewInit {
         document_type_id: Number(this.customerData.transaction_type),
         document_path: "לבדוק מה כותבים פה",
         status: 0,
+        status2:0,
         due_date: new Date(Date.now()),
         created_at: new Date(Date.now()),
         updated_at: new Date(Date.now()),
-        isOk: false
+        isOk: false,
+
       };
       console.log("document", this.document);
 

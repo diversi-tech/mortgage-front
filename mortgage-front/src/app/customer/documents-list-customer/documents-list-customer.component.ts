@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 import { ICustomer } from '../../shared/Models/Customer';
 import { FormControl } from '@angular/forms';
 import { customerService } from '../../shared/Services/costumer.service';
+import { log } from 'console';
 
 @Component({
   selector: 'documents-list-customer',
@@ -37,7 +38,7 @@ import { customerService } from '../../shared/Services/costumer.service';
 export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['name', 'type', 'status', 'icon', 'date', 'approval'];
-  documentsSendIndex: number[] = [];
+  // documentsSendIndex: number[] = [];
   isOkCount: number = 0;
   customerId!: number;
   documentStatusString: String = '';
@@ -57,7 +58,10 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     private _snackBar: MatSnackBar,
     private router: Router,
     public loginService: loginService,
-    private customerService: customerService) { }
+    private customerService: customerService) {
+    if (this.loginService.isAdmin())
+      this.customerService.fetchCustomers().subscribe();
+  }
 
   //Variables for the customers search 
   customerControl = new FormControl();
@@ -75,6 +79,8 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
   async onCustomerSelected(customer: ICustomer) {
     this.customerId = customer.id!;
+    if (typeof window && window.sessionStorage != undefined)
+      window.sessionStorage.setItem("customerId", this.customerId.toString())!;
     this._service.fetchDocumentsByCustomerId(customer.id || 0).subscribe({
       next: documents => {
         this.dataSource.data = documents;
@@ -122,6 +128,24 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     if (this.customerId)
       this._service.fetchDocumentsByCustomerId(this.customerId).subscribe({
         next: documents => {
+          documents.forEach((file) => {
+            let tempDoc = this._service.selectedDocuments.filter(doc => doc.id == file.id);
+            if (tempDoc[0]) {
+              if (this.loginService.isAdmin()) {
+                file.status2 = tempDoc[0].status2;
+                file.document_path2 = tempDoc[0].document_path2;
+                file.adminFile = tempDoc[0].adminFile;
+              }
+              else {
+                file.status = tempDoc[0].status;
+                file.document_path = tempDoc[0].document_path;
+                file.customerFile = tempDoc[0].customerFile;
+
+              }
+
+            }
+            this._service.selectedDocuments.push(file);
+          })
           this.dataSource.data = documents;
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
@@ -142,6 +166,8 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     return checkboxArray[index] ? checkboxArray[index].checked : false;
   }
   loadDocuments(): void {
+    console.log('in load');
+
     this.documentSubscription = this._service.documents$.subscribe({
       next: documents => {
         this.dataSource.data = documents;
@@ -154,12 +180,10 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     });
   }
 
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
 
   fetchdocumentType(id: number): void {
     this._service.fetchDocumentsTypesById(id).subscribe(
@@ -172,17 +196,18 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     );
   }
 
-  onCheckboxChange(checked: boolean, element: IDocument): void {
+  onCheckboxChange(checked: boolean, document: IDocument): void {
     if (checked == true) {
       this.isOkCount++;
-      this.documentsSendIndex.push(element.id);
-      element.isOk = true;
+      // this.documentsSendIndex.push(document.id);
+      console.log("this.isOkCount=" + this.isOkCount);
+      document.isOk = true;
     }
 
     else {
-      this.documentsSendIndex = this.documentsSendIndex.filter(obj => obj !== element.id);
       this.isOkCount--;
-      element.isOk = false;
+      console.log("this.isOkCount=" + this.isOkCount);
+      document.isOk = false;
     }
   }
 
@@ -199,41 +224,62 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   }
 
 
-  onFileSelected(event: any, element: IDocument): void {
+  onFileSelected(event: any, document: IDocument): void {
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
-      this._service.addFile(file, element.id);
-      element.document_path = file.name;
-      element.status = 1;
+      if (this.loginService.isAdmin()) {
+        document.adminFile = file
+        document.document_path2 = file.name;
+        document.status2 = 1;
+        console.log('in select doc=' + document);
+      }
+      else {
+        document.customerFile = file;
+        document.document_path = file.name;
+        document.status = 1;
+      }
+      this._service.selectedDocuments.forEach(doc => {
+        if (doc.id == document.id) {
+          if (this.loginService.isAdmin()) {
+            doc.adminFile = file;
+            doc.document_path2 = file.name;
+            doc.status2 = 1;
+          }
+          else {
+            doc.customerFile = file;
+            doc.document_path = file.name;
+            doc.status = 1;
+          }
+        }
+      })
+      var tempList = this._service.selectedDocuments
+      this._service.selectedDocuments = tempList;
     }
   }
-
-
-  view(index: number): File | null {
-    return this._service.selectedDocuments[index];
-  }
-
 
   cancelDocument(document1: IDocument): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: { document1 } // Pass customer object as data to the dialog
-
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        document1.status = 0;
-
-        if (document1.isOk == true) {
-          this.documentsSendIndex = this.documentsSendIndex.filter(obj => obj !== document1.id);
-          this.isOkCount--;
+        if (this.loginService.isAdmin()) {
+          document1.adminFile = undefined;
+          document1.status2 = 0;
+          document1.document_path2 = undefined;
+        } else {
+          document1.customerFile = undefined;
+          document1.status = 0;
+          document1.document_path = undefined;
         }
-
-        this._service.addFile(null, document1.id);
+        if (document1.isOk)
+          this.isOkCount--;
+        var tempList = this._service.selectedDocuments
+        this._service.selectedDocuments = tempList;
       }
     });
   }
-
 
   formatDate(date: any) {
     return this.datePipe.transform(date, 'dd/MM/yyyy');
@@ -256,9 +302,20 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     });
   }
 
-
   saveFiles() {
+    console.log('data=:');
+    console.log(this.dataSource.data);
+
+    if (this.loginService.isAdmin()) {
+      this._service.selectedDocuments = (this.dataSource.data
+        .filter(obj => obj.adminFile !== undefined && obj.adminFile !== null)) // filter out undefined and null
+    }
+    else {
+      this._service.selectedDocuments = this.dataSource.data
+        .filter(obj => obj.customerFile !== undefined && obj.customerFile !== null) // filter out undefined and null
+    }
     let countNotNullOrUndefined = this._service.selectedDocuments.filter(value => value !== null && value !== undefined).length;
+    console.log("this.isOkCount=" + this.isOkCount + "  countNotNullOrUndefined=" + countNotNullOrUndefined);
     if (countNotNullOrUndefined != this.isOkCount) {
       this.openSnackBar(' יש לאשר תחילה את כל המסמכים שנבחרו.', 'בטל');
       return;
@@ -268,19 +325,20 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       this.openSnackBar('עדיין לא נבחרו מסמכים.', 'בטל');
       return;
     }
-
     this.fileService.uploadFiles(this._service.selectedDocuments)?.subscribe(
       (event: any) => {
         if (event.status === 'progress') {
         }
 
         else if (!event.includes("Unhandled")) {
-          for (let i = 0; i < this.documentsSendIndex.length; i++) {
+          for (let i = 0; i < this._service.selectedDocuments.length; i++) {
             this.dataSource.data.forEach(doc => {
-              if (doc.id === this.documentsSendIndex[i]) {
+              if (doc.customerFile) {
                 doc.status = 2;
-                doc.created_at = new Date();
-                doc.due_date = new Date();
+                doc.updated_at = new Date();
+              }
+              else if (doc.adminFile) {
+                doc.status2 = 2;
                 doc.updated_at = new Date();
               }
             });
@@ -299,9 +357,13 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     );
   }
 
-
   onSaveChangesInServer(): void {
-    this._service.updateMultipleDocuments(this.dataSource.data)
+    var filteredDocuments;
+    if (this.loginService.isAdmin())
+      filteredDocuments = this.dataSource.data.filter(doc => doc.adminFile)
+    else
+      filteredDocuments = this.dataSource.data.filter(doc => doc.customerFile)
+    this._service.updateMultipleDocuments(filteredDocuments)
       .subscribe(
         () => {
           console.log('The documents have been successfully updated on the server');
@@ -312,18 +374,16 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       );
   }
 
-
-  download(fileId: string) {
+  download(fileName: string, id: string) {
     this._snackBar.open("ההורדה מתחילה", "X");
-    this.fileService.downloadFile(fileId).subscribe(
+    this.fileService.downloadFile(id).subscribe(
       (response) => {
         const contentDisposition = response.headers.get('Content-Disposition');
-        const n = this.dataSource.data.filter(doc => doc.id == +fileId)[0].document_path || "";
-        console.log(n);
-        // const fileName = this.dataSource.data[+fileId].document_path!;
-        this.saveDownloadFile(response.body!, n);
+        this.saveDownloadFile(response.body!, fileName!);
       },
-      (error) => alert('Error downloading file')
+      (error) => {
+        alert('Error downloading file'); console.log(error);
+      }
     );
   }
 
@@ -334,7 +394,6 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     downloadLink.click();
     window.URL.revokeObjectURL(downloadLink.href);
   }
-
 
   deleteTask(element: IDocument) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -359,7 +418,6 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     });
   }
 
-
   editTask(element: IDocument) {
     if (typeof window && window.sessionStorage != undefined)
       window.sessionStorage.setItem("customerId", element.customer_Id.toString());
@@ -371,6 +429,4 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       window.sessionStorage.setItem("customerId", this.customerId.toString());
     this.router.navigate([`customer/task-edit/${-1}`]);
   }
-
-
 }
