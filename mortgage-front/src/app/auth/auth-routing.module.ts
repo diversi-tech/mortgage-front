@@ -9,6 +9,8 @@ const routes: Routes = [
     { path: 'forgot-password/:id', component: ForgotPasswordComponent }
 ];
 
+
+
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
