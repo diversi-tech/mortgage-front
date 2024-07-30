@@ -88,7 +88,7 @@ export class leadService {
   }
   
   checkToken(id:number): Observable<HttpResponse<string>>{
-    console.log("i am here");
+    console.log(id,"token id");
     return this.http.get<string>(`https://localhost:7055/api/Email/validate-magic-link/${id}`,{ observe: 'response', responseType: 'text' as 'json'  })
   }
 
