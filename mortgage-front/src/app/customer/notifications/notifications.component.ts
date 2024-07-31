@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { OnDestroy } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
-
+import { loginService } from '../../shared/Services/login.service';
 
 @Component({
   selector: 'notifications',
@@ -17,46 +17,31 @@ import { filter, Subscription } from 'rxjs';
 })
 export class NotificationsComponent implements OnInit{
 [x: string]: any;
-  userId :number =0;
+customerId :number =0;
   notifications:INotification[] = [];
   newMessage: string = '';
   showActions: boolean = false;
   customer?: ICustomer;
   unreadCount: number = 0;
-  user:INotification ={
-    id: 0,
-    userId: 0,
-    message: '',
-    isRead: false,
-    created_at: new Date()
-  };
-  private routerSubscription: Subscription | undefined;
+  unreadNotifications:INotification[]=[];
 
-  // @Input() notifications2: INotification[] = [];
-  // @Input() unreadCount2: number = 0;
-  //@Output() notificationRead = new EventEmitter<INotification>();
-  // notifications = [
-  //   { id: 1, message: 'הודעה חדשה מהבוס', read: false },
-  //   { id: 2, message: 'פגישה מתקרבת', read: true },
-  //   // הוסף עוד הודעות לפי הצורך
-  // ];
+  private routerSubscription: Subscription | undefined;
   showNotifications = false;
   constructor(private notificationService :NotificationService,
       private route:ActivatedRoute,
       private customerService:customerService,
       private dialog: MatDialog,
-      private router: Router
-    ){
-
-  }
+      private router: Router,
+      private loginService: loginService
+    ){}
 
  async ngOnInit(): Promise<void> {
-    this.userId = +this.route.snapshot.paramMap.get('id')!;
+    this.customerId = +this.route.snapshot.paramMap.get('id')!;
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (idParam) {
-        this.userId = parseInt(idParam, 10);
-        if (isNaN(this.userId)) {
+        this.customerId = parseInt(idParam, 10);
+        if (isNaN(this.customerId)) {
           console.error('Invalid ID in URL');
           // טיפול בשגיאה - למשל, ניווט לדף שגיאה
         } else {
@@ -67,15 +52,11 @@ export class NotificationsComponent implements OnInit{
         // טיפול במקרה שאין ID
       }
     });
-    this.customer=this.customerService.getCustomerById(this.userId);
-    console.log("userId",this.userId);
-
-    this.routerSubscription = this.router.events
-    .pipe(filter(event => event instanceof NavigationStart))
-    .subscribe(() => {
+    this.customer=this.customerService.getCustomerById(this.customerId);
+    console.log("customerId",this.customerId);
+    this.routerSubscription = this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(() => {
       this.updateChatStatusToRead();
-    });
-    this.loadNotifications();
+    });   
   }
 
   ngOnDestroy(): void {
@@ -85,34 +66,51 @@ export class NotificationsComponent implements OnInit{
   }
 
   loadNotifications():void{
-   this.notificationService.getNotificationsByUserId(2).subscribe({
-    next:(res)=>{
-      this.notifications =res;
+  this.notificationService.getNotificationsByUserId(this.loginService.GetCurrentUser().id).subscribe({
+    next: (res) => {
+      this.notifications = res;
       this.unreadCount = this.notifications.filter(n => !n.isRead).length;
     },
-    error:(error)=>{
+    error: (error) => {
       console.error('Error fetching notifications', error);
+      // כאן תוכל להוסיף לוגיקה נוספת לטיפול בשגיאה, כמו הצגת הודעה למשתמש
     }
-   })
-  }
-
-  updateChatStatusToRead(): void {
-    this.notifications
-  .filter(notification => notification.userId ===2 && notification.isRead === false)
-  .forEach(notification => {
-    notification.isRead = true;
-    this.notificationService.updateNotification(notification).subscribe(
-      {
-        next:()=> {console.log("notification",notification)},
-       error:()=>{console.log("היי לא הצלחתי לעדכן");
-       }
-        
-      }
-    );
   });
   }
-  // toggleNotifications(): void {
-  //   this.loadNotifications();
-  // }
+
+  updateChatStatusToRead(): void {    
+    const currentUser = this.loginService.GetCurrentUser();
+    if (!currentUser || !currentUser.id) {
+      console.error("אין משתמש מחובר או חסר ID");
+      return;
+    }
+    const userId = currentUser.id;
+    console.log("User ID:", userId);
+  
+     this.unreadNotifications = this.notifications.filter(
+      notification => notification.userId == userId && notification.isRead===false);
+      
+    if (this.unreadNotifications.length === 0) {
+      console.log("אין הודעות לא נקראות לעדכון");
+      return;
+    }
+  
+    this.unreadNotifications.forEach(notification => {
+      notification.isRead = true;
+      console.log("מעדכן הודעה לנקראה:", notification.id);
+      this.notificationService.updateNotification(notification).subscribe({
+        next: () => {
+          console.log("הודעה עודכנה בהצלחה:", notification.id);
+        },
+        error: (error) => {
+          console.error("שגיאה בעדכון הודעה:", notification.id, error);
+        }
+      });
+    });
+  
+    console.log("כל ההודעות נשלחו לעדכון");
+    // אפשר להוסיף כאן עדכון של התצוגה אם צריך
+   // this.loadNotifications(); // רענון הנתונים
+  }
  
 }
