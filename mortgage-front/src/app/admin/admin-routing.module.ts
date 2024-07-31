@@ -34,7 +34,7 @@ const routes: Routes = [
             { path: 'calculator', component: MortgageCalculatorComponent },
             { path: 'send-notification/:id', component: SendNotificationComponent },
             { path: 'mailing-list', component: MailingListComponent },
-            {path:'task-edit',component:TaskEditComponent},
+            {path:'task-edit/:id',component:TaskEditComponent},
             {path:'document-list',component:DocumentsListCustomerComponent}
         ]
     },

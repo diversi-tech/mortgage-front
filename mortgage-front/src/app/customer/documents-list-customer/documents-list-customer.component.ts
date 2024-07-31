@@ -421,12 +421,12 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   editTask(element: IDocument) {
     if (typeof window && window.sessionStorage != undefined)
       window.sessionStorage.setItem("customerId", element.customer_Id.toString());
-    this.router.navigate([`customer/task-edit/${element.id}`]);
+    this.router.navigate([`admin/task-edit/${element.id}`]);
   }
   addTask() {
     this._service.customerId = this.customerId;
     if (typeof window && window.sessionStorage != undefined)
       window.sessionStorage.setItem("customerId", this.customerId.toString());
-    this.router.navigate([`customer/task-edit/${-1}`]);
+    this.router.navigate([`admin/task-edit/${-1}`]);
   }
 }

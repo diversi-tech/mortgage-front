@@ -33,7 +33,8 @@ import { NotificationsComponent } from '../customer/notifications/notifications.
     CommonModule,
     MaterialModule,
     RouterModule,
-    // CustomerModule
+    // ReactiveFormsModule,
+    // FormsModule
   ],
   exports: [
     ConfirmDialogComponent,

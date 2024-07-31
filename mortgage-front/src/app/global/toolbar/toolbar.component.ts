@@ -27,8 +27,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   display:boolean=false;
 
   notifications: INotification[] = [];
-  unreadNotificationsCount2: number = 0;
-  hasUnreadNotifications2: boolean = false;
 
   private subscription?: Subscription;
 
@@ -57,17 +55,22 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
-
+  logout() {
+    if (typeof window && window.sessionStorage != undefined)
+      sessionStorage.removeItem('token');
+    this.router.navigate(['auth/login']);
+  }
   loginOrLogout(): void {
     if (this.isLoggedIn) {
       var customerId: number = this.loginService.GetCurrentUser().customerId || 0;
       var currentCustomer: ICustomer | undefined;
       currentCustomer = this.customerService.getCustomerById(customerId);
       this.user = currentCustomer?.first_Name + " " + currentCustomer?.last_Name;
-      // this.user = 'אורח';
       this.isLoggedIn = false;
+      console.log('in logout');
+      if (typeof window && window.sessionStorage != undefined)
+        sessionStorage.removeItem('token');
     } else {
-      this.user = 'משה שוורץ';
       this.isLoggedIn = true;
     }
     this.checkNotifications();
@@ -80,35 +83,39 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   checkNotifications() {
-    let userId: number = 0;
+    let customerId: number = 0;
     if (typeof window !== 'undefined' && window.sessionStorage)
-      userId = this.loginService.decodeToken(sessionStorage.getItem('token') || "").customerId || -1;
-    this.notificationService.getNotificationsByUserId(userId).subscribe(
+      customerId = this.loginService.decodeToken(sessionStorage.getItem('token') || "").customerId || -1;
+    this.notificationService.getNotificationsByUserId(customerId).subscribe(
       (notifications) => {
         const unreadNotifications = notifications.filter(notification => !notification.isRead);
-        this.unreadNotificationsCount2 = unreadNotifications.length;
-        this.hasUnreadNotifications = this.unreadNotificationsCount2 > 0;
+        console.log("in http res not=");
+        console.log(notifications);
+        
+        
+        this.unreadNotificationsCount = unreadNotifications.length;
+        this.hasUnreadNotifications = this.unreadNotificationsCount > 0;
       },
       (error) => {
         console.error('שגיאה בטעינת התראות:', error);
-        this.unreadNotificationsCount2 = 0;
-        this.hasUnreadNotifications2 = false;
+        this.unreadNotificationsCount = 0;
+        this.hasUnreadNotifications = false;
       }
     );
   }
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any): void {
     if (this.hasNotSavedDoc) {
-       $event.returnValue = 'שינויים שביצעת לא ישמרו אם תעזוב את הדף!';
-       console.log('in if');
-       
-       }
+      $event.returnValue = 'שינויים שביצעת לא ישמרו אם תעזוב את הדף!';
+      console.log('in if');
+
+    }
     else {
       console.log('in');
 
     }
   }
-  hasNotSavedDoc:boolean=false;
+  hasNotSavedDoc: boolean = false;
   checkPendingDocuments() {
 
     this.documentService.documents$.subscribe(
@@ -143,8 +150,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
 
   updateUnreadCount() {
-    this.unreadNotificationsCount2 = this.notifications.filter(n => !n.isRead).length;
-    this.hasUnreadNotifications2 = this.unreadNotificationsCount2 > 0;
+    this.unreadNotificationsCount = this.notifications.filter(n => !n.isRead).length;
+    this.hasUnreadNotifications = this.unreadNotificationsCount > 0;
   }
 
   onNotificationRead(notification: INotification) {

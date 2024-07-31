@@ -14,3 +14,10 @@
 :host {
   background-color: transparent;
 }
+.component-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: right;
+  color: #333; 
+}

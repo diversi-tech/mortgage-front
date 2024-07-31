@@ -29,7 +29,6 @@ const routes: Routes = [
         { path: 'calculator', component: MortgageCalculatorComponent },
         { path: 'mortgage-helper', component: MortgageHelperComponent },
         { path: 'customer-detailes/:id', component: CustomerUpdateDetailesComponent },
-        { path: 'task-edit/:id', component: TaskEditComponent },
         { path: 'notifications/:id', component: NotificationsComponent},
     ],
  },

@@ -1,8 +1,9 @@
 <div class="mainAll">
-  <!-- <div class="container"> -->
   <!-- חלק ראשון: שליחת הודעה -->
-  <div class="message-section">
-    <h2> שליחת הודעה חדשה ללקוח/ה {{customer?.first_Name}} {{customer?.last_Name}}</h2>
+  <section class="message-section">
+    <header>
+      <h2>שליחת הודעה חדשה ללקוח/ה {{customer?.first_Name}} {{customer?.last_Name}}</h2>
+    </header>
     <form (ngSubmit)="sendNotification()" #notificationForm="ngForm">
       <mat-form-field appearance="fill">
         <mat-label>יש להכניס פה את ההודעה שרוצים לשלוח</mat-label>
@@ -16,28 +17,30 @@
         </button>
       </div>
     </form>
-  </div>
+  </section>
 
   <button mat-raised-button color="accent" (click)="toggleStatistics()" class="statistic">
     {{ showStatistics ? 'הסתר סטטיסטיקות' : 'הצג סטטיסטיקות' }}
   </button>
 
   <!-- אזור הסטטיסטיקות -->
-  <div *ngIf="showStatistics" class="statistics-section">
-    <!-- <h2 class="statistics-title">סטטיסטיקות הודעות</h2> -->
+  <section *ngIf="showStatistics" class="statistics-section">
     <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
-  </div>
+  </section>
+
   <!-- חלק שני: היסטורית הודעות -->
-  <div class="history-section">
-    <h2>היסטורית הודעות</h2>
+  <section class="history-section">
+    <header>
+      <h2>היסטורית הודעות</h2>
+    </header>
     <div *ngIf="notifications.length">
-      <div *ngFor="let notification of notifications" class="notification-item">
+      <article *ngFor="let notification of notifications" class="notification-item">
         <div class="message-bubble" [ngClass]="{ 'message-bubble-unread': !notification.isRead }"
           [matTooltip]="!notification.isRead ? 'הודעה לא נקראה' : 'ההודעה נקראה'" matTooltipPosition="above">
           <div class="profile-picture">
             <img src="assets/profile.png" alt="Profile Picture">
           </div>
-          <div class="message-icons" >
+          <div class="message-icons">
             <mat-icon *ngIf="notification.isRead" class="icon">drafts</mat-icon>
             <mat-icon *ngIf="!notification.isRead" class="icon">markunread</mat-icon>
           </div>     
@@ -59,16 +62,13 @@
               <span>שתף הודעה במייל</span>
             </a>
           </mat-menu>
-          <!--כדי שירד שורה בהתאם לשליחת ההודעה [innerHTML]זה בכוונה ב -->
-          <div [innerHTML]="notification.message" class="message-text" [ngClass]="{ 'unread': !notification.isRead }  ">
-          </div>
-          <div class="message-timestamp">{{ notification.created_at | date:'short' }}</div>
+          <div [innerHTML]="notification.message" class="message-text" [ngClass]="{ 'unread': !notification.isRead }"></div>
+          <footer class="message-timestamp">{{ notification.created_at | date:'short' }}</footer>
         </div>
-      </div>
+      </article>
     </div>
     <div *ngIf="!notifications.length">
       עדיין לא נשלחו התראות ללקוח זה
     </div>
-  </div>
+  </section>
 </div>
-<!-- </div> -->
