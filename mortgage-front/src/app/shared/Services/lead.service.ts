@@ -3,21 +3,24 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { ILead } from "../Models/Lead";
 import { environment } from "../../../environments/environment";
+import { loginService } from "./login.service";
 
 @Injectable()
 export class leadService {
   readonly basicURL = environment.apiURL+"/api/";
   private LeadsSubject = new BehaviorSubject<ILead[]>([]);
   leads$ = this.LeadsSubject.asObservable();
-  constructor(private http: HttpClient) {
-    this.fetchLeads().subscribe(); // אתחול לקוח
+  constructor(private http: HttpClient,private loginService:loginService) {
+    if(this.loginService.isAdmin())
+    this.fetchLeads().subscribe(); 
   }
   fetchLeads(): Observable<ILead[]> {
+  
     return this.http.get<ILead[]>(`${this.basicURL}Leads`)
       .pipe(
         tap(leads => this.LeadsSubject.next(leads)),
         catchError(error => {
-          // console.error('Error fetching leads:', error);
+          console.error('Error fetching leads:', error);
           throw error;
         })
       );
@@ -26,6 +29,8 @@ export class leadService {
     return this.LeadsSubject.asObservable();
   }
   getLeadById(id: number): ILead | undefined {
+    console.log(this.LeadsSubject.getValue());
+    
     const leads = this.LeadsSubject.getValue();
     const l = leads.find(lead => lead.id === id);
     return l;
@@ -48,6 +53,8 @@ export class leadService {
   }
   updateLead(lead: any): Observable<ILead> {
     const updateUrl = `${this.basicURL}Leads/${lead.id}`;
+    console.log(lead);
+    
     return this.http.put<ILead>(updateUrl, lead)
       .pipe(
         tap(() => {

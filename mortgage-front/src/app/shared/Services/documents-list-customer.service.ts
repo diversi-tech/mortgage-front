@@ -91,4 +91,18 @@ export class DocumentsListCustomerService {
 
     return customer;
   }
+
+  hasNotSavedDoc: boolean = false;
+  hasPendingDocuments: boolean = false;
+  checkPendingDocuments() {
+    this.documents$.subscribe(
+      (documents) => {
+        this.hasNotSavedDoc = this.selectedDocuments.filter(file => file != null && file != undefined).length > 0;
+        this.hasPendingDocuments = documents.some(document => document.status === 0);
+      },
+      (error) => {
+        console.error('שגיאה בטעינת ד');
+      }
+    )
+  }
 }

@@ -18,22 +18,14 @@ import { INotification } from '../../shared/Models/Notification';
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
-  showLogout: boolean = false;
-  showMainMenu: boolean = false;
   user: string = 'אורח';
-  unreadNotificationsCount: number = 0;
-  hasUnreadNotifications: boolean = false;
-  hasPendingDocuments: boolean = false;
-  display:boolean=false;
-
   notifications: INotification[] = [];
-
   private subscription?: Subscription;
 
   constructor(
     private NavigationMenuToggleService: NavigatioMenuToggleService,
-    private notificationService: NotificationService,
-    private documentService: DocumentsListCustomerService,
+    public notificationService: NotificationService,
+    public documentService: DocumentsListCustomerService,
     private customerService: customerService,
     public loginService: loginService,
     private router: Router
@@ -41,15 +33,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.NavigationMenuToggleService.toggle();
-    this.checkNotifications();
+    this.notificationService.checkNotifications();
     // Subscribe to selectedDocuments changes
     this.subscription = this.documentService.selectedDocuments$.subscribe(() => {
-      this.checkPendingDocuments();
+      this.documentService.checkPendingDocuments();
     });
-   // this.loadNotifications();
-
   }
-
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
@@ -73,95 +62,21 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     } else {
       this.isLoggedIn = true;
     }
-    this.checkNotifications();
-    this.checkPendingDocuments();
+    this.notificationService.checkNotifications();
+    this.documentService.checkPendingDocuments();
   }
-
-
   toggleNavigationMenu() {
     this.NavigationMenuToggleService.toggle();
   }
-
-  checkNotifications() {
-    let customerId: number = 0;
-    if (typeof window !== 'undefined' && window.sessionStorage)
-      customerId = this.loginService.decodeToken(sessionStorage.getItem('token') || "").customerId || -1;
-    this.notificationService.getNotificationsByUserId(customerId).subscribe(
-      (notifications) => {
-        const unreadNotifications = notifications.filter(notification => !notification.isRead);
-        console.log("in http res not=");
-        console.log(notifications);
-        
-        
-        this.unreadNotificationsCount = unreadNotifications.length;
-        this.hasUnreadNotifications = this.unreadNotificationsCount > 0;
-      },
-      (error) => {
-        console.error('שגיאה בטעינת התראות:', error);
-        this.unreadNotificationsCount = 0;
-        this.hasUnreadNotifications = false;
-      }
-    );
-  }
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any): void {
-    if (this.hasNotSavedDoc) {
+    if (this.documentService.hasNotSavedDoc) {
       $event.returnValue = 'שינויים שביצעת לא ישמרו אם תעזוב את הדף!';
-      console.log('in if');
-
-    }
-    else {
-      console.log('in');
-
     }
   }
-  hasNotSavedDoc: boolean = false;
-  checkPendingDocuments() {
-
-    this.documentService.documents$.subscribe(
-      (documents) => {
-        this.hasNotSavedDoc = this.documentService.selectedDocuments.filter(file => file != null && file != undefined).length > 0;
-        this.hasPendingDocuments = documents.some(document => document.status === 0);
-      },
-      (error) => {
-        console.error('שגיאה בטעינת ד');
-      }
-    )
-    // this.hasPendingDocuments = this.documentService.selectedDocuments.filter(file => file != null && file != undefined).length > 0;
-
-  }
-
   openNotifications() {
-  // this.display=!this.display; 
-  // console.log('in display='+this.display);
-  this.router.navigate([`customer/notifications/${this.loginService.GetCurrentUser().customerId}`])
+    this.router.navigate([`customer/notifications/${this.loginService.GetCurrentUser().customerId}`])
   }
-  // loadNotifications() {
-  //   this.notificationService.getNotificationsByUserId(this.loginService.GetCurrentUser().id).subscribe({
-  //     next: (res) => {
-  //       this.notifications = res;
-  //       this.updateUnreadCount();
-  //     },
-  //     error: (error) => {
-  //       console.error('Error fetching notifications', error);
-  //     }
-  //   });
-  // }
-
-
-  updateUnreadCount() {
-    this.unreadNotificationsCount = this.notifications.filter(n => !n.isRead).length;
-    this.hasUnreadNotifications = this.unreadNotificationsCount > 0;
-  }
-
-  onNotificationRead(notification: INotification) {
-    const index = this.notifications.findIndex(n => n.id === notification.id);
-    if (index !== -1) {
-      this.notifications[index] = notification;
-      this.updateUnreadCount();
-    }
-  }
-
   openDocuments() {
     this.router.navigate(['customer/document-list'])
   }

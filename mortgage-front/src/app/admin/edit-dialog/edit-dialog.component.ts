@@ -18,6 +18,7 @@ export class EditDialogComponent {
   }
 
   save(): void {
+    this.data.message= this.data.message.replace(/\n/g, '<br>');
     this.dialogRef.close(this.data);
   }
 }
