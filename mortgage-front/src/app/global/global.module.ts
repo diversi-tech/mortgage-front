@@ -26,7 +26,9 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     ConfirmDialogComponent,

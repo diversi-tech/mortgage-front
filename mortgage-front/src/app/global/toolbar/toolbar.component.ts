@@ -50,17 +50,22 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
-
+  logout() {
+    if (typeof window && window.sessionStorage != undefined)
+      sessionStorage.removeItem('token');
+    this.router.navigate(['auth/login']);
+  }
   loginOrLogout(): void {
     if (this.isLoggedIn) {
       var customerId: number = this.loginService.GetCurrentUser().customerId || 0;
       var currentCustomer: ICustomer | undefined;
       currentCustomer = this.customerService.getCustomerById(customerId);
       this.user = currentCustomer?.first_Name + " " + currentCustomer?.last_Name;
-      // this.user = 'אורח';
       this.isLoggedIn = false;
+      console.log('in logout');
+      if (typeof window && window.sessionStorage != undefined)
+        sessionStorage.removeItem('token');
     } else {
-      this.user = 'משה שוורץ';
       this.isLoggedIn = true;
     }
     this.checkNotifications();
@@ -92,16 +97,16 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any): void {
     if (this.hasNotSavedDoc) {
-       $event.returnValue = 'שינויים שביצעת לא ישמרו אם תעזוב את הדף!';
-       console.log('in if');
-       
-       }
+      $event.returnValue = 'שינויים שביצעת לא ישמרו אם תעזוב את הדף!';
+      console.log('in if');
+
+    }
     else {
       console.log('in');
 
     }
   }
-  hasNotSavedDoc:boolean=false;
+  hasNotSavedDoc: boolean = false;
   checkPendingDocuments() {
 
     this.documentService.documents$.subscribe(

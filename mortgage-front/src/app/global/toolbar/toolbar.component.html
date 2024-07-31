@@ -3,7 +3,7 @@
     <div class="logo-container">
       <img src="assets/logo.png" alt="Logo" class="logo">
     </div>
-    <button class="buttonLog" mat-button routerLink="/auth/login">
+    <button class="buttonLog" mat-button (click)="logout()">
       <mat-icon>{{ loginService.isLoggedIn() ? 'logout' : 'login' }}</mat-icon>
       {{ loginService.isLoggedIn() ? 'יציאה' : 'התחברות' }}
     </button>
