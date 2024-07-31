@@ -15,14 +15,14 @@
 
 
 export enum TransactionType {
-    ' חדש',
-    ' ישן',
-    ' שיפוץ',
-    ' אחר',
-     'מחיר למשתכן'
+    ' חדש'=0,
+    ' ישן'=1,
+    ' שיפוץ'=2,
+    ' אחר'=3,
+     'מחיר למשתכן'=4
  }
    
- export class DocumentType {
+ export interface IDocumentType {
      id?: number;
      transaction_Type?: TransactionType;
      document_Name?: string;

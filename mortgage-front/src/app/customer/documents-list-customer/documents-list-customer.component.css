@@ -59,6 +59,8 @@ mat-form-field mat-icon {
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  /* padding-top: 25px; */
+  padding-bottom: 0;
 }
 
 mat-card-title {
@@ -81,26 +83,11 @@ mat-card-actions {
   justify-content: space-between;
 }
 
-/* סגנון כפתור שליחה */
 .send-container {
   display: flex;
   justify-content: flex-end;
   margin: 20px;
 }
-
-/* .send-button {
-  color: white;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-}
- */
-
-.send-icon {
-  margin-right: 8px;
-}
-
-/* הודעה על העדר מסמכים */
 .no-docs-message {
   display: flex;
   justify-content: center;
@@ -109,7 +96,7 @@ mat-card-actions {
 
 .no-docs-card {
   padding: 20px;
-  background-color: #7098bb;
+  background-color: #7098bb69;
   color: #000;
   border-radius: 8px;
 }
@@ -122,11 +109,11 @@ mat-card-actions {
   color: #0d47a1;
 }
  mat-checkbox {
-  position: absolute; /* מיקום מוחלט בתוך ההורה */
+  position: absolute; 
   top: 0;
   left: 0;
 }
-/* סגנון כותרת הדף */
+
 .header-container {
   margin: 0 auto;
   width: 75vw;
@@ -138,22 +125,22 @@ mat-card-actions {
 }
 
 .header-content {
-  text-align: center; /* מיקום טקסט במרכז */
+  text-align: center; 
 }
 
 .header-title {
-  font-size: 28px; /* גודל פונטים */
-  font-weight: 600; /* עובי פונטים */
-  color: #0d47a1; /* צבע טקסט הכותרת */
-  margin: 0; /* ביטול רווחים מעל ומתחת */
+  font-size: 28px;
+  font-weight: 600; 
+  color: #0d47a1; 
+  margin: 0; 
 }
 
 .header-subtitle {
-  font-size: 18px; /* גודל פונטים */
-  color: #1565c0; /* צבע טקסט הכותרת */
-  margin: 0; /* ביטול רווחים מעל ומתחת */
+  font-size: 18px; 
+  color: #1565c0; 
+  margin: 0; 
 }
-/* סגנון לטיפים */
+
 .tips-container {
   /* margin: 20px 0; */
   width: 100%;
@@ -187,4 +174,10 @@ mat-card-actions {
   width: 45%;
   margin-bottom: 15px;
   line-height: 1.6;
+}
+.icon-button{
+  /* position: absolute;
+  bottom: 2px;
+  left: 3px; */
+  float: left;
 }

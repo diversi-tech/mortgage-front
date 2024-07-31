@@ -3,16 +3,21 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
-import { Subscription } from 'rxjs';
+import { map, Observable, startWith, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Status,Document } from '../../shared/Models/document';
-import { DocumentType,TransactionType } from '../../shared/Models/DocumentTypes.Model';
+import { Status, IDocument } from '../../shared/Models/document';
+import { IDocumentType, TransactionType } from '../../shared/Models/DocumentTypes.Model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dialog.component';
 import { UploadService } from '../../shared/Services/fileService';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatCheckbox, } from '@angular/material/checkbox';
+import { loginService } from '../../shared/Services/login.service';
+import { Router } from '@angular/router';
+import { ICustomer } from '../../shared/Models/Customer';
+import { FormControl } from '@angular/forms';
+import { customerService } from '../../shared/Services/costumer.service';
 
 @Component({
   selector: 'documents-list-customer',
@@ -30,39 +35,114 @@ import { MatCheckbox, } from '@angular/material/checkbox';
 })
 
 export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['name', 'type', 'status', 'icon', 'date', 'approval'];
-  index: number = 0;
-  isOkCount: number = 0;
 
+  displayedColumns = ['name', 'type', 'status', 'icon', 'date', 'approval'];
+  documentsSendIndex: number[] = [];
+  isOkCount: number = 0;
+  customerId!: number;
   documentStatusString: String = '';
-  transactionType: DocumentType | undefined;
+  transactionType: IDocumentType | undefined;
   transactionTypeString: String = '';
-  dataSource: MatTableDataSource<Document> = new MatTableDataSource<Document>();
+  dataSource: MatTableDataSource<IDocument> = new MatTableDataSource<IDocument>();
   private documentSubscription?: Subscription;
+
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChildren('myCheckbox') checkboxes!: QueryList<MatCheckbox>;
 
-  ngAfterViewInit() {
-    // Now you can access all the checkboxes after the component is loaded
-    this.checkboxes.forEach((checkbox, index) => {
-      console.log(`Checkbox ${index} checked: ${checkbox.checked}`);
-    });
-  }
-  getCheckboxStatus(index: number): boolean {
-    const checkboxArray = this.checkboxes.toArray();
-    return checkboxArray[index] ? checkboxArray[index].checked : false;
-  }
   constructor(private _service: DocumentsListCustomerService,
     private datePipe: DatePipe,
     private dialog: MatDialog,
     private fileService: UploadService,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private router: Router,
+    public loginService: loginService,
+    private customerService: customerService) { }
+
+  //Variables for the customers search 
+  customerControl = new FormControl();
+  customers: ICustomer[] = [];
+  filteredCustomers?: Observable<ICustomer[]>;
+
+  private _filterCustomers(name: string): ICustomer[] {
+    const filterValue = name.toLowerCase();
+    return this.customers.filter(customer => customer.first_Name?.toLowerCase().includes(filterValue));
+  }
+  //To display the customer who typed his name
+  displayCustomer(customer: ICustomer): string {
+    return customer && customer.first_Name ? customer.first_Name : '';
+  }
+
+  async onCustomerSelected(customer: ICustomer) {
+    this.customerId = customer.id!;
+    this._service.fetchDocumentsByCustomerId(customer.id || 0).subscribe({
+      next: documents => {
+        this.dataSource.data = documents;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      },
+      error: error => {
+        console.error('Error loading documents for customer:', error);
+      }
+    });
+  }
+
+  loadCustomers() {
+    this.customerService.getCustomers().subscribe(
+      (customers: ICustomer[]) => {
+        this.customers = customers;
+        this.filteredCustomers = this.customerControl.valueChanges
+          .pipe(
+            startWith(''),
+            map(value => typeof value === 'string' ? value : value.first_Name),
+            map(name => name ? this._filterCustomers(name) : customers.slice())
+          );
+      },
+    )
+  }
 
   ngOnInit(): void {
     this.loadDocuments();
-    this.fetchdocumentType();
+    if (this.loginService.isAdmin()) {
+      if (typeof window && window.sessionStorage != undefined) {
+        let currentId = +window.sessionStorage.getItem("customerId")!;
+        if (currentId) {
+          
+          this.fetchdocumentType(currentId);
+          this.customerId = currentId;
+        }
+      }
+      this.loadDocuments();
+      this.loadCustomers();
+    }
+    else {
+      let id=this.loginService.GetCurrentUser().customerId!
+      if(id!=-1)
+        this.fetchdocumentType(id);
+      this.customerId = this.loginService.GetCurrentUser().customerId!;
+    }
+    this.loadDocuments();
+    if (this.customerId&&this.customerId!=-1)
+      this._service.fetchDocumentsByCustomerId(this.customerId).subscribe({
+        next: documents => {
+          this.dataSource.data = documents;
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        },
+        error: error => {
+          console.error('Error loading documents for customer:', error);
+        }
+      });
+  }
 
+  ngAfterViewInit() {
+    this.checkboxes.forEach((checkbox, index) => {
+    });
+  }
+
+  getCheckboxStatus(index: number): boolean {
+    const checkboxArray = this.checkboxes.toArray();
+    return checkboxArray[index] ? checkboxArray[index].checked : false;
   }
   loadDocuments(): void {
     this.documentSubscription = this._service.documents$.subscribe({
@@ -77,18 +157,16 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     });
   }
 
-  //search filter
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  //load documents
-  fetchdocumentType(): void {
-    console.log("customer id="+this._service.customerId);
-    
-    this._service.fetchDocumentsTypesById(this._service.customerId).subscribe(
-      (data: DocumentType) => {
+
+  fetchdocumentType(id: number): void {
+    this._service.fetchDocumentsTypesById(id).subscribe(
+      (data: IDocumentType) => {
         this.transactionType = data;
       },
       (error) => {
@@ -97,28 +175,34 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     );
   }
 
-  onCheckboxChange(checked: boolean, element: Document): void {
-    console.log('Updated isOk:', element);
-    if (checked)
+  onCheckboxChange(checked: boolean, element: IDocument): void {
+    if (checked == true) {
       this.isOkCount++;
-    else
+      this.documentsSendIndex.push(element.id);
+      element.isOk = true;
+    }
+
+    else {
+      this.documentsSendIndex = this.documentsSendIndex.filter(obj => obj !== element.id);
       this.isOkCount--;
+      element.isOk = false;
+    }
   }
 
-  //Function to convert the number to its string value in status enum 
+  //Converts the status enum value to the string value
   changeDocStatusToString(index: number): String {
     this.documentStatusString = Status[index];
     return this.documentStatusString;
   }
 
-  //Function to convert the number to its string value in transactionType enum 
+  //Converts the transactionType enum value to the string value
   changeTransacTypeToString(index: number): String {
     this.transactionTypeString = TransactionType[index];
     return this.transactionTypeString;
   }
 
-  //file selection
-  onFileSelected(event: any, element: Document): void {
+
+  onFileSelected(event: any, element: IDocument): void {
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
@@ -129,35 +213,36 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   }
 
 
-  view(ind: number): File | null {
-    return this._service.selectedDocuments[ind];
+  view(index: number): File | null {
+    return this._service.selectedDocuments[index];
   }
 
-  xfunc(document1: Document, index: number): void {
+
+  cancelDocument(document1: IDocument): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: { document1 } // Pass customer object as data to the dialog
 
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         document1.status = 0;
-        if (this.getCheckboxStatus(index))
-          this.isOkCount--;
-        this._service.addFile(null, document1.id);
-        console.log('in cacncel');
-      }
 
+        if (document1.isOk == true) {
+          this.documentsSendIndex = this.documentsSendIndex.filter(obj => obj !== document1.id);
+          this.isOkCount--;
+        }
+
+        this._service.addFile(null, document1.id);
+      }
     });
   }
 
-  //date visualize
+
   formatDate(date: any) {
     return this.datePipe.transform(date, 'dd/MM/yyyy');
   }
 
   viewDocument(file: File | null) {
-    console.log("in viewDocument");
     if (file) {
       const url = URL.createObjectURL(file);
       window.open(url);
@@ -169,44 +254,126 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       duration: 5000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
-      direction:'rtl',
+      direction: 'rtl',
       panelClass: ['custom-snackbar']
     });
   }
+
+
   saveFiles() {
-    console.log(this._service.selectedDocuments);
-
-    console.log("in save files");
-
-    const countNotNullOrUndefined = this._service.selectedDocuments.filter(value => value !== null && value !== undefined).length;
+    let countNotNullOrUndefined = this._service.selectedDocuments.filter(value => value !== null && value !== undefined).length;
     if (countNotNullOrUndefined != this.isOkCount) {
-      this.openSnackBar(' יש לאשר תחילה את כל המסמכים שהעלית', 'בטל');
-      console.log("countNotNullOrUndefined=" + countNotNullOrUndefined + ", isOkCount=" + this.isOkCount);
+      this.openSnackBar(' יש לאשר תחילה את כל המסמכים שנבחרו.', 'בטל');
       return;
     }
-    console.log();
 
     if (countNotNullOrUndefined == 0) {
-      this.openSnackBar(' אין לשלוח ללא בחירת מסמכים', 'בטל');
+      this.openSnackBar('עדיין לא נבחרו מסמכים.', 'בטל');
       return;
     }
-    console.log("in save");
-    this.fileService.uploadFiles(this._service.selectedDocuments, this._service.customerId.toString())?.subscribe(
+
+    this.fileService.uploadFiles(this._service.selectedDocuments)?.subscribe(
       (event: any) => {
         if (event.status === 'progress') {
-        } else if (!event.includes("Unhandled")) {
-          console.log('Files uploaded successfully:', event.files);
-          console.log('event=' + event);
+        }
 
-          this.openSnackBar('המסמכים הועלו בהצלחה!', 'Close');
+        else if (!event.includes("Unhandled")) {
+          for (let i = 0; i < this.documentsSendIndex.length; i++) {
+            this.dataSource.data.forEach(doc => {
+              if (doc.id === this.documentsSendIndex[i]) {
+                doc.status = 2;
+                doc.created_at = new Date();
+                doc.due_date = new Date();
+                doc.updated_at = new Date();
+              }
+            });
+          }
+          countNotNullOrUndefined = 0;
+          this._service.selectedDocuments = [];
+          this.isOkCount = 0;
+          this.onSaveChangesInServer();
+          this.openSnackBar('המסמכים הועלו בהצלחה!', 'x');
         }
       },
       (error: any) => {
-        this.openSnackBar('ארעה שגיאה בעת ההעלאה :(', 'Close');
+        this.openSnackBar('ארעה שגיאה. לא התבצעה שליחה :(', 'x');
         console.error('Upload error:', error);
       }
     );
-
   }
+
+
+  onSaveChangesInServer(): void {
+    this._service.updateMultipleDocuments(this.dataSource.data)
+      .subscribe(
+        () => {
+          console.log('The documents have been successfully updated on the server');
+        },
+        error => {
+          console.error('Error updating the documents on the server:', error);
+        }
+      );
+  }
+
+
+  download(fileId: string) {
+    this._snackBar.open("ההורדה מתחילה", "X");
+    this.fileService.downloadFile(fileId).subscribe(
+      (response) => {
+        const contentDisposition = response.headers.get('Content-Disposition');
+        const n = this.dataSource.data.filter(doc => doc.id == +fileId)[0].document_path || "";
+        console.log(n);
+        // const fileName = this.dataSource.data[+fileId].document_path!;
+        this.saveDownloadFile(response.body!, n);
+      },
+      (error) => alert('Error downloading file')
+    );
+  }
+
+  private saveDownloadFile(blob: Blob, fileName: string): void {
+    const downloadLink = document.createElement('a');
+    downloadLink.href = window.URL.createObjectURL(blob);
+    downloadLink.download = fileName;
+    downloadLink.click();
+    window.URL.revokeObjectURL(downloadLink.href);
+  }
+
+
+  deleteTask(element: IDocument) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: { message: 'האם אתה בטוח שברצונך למחוק את המסמך?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this._service.deleteDocument(element.id).subscribe(
+          (response: any) => {
+            console.log(response);
+            this.dataSource.data = this.dataSource.data.filter(doc => doc.id !== element.id);
+            this.openSnackBar('המסמך נמחק בהצלחה', "בטל");
+          },
+          (error: any) => {
+            console.error('Error deleting document:', error);
+            this.openSnackBar('ארעה שגיאה בעת מחיקת המסמך', "בטל");
+          }
+        );
+      }
+    });
+  }
+
+
+  editTask(element: IDocument) {
+    if (typeof window && window.sessionStorage != undefined)
+      window.sessionStorage.setItem("customerId", element.customer_Id.toString());
+    this.router.navigate([`customer/task-edit/${element.id}`]);
+  }
+  addTask() {
+    this._service.customerId = this.customerId;
+    if (typeof window && window.sessionStorage != undefined)
+      window.sessionStorage.setItem("customerId", this.customerId.toString());
+    this.router.navigate([`customer/task-edit/${-1}`]);
+  }
+
 
 }

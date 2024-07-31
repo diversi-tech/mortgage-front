@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { ICustomer } from "../Models/Customer";
-import { Lead } from "../Models/Lead";
+import { ILead } from "../Models/Lead";
 import { environment } from "../../../environments/environment";
 
 @Injectable()
@@ -11,9 +11,9 @@ export class customerService {
   private customersSubject = new BehaviorSubject<ICustomer[]>([]);
   customers$ = this.customersSubject.asObservable();
 
-  constructor(private http: HttpClient) {
-    this.fetchCustomers().subscribe(); // אתחול לקוחות בהפעלת השירות
+    constructor(private http: HttpClient) {
   }
+
 
   fetchCustomers(): Observable<ICustomer[]> {
     return this.http.get<ICustomer[]>(`${this.basicURL}Customers`)
@@ -53,8 +53,8 @@ export class customerService {
     return this.http.get(`${this.basicURL}Customers/${id}`); // Use this.apiUrl
   }
 
-  getLeadById(id: number): Observable<Lead> {
-    return this.http.get<Lead>(`${this.basicURL}Leads/${id}`);
+  getLeadById(id: number): Observable<ILead> {
+    return this.http.get<ILead>(`${this.basicURL}Leads/${id}`);
   }
 
 

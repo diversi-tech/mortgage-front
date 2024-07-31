@@ -11,7 +11,8 @@ export class MagicLinkComponent implements OnInit {
   id: number | null = null;;
   token: string | null = null;
   isNotValid = false;
-  constructor(private route: ActivatedRoute, private leadService: leadService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private leadService: leadService, private router: Router) { 
+  }
   tokenValid: any;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -20,21 +21,26 @@ export class MagicLinkComponent implements OnInit {
       console.log('ID:', this.id);
       console.log('Token:', this.token);
     });
+    
     if (this.id != null) {
       this.leadService.checkToken(this.id).subscribe(
         response => {
           if (response.status === 200) {
-            this.router.navigate(['/lead-tetails/', this?.id]);
-            console.log("hiiii");
+            this.router.navigate(['lead', this?.id]);
+            console.log("jiii");
+            
+            // this.router.navigate([`lead`]);
           }
           else {
             this.isNotValid = true;
           }
         },
+        
+    error => {
+      console.error('Error checking token:', error);
+      this.isNotValid = true; // הצגת הודעה למשתמש במקרה של שגיאה
+    }
       );
     }
- 
-
-
   }
 }

@@ -5,23 +5,45 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { loginService } from './login.service';
+import { DocumentsListCustomerService } from './documents-list-customer.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadService {
 
-  private baseUrl = environment.apiURL+'/api/Dropbox'; // Replace with your server URL
+  private baseUrl = environment.apiURL + '/api/Dropbox'; // Replace with your server URL
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private loginService: loginService, private documentService: DocumentsListCustomerService) { }
 
-  uploadFiles(files: (File | null)[], id: string): Observable<any> {
+  uploadFiles(files: (File | null)[]): Observable<any> {
     const formData = new FormData();
+    var id: number, id2:number;
     if (files)
       files.forEach((file, index) => {
-        if (file)
-          formData.append('files', file, `${id}_${file.name}`);
+        if (file) {
+          id = files.findIndex(obj => obj?.name === file.name);
+          if (id != -1) {
+            if (this.loginService.isAdmin()) {
+              this.documentService.documents$.subscribe(
+                (data) => {
+                  var obj=data.find(obj => obj?.id === id);
+                  console.log(obj);
+                  id2 = obj!.id2!;
+                  if (id2 != -1) {
+                    formData.append('files', file,`${id}_${id2}_${file.name}`);
+                  }
+                }
+              );
+            }
+            else
+              formData.append('files', file, `${id}_${file.name}`);
+          }
+
+        }
       });
+    console.log("after foreach");
 
     const uploadReq = new HttpRequest('POST', `${this.baseUrl}/uploadfiles`, formData, {
       reportProgress: true,
@@ -42,12 +64,15 @@ export class UploadService {
         return throwError(error);
       })
     );
+
   }
 
 
   uploadFile(file: File | null, id: string): Observable<any> {
     const formData = new FormData();
-    if (file)
+    if (file && this.loginService.isAdmin())
+      formData.append('file', file, `${id}_${file.name}`); // שינוי השם של הקובץ כאן
+    else if (file)
       formData.append('file', file, `${id}_${file.name}`); // שינוי השם של הקובץ כאן
 
     const uploadReq = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {

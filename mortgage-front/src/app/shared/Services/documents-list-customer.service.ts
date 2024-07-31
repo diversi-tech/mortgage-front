@@ -1,27 +1,27 @@
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
+import { BehaviorSubject, Observable, catchError, tap, throwError } from "rxjs";
 import { Injectable } from '@angular/core';
-import { Document } from '../Models/document';
-import { DocumentType, TransactionType } from '../Models/DocumentTypes.Model';
+import { IDocument } from '../Models/document';
+import { IDocumentType, TransactionType } from '../Models/DocumentTypes.Model';
 import { environment } from '../../../environments/environment';
+import { ICustomer } from '../Models/Customer';
+import { customerService } from './costumer.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocumentsListCustomerService {
-  readonly apiUrl = environment.apiURL+'/api';
-  customerId:number=7;
-  private documentsSubject = new BehaviorSubject<Document[]>([]);
+  readonly apiUrl = environment.apiURL + '/api';
+  customerId!: number;
+  private documentsSubject = new BehaviorSubject<IDocument[]>([]);
   documents$ = this.documentsSubject.asObservable();
-  
+
   private selectedDocumentsSubject = new BehaviorSubject<(File | null)[]>([]);
   selectedDocuments$ = this.selectedDocumentsSubject.asObservable();
 
   private _selectedDocuments: (File | null)[] = [];
 
-  constructor(private http: HttpClient) {
-    this.fetchDocumentsByCustomerId(7).subscribe();
-  }
+  constructor(private http: HttpClient, private customerService: customerService) {  }
 
   get selectedDocuments(): (File | null)[] {
     return this._selectedDocuments;
@@ -32,24 +32,26 @@ export class DocumentsListCustomerService {
     this.selectedDocumentsSubject.next(documents);
   }
 
-  getDocumentsTypesById(customerId: number): Observable<DocumentType[]> {
-    return this.http.get<DocumentType[]>(`${this.apiUrl}/DocumentTypes/${customerId}`);
+  getDocumentsTypesById(customerId: number): Observable<IDocumentType[]> {
+    return this.http.get<IDocumentType[]>(`${this.apiUrl}/DocumentTypes/${customerId}`);
   }
-  
-  addDocument(document : Document):Observable<Document>{
-    return this.http.post<Document>(`${this.apiUrl}/CustomerTasksControllercs`, document);
+  getDocumentById(DocId: number) {
+    return this.http.get<IDocument>(`${this.apiUrl}/CustomerTasksControllercs/${DocId}`);
   }
-
-  getAllDocuments(): Observable<Document[]> {
-    return this.http.get<Document[]>(`${this.apiUrl}/CustomerTasksControllercs`);
+  addDocument(document: IDocument): Observable<IDocument> {
+    return this.http.post<IDocument>(`${this.apiUrl}/CustomerTasksControllercs`, document);
   }
 
-  getAllDocumentType(): Observable<DocumentType[]> {
-    return this.http.get<DocumentType[]>(`${this.apiUrl}/DocumentTypes`);
+  getAllDocuments(): Observable<IDocument[]> {
+    return this.http.get<IDocument[]>(`${this.apiUrl}/CustomerTasksControllercs`);
   }
 
-  fetchDocumentsByCustomerId(customerId: number): Observable<Document[]> {
-    return this.http.get<Document[]>(`${this.apiUrl}/CustomerTasksControllercs/customerId/${customerId}`)
+  getAllDocumentType(): Observable<IDocumentType[]> {
+    return this.http.get<IDocumentType[]>(`${this.apiUrl}/DocumentTypes`);
+  }
+
+  fetchDocumentsByCustomerId(customerId: number): Observable<IDocument[]> {
+    return this.http.get<IDocument[]>(`${this.apiUrl}/CustomerTasksControllercs/customerId/${customerId}`)
       .pipe(
         tap(documents => this.documentsSubject.next(documents)),
         catchError(error => {
@@ -58,14 +60,48 @@ export class DocumentsListCustomerService {
         })
       );
   }
-
-  fetchDocumentsTypesById(customerId: number): Observable<DocumentType> {
-    return this.http.get<DocumentType>(`${this.apiUrl}/DocumentTypes/${customerId}`);
+  updateMultipleDocuments(documents: IDocument[]): Observable<any> {
+    return this.http.put<any>(this.apiUrl + `/CustomerTasksControllercs`, documents)
+      .pipe(
+        catchError(error => {
+          console.error('שגיאה בעדכון מסמכים בשרת:', error);
+          return throwError('משהו השתבש בעדכון המסמכים. נסה שוב מאוחר יותר.');
+        })
+      );
+  }
+  fetchDocumentsTypesById(customerId: number): Observable<IDocumentType> {
+    return this.http.get<IDocumentType>(`${this.apiUrl}/DocumentTypes/${customerId}`);
   }
 
   addFile(file: File | null, index: number) {
     const documents = [...this.selectedDocuments];
     documents[index] = file;
     this.selectedDocuments = documents;
+  }
+  deleteDocument(docId: number) {
+    return this.http.delete(`${this.apiUrl}/CustomerTasksControllercs/${docId}`);
+  }
+  updateDocument(docId: number, documentData: any) {
+    return this.http.put(`${this.apiUrl}/CustomerTasksControllercs/${docId}`, documentData);
+  }
+  createDocument(documentData: any) {
+    return this.http.post(`${this.apiUrl}/CustomerTasksControllercs`, documentData);
+  }
+  getCustomerByDocumentId(doc: IDocument): ICustomer | undefined {
+    // var doc:Document|undefined;
+    // this.documents$.subscribe(
+    //   (data: Document[]) => {
+    //     doc = data.find((doc: Document) => doc.customer_Id == id);
+    //     // return customer;
+    //     console.log("doc="+doc);
+
+    //   }
+    // );
+    console.log(doc);
+
+    var customer = this.customerService.getCustomerById(doc?.customer_Id || 0);
+    console.log("customer=" + customer);
+
+    return customer;
   }
 }

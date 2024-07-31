@@ -6,11 +6,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import {  MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { Lead } from '../../shared/Models/Lead';
+import { ILead } from '../../shared/Models/Lead';
 import { leadService } from '../../shared/Services/lead.service';
 import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { magicLinkService } from '../../shared/Services/magicLinkService';
+
+
 @Component({
   selector: 'lead-list',
   templateUrl: './lead-list.component.html',
@@ -18,7 +20,7 @@ import { magicLinkService } from '../../shared/Services/magicLinkService';
 })
 export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
   displayedColumns = ['link','first_Name', 'phone', 'email', 'actions'];
-  dataSource: MatTableDataSource<Lead> = new MatTableDataSource<Lead>();
+  dataSource: MatTableDataSource<ILead> = new MatTableDataSource<ILead>();
   private leadsSubscription?: Subscription;
   emailSubject = 'לחץ על הקישור כדי להיכנס לאתר';
   link = this.leadService.sendLink();
@@ -36,18 +38,25 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
     this.loadLeads();
   }
 
+  
   loadLeads(): void {
-    this.leadsSubscription = this.leadService.leads$.subscribe({
-      next: leads => {
-        this.dataSource.data = leads;
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      },
-      error: error => {
-        console.error('Error loading customers:', error);
-      }
-    });
+    // Fetch initial data to populate the subject
+
+        // Subscribe to leads$ after fetching initial data
+        this.leadsSubscription = this.leadService.leads$.subscribe({
+          next: leads => {
+            this.dataSource.data = leads; // Update dataSource with the latest leads
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          },
+          error: error => {
+            console.error('Error loading leads:', error);
+          }
+        });
+    
   }
+  
+  
 
   ngOnDestroy(): void {
     if (this.leadsSubscription) {
@@ -83,7 +92,7 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
   editLead(selected: ICustomer): void {
     this.router.navigate(['admin/lead-details/', selected?.id]);
   }
-  deleteLead(lead: Lead): void {
+  deleteLead(lead: ILead): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,{
       data: { lead } // Pass customer object as data to the dialog
     });

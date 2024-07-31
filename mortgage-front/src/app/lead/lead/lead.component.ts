@@ -4,17 +4,18 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { Connection, ICustomer, Family_Status, Job_Status, TransactionTypeEnum } from '../../shared/Models/Customer';
 import { MatStepper } from '@angular/material/stepper';
 import { leadService } from '../../shared/Services/lead.service';
-import { Role, User } from '../../shared/Models/user';
+import { Role, IUser } from '../../shared/Models/user';
 import { UserService } from '../../shared/Services/user.service';
 import { israeliIdValidator } from './birth-date-validator';
 import { birthDateValidator } from './israeli-id-validator';
 import { DocumentTypeService } from '../../shared/Services/documentType.service';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
 import { firstValueFrom } from 'rxjs';
-import { Document } from '../../shared/Models/document';
+import { IDocument } from '../../shared/Models/document';
 import { customerService } from '../../shared/Services/costumer.service';
 import { ActivatedRoute } from '@angular/router';
 import { loginService } from '../../shared/Services/login.service';
+import { log } from 'console';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
 
   @ViewChild('stepper')
   stepper!: MatStepper;
-  user: User = {
+  user: IUser = {
     id: 0,
     userName: '',
     password: '',
@@ -43,7 +44,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   isLinear = true;
   isAddDocuments = false;
   r = "";
-  role: Role = Role.Admin;
+  role: Role = Role.Customer;
   isLead: boolean = false
   lead_id: number |null=null;
   customerId!: number | undefined
@@ -60,8 +61,9 @@ export class LeadComponent implements OnInit, AfterViewInit {
   showTable: boolean = false;
   tableData: any[] = [];
 
-  document: Document = {
+  document: IDocument = {
     id: 0,
+    id2:0,
     customer_Id: 0,
     task_description: "",
     document_type_id: 0,
@@ -136,7 +138,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   ];
   passwordStrength: { valid: string[], invalid: string[] } = { valid: [], invalid: [] };
 
-  constructor(private loginservice:loginService, private route: ActivatedRoute, private _formBuilder: FormBuilder, private customerService: customerService, private leadService: leadService, private userService: UserService, private documentType: DocumentTypeService, private customerTask: DocumentsListCustomerService) {
+  constructor( private loginservice:loginService,private route: ActivatedRoute, private _formBuilder: FormBuilder, private customerService: customerService, private leadService: leadService, private userService: UserService, private documentType: DocumentTypeService, private customerTask: DocumentsListCustomerService) {
     this.firstFormGroup = new FormGroup({
       userName: new FormControl({ value: '', disabled: false }, [
         Validators.required, Validators.email]),
@@ -215,12 +217,14 @@ export class LeadComponent implements OnInit, AfterViewInit {
     return { passwordStrength: true };
   }
   ngOnInit(): void {
-    debugger
-    this.route.queryParams.subscribe(params => {
-      this.lead_id = params['id'];})
-    if (localStorage.getItem('enterOrNot') === null) {
+    console.log("in ngOnInit of lead");
+    this.route.paramMap.subscribe(params => {
+      this.lead_id = Number(params.get('id'));
+})
+
+if (localStorage.getItem('enterOrNot') === null) {
       localStorage.setItem('enterOrNot', 'false');
-    } 
+} 
 
     const storedUserName = localStorage.getItem('userName');
     const storedPassword = localStorage.getItem('password');
@@ -267,15 +271,18 @@ export class LeadComponent implements OnInit, AfterViewInit {
     return localStorage.getItem('enterOrNot') === 'true';
   }
   checkUserNameAndPassword() {
-    let lead = this.leadService.getLeadById(this.lead_id!)
-    this.customerData.phone = lead?.phone
-    this.customerData.email = lead?.email
-    this.customerData.first_Name = lead?.first_Name
+     this.leadService.getLeadById(this.lead_id!).subscribe(lead=>{
+      this.customerData.phone = lead?.phone
+      this.customerData.first_Name = lead?.first_Name
+
+    })
+    this.customerData.email = this.firstFormGroup.value.userName
     this.user.id = 0
     this.user.userName = this.firstFormGroup.value.userName
     this.user.password = this.firstFormGroup.value.password
-    this.user.email = this.customerData.email
-    this.user.role = this.role
+    this.user.email = this.firstFormGroup.value.userName
+
+    this.user.role =this.role
     this.user.created_at = new Date(Date.now())
     this.user.updated_at = new Date(Date.now())
     console.log("user", this.user);
@@ -304,13 +311,14 @@ export class LeadComponent implements OnInit, AfterViewInit {
               console.log('User created:', this.user);
               this.customerData.lead_id = this.lead_id!;
               this.customerService.createCustomerForLead(this.customerData,this.lead_id!).subscribe({
-                next: (res: any) => { 
-                  
+                next: (res: ICustomer) => { 
+                  debugger
+                  this.customerId=res.id
                 console.log('Customer created:', this.customerData)
-
                 this.loginservice.login(this.user.email!, this.user.password!).subscribe(
-                  (response:string) => {
-                    sessionStorage.setItem("token", response);
+                  (response:any) => {
+                    let parsedResponse = JSON.parse(response);
+                    sessionStorage.setItem("token", parsedResponse.token);
                   },
                   (error: any) => {
                     console.log('Login failed', error);
@@ -328,7 +336,8 @@ export class LeadComponent implements OnInit, AfterViewInit {
       },
       (error: any) => {
         console.error('Error during user existence check:', error);
-      })
+      }
+      )
   }
 
   saveFormData() {
@@ -452,8 +461,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
     window.open(url);
   }
   saveSelectionType(value: any) {
-    // this.selectedTransactionType = value
-    //  this.getDocuments(value);
+
     localStorage.setItem('tableData', JSON.stringify(this.tableData));
     console.log('Selected Transaction Type:', "this.selectedTransactionType");
   }
@@ -483,6 +491,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
       // });
 
       try {
+        debugger
         await firstValueFrom(this.customerService.updateCustomer(this.customerId, this.customerData));
         console.log('step 3 created');
         await this.getDocuments();
@@ -631,6 +640,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
     const addDocumentPromises = this.tableData.map((item: any) => {
       this.document = {
         id: 0,
+        id2:0,
         customer_Id: 1,
         task_description: item.document_Name,
         document_type_id: Number(this.customerData.transaction_type),

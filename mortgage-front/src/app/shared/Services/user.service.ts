@@ -1,28 +1,27 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { HttpClient, HttpHeaders , HttpErrorResponse} from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, map, of, tap } from "rxjs";
-import { User } from "../Models/user";
+import { IUser, Role } from "../Models/user";
 import { environment } from "../../../environments/environment";
 import { log } from "node:console";
 import { response } from "express";
-//import { Lead } from "../Models/Lead";
+
 
 @Injectable()
  export class UserService {
-  readonly basicURL =environment.apiURL;
-  private usersSubject = new BehaviorSubject<User[]>([]);
+  readonly basicURL =environment.apiURL+"/api/";
+  private usersSubject = new BehaviorSubject<IUser[]>([]);
   users$ = this.usersSubject.asObservable();
-  constructor(private http: HttpClient) {
-    this.fetchUsers().subscribe();
-  }
-  fetchUsers(): Observable<User[]> {
+   constructor(private http: HttpClient) {  }
+
+  fetchUsers(): Observable<IUser[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
       withCredentials: true // שורה זו חשובה לפיתוח
     };
-    return this.http.get<User[]>(`${this.basicURL}/api/Users`, httpOptions)
+    return this.http.get<IUser[]>(`${this.basicURL}Users`, httpOptions)
       .pipe(
         tap(users => this.usersSubject.next(users)),
         catchError(error => {
@@ -31,7 +30,7 @@ import { response } from "express";
         })
       );
   }
-  createUser(user: User) {
+  createUser(user: IUser) {
     const formData: FormData = new FormData();
     if (user.id !== undefined) formData.append('Id', user.id.toString());
     if (user.userName !== undefined) formData.append('UserName', user.userName);
@@ -44,7 +43,7 @@ import { response } from "express";
   }
 
 
-createUserForLead(user:User,leadId:number)
+createUserForLead(user:IUser,leadId:number)
 {
     const formData: FormData = new FormData();
     if (user.id !== undefined) formData.append('Id', user.id.toString());
@@ -54,7 +53,12 @@ createUserForLead(user:User,leadId:number)
     if (user.role !== undefined) formData.append('Role', user.role.toString());
     if (user.created_at !== undefined) formData.append('Created_at', user.created_at.toISOString());
     if (user.updated_at !== undefined) formData.append('Updated_at', user.updated_at.toISOString());
-    return this.http.post(`${this.basicURL}Users/Lead${leadId}`, user);
+    let roleId;
+    if(user.role==Role.Admin)
+      roleId=0
+    else
+      roleId=1
+    return this.http.post(`${this.basicURL}Users/Lead${leadId}`, { ...user, role: roleId });
 }
   
   //  createUser(user: User): Observable<User> {
@@ -86,68 +90,65 @@ createUserForLead(user:User,leadId:number)
   //   return this.http.post<User>(`${this.basicURL}Users`, user, httpOptions);
   // }
 
+  IsExist(user: IUser): Observable<string> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });  
+    console.log('Checking if user exists:', user);
+    let roleId = user.role == Role.Admin ? 0 : 1;  
+    return this.http.post<any>(this.basicURL + 'Users/login', { ...user, role: roleId,headers, responseType: 'text' })
+    .pipe(
+      map((response) => {
+        console.log("IsExist response:", response);
+        if (response && response.token) {
+          console.log('User exists');
+          sessionStorage.setItem("token", response.token);
+          return '200';
+        } else {
+          console.log('User does not exist');
+          return '404';
+        }
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error checking if user exists:', error);
+  
+        // Handle 404 error as a normal case, not an error.
+        if (error.status === 404) {
+          console.log('User not found:', error.error);
+          return of('404');
+        }
+        return of('Error: Unable to access the server');
+      })
+    );
+  }
   
 
-  IsExist(user: User): Observable<string> {
-
-    console.log('Checking if user exists:', user); // הדפסה של המשתמש שנשלח לבדיקה
-
-    return this.http.post<User>(this.basicURL+'/login', user).pipe(
-
-      map(response=> {
-
-        console.log("IsExist response:", response);
-
-        if (response !== null && response !== undefined) {
-
-          console.log('User exists');
-
-          return '200';
-
-        } else  {
-
-          console.log('User does not exist');
-
-          return '404';
-
-        }
-
-      }),
-
-      catchError((error: HttpErrorResponse) => {
-
-        if (error.status === 404) {
-
-          console.error('User not found:', error.error);
-
-          return of('404'); // או התגובה המתאימה למקרה של משתמש שלא נמצא
-
-        } else {
-
-          console.error('Error checking if user exists:', error);
-
-          return of('Error: Unable to access the server');
-
-        }
-
-      })
-
+  updateUser(updatedUser: IUser): Observable<IUser> {
+    const updateUrl = `${this.basicURL}Users/${updatedUser.id}`;
+    return this.http.put<IUser>(updateUrl, updatedUser).pipe(
+      tap(() => {
+        const users = this.usersSubject.getValue();          
+        const index = users.findIndex(l => l.id === updatedUser?.id);       
+        if (index !== -1) {
+          users[index] = updatedUser;        
+          this.usersSubject.next([...users]);
+          this.fetchUsers().subscribe(); 
+        }  
+      }),  
     );
-
   }
-
-
-
-  login(password: string, email: string) {
-    const user = {
-      userName: "string",
-      password: password,
-      email: email,
-      role: 0,
-      created_at: "2024-07-22T16:45:56.650404",
-      updated_at: "2024-07-22T16:45:56.650408"
+  
+  getUserById(id: number): Observable<any> {
+    return this.users$.pipe(
+      map(users => users.find(user => user.id === id)),
+    );
+  }
+ 
+    addUser(user: IUser): Observable<IUser> {
+      const updateUrl = `${this.basicURL}Users`;
+      return this.http.post<IUser>(updateUrl, user).pipe(
+        map(newUser => {
+          this.http.get<IUser[]>(updateUrl).subscribe(users => this.usersSubject.next(users));
+          return newUser;
+        })
+      );
     }
-    console.log("in login service");
-    return this.http.post(`${this.basicURL}/api/Users/login`, user);
-  }
 }

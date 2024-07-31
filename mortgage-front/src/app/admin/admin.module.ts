@@ -19,6 +19,7 @@ import { GlobalModule } from '../global/global.module';
 import { SendNotificationComponent } from './send-notification/send-notification.component';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { CustomerExcelComponent } from './customer-excel/customer-excel.component';
+import { TaskEditComponent } from './task-edit/task-edit.component';
 
 
 
@@ -36,7 +37,8 @@ import { CustomerExcelComponent } from './customer-excel/customer-excel.componen
     SendNotificationComponent,
     EditDialogComponent,
     UserListComponent,
-    CustomerExcelComponent
+    CustomerExcelComponent,
+    TaskEditComponent,
   ],
   imports: [
     CommonModule,

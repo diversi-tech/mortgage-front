@@ -1,24 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
-import { TokenPayload } from '../Models/Login';
+import { ITokenPayload } from '../Models/TokenPayload';
 import { jwtDecode } from "jwt-decode";
 import { environment } from '../../../environments/environment';
+import { Role } from '../Models/user';
+import { log } from 'node:console';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class loginService {
-  // private token: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
   readonly basicURL = environment.apiURL;
-  currentUser: TokenPayload = {};
+  currentUser: ITokenPayload = {
+      id: -1,
+      userName: '',
+      role: Role.None,
+      customerId: -1
+  };
   CurrentcustomerId?: number;
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string): Observable<string> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  login(email: string, password: string): Observable<string> { 
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });  
     const user = {
       userName: "string",
       password: password,
@@ -27,14 +33,19 @@ export class loginService {
       created_at: null,
       updated_at: null
     };
-    return this.http.post(`${this.basicURL}/api/Users/login`, user, { headers, responseType: 'text' }).pipe(
-      // tap(token => this.token.next(token))
-    );;
-
+    return this.http.post(`${this.basicURL}/api/Users/login`, user, { headers, responseType: 'text' }).pipe( );;
   }
 
-  decodeToken(token: string): TokenPayload {
-    // console.log("token=" + token);
+  decodeToken(token: string): ITokenPayload {
+    if (!token) {
+      throw new Error('Token is empty');
+    }
+
+    const parts = token.split('.');
+    if (parts.length !== 3) {
+      throw new Error('Token structure is invalid');
+    }
+try{
     const decoded = jwtDecode(token);
     const JSONdecoder = JSON.parse(JSON.stringify(decoded));
     let currentUserId, currentUserName, currentUserRole, currentCustomerId;
@@ -57,14 +68,31 @@ export class loginService {
     this.currentUser.role = currentUserRole;
     this.currentUser.id = currentUserId;
     this.currentUser.customerId = currentCustomerId;
+}
+    catch (error) {
+      console.error('Invalid token:', error);
+    }
     return this.currentUser;
   }
-  GetToken(){
-    return sessionStorage.getItem("token")
+
+  GetToken() {
+    if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined') {
+      return sessionStorage.getItem("token");
+    } else {
+      console.error('sessionStorage is not available.');
+      return null;
+    }
   }
+
   GetCurrentUser() {
+
     if (typeof window !== 'undefined' && window.sessionStorage)
-      this.currentUser = this.decodeToken(sessionStorage.getItem("token") || "");
+    {
+      if(sessionStorage.getItem("token") != null)
+      {
+        this.currentUser = this.decodeToken(sessionStorage.getItem("token") || "");
+      }
+    }
     return this.currentUser;
   }
   isLoggedIn(): boolean {
@@ -75,13 +103,13 @@ export class loginService {
   }
   isAdmin(): boolean {
     let token = sessionStorage.getItem('token') || "";
-    let currentUser: TokenPayload = this.decodeToken(token);
+    if(token==='') return false;
+    let currentUser: ITokenPayload = this.decodeToken(token);
     return String(currentUser.role) == "Admin";
   }
 
   Logout() {
     sessionStorage.removeItem("token")
-    debugger
   }
 
   resetPassword(email: string): Observable<any> {

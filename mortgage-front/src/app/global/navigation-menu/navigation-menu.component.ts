@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, HostListener, Inject, PLATFORM_ID, OnInit } from '@angular/core';
-import { ComponentInfo } from '../../shared/Models/componentInfo';
+import { IComponentInfo } from '../../shared/Models/componentInfo';
 import { MatSidenav } from '@angular/material/sidenav';
 import { isPlatformBrowser } from '@angular/common';
 import { NavigatioMenuToggleService } from '../../shared/Services/navigation-menu-toggle.service';
@@ -22,12 +22,12 @@ export class NavigationMenuComponent implements OnInit {
       });
     }
   }
-  private _componentsList?: Array<ComponentInfo>;
-  public get componentsList(): Array<ComponentInfo> | undefined {
+  private _componentsList?: Array<IComponentInfo>;
+  public get componentsList(): Array<IComponentInfo> | undefined {
     return this._componentsList;
   }
   @Input()
-  public set componentsList(value: Array<ComponentInfo> | undefined) {
+  public set componentsList(value: Array<IComponentInfo> | undefined) {
     this._componentsList = value;
   }
 

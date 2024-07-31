@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DocumentType,TransactionType } from '../../shared/Models/DocumentTypes.Model';
+import { IDocumentType,TransactionType } from '../../shared/Models/DocumentTypes.Model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MailingListService } from '../../shared/Services/mailing-list.service';
 import { customerService } from '../../shared/Services/costumer.service';
@@ -16,7 +16,7 @@ import { customerService } from '../../shared/Services/costumer.service';
 export class MailingListComponent {
   mailingListForm: FormGroup;
   transactionTypes = Object.values(TransactionType).filter(key => isNaN(Number(key)));
-  docType!: DocumentType
+  docType!: IDocumentType
 
   constructor(private fb: FormBuilder, private customerService: customerService, private snackBar: MatSnackBar,private mailingListService:MailingListService) {
     this.mailingListForm = this.fb.group({

@@ -3,17 +3,17 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { loginService } from '../../shared/Services/login.service';
-import { TokenPayload } from '../../shared/Models/Login';
-import { BehaviorSubject } from 'rxjs';
+import { ITokenPayload } from '../../shared/Models/TokenPayload';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'] // תוקן ל-styleUrls
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  userByToken?: TokenPayload;
+  userByToken!: ITokenPayload;
   color:string="rgba(255, 255, 255, 0.553)";
   constructor(private route: ActivatedRoute, private loginService: loginService, private fb: FormBuilder, private snackBar: MatSnackBar, private router: Router) {
     this.loginForm = this.fb.group({
@@ -28,24 +28,21 @@ export class LoginComponent {
   get password() {
     return this.loginForm.get('password');
   }
+
   //Login function by entering email and password
   submit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.loginService.login(email, password).subscribe(
-        (response:string) => {
-          // this.loginService.GetToken().next(response); // שמירת הטוקן ב-BehaviorSubject
-          sessionStorage.setItem("token", response);
-
+        (response:any) => {
+          let parsedResponse = JSON.parse(response);
+          sessionStorage.setItem("token", parsedResponse.token);
           this.userByToken = this.loginService.decodeToken(this.loginService.GetToken()!);
           console.log('what the user and role', this.userByToken, this.userByToken.role);
-          // debugger
-
           if (String(this.userByToken.role) == 'Admin') {
             console.log('admin');
             this.router.navigate(['/admin']);
             console.log('after navigate');
-
           }
           else if (String(this.userByToken.role) == 'Customer') {
             console.log('customer');
@@ -72,25 +69,32 @@ export class LoginComponent {
   }
   //Password reset function by sending an email to the password reset page
   forgotPassword() {
-    this.snackBar.open('בבקשה תכניס כתובת מייל שלך השמורה במערכת', 'Close', {
-      duration: 5000,
+  if(!this.loginForm.value.email)
+    {
+       this.snackBar.open('בבקשה תכניס כתובת מייל שלך השמורה במערכת', 'Close', {
+      duration: 7000,
     });
-    //send email
+    }
+  else
+   {
     const email = this.loginForm.get('email')!.value;
-    this.loginService.resetPassword(email).subscribe(
-      (response) => {
-        this.snackBar.open('נשלח אימייל לאיפוס הסיסמה שלך', 'Close', {
-          duration: 8000,
-        })
-      },
-      (error) => {
-        this.snackBar.open('המשתמש לא קיים במערכת. בבקשה נסה שוב.', 'Close', {
-          duration: 5000,
-        });
-        console.log(error);
-        //Error printing in specific fields
-        console.log(error.error.errors);
-      }
-    );
-  }
+     this.loginService.resetPassword(email).subscribe(
+    (response) => {
+      this.snackBar.open('נשלח אימייל לאיפוס הסיסמה שלך', 'Close', {
+        duration: 7000,
+      })
+    },
+    (error) => {
+      this.snackBar.open('המשתמש לא קיים במערכת. בבקשה נסה שוב.', 'Close', {
+        duration: 7000,
+      });
+      console.log(error);
+      //Error printing in specific fields
+      console.log(error.error.errors);
+    }
+  );
+}
+}
+    //send email
+   
 }

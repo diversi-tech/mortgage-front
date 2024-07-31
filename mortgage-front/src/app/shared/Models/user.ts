@@ -1,14 +1,15 @@
 export enum Role {
-    Admin="Admin",
-    Customer="Customer"
+    None=-1,
+    Admin=0,
+    Customer=1
 }
 
-export class User {
-    id?: number;
-    userName?: string;
-    password?: string;
-    email?: string;
-    role?:Role;
-    created_at?: Date ;
-    updated_at?: Date ;
+export interface IUser {
+    id: number;
+    userName: string;
+    password: string;
+    email: string;
+    role:Role;
+    created_at: Date ;
+    updated_at: Date ;
 }

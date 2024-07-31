@@ -1,10 +1,15 @@
-<div class="background-container">
-  <div class="h1">
-    <!-- <h1></h1>  -->
-    <h1>הדף לא נמצא - Error 404</h1>
-  </div>
-  <!-- <a routerLink="/">Go to Home</a> -->
-  <div class="logo-container">
-    <img src="assets/logo.png" alt="Logo" class="logo">
+<div class="page-not-found-container">
+  <div class="error-content">
+    <h1 class="error-title">:( 404 - עמוד לא נמצא</h1>
+    <p class="error-message">נראה שאתה מנסה לגשת לעמוד שלא קיים.</p>
+    <p class="error-message">הדף שאתה מחפש פשוט נעלם</p>
+    <div class="error-image">
+      <img style="float: right;" src="assets/logo.png" alt="404 Error" width="300px" height="300px">
+      <!-- <img style="float: right;" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2J1ODhxYmx4Ym0wdmdhZnhtdndvOGl4MzdxMXdscmliY2N2aTVrNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/iFIoS8BiwhilmjhLuH/giphy.webp" alt="404 Error" width="300px" height="300px"> -->
+    </div>
+    <div class="error-actions">
+      <button mat-raised-button color="primary" routerLink="/">חזרה לדף הבית</button>
+      <!-- <button mat-raised-button color="accent" routerLink="/contact">צור קשר עם צוות התמיכה</button> -->
+    </div>
   </div>
 </div>

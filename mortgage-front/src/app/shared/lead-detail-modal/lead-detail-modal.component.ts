@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Lead } from '../Models/Lead';
+import { ILead } from '../Models/Lead';
 import { ActivatedRoute, Router } from '@angular/router';
 import { leadService } from '../Services/lead.service';
 import { tap } from 'rxjs';
@@ -13,8 +13,8 @@ import { tap } from 'rxjs';
 })
 export class LeadDetailComponent implements OnInit {
   leadForm: FormGroup;
-  leadId?: number;
-  lead?: Lead;
+  leadId!: number;
+  lead?: ILead;
 
   constructor(
     private fb: FormBuilder,
@@ -41,19 +41,22 @@ export class LeadDetailComponent implements OnInit {
   }
 
   getLeadById(id: number): void {
-    this.lead = this.leadService.getLeadById(id);
+   this.leadService.getLeadById(id).subscribe(lead=>{
+      this.lead=lead
+    });
     if (this.lead)
       this.leadForm.patchValue(this.lead);
   }
 
   saveLead() {
     if (this.leadForm.valid) {
-        const updatedLead: Lead = this.leadForm.value;
-        updatedLead.id = this.lead?.id; // Ensure ID is set
-        updatedLead.created_at = this.lead?.created_at;  // Preserve original date
-        updatedLead.updated_at = this.lead?.updated_at;  // Preserve original dat
-        updatedLead.expiration=this.lead?.expiration;
-        updatedLead.token="";
+        const updatedLead: ILead = this.leadForm.value;
+        updatedLead.id = this.lead!.id; // Ensure ID is set
+        updatedLead.created_at = this.lead!.created_at;  // Preserve original date
+        updatedLead.updated_at = this.lead!.updated_at;  // Preserve original dat
+        updatedLead.expiration=this.lead!.expiration;
+        updatedLead.token=this.lead?.token
+        // updatedLead.token="";
         if (this.leadId == -1) {
           console.log('in new');
           this.leadService.addLead(updatedLead)

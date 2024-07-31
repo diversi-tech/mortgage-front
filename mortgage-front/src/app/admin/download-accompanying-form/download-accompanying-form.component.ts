@@ -5,6 +5,7 @@ import { Document, Packer, Paragraph, TextRun, ImageRun, Table, TableCell, Table
 import { customerService } from '../../shared/Services/costumer.service';
 import { switchMap } from 'rxjs';
 import { ICustomer } from '../../shared/Models/Customer';
+import { MaterialModule } from '../../material/material.module';
 
 @Component({
   selector: 'app-download-accompanying-form',
@@ -26,7 +27,6 @@ export class DownloadAccompanyingFormComponent implements OnInit {
       })
     ).subscribe(customers => {
       this.customer = this.customerService.getCustomerById(this.customerId);
-      console.log(this.customer); 
     });
   }
 
