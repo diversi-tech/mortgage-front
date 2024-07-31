@@ -59,12 +59,15 @@ const modules=[
    MatAutocompleteModule,
    MatSlideToggleModule
   //  MatSnackBar
+  
+  
 ]
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    
     ...modules
   ],
   exports: modules

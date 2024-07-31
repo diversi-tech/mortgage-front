@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders , HttpErrorResponse} from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, map, of, tap } from "rxjs";
 import { IUser } from "../Models/user";
 import { environment } from "../../../environments/environment";
@@ -8,8 +8,8 @@ import { response } from "express";
 //import { Lead } from "../Models/Lead";
 
 @Injectable()
- export class UserService {
-  readonly basicURL =environment.apiURL;
+export class UserService {
+  readonly basicURL = environment.apiURL;
   private usersSubject = new BehaviorSubject<IUser[]>([]);
   users$ = this.usersSubject.asObservable();
   constructor(private http: HttpClient) {
@@ -71,15 +71,15 @@ import { response } from "express";
   //   return this.http.post<User>(`${this.basicURL}Users`, user, httpOptions);
   // }
 
-  
+
 
   IsExist(user: IUser): Observable<string> {
 
     console.log('Checking if user exists:', user); // הדפסה של המשתמש שנשלח לבדיקה
 
-    return this.http.post<IUser>(this.basicURL+'/login', user).pipe(
+    return this.http.post<IUser>(this.basicURL + '/login', user).pipe(
 
-      map(response=> {
+      map(response => {
 
         console.log("IsExist response:", response);
 
@@ -89,7 +89,7 @@ import { response } from "express";
 
           return '200';
 
-        } else  {
+        } else {
 
           console.log('User does not exist');
 
@@ -137,10 +137,16 @@ import { response } from "express";
   }
 
   updateUser(updatedUser: IUser): Observable<IUser> {
-     console.log("in update id="+updatedUser.id);
-     
-    const updateUrl = `${this.basicURL}/api/Users/${updatedUser.id}`;
-    return this.http.put<IUser>(updateUrl, updatedUser).pipe(
+    const user = {
+      userName: updatedUser.email,
+      password: updatedUser.password,
+      email: updatedUser.email,
+      role: updatedUser.role === 'Admin' ? 0 : 1,
+      created_at: updatedUser.created_at,
+      updated_at: new Date()
+
+    }
+    return this.http.put<IUser>(`${this.basicURL}/api/Users/${updatedUser.id}`, user).pipe(
       tap(() => {
         const users = this.usersSubject.getValue();          
         const index = users.findIndex(l => l.id === updatedUser?.id);       
@@ -150,25 +156,33 @@ import { response } from "express";
           this.fetchUsers().subscribe(); 
         }  
       }),  
-      
+
     );
   }
-  
+
   getUserById(id: number): Observable<any> {
     return this.users$.pipe(
       map(users => users.find(user => user.id === id)),
     );
   }
- 
-    addUser(user: IUser): Observable<IUser> {
-      const updateUrl = `${this.basicURL}/Users`;
-      return this.http.post<IUser>(updateUrl, user).pipe(
-        map(newUser => {
-          this.http.get<IUser[]>(updateUrl).subscribe(users => this.usersSubject.next(users));
-          return newUser;
-        })
-      );
+
+  addUser(newuser: IUser): Observable<IUser> {
+    console.log("new user service",newuser);
+    const user = {
+      userName: newuser.email,
+      password: newuser.password,
+      email: newuser.email,
+      role: newuser.role === 'Admin' ? 0 : 1,
+      created_at: new Date(),
+      updated_at: new Date()
     }
+    return this.http.post<IUser>(`${this.basicURL}/api/Users`, user);
+    // .pipe(
+    //   map(newUser => {
+    //     this.http.get<IUser[]>(updateUrl).subscribe(users => this.usersSubject.next(users));
+    //     return newUser;
+    //   })
+    // );
   }
-  
- 
+}
+
