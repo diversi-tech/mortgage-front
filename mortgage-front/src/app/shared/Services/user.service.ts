@@ -5,6 +5,7 @@ import { IUser, Role } from "../Models/user";
 import { environment } from "../../../environments/environment";
 import { log } from "node:console";
 import { response } from "express";
+import { loginService } from "./login.service";
 
 
 @Injectable()
@@ -12,7 +13,11 @@ import { response } from "express";
   readonly basicURL =environment.apiURL+"/api/";
   private usersSubject = new BehaviorSubject<IUser[]>([]);
   users$ = this.usersSubject.asObservable();
-   constructor(private http: HttpClient) {  }
+   constructor(private http: HttpClient,private loginservice:loginService) {
+    if(this.loginservice.isAdmin())
+
+    this.fetchUsers().subscribe();
+     }
 
   fetchUsers(): Observable<IUser[]> {
     const httpOptions = {
@@ -121,17 +126,13 @@ createUserForLead(user:IUser,leadId:number)
   }
   
 
+  
   updateUser(updatedUser: IUser): Observable<IUser> {
-    const updateUrl = `${this.basicURL}Users/${updatedUser.id}`;
-    return this.http.put<IUser>(updateUrl, updatedUser).pipe(
+    return this.http.put<IUser>(`${this.basicURL}Users/${updatedUser.id}`, updatedUser).pipe(
       tap(() => {
         const users = this.usersSubject.getValue();          
         const index = users.findIndex(l => l.id === updatedUser?.id);       
-        if (index !== -1) {
-          users[index] = updatedUser;        
-          this.usersSubject.next([...users]);
-          this.fetchUsers().subscribe(); 
-        }  
+        this.fetchUsers().subscribe(); 
       }),  
     );
   }
@@ -143,22 +144,9 @@ createUserForLead(user:IUser,leadId:number)
   }
 
   addUser(newuser: IUser): Observable<IUser> {
-    console.log("new user service",newuser);
-    const user = {
-      userName: newuser.email,
-      password: newuser.password,
-      email: newuser.email,
-      role:String( newuser.role )=== 'Admin' ? 0 : 1,
-      created_at: new Date(),
-      updated_at: new Date()
-    }
-    return this.http.post<IUser>(`${this.basicURL}Users`, user);
-    // .pipe(
-    //   map(newUser => {
-    //     this.http.get<IUser[]>(updateUrl).subscribe(users => this.usersSubject.next(users));
-    //     return newUser;
-    //   })
-    // );
+    return this.http.post<IUser>(`${this.basicURL}Users`, newuser)
+    .pipe(
+      tap(() => { this.fetchUsers().subscribe(); }))
   }
 }
 
