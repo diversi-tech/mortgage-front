@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { loginService } from '../../shared/Services/login.service';
 import { ITokenPayload } from '../../shared/Models/TokenPayload';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,34 +20,33 @@ export class LoginComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^\S*$/)]]
     });
-    // console.log("customer id current", this.loginService.GetCurrentUser());
-
   }
+
   get email() {
     return this.loginForm.get('email');
   }
   get password() {
     return this.loginForm.get('password');
   }
-  //Login function  by entering email and password
+
+  //Login function by entering email and password
   submit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.loginService.login(email, password).subscribe(
-        (response) => {
-          this.userByToken = this.loginService.decodeToken(response);
-
+        (response:any) => {
+          let parsedResponse = JSON.parse(response);
+          sessionStorage.setItem("token", parsedResponse.token);
+          this.userByToken = this.loginService.decodeToken(this.loginService.GetToken()!);
           console.log('what the user and role', this.userByToken, this.userByToken.role);
           if (String(this.userByToken.role) == 'Admin') {
             console.log('admin');
-            sessionStorage.setItem("token", response);
             this.router.navigate(['/admin']);
             console.log('after navigate');
           }
           else if (String(this.userByToken.role) == 'Customer') {
             console.log('customer');
-            sessionStorage.setItem("token", response);
-            // console.log(' herere=' + this.loginService.CurrentcustomerId);
+            console.log(' herere=' + this.loginService.CurrentcustomerId);
             this.loginService.CurrentcustomerId = this.userByToken.customerId;
             this.router.navigate(['/customer']);
           }

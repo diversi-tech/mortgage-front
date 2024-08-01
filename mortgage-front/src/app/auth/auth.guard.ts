@@ -8,10 +8,8 @@ export const authGuardAdmin: CanActivateFn = (route, state) => {
   const loginservice = inject(loginService);
   const router = inject(Router);
   if (loginservice.isLoggedIn()) {//check if loggedIn
-    console.log("here");
     if (loginservice.isAdmin())//check if admin
       return true;
-    // window.history.back()
     return false;
   } else {//if not loggedIn:
     router.navigate(['auth/login']);
@@ -23,7 +21,10 @@ export const authGuard: CanActivateFn = (route, state) => {
   const loginservice = inject(loginService);
   const router = inject(Router);
   if (loginservice.isLoggedIn()) {//check if loggedIn
-    return true;
+    console.log("here");
+    if (!loginservice.isAdmin())//check if admin
+      return true;
+    return false;
   } else {//if not loggedIn:
     router.navigate(['auth/login']);
     return false;

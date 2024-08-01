@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IDocumentType, TransactionType } from '../../shared/Models/DocumentTypes.Model';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
-import { IDocument } from '../../shared/Models/Document';
+import { IDocument } from '../../shared/Models/document';
 import { loginService } from '../../shared/Services/login.service';
 @Component({
   selector: 'app-task-edit',

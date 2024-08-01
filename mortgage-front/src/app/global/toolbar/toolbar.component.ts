@@ -39,6 +39,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       this.documentService.checkPendingDocuments();
     });
   }
+
+logOut(){
+  if(this.loginService.isLoggedIn()){
+    this.loginService.Logout()
+  }
+}
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
@@ -50,20 +56,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['auth/login']);
   }
   loginOrLogout(): void {
-    if (this.isLoggedIn) {
-      var customerId: number = this.loginService.GetCurrentUser().customerId || 0;
-      var currentCustomer: ICustomer | undefined;
-      currentCustomer = this.customerService.getCustomerById(customerId);
-      this.user = currentCustomer?.first_Name + " " + currentCustomer?.last_Name;
-      this.isLoggedIn = false;
-      console.log('in logout');
-      if (typeof window && window.sessionStorage != undefined)
-        sessionStorage.removeItem('token');
-    } else {
-      this.isLoggedIn = true;
-    }
-    this.notificationService.checkNotifications();
-    this.documentService.checkPendingDocuments();
+this.notificationService.checkNotifications();
+this.documentService.checkPendingDocuments();
   }
   toggleNavigationMenu() {
     this.NavigationMenuToggleService.toggle();

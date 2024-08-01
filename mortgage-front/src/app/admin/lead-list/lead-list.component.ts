@@ -11,6 +11,8 @@ import { leadService } from '../../shared/Services/lead.service';
 import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { magicLinkService } from '../../shared/Services/magicLinkService';
+
+
 @Component({
   selector: 'lead-list',
   templateUrl: './lead-list.component.html',
@@ -36,18 +38,25 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
     this.loadLeads();
   }
 
+  
   loadLeads(): void {
-    this.leadsSubscription = this.leadService.leads$.subscribe({
-      next: leads => {
-        this.dataSource.data = leads;
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      },
-      error: error => {
-        console.error('Error loading customers:', error);
-      }
-    });
+    // Fetch initial data to populate the subject
+
+        // Subscribe to leads$ after fetching initial data
+        this.leadsSubscription = this.leadService.leads$.subscribe({
+          next: leads => {
+            this.dataSource.data = leads; // Update dataSource with the latest leads
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          },
+          error: error => {
+            console.error('Error loading leads:', error);
+          }
+        });
+    
   }
+  
+  
 
   ngOnDestroy(): void {
     if (this.leadsSubscription) {

@@ -1,7 +1,7 @@
-export enum Role {
+ export enum Role {
     None=-1,
-    Admin="Admin",
-    Customer="Customer"
+    Admin=0,
+    Customer=1
 }
 
 export interface IUser {

@@ -24,7 +24,6 @@ import { AuthRoutingModule } from './auth-routing.module';
     CdkMenuItem,
     CdkMenuTrigger,
     NgIf,
-    //Local modules
     AuthRoutingModule
   ]
 })

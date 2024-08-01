@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from "rxjs";
 import { Injectable } from '@angular/core';
-import { IDocument } from '../Models/Document';
+import { IDocument } from '../Models/document';
 import { IDocumentType, TransactionType } from '../Models/DocumentTypes.Model';
 import { environment } from '../../../environments/environment';
 import { ICustomer } from '../Models/Customer';
@@ -21,9 +21,7 @@ export class DocumentsListCustomerService {
 
   private _selectedDocuments: (IDocument)[] = [];
 
-  constructor(private http: HttpClient, private customerService: customerService) {
-    // this.fetchDocumentsByCustomerId(7).subscribe();
-  }
+  constructor(private http: HttpClient, private customerService: customerService) {  }
 
   get selectedDocuments(): (IDocument )[] {
     return this._selectedDocuments;

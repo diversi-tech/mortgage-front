@@ -5,7 +5,7 @@ import { DocumentsListCustomerService } from '../../shared/Services/documents-li
 import { map, Observable, startWith, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Status, IDocument } from '../../shared/Models/Document';
+import { Status, IDocument } from '../../shared/Models/document';
 import { IDocumentType, TransactionType } from '../../shared/Models/DocumentTypes.Model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dialog.component';

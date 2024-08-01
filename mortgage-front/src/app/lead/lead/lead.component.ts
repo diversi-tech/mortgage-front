@@ -669,11 +669,15 @@ import { birthDateValidator } from './israeli-id-validator';
 import { DocumentTypeService } from '../../shared/Services/documentType.service';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
 import { firstValueFrom } from 'rxjs';
-import { IDocument } from '../../shared/Models/Document';
+import { IDocument } from '../../shared/Models/document';
 import { customerService } from '../../shared/Services/costumer.service';
 import { ActivatedRoute } from '@angular/router';
+import { loginService } from '../../shared/Services/login.service';
+import { log } from 'console';
+
 import { IUser, Role } from '../../shared/Models/user';
 import { ICustomer,Connection, Family_Status, Job_Status, TransactionTypeEnum, Customer_Type } from '../../shared/Models/Customer';
+import { ILead } from '../../shared/Models/Lead';
 
 @Component({
   selector: 'app-lead',
@@ -794,8 +798,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   ];
   passwordStrength: { valid: string[], invalid: string[] } = { valid: [], invalid: [] };
 
-
-  constructor(private _formBuilder: FormBuilder, private customerService: customerService, private leadService: leadService, private userService: UserService, private documentType: DocumentTypeService, private customerTask: DocumentsListCustomerService,private route: ActivatedRoute) {
+  constructor( private loginservice:loginService,private route: ActivatedRoute, private _formBuilder: FormBuilder, private customerService: customerService, private leadService: leadService, private userService: UserService, private documentType: DocumentTypeService, private customerTask: DocumentsListCustomerService) {
     this.firstFormGroup = new FormGroup({
       userName: new FormControl({ value: '', disabled: false }, [
         Validators.required, Validators.email]),
@@ -882,12 +885,14 @@ export class LeadComponent implements OnInit, AfterViewInit {
 
   // Lifecycle hook that is called after data-bound properties are initialized
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.lead_id = params['id'];})
+    console.log("in ngOnInit of lead");
+    this.route.paramMap.subscribe(params => {
+      this.lead_id = Number(params.get('id'));
+})
 
-    if (localStorage.getItem('enterOrNot') === null) {
+if (localStorage.getItem('enterOrNot') === null) {
       localStorage.setItem('enterOrNot', 'false');
-    }
+} 
 
     const storedUserName = localStorage.getItem('userName');
     const storedPassword = localStorage.getItem('password');
@@ -939,10 +944,14 @@ export class LeadComponent implements OnInit, AfterViewInit {
  // If not taken, creates a new user and a new customer.
  // If the user has left and returned, he will not have to enter details again.
   checkUserNameAndPassword() {
-    let lead = this.leadService.getLeadById(this.lead_id!);
-    this.customerData.phone = lead?.phone;
-    this.customerData.email = lead?.email;
-    this.customerData.first_Name = lead?.first_Name;
+    this.leadService.getLeadById(this.lead_id!).subscribe((lead) => {
+      if (lead) {
+        this.customerData.phone = lead.phone;
+        this.customerData.email = lead.email;
+        this.customerData.first_Name = lead.first_Name;
+      }
+    });
+    
     this.user.id = 0;
     this.user.userName = this.firstFormGroup.value.userName;
     this.user.password = this.firstFormGroup.value.password;
@@ -965,15 +974,29 @@ export class LeadComponent implements OnInit, AfterViewInit {
             alert("איימיל או סיסמא תפוסים נא להכניס אחר");
           }
         } else if (response === '404' && this.user !== null && this.user !== undefined && this.user.password !== '' && this.user.userName !== '') {
-          localStorage.setItem('enterOrNot', 'true');
-          this.stepper.next();
-          this.userService.createUser(this.user).subscribe({
-            next: () => {
-              console.log('User created');
+          // localStorage.setItem('ifEnter','true')
+          localStorage.setItem('enterOrNot', 'true')
+          this.stepper.next()
+          this.userService.createUserForLead(this.user,this.lead_id!).subscribe({
+            next: (res: any) => {
+              console.log('User created:', this.user);
               this.customerData.lead_id = this.lead_id!;
-              this.customerService.createCustomer(this.customerData).subscribe({
-                next: () => { console.log('Customer created'),
-              this.customerData.customer_type = Customer_Type.c },
+              this.customerService.createCustomerForLead(this.customerData,this.lead_id!).subscribe({
+                next: (res: ICustomer) => { 
+                  debugger
+                  this.customerId=res.id//-its my adding!!
+                  this.customerData.customer_type = Customer_Type.c
+                console.log('Customer created:', this.customerData)
+                this.loginservice.login(this.user.email!, this.user.password!).subscribe(
+                  (response:any) => {
+                    let parsedResponse = JSON.parse(response);
+                    sessionStorage.setItem("token", parsedResponse.token);
+                  },
+                  (error: any) => {
+                    console.log('Login failed', error);
+                  }
+                );
+               },
                 error: (error: any) => console.error('Error creating customer:', error)
               });
             },
@@ -985,7 +1008,8 @@ export class LeadComponent implements OnInit, AfterViewInit {
       },
       (error: any) => {
         console.error('Error during user existence check:', error);
-      })
+      }
+      )
   }
 
   // Saves form data to local storage
@@ -1124,6 +1148,8 @@ export class LeadComponent implements OnInit, AfterViewInit {
     let step = localStorage.getItem('currentStep');
       console.log("Updating customer in step 3");
       try {
+        //await firstValueFrom(this.customerService.updateCustomer(this.customerId, this.customerData));it is mine!!
+
         await firstValueFrom(this.customerService.updateCustomer(this.customerData.id, this.customerData));
         await this.getDocuments();
         if (localStorage.getItem('isAddDocuments') !== 'true')
@@ -1134,8 +1160,10 @@ export class LeadComponent implements OnInit, AfterViewInit {
   }
   // Saves the current state of documents and clears local storage
   saveDocuments() {
-    this.customerService.updateCustomer(1, this.customerData).subscribe({
-      next: () => {
+    this.customerService.updateCustomer(this.customerId, this.customerData).subscribe({
+
+      next: (response: any) => {
+
         console.log("step 4 created");
         localStorage.removeItem('enterOrNot');
         localStorage.removeItem('formData');
