@@ -71,10 +71,9 @@ export class DocumentsListCustomerService {
         })
       );
   }
-  fetchDocumentsTypesById(customerId: number): Observable<IDocumentType> {
-    return this.http.get<IDocumentType>(`${this.apiUrl}/DocumentTypes/${customerId}`);
-  }
-
+  // fetchDocumentsTypesByCustomerId(customerId: number): Observable<IDocumentType[]> {
+  //   return this.http.get<IDocumentType[]>(`${this.apiUrl}/DocumentTypes/${customerId}`);
+  // }
   deleteDocument(docId: number) {
     return this.http.delete(`${this.apiUrl}/CustomerTasksControllercs/${docId}`);
   }

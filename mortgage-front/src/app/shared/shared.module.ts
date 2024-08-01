@@ -10,6 +10,7 @@ import { CustomerDetailModalComponent } from './customer-detail-modal/customer-d
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomerExcelComponent } from '../admin/customer-excel/customer-excel.component';
 import { AdminModule } from '../admin/admin.module';
+import { DownloadAccompanyingFormComponent } from './download-accompanying-form/download-accompanying-form.component';
 
 
 
@@ -19,7 +20,8 @@ import { AdminModule } from '../admin/admin.module';
     LeadDetailComponent,
     DocumentTypeListComponent,
     DocumentTypeDetailsComponent,
-    CustomerDetailModalComponent
+    CustomerDetailModalComponent,
+    DownloadAccompanyingFormComponent
   ],
   imports: [
     CommonModule,
