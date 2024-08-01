@@ -34,23 +34,23 @@ export class FileComponent {
 
   onUpload(): void {
     if (this.selectedFiles && this.selectedFiles.length > 0) {
-      this.uploadService.uploadFiles(this.selectedFiles).subscribe(
-        (event: any) => {
-          if (event.status === 'progress') {
-            this.uploadProgress = event.message;
-          } else if (!event.status) {
-            this.uploadProgress = 0;
-            this.selectedFiles = [];
-            this.uploadedFiles = event.files;
-            this.openSnackBar('המסמכים הועלו בהצלחה!', 'Close');
-          }
-        },
-        (error: any) => {
-          this.openSnackBar('ארעה שגיאה בעת ההעלאה :(', 'Close');
-          console.error('Upload error:', error);
-          this.uploadProgress = 0;
-        }
-      );
+      // this.uploadService.uploadFiles(this.selectedFiles).subscribe(
+      //   (event: any) => {
+      //     if (event.status === 'progress') {
+      //       this.uploadProgress = event.message;
+      //     } else if (!event.status) {
+      //       this.uploadProgress = 0;
+      //       this.selectedFiles = [];
+      //       this.uploadedFiles = event.files;
+      //       this.openSnackBar('המסמכים הועלו בהצלחה!', 'Close');
+      //     }
+      //   },
+      //   (error: any) => {
+      //     this.openSnackBar('ארעה שגיאה בעת ההעלאה :(', 'Close');
+      //     console.error('Upload error:', error);
+      //     this.uploadProgress = 0;
+      //   }
+      // );
     }
   }
  

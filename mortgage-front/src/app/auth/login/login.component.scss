@@ -2,8 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; // גובה מינימלי של 100% מגובה המסך
-  background-color: #f5f5f5; // צבע רקע בהיר
+  min-height: 100vh;
+  background-color: #f5f5f5;
 }
 
 .login-card {
@@ -13,7 +13,7 @@
   padding: 20px;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px; // גובה מקסימלי של הכרטיס
+  max-width: 400px;
 }
 
 .card-title {
@@ -21,74 +21,56 @@
   font-size: 1.5rem;
   margin-bottom: 20px;
   color: #333;
-  // color: rgba(255, 255, 255, 0.553);
 }
 
 .form-group {
-  margin-bottom: 20px; // רווח בין השדות
-
+  margin-bottom: 20px;
 }
 
-.form-input {
-  text-align: right;
-  width: 90%;
-  padding: 10px;
+.full-width {
+  width: 100%;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #f5f5f5;
   border-radius: 5px;
-  border: none;
-  border-bottom: 1px solid #ccc;
-  font-size: 1rem;
 }
 
-.form-input:focus {
-  border-color: #4285f4; // צבע קו כאשר השדה בפוקוס
-  outline: none;
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: #4285f4;
+}
+
+.mat-icon-button {
+  cursor: pointer;
 }
 
 .submit-btn {
   width: 100%;
   padding: 10px;
-  background-color: #4285f4;
-  border: none;
-  border-radius: 5px;
-  color: white;
   font-size: 1.1rem;
-  cursor: pointer;
-}
-
-.submit-btn:hover {
-  background-color: #357ae8; // צבע כאשר מעבירים מעל הכפתור
 }
 
 .text-danger {
   font-size: 0.875em;
-  color: red; // צבע טקסט אדום להודעות שגיאה
+  color: red;
 }
 
 .forgot-password {
   text-align: center;
-  margin-top: 15px; // מרווח מעל הקישור
+  margin-top: 15px;
 }
 
 .text-muted {
-  color: #6c757d; // צבע טקסט אפור לקישור
-}
-.material-icons{
-  float: right;
-}
-#see{
-  float: left;
-}
-#see:hover{
-  cursor: pointer;
-}
-#password{
-  width: 84%;
-}
-a{
+  color: #6c757d;
   text-decoration: underline;
 }
-a:hover{
+.text-muted:hover{
   cursor: pointer;
+  color: rgb(0, 0, 134);
 }
 :host {
   background-color: transparent;

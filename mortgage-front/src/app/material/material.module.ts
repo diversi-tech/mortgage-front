@@ -26,6 +26,7 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const modules=[
   MatTableModule,
@@ -56,13 +57,17 @@ const modules=[
    MatInput,
    FormsModule,
    MatAutocompleteModule,
+   MatSlideToggleModule
   //  MatSnackBar
+  
+  
 ]
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    
     ...modules
   ],
   exports: modules

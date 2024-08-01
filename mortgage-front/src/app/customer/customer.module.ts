@@ -13,6 +13,9 @@ import { CustomerUpdateDetailesComponent } from './customer-update-detailes/cust
 import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { ToolbarComponent } from '../global/toolbar/toolbar.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+
 
 
 @NgModule({
@@ -20,19 +23,24 @@ import { ReactiveFormsModule } from '@angular/forms';
     CustomerPortalComponent,
     DocumentsListCustomerComponent,
     MortgageHelperComponent,
+    NotificationsComponent,
     CustomerUpdateDetailesComponent,
+    
   ],
-  imports: [
+  imports:[
     CommonModule,
     MaterialModule,
     //Local modules
     GlobalModule,
     CustomerRoutingModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    
+    
   ],
   exports:[CustomerPortalComponent,
-    DocumentsListCustomerComponent
+    DocumentsListCustomerComponent,
+    NotificationsComponent
     
   ]
 })

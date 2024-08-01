@@ -15,16 +15,16 @@ export class loginService {
 
   readonly basicURL = environment.apiURL;
   currentUser: ITokenPayload = {
-      id: -1,
-      userName: '',
-      role: Role.None,
-      customerId: -1
+    id: -1,
+    userName: '',
+    role: Role.None,
+    customerId: -1
   };
   CurrentcustomerId?: number;
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string): Observable<string> { 
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });  
+  login(email: string, password: string): Observable<string> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const user = {
       userName: "string",
       password: password,
@@ -33,7 +33,7 @@ export class loginService {
       created_at: null,
       updated_at: null
     };
-    return this.http.post(`${this.basicURL}/api/Users/login`, user, { headers, responseType: 'text' }).pipe( );;
+    return this.http.post(`${this.basicURL}/api/Users/login`, user, { headers, responseType: 'text' }).pipe();;
   }
 
   decodeToken(token: string): ITokenPayload {
@@ -45,30 +45,30 @@ export class loginService {
     if (parts.length !== 3) {
       throw new Error('Token structure is invalid');
     }
-try{
-    const decoded = jwtDecode(token);
-    const JSONdecoder = JSON.parse(JSON.stringify(decoded));
-    let currentUserId, currentUserName, currentUserRole, currentCustomerId;
-    for (const key in JSONdecoder) {
-      if (key.includes("nameidentifier")) {
-        currentUserName = JSONdecoder[key];
-      }
-      else {
-        if (key.includes("userid"))
-          currentUserId = JSONdecoder[key];
-        else
-          if (key.includes("role"))
-            currentUserRole = JSONdecoder[key];
+    try {
+      const decoded = jwtDecode(token);
+      const JSONdecoder = JSON.parse(JSON.stringify(decoded));
+      let currentUserId, currentUserName, currentUserRole, currentCustomerId;
+      for (const key in JSONdecoder) {
+        if (key.includes("nameidentifier")) {
+          currentUserName = JSONdecoder[key];
+        }
+        else {
+          if (key.includes("userid"))
+            currentUserId = JSONdecoder[key];
           else
-            if (key.includes("customerId"))
-              currentCustomerId = JSONdecoder[key];
+            if (key.includes("role"))
+              currentUserRole = JSONdecoder[key];
+            else
+              if (key.includes("customerId"))
+                currentCustomerId = JSONdecoder[key];
+        }
       }
+      this.currentUser.userName = currentUserName;
+      this.currentUser.role = currentUserRole;
+      this.currentUser.id = currentUserId;
+      this.currentUser.customerId = currentCustomerId;
     }
-    this.currentUser.userName = currentUserName;
-    this.currentUser.role = currentUserRole;
-    this.currentUser.id = currentUserId;
-    this.currentUser.customerId = currentCustomerId;
-}
     catch (error) {
       console.error('Invalid token:', error);
     }
@@ -86,10 +86,8 @@ try{
 
   GetCurrentUser() {
 
-    if (typeof window !== 'undefined' && window.sessionStorage)
-    {
-      if(sessionStorage.getItem("token") != null)
-      {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      if (sessionStorage.getItem("token") != null) {
         this.currentUser = this.decodeToken(sessionStorage.getItem("token") || "");
       }
     }
@@ -102,14 +100,18 @@ try{
     return false;
   }
   isAdmin(): boolean {
-    let token = sessionStorage.getItem('token') || "";
-    if(token==='') return false;
-    let currentUser: ITokenPayload = this.decodeToken(token);
-    return String(currentUser.role) == "Admin";
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      let token = sessionStorage.getItem('token') || "";
+      if (token === '') return false;
+      let currentUser: ITokenPayload = this.decodeToken(token);
+      return String(currentUser.role) == "Admin";
+    }
+    return false
   }
-
   Logout() {
-    sessionStorage.removeItem("token")
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      sessionStorage.removeItem("token")
+    }
   }
 
   resetPassword(email: string): Observable<any> {

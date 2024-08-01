@@ -115,4 +115,9 @@ tr:hover{
     margin: 0px auto;
     padding: 25px;
   }
+  //So that the background color of INPUT with automatic completion is according to the father
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: black !important;
+  }
   

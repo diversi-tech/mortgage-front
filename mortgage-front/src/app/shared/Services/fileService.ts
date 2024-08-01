@@ -7,6 +7,7 @@ import { throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { loginService } from './login.service';
 import { DocumentsListCustomerService } from './documents-list-customer.service';
+import { IDocument } from '../Models/document';
 
 @Injectable({
   providedIn: 'root'
@@ -17,32 +18,44 @@ export class UploadService {
 
   constructor(private http: HttpClient, private loginService: loginService, private documentService: DocumentsListCustomerService) { }
 
-  uploadFiles(files: (File | null)[]): Observable<any> {
+  uploadFiles(files: (IDocument | null)[]): Observable<any> {
     const formData = new FormData();
-    var id: number, id2:number;
+    var id: number, id2: number;
     if (files)
       files.forEach((file, index) => {
         if (file) {
-          id = files.findIndex(obj => obj?.name === file.name);
-          if (id != -1) {
-            if (this.loginService.isAdmin()) {
-              this.documentService.documents$.subscribe(
-                (data) => {
-                  var obj=data.find(obj => obj?.id === id);
-                  console.log(obj);
-                  id2 = obj!.id2!;
-                  if (id2 != -1) {
-                    formData.append('files', file,`${id}_${id2}_${file.name}`);
-                  }
-                }
-              );
-            }
-            else
-              formData.append('files', file, `${id}_${file.name}`);
-          }
-
+          id = file.id;
+          id2 = file.id2;
+          if (this.loginService.isAdmin())
+            formData.append('files', file.adminFile!, `${id}_${id2}_${file.document_path2}`);
+          else
+            formData.append('files', file.customerFile!, `${id}_${file.document_path}`);
         }
-      });
+      }
+      );
+    // files.forEach((file, index) => {
+    //   if (file) {
+
+    //     id = files.findIndex(obj => obj?.name === file.name);
+    //     if (id != -1) {
+    //       if (this.loginService.isAdmin()) {
+    //         this.documentService.documents$.subscribe(
+    //           (data) => {
+    //             var obj=data.find(obj => obj?.id === id);
+    //             console.log(obj);
+    //             id2 = obj!.id2!;
+    //             if (id2 != -1) {
+    //               formData.append('files', file,`${id}_${id2}_${file.name}`);
+    //             }
+    //           }
+    //         );
+    //       }
+    //       else
+    //         formData.append('files', file, `${id}_${file.name}`);
+    //     }
+
+    //   }
+    // });
     console.log("after foreach");
 
     const uploadReq = new HttpRequest('POST', `${this.baseUrl}/uploadfiles`, formData, {

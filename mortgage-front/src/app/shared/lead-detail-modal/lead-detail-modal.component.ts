@@ -3,12 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ILead } from '../Models/Lead';
 import { ActivatedRoute, Router } from '@angular/router';
 import { leadService } from '../Services/lead.service';
-import { tap } from 'rxjs';
-
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'lead-detail-modal',
-  styleUrl:'./lead-detail-modal.component.css',
+  styleUrl: './lead-detail-modal.component.css',
   templateUrl: './lead-detail-modal.component.html',
 })
 export class LeadDetailComponent implements OnInit {
@@ -34,50 +33,30 @@ export class LeadDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.leadId = +params['id'];
-      this.getLeadById(this.leadId);
+    this.route.params.pipe(
+      switchMap(params => {
+        this.leadId = +params['id'];
+        return this.leadService.getLeads(); // מחזיר את ה-BehaviorSubject כ-Observable
+      })
+    ).subscribe(leads => {
+      this.lead = leads.find(lead => lead.id === this.leadId);
+      if (this.lead) {
+        this.leadForm.patchValue(this.lead);
+      }
     });
-  }
-
-  getLeadById(id: number): void {
-   this.leadService.getLeadById(id).subscribe(lead=>{
-      this.lead=lead
-    });
-    if (this.lead)
-      this.leadForm.patchValue(this.lead);
   }
 
   saveLead() {
     if (this.leadForm.valid) {
-        const updatedLead: ILead = this.leadForm.value;
-        updatedLead.id = this.lead!.id; // Ensure ID is set
-        updatedLead.created_at = this.lead!.created_at;  // Preserve original date
-        updatedLead.updated_at = this.lead!.updated_at;  // Preserve original dat
-        updatedLead.expiration=this.lead!.expiration;
-        updatedLead.token=this.lead?.token
-        // updatedLead.token="";
-        if (this.leadId == -1) {
-          console.log('in new');
-          this.leadService.addLead(updatedLead)
-          .pipe(
-            tap(response=>{
-              console.log('Lead updated successfully', response);
-              console.log("id:"+response?.id);
-              
-              this.router.navigate(['admin/lead-list']);
-            })
-          )
-          .subscribe();
-        }
-        else {
-        this.leadService.updateLead(updatedLead)
-          .pipe(
-            tap(response => {
-              this.router.navigate(['admin/lead-list']); // Navigate back to the lead list or any other route
-            })
-          )
-          .subscribe();
+      const updatedLead: ILead = { ...this.leadForm.value, id: this.lead!.id, token: "" };
+      if (this.leadId === -1) {
+        this.leadService.addLead(updatedLead).subscribe(response => {
+          this.router.navigate(['admin/lead-list']);
+        });
+      } else {
+        this.leadService.updateLead(updatedLead).subscribe(response => {
+          this.router.navigate(['admin/lead-list']);
+        });
       }
     }
   }
@@ -85,12 +64,4 @@ export class LeadDetailComponent implements OnInit {
   cancel(): void {
     this.router.navigate(['admin/lead-list']);
   }
-}
-export class Leads {
-  Id?: number;
-  First_Name?: string;
-  Phone?: string;
-  Email?: string;
-  created_at?: Date;
-  updated_at?: Date;
 }

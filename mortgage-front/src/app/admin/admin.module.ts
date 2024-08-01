@@ -52,7 +52,7 @@ import { TaskEditComponent } from './task-edit/task-edit.component';
      GlobalModule
   ],
   exports:[
-    CustomerExcelComponent
+    CustomerExcelComponent,
   ]
 
 })

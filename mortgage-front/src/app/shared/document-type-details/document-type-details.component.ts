@@ -76,12 +76,13 @@ export class DocumentTypeDetailsComponent implements OnInit {
           this.clearFormFields();
         });
       }
+      this.router.navigate(['admin/document-type-list']);
     }
   }
 
 
   cancel() {
-    this.router.navigate(['/documentType-list']);
+    this.router.navigate(['admin/document-type-list']);
   }
 
   clearFormFields(): void {

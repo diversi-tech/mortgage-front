@@ -12,6 +12,8 @@ import { authGuard } from '../auth/auth.guard';
 import { MortgageHelperComponent } from './mortgage-helper/mortgage-helper.component';
 import { CustomerUpdateDetailesComponent } from './customer-update-detailes/customer-update-detailes.component';
 import { TaskEditComponent } from '../admin/task-edit/task-edit.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+
 
 
 const routes: Routes = [
@@ -29,7 +31,7 @@ const routes: Routes = [
         { path: 'calculator', component: MortgageCalculatorComponent },
         { path: 'mortgage-helper', component: MortgageHelperComponent },
         { path: 'customer-detailes/:id', component: CustomerUpdateDetailesComponent },
-        { path: 'task-edit/:id', component: TaskEditComponent },
+        { path: 'notifications/:id', component: NotificationsComponent},
     ],
  },
 ];

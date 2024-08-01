@@ -8,6 +8,7 @@ import { loginService } from '../../shared/Services/login.service';
 import { Router } from '@angular/router';
 import { ICustomer } from '../../shared/Models/Customer';
 import { customerService } from '../../shared/Services/costumer.service';
+import { INotification } from '../../shared/Models/Notification';
 
 @Component({
   selector: 'app-toolbar',
@@ -17,31 +18,25 @@ import { customerService } from '../../shared/Services/costumer.service';
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
-  showLogout: boolean = false;
-  showMainMenu: boolean = false;
   user: string = 'אורח';
-  unreadNotificationsCount: number = 0;
-  hasUnreadNotifications: boolean = false;
-  hasPendingDocuments: boolean = false;
-
+  notifications: INotification[] = [];
   private subscription?: Subscription;
 
   constructor(
     private NavigationMenuToggleService: NavigatioMenuToggleService,
-    private notificationService: NotificationService,
-    private documentService: DocumentsListCustomerService,
-    private customerService:customerService,
+    public notificationService: NotificationService,
+    public documentService: DocumentsListCustomerService,
+    private customerService: customerService,
     public loginService: loginService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.NavigationMenuToggleService.toggle();
-    this.checkNotifications();
-
+    this.notificationService.checkNotifications();
     // Subscribe to selectedDocuments changes
     this.subscription = this.documentService.selectedDocuments$.subscribe(() => {
-      this.checkPendingDocuments();
+      this.documentService.checkPendingDocuments();
     });
   }
 
@@ -55,49 +50,27 @@ logOut(){
       this.subscription.unsubscribe();
     }
   }
-
-  loginOrLogout(): void {
-    this.checkNotifications();
-    this.checkPendingDocuments();
+  logout() {
+    if (typeof window && window.sessionStorage != undefined)
+      sessionStorage.removeItem('token');
+    this.router.navigate(['auth/login']);
   }
-
-
+  loginOrLogout(): void {
+this.notificationService.checkNotifications();
+this.documentService.checkPendingDocuments();
+  }
   toggleNavigationMenu() {
     this.NavigationMenuToggleService.toggle();
   }
-
-  checkNotifications() {
-    let userId: number = 0;
-    if (typeof window !== 'undefined' && window.sessionStorage)
-      userId = this.loginService.decodeToken(sessionStorage.getItem('token') || "").customerId || -1;
-    this.notificationService.getNotificationsByUserId(userId).subscribe(
-      (notifications) => {
-        const unreadNotifications = notifications.filter(notification => !notification.isRead);
-        this.unreadNotificationsCount = unreadNotifications.length;
-        this.hasUnreadNotifications = this.unreadNotificationsCount > 0;
-      },
-      (error) => {
-        console.error('שגיאה בטעינת התראות:', error);
-        this.unreadNotificationsCount = 0;
-        this.hasUnreadNotifications = false;
-      }
-    );
-  }
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any): void {
-    if (this.hasPendingDocuments)
+    if (this.documentService.hasNotSavedDoc) {
       $event.returnValue = 'שינויים שביצעת לא ישמרו אם תעזוב את הדף!';
+    }
   }
-
-  checkPendingDocuments() {
-    this.hasPendingDocuments = this.documentService.selectedDocuments.filter(file => file != null && file != undefined).length > 0;
-
-  }
-
   openNotifications() {
-    //After the merger, navigate to the notifications component
+    this.router.navigate([`customer/notifications/${this.loginService.GetCurrentUser().customerId}`])
   }
-
   openDocuments() {
     this.router.navigate(['customer/document-list'])
   }

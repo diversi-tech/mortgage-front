@@ -26,12 +26,12 @@
           <br>
           <mat-form-field appearance="fill" class="mat-form-field">
             <mat-label>נוצר בתאריך</mat-label>
-            <input matInput [disabled]="true" formControlName="created_at">
+            <input matInput [readonly]="true" formControlName="created_at">
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="mat-form-field">
             <mat-label>עודכן בתאריך</mat-label>
-            <input matInput [disabled]="true" formControlName="updated_at">
+            <input matInput [readonly]="true" formControlName="updated_at">
           </mat-form-field>
 
           <div class="button-group">

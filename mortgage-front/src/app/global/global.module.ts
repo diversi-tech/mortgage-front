@@ -13,6 +13,11 @@ import { FooterComponent } from './footer/footer.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component';
 import { RouterModule } from '@angular/router';
+import { CustomerModule } from '../customer/customer.module';
+import { NotificationsComponent } from '../customer/notifications/notifications.component';
+
+//import { NotificationsComponent } from '../customer/notifications/notifications.component';
+//import { CustomerModule } from '../customer/customer.module';
 
 
 
@@ -22,17 +27,21 @@ import { RouterModule } from '@angular/router';
     FooterComponent,
     ToolbarComponent,
     NavigationMenuComponent,
+    //NotificationsComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    // ReactiveFormsModule,
+    // FormsModule
   ],
   exports: [
     ConfirmDialogComponent,
     FooterComponent,
     ToolbarComponent,
-    NavigationMenuComponent
+    NavigationMenuComponent,
+   // NotificationsComponent
   ]
 })
 export class GlobalModule { }

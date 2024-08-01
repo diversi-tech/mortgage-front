@@ -1,5 +1,5 @@
-import { Injectable, OnInit } from "@angular/core";
-import { HttpClient, HttpHeaders , HttpErrorResponse} from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, map, of, tap } from "rxjs";
 import { IUser, Role } from "../Models/user";
 import { environment } from "../../../environments/environment";
@@ -135,20 +135,30 @@ createUserForLead(user:IUser,leadId:number)
       }),  
     );
   }
-  
+
   getUserById(id: number): Observable<any> {
     return this.users$.pipe(
       map(users => users.find(user => user.id === id)),
     );
   }
- 
-    addUser(user: IUser): Observable<IUser> {
-      const updateUrl = `${this.basicURL}Users`;
-      return this.http.post<IUser>(updateUrl, user).pipe(
-        map(newUser => {
-          this.http.get<IUser[]>(updateUrl).subscribe(users => this.usersSubject.next(users));
-          return newUser;
-        })
-      );
+
+  addUser(newuser: IUser): Observable<IUser> {
+    console.log("new user service",newuser);
+    const user = {
+      userName: newuser.email,
+      password: newuser.password,
+      email: newuser.email,
+      role:String( newuser.role )=== 'Admin' ? 0 : 1,
+      created_at: new Date(),
+      updated_at: new Date()
     }
+    return this.http.post<IUser>(`${this.basicURL}Users`, user);
+    // .pipe(
+    //   map(newUser => {
+    //     this.http.get<IUser[]>(updateUrl).subscribe(users => this.usersSubject.next(users));
+    //     return newUser;
+    //   })
+    // );
+  }
 }
+

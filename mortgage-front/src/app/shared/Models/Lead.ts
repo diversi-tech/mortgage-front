@@ -5,7 +5,7 @@ export interface ILead {
     email: string;
     created_at: Date;
     updated_at: Date;
-    token?:string;
+    token:string;
     expiration:Date;
 }
 

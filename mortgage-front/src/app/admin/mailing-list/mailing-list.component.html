@@ -1,26 +1,29 @@
-<div id="content">
+<div id="content" style="padding: 50px;margin-top: 15px;">
     <mat-card class="mailing-list-card">
-        <mat-card-title>רשימת תפוצה</mat-card-title>
-        <mat-card-content class="card-content">
-            <form [formGroup]="mailingListForm" (ngSubmit)="onSubmit()">
-                <div class="div-warp-fields">
-                    <mat-form-field appearance="fill" class="subject-field">
-                        <mat-label>נושא</mat-label>
-                        <textarea matInput formControlName="subject" placeholder=""></textarea>
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" class="message-field">
-                        <mat-label>הודעה</mat-label>
-                        <textarea matInput formControlName="message" placeholder=""></textarea>
-                    </mat-form-field>
-                </div>
-                <div class="button-group">
-                    <button mat-raised-button color="primary" type="submit" [disabled]="!isFormValid()">
-                        <mat-icon>send</mat-icon>
-                        שלח
-                    </button>
-                    <button mat-raised-button color="warn" type="button" (click)="clearFormFields()">מחק</button>
-                </div>
-            </form>
-        </mat-card-content>
+      <mat-card-header class="card-header">
+        <mat-card-title class="card-title">רשימת תפוצה</mat-card-title>
+        <mat-card-subtitle class="card-subtitle">שלח הודעות לרשימה שלך בקלות</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="card-content">
+        <form [formGroup]="mailingListForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="fill" class="subject-field">
+            <mat-label><mat-icon>subject</mat-icon> נושא</mat-label>
+            <textarea matInput formControlName="subject" placeholder="הכנס נושא"></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="message-field">
+            <mat-label><mat-icon>message</mat-icon> הודעה</mat-label>
+            <textarea matInput formControlName="message" placeholder="הכנס הודעה"></textarea>
+          </mat-form-field>
+          <div class="button-group">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!isFormValid()">
+              <mat-icon>send</mat-icon> שלח
+            </button>
+            <button mat-raised-button color="warn" type="button" (click)="clearFormFields()">
+              <mat-icon>delete</mat-icon> מחק
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
     </mat-card>
-</div>
+  </div>
+  

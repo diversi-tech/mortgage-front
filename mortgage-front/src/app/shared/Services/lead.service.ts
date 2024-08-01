@@ -55,20 +55,25 @@ export class leadService {
 
   updateLead(lead: ILead): Observable<ILead> {
     const updateUrl = `${this.basicURL}Leads/${lead.id}`;
-    return this.http.put<ILead>(updateUrl, lead).pipe(
-      tap(updatedLead => {
-        const leads = this.LeadsSubject.getValue();
-        const index = leads.findIndex(l => l.id === lead.id);
-        if (index !== -1) {
-          leads[index] = updatedLead;
-          this.LeadsSubject.next([...leads]);
-        }
-      }),
-      catchError(error => {
-        console.error('Error updating lead:', error);
-        throw error;
-      })
-    );
+    console.log(lead);
+    
+    return this.http.put<ILead>(updateUrl, lead)
+      .pipe(
+        tap(() => {
+          const leads = this.LeadsSubject.getValue();          
+          const index = leads.findIndex(l => l.id === lead?.id);
+          if (index !== -1) {
+            leads[index] = lead;
+            this.LeadsSubject.next([...leads]);
+          } else {
+            // console.error('Lead not found in the current list');
+          }
+        }),
+        catchError(error => {
+          // console.error('Error updating lead:', error);
+          throw error;
+        })
+      );
   }
 
   addLead(lead: ILead): Observable<ILead> {
@@ -91,6 +96,7 @@ export class leadService {
 
   checkToken(id: number): Observable<HttpResponse<string>> {
     console.log(id, "token id");
+    debugger
     return this.http.get<string>(`https://localhost:7055/api/Email/validate-magic-link/${id}`, { observe: 'response', responseType: 'text' as 'json' });
   }
 }

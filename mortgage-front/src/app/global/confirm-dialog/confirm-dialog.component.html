@@ -1,0 +1,14 @@
+<div class="confirm-dialog-container">
+    <div class="what_icon">
+        <i class="fa-regular fa-circle-question"></i>
+    </div>
+    <br>
+    <b><p mat-dialog-title class="title" dir="rtl">{{ getTitle() }}</p></b>
+    <p mat-dialog-content class="mat-dialog-container">
+        {{ getContent() }}
+    </p>
+    <div mat-dialog-actions class="mat-dialog-actions">
+        <button mat-button class="mat-button cancel-button" (click)="onNoClick()">לא</button>
+        <button mat-button class="mat-button" color="primary" (click)="onYesClick()" cdkFocusInitial>כן</button>
+    </div>
+</div>

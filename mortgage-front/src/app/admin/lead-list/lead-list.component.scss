@@ -1,25 +1,85 @@
-th {
-  font-weight: bold !important;
-}
-
 :host {
   background-color: transparent;
 }
 
-// .contents {
-//   margin: 0 auto;
-//   // background-color: rgba(255, 255, 255, 0.602);
-//   padding: 25px;
-//   // border-radius: 10px;
-//   // border: 5px solid rgba(128, 128, 128, 0.13);
-//   min-width: max-content;
-//   min-height: 60vh;
-//   max-width: 70%;
-// }
+.contents {
+  padding: 25px;
+  background-color: rgba(255, 255, 255, 0.602);
+  border-radius: 10px;
+  border: 5px solid rgba(128, 128, 128, 0.13);
+  min-width: 300px; /* התאמה למסכים קטנים */
+  max-width: 100%; /* התאם לרוחב המסך */
+  overflow-x: auto; /* גלילה אופקית במקרה הצורך */
+}
+
+.search-field {
+  width: 30%;
+  margin-bottom: 20px;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto; /* מאפשר גלילה אופקית לטבלה */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  font-weight: bold;
+  text-align: right;
+  white-space: nowrap; /* מונע שבירת שורות בתאים */
+}
+
+td {
+  white-space: nowrap; /* מונע שבירת שורות בתאים */
+}
+
+.icon-button {
+  margin: 0;
+  padding: 0;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.whatsapp-ico {
+  width: 24px;
+  height: 24px;
+}
+
+.add-button {
+  position: fixed;
+  bottom: 8vh;
+  left: 2vw;
+  z-index: 1000;
+}
+
+.add-icon {
+  font-size: 24px;
+}
+.component-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: right;
+  color: #333; 
+}
 
 @media screen and (max-width: 900px) {
-  .mat-table {
-    padding: 1px !important;
+  th, td {
     font-size: 12px !important;
+  }
+
+  .add-button {
+    bottom: 4vh;
+    left: 2vw;
+  }
+
+  .add-icon {
+    font-size: 20px;
   }
 }

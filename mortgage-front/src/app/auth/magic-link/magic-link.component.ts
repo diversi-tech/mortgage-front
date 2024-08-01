@@ -15,6 +15,8 @@ export class MagicLinkComponent implements OnInit {
   }
   tokenValid: any;
   ngOnInit(): void {
+    console.log("in ngooninit of magic link");
+    
     this.route.queryParams.subscribe(params => {
       this.id = params['id']; // Get the 'id' parameter
       this.token = params['token']; // Get the 'token' parameter if needed

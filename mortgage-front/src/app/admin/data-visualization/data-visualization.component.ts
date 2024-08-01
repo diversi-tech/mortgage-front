@@ -16,7 +16,9 @@ import { IDocumentType } from '../../shared/Models/DocumentTypes.Model';
 })
 export class DataVisualizationComponent implements OnInit {
 
-  constructor(private _serviceCustomer: customerService, private leadService: leadService, private documentService: DocumentsListCustomerService) { }
+  constructor(private _serviceCustomer: customerService, private leadService: leadService, private documentService: DocumentsListCustomerService) {
+    this._serviceCustomer.fetchCustomers().subscribe();
+   }
   customers: ICustomer[] = [];
   leads: ILead[] = [];
   documents: IDocument[] = [];

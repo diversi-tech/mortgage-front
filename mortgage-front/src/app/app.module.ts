@@ -36,6 +36,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     CustomerModule,
     AuthModule,
     AdminModule
+    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },//adding the token to every request
