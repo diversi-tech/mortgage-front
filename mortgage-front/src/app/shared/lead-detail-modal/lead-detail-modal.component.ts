@@ -48,8 +48,13 @@ export class LeadDetailComponent implements OnInit {
 
   saveLead() {
     if (this.leadForm.valid) {
-      const updatedLead: ILead = { ...this.leadForm.value, id: this.lead!.id, token: "" };
-      if (this.leadId === -1) {
+      const updatedLead: ILead = this.leadForm.value;
+      updatedLead.id = this.lead?.id||0; // Ensure ID is set
+      updatedLead.created_at = this.lead?.created_at||new Date();  // Preserve original date
+      updatedLead.updated_at = this.lead?.updated_at||new Date();  // Preserve original dat
+      updatedLead.expiration = this.lead?.expiration||new Date();
+      updatedLead.token=""; 
+      if (this.leadId == -1) {
         this.leadService.addLead(updatedLead).subscribe(response => {
           this.router.navigate(['admin/lead-list']);
         });

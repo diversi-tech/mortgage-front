@@ -7,15 +7,21 @@
   <div id="main">
     
     <!-- אזור הלקוחות -->
-    <section class="contents" style="padding: 25px;">
+    <section class="contents">
       <header>
         <h2 class="component-title">רשימת לקוחות</h2> <!-- header  -->
       </header>
       <table mat-table [dataSource]="customers" matSort class="mat-elevation-z8" dir="rtl">
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>שם</th>
+        <ng-container matColumnDef="first_Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> שם פרטי</th>
           <td mat-cell *matCellDef="let customer">
-            {{customer.first_Name}} {{customer.last_Name}}
+            {{customer.first_Name}} 
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="last_Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>שם משפחה</th>
+          <td mat-cell *matCellDef="let customer">
+            {{customer.last_Name}} 
           </td>
         </ng-container>
         <ng-container matColumnDef="address">
@@ -51,8 +57,7 @@
                 <span>שליחת מסר</span>
               </button>
             </mat-menu>
-            <app-download-accompanying-form [customerId]="customer.id" matTooltip="הורדת פרטי לקוח"
-              matTooltipPosition="left" class="icon-button download"></app-download-accompanying-form>
+            
           </td>
         </ng-container>
 
@@ -65,15 +70,21 @@
     </section>
 
     <!-- אזור הלקוחות בארכיון -->
-    <section class="contents" style="padding: 25px;">
+    <section class="contents">
       <header>
         <h2 class="component-title">רשימת לקוחות בארכיון</h2> <!-- header  -->
       </header>
       <table mat-table [dataSource]="archivedCustomers" matSort class="mat-elevation-z8" dir="rtl">
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>שם</th>
+        <ng-container matColumnDef="first_Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> שם פרטי</th>
           <td mat-cell *matCellDef="let customer">
-            {{customer.first_Name}} {{customer.last_Name}}
+            {{customer.first_Name}} 
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="last_Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>שם משפחה</th>
+          <td mat-cell *matCellDef="let customer">
+            {{customer.last_Name}} 
           </td>
         </ng-container>
         <ng-container matColumnDef="address">
@@ -109,12 +120,11 @@
                 <span>שליחת מסר ללקוח ארכיון</span>
               </button>
             </mat-menu>
-            <app-download-accompanying-form [customerId]="customer.id" matTooltip="הורדת פרטי לקוח"
-              matTooltipPosition="left" class="icon-button download"></app-download-accompanying-form>
+            
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;" ></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
       <mat-paginator #archivedCustomersPaginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
@@ -123,15 +133,21 @@
     </section>
 
     <!-- אזור הלידים -->
-    <section class="contents" style="padding: 25px;">
+    <section class="contents">
       <header>
         <h2 class="component-title">רשימת לידים</h2> <!-- header  -->
       </header>
       <table mat-table [dataSource]="leads" matSort class="mat-elevation-z8" dir="rtl">
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>שם</th>
+        <ng-container matColumnDef="first_Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> שם פרטי</th>
           <td mat-cell *matCellDef="let customer">
-            {{customer.first_Name}} {{customer.last_Name}}
+            {{customer.first_Name}} 
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="last_Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>שם משפחה</th>
+          <td mat-cell *matCellDef="let customer">
+            {{customer.last_Name}} 
           </td>
         </ng-container>
         <ng-container matColumnDef="address">
@@ -167,8 +183,7 @@
                 <span>שליחת מסר לליד</span>
               </button>
             </mat-menu>
-            <app-download-accompanying-form [customerId]="customer.id" matTooltip="הורדת פרטי לקוח"
-              matTooltipPosition="left" class="icon-button download"></app-download-accompanying-form>
+            
           </td>
         </ng-container>
 

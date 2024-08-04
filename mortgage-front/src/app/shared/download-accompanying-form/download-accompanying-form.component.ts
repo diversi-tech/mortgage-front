@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { saveAs } from 'file-saver';
 import { Document, Packer, Paragraph, TextRun, ImageRun, Table, TableCell, TableRow, WidthType, AlignmentType, VerticalAlign, Header, Footer, PageSize } from 'docx';
-import { customerService } from '../../shared/Services/costumer.service';
+import { customerService } from '../Services/costumer.service';
 import { switchMap } from 'rxjs';
-import { ICustomer } from '../../shared/Models/Customer';
+import { ICustomer } from '../Models/Customer';
 import { MaterialModule } from '../../material/material.module';
 
 @Component({

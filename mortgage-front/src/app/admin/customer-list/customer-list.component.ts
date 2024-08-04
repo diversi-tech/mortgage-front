@@ -14,7 +14,7 @@ import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dial
   styleUrls: ['./customer-list.component.scss'],
 })
 export class CustomerListComponent implements OnInit, OnDestroy {
-  displayedColumns = ['name', 'address', 'phone', 'Customer_type', 'actions'];
+  displayedColumns = ['first_Name','last_Name', 'address', 'phone', 'Customer_type', 'actions'];
   leads: MatTableDataSource<ICustomer> = new MatTableDataSource<ICustomer>();
   customers: MatTableDataSource<ICustomer> = new MatTableDataSource<ICustomer>();
   archivedCustomers: MatTableDataSource<ICustomer> = new MatTableDataSource<ICustomer>();
