@@ -9,7 +9,6 @@
     "/admin/document-type-list",
     "/admin/lead-list",
     "/admin/mailing-list",
-    "/admin/task-edit",
     "/admin/user-list",
     "/auth",
     "/auth/login",
@@ -19,7 +18,6 @@
     "/customer-portal",
     "/customer/calculator",
     "/customer/customer-portal",
-    "/customer/document-list",
     "/customer/document-type-details",
     "/customer/document-type-list",
     "/customer/lead-details",
@@ -34,7 +32,6 @@
     "/lead-list",
     "/lead/calculator",
     "/lead/customer-portal",
-    "/lead/document-list",
     "/lead/document-type-details",
     "/lead/document-type-list",
     "/lead/lead-details",
@@ -45,7 +42,6 @@
     "/magic-link",
     "/mailing-list",
     "/mortgage-helper",
-    "/task-edit",
     "/user-details",
     "/user-list"
   ]
