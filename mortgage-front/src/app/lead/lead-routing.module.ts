@@ -6,7 +6,6 @@ import { authGuardLead } from '../auth/auth.guard';
 import { PageNotFoundComponent } from '../global/page-not-found/page-not-found.component';
 
 
-
 const routes: Routes = [
     { path: '', component: LeadComponent, canActivate: [authGuardLead] },
     { path: 'magic-link', component: MagicLinkComponent }, // צריך להיות במסלול העליון
