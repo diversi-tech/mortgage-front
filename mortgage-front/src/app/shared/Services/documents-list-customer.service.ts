@@ -6,6 +6,7 @@ import { IDocumentType, TransactionType } from '../Models/DocumentTypes.Model';
 import { environment } from '../../../environments/environment';
 import { ICustomer } from '../Models/Customer';
 import { customerService } from './costumer.service';
+import { loginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +22,11 @@ export class DocumentsListCustomerService {
 
   private _selectedDocuments: (IDocument)[] = [];
 
-  constructor(private http: HttpClient, private customerService: customerService) {  }
+  constructor(private http: HttpClient,
+    private customerService: customerService,
+    private loginService: loginService) { }
 
-  get selectedDocuments(): (IDocument )[] {
+  get selectedDocuments(): (IDocument)[] {
     return this._selectedDocuments;
   }
 
@@ -92,14 +95,23 @@ export class DocumentsListCustomerService {
   hasNotSavedDoc: boolean = false;
   hasPendingDocuments: boolean = false;
   checkPendingDocuments() {
-    this.documents$.subscribe(
+    this.fetchDocumentsByCustomerId(this.loginService.GetCurrentUser().customerId).subscribe(
       (documents) => {
-        this.hasNotSavedDoc = this.selectedDocuments.filter(file => file != null && file != undefined).length > 0;
-        this.hasPendingDocuments = documents.some(document => document.status === 0);
+        this.documentsSubject.next(documents);
+        this.documents$.subscribe(
+          (documents) => {
+            this.hasNotSavedDoc = this.selectedDocuments.filter(file => file != null && file != undefined).length > 0;
+            this.hasPendingDocuments = documents.some(document => document.status === 0);
+          },
+          (error) => {
+            console.error('שגיאה בטעינת ');
+          }
+        )
       },
       (error) => {
-        console.error('שגיאה בטעינת ד');
+        console.error('Error fetching documents:', error);
       }
     )
+
   }
 }

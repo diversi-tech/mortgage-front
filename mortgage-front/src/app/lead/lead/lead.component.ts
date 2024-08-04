@@ -664,8 +664,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatStepper } from '@angular/material/stepper';
 import { leadService } from '../../shared/Services/lead.service';
 import { UserService } from '../../shared/Services/user.service';
-import { israeliIdValidator } from './birth-date-validator';
-import { birthDateValidator } from './israeli-id-validator';
+import { birthDateValidator } from './birth-date-validator';
+import { israeliIdValidator} from './israeli-id-validator';
 import { DocumentTypeService } from '../../shared/Services/documentType.service';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
 import { firstValueFrom } from 'rxjs';

@@ -41,7 +41,6 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
   
   loadLeads(): void {
     // Fetch initial data to populate the subject
-
         // Subscribe to leads$ after fetching initial data
         this.leadsSubscription = this.leadService.leads$.subscribe({
           next: leads => {
@@ -53,11 +52,7 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
             console.error('Error loading leads:', error);
           }
         });
-    
   }
-  
-  
-
   ngOnDestroy(): void {
     if (this.leadsSubscription) {
       this.leadsSubscription.unsubscribe();

@@ -3,6 +3,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { customerService } from '../../shared/Services/costumer.service';
 import { ICustomer } from '../../shared/Models/Customer';
 import { loginService } from '../../shared/Services/login.service';
+import { format, parseISO } from 'date-fns';
 
 @Component({
   selector: 'customer-update-detailes',
@@ -48,54 +49,44 @@ export class CustomerUpdateDetailesComponent {
     { value: 1, viewValue: 'Email', icon: 'email' },
   ];
 
-
-
-  customerId: number | undefined=this.loginService.GetCurrentUser().customerId;
-
-  ngOnInit(): void {
-    // this.route.paramMap.subscribe(params => {
-    //   this.customerId = Number(params.get('id'));
-    //   if (this.customerId) {
-    //     console.log(`Customer ID: ${this.customerId}`);
-    //     this.customerService.getById(this.customerId).subscribe({
-    //       next: (response) => {
-    //         this.formData = { ...response };
-    //       },
-    //       error: (error) => {
-    //         console.error('Error creating customer:', error);
-    //       }
-    //     });
-    //   } else {
-    //     console.log('No Customer ID');
-    //   }
-    // });
-    const id=this.loginService.GetCurrentUser().customerId;
-    if (id) {
-          this.customerService.getById(id).subscribe({
-            next: (response) => {
-              this.formData = { ...response };
-            },
-            error: (error) => {
-              console.error('Error creating customer:', error);
-            }
-          });
-        } else {
-          console.log('No Customer ID');
-        }
-
-  }
   constructor(
     private customerService: customerService,
     private route: ActivatedRoute,
     private router: Router,
-    private loginService:loginService
+    private loginService: loginService
   ) { }
+
+  customerId: number | undefined = this.loginService.GetCurrentUser().customerId;
+
+  ngOnInit(): void {
+    const id = this.loginService.GetCurrentUser().customerId
+    if (id) {
+      this.customerService.getById(id).subscribe({
+        next: (response) => {
+          this.formData = { ...response };
+          this.formData.birthDate=this.formatDateToISO(response.birthDate);
+        },
+        error: (error) => {
+          console.error('Error creating customer:', error);
+        }
+      });
+    } else {
+      console.log('No Customer ID');
+    }
+
+  }
+
+  formatDateToISO(dateString: string): string {
+    const date = parseISO(dateString);
+    return format(date, 'yyyy-MM-dd'); // yyyy-MM-dd
+  }
+
 
   submitForm() {
     this.customerService.updateCustomer(this.customerId, this.formData).subscribe({});
     this.router.navigate(['/customer']);
   }
-  cancel(){
+  cancel() {
     this.router.navigate(['/customer']);
   }
 }
