@@ -39,18 +39,16 @@ export class SendNotificationComponent implements OnInit {
   }
 
   loadNotifications(): void {
-    this.notificationService.getNotificationsByUserId(this.userId).subscribe(
+    this.notificationService.getNotificationsByCustomerId(this.userId).subscribe(
       (data) => {
         this.notifications = data;
-        this.calculateStatistics(); // קריאה לפונקציה לעדכון סטטיסטיקות
-
+        this.calculateStatistics();
       },
       (error) => {
         console.error('Error fetching notifications', error);
       }
     );
   }
-
   sendNotification(): void {
     if (this.newMessage.trim()) {
       const formattedMessage = this.newMessage.replace(/\n/g, '<br>');

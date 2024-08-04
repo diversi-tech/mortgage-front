@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IDocumentType, TransactionType } from '../../shared/Models/DocumentTypes.Model';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
-import { IDocument } from '../../shared/Models/Document';
+import { IDocument } from '../../shared/Models/document';
 import { loginService } from '../../shared/Services/login.service';
 @Component({
   selector: 'app-task-edit',
@@ -31,7 +31,7 @@ export class TaskEditComponent implements OnInit {
       if (this.taskId !== -1) {
         this.loadTaskData(this.taskId);
       }
-      else if (typeof window && window.sessionStorage != undefined)
+      else if (typeof window && window.sessionStorage != undefined && this.documentsService.customerId != -1)
         window.sessionStorage.setItem('customerId', this.documentsService.customerId.toString())
     });
     this.loadDocumentTypes();
@@ -77,8 +77,8 @@ export class TaskEditComponent implements OnInit {
         docForSave.created_at = new Date();
         docForSave.updated_at = new Date();
         docForSave.customer_Id = +window.sessionStorage.getItem("customerId")!;
-        console.log("in save id-"+docForSave.customer_Id);
-        
+        console.log("in save id-" + docForSave.customer_Id);
+
         docForSave.status = 0;
         // docForSave.document_type_id=
         if (docForSave.task_description == "")

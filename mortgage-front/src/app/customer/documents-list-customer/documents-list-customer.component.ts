@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
 import { map, Observable, startWith, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Status, IDocument } from '../../shared/Models/Document';
+import { Status, IDocument } from '../../shared/Models/document';
 import { IDocumentType, TransactionType } from '../../shared/Models/DocumentTypes.Model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dialog.component';
@@ -37,7 +36,7 @@ import { log } from 'console';
 
 export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['name', 'type', 'status', 'icon', 'date', 'approval'];
+  displayedColumns = ['task_description', 'document_type_id', 'status', 'document_path', "document_path2", 'created_at', 'isOk', 'actions'];
   // documentsSendIndex: number[] = [];
   isOkCount: number = 0;
   customerId!: number;
@@ -47,11 +46,10 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<IDocument> = new MatTableDataSource<IDocument>();
   private documentSubscription?: Subscription;
 
-  @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChildren('myCheckbox') checkboxes!: QueryList<MatCheckbox>;
 
-  constructor(private _service: DocumentsListCustomerService,
+  constructor(private documentService: DocumentsListCustomerService,
     private datePipe: DatePipe,
     private dialog: MatDialog,
     private fileService: UploadService,
@@ -81,10 +79,9 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     this.customerId = customer.id!;
     if (typeof window && window.sessionStorage != undefined)
       window.sessionStorage.setItem("customerId", this.customerId.toString())!;
-    this._service.fetchDocumentsByCustomerId(customer.id || 0).subscribe({
+    this.documentService.fetchDocumentsByCustomerId(customer.id || 0).subscribe({
       next: documents => {
         this.dataSource.data = documents;
-        this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
       error: error => {
@@ -113,7 +110,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       if (typeof window && window.sessionStorage != undefined) {
         let currentId = +window.sessionStorage.getItem("customerId")!;
         if (currentId) {
-          this.fetchdocumentType(currentId);
+          this.fetchDocumentTypes();
           this.customerId = currentId;
         }
       }
@@ -121,15 +118,15 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       this.loadCustomers();
     }
     else {
-      this.fetchdocumentType(this.loginService.GetCurrentUser().customerId!);
+      this.fetchDocumentTypes();
       this.customerId = this.loginService.GetCurrentUser().customerId!;
     }
     this.loadDocuments();
     if (this.customerId)
-      this._service.fetchDocumentsByCustomerId(this.customerId).subscribe({
+      this.documentService.fetchDocumentsByCustomerId(this.customerId).subscribe({
         next: documents => {
           documents.forEach((file) => {
-            let tempDoc = this._service.selectedDocuments.filter(doc => doc.id == file.id);
+            let tempDoc = this.documentService.selectedDocuments.filter(doc => doc.id == file.id);
             if (tempDoc[0]) {
               if (this.loginService.isAdmin()) {
                 file.status2 = tempDoc[0].status2;
@@ -144,10 +141,9 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
               }
 
             }
-            this._service.selectedDocuments.push(file);
+            this.documentService.selectedDocuments.push(file);
           })
           this.dataSource.data = documents;
-          this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
         },
         error: error => {
@@ -168,10 +164,9 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   loadDocuments(): void {
     console.log('in load');
 
-    this.documentSubscription = this._service.documents$.subscribe({
+    this.documentSubscription = this.documentService.documents$.subscribe({
       next: documents => {
         this.dataSource.data = documents;
-        this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
       error: error => {
@@ -184,18 +179,17 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-  fetchdocumentType(id: number): void {
-    this._service.fetchDocumentsTypesById(id).subscribe(
-      (data: IDocumentType) => {
-        this.transactionType = data;
+  documentTypes: IDocumentType[] = [];
+  fetchDocumentTypes() {
+    this.documentService.getAllDocumentType().subscribe(
+      (response) => {
+        this.documentTypes = response;
       },
       (error) => {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching document types:', error);
       }
     );
   }
-
   onCheckboxChange(checked: boolean, document: IDocument): void {
     if (checked == true) {
       this.isOkCount++;
@@ -219,12 +213,18 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
   //Converts the transactionType enum value to the string value
   changeTransacTypeToString(index: number): String {
-    this.transactionTypeString = TransactionType[index];
+    // this.documentService.    
+    // console.log(this.documentTypesByCustomer);
+    let trans;
+    if (this.documentTypes.length > 0)
+      trans = this.documentTypes?.find(type => type.id == index)?.transaction_Type;
+    this.transactionTypeString = TransactionType[trans!];
     return this.transactionTypeString;
   }
 
 
   onFileSelected(event: any, document: IDocument): void {
+    // document.document_path
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
@@ -239,7 +239,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
         document.document_path = file.name;
         document.status = 1;
       }
-      this._service.selectedDocuments.forEach(doc => {
+      this.documentService.selectedDocuments.forEach(doc => {
         if (doc.id == document.id) {
           if (this.loginService.isAdmin()) {
             doc.adminFile = file;
@@ -253,8 +253,8 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
           }
         }
       })
-      var tempList = this._service.selectedDocuments
-      this._service.selectedDocuments = tempList;
+      var tempList = this.documentService.selectedDocuments
+      this.documentService.selectedDocuments = tempList;
     }
   }
 
@@ -275,8 +275,8 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
         }
         if (document1.isOk)
           this.isOkCount--;
-        var tempList = this._service.selectedDocuments
-        this._service.selectedDocuments = tempList;
+        var tempList = this.documentService.selectedDocuments
+        this.documentService.selectedDocuments = tempList;
       }
     });
   }
@@ -307,14 +307,14 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     console.log(this.dataSource.data);
 
     if (this.loginService.isAdmin()) {
-      this._service.selectedDocuments = (this.dataSource.data
+      this.documentService.selectedDocuments = (this.dataSource.data
         .filter(obj => obj.adminFile !== undefined && obj.adminFile !== null)) // filter out undefined and null
     }
     else {
-      this._service.selectedDocuments = this.dataSource.data
+      this.documentService.selectedDocuments = this.dataSource.data
         .filter(obj => obj.customerFile !== undefined && obj.customerFile !== null) // filter out undefined and null
     }
-    let countNotNullOrUndefined = this._service.selectedDocuments.filter(value => value !== null && value !== undefined).length;
+    let countNotNullOrUndefined = this.documentService.selectedDocuments.filter(value => value !== null && value !== undefined).length;
     console.log("this.isOkCount=" + this.isOkCount + "  countNotNullOrUndefined=" + countNotNullOrUndefined);
     if (countNotNullOrUndefined != this.isOkCount) {
       this.openSnackBar(' יש לאשר תחילה את כל המסמכים שנבחרו.', 'בטל');
@@ -325,13 +325,12 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       this.openSnackBar('עדיין לא נבחרו מסמכים.', 'בטל');
       return;
     }
-    this.fileService.uploadFiles(this._service.selectedDocuments)?.subscribe(
+    this.fileService.uploadFiles(this.documentService.selectedDocuments)?.subscribe(
       (event: any) => {
         if (event.status === 'progress') {
         }
-
         else if (!event.includes("Unhandled")) {
-          for (let i = 0; i < this._service.selectedDocuments.length; i++) {
+          for (let i = 0; i < this.documentService.selectedDocuments.length; i++) {
             this.dataSource.data.forEach(doc => {
               if (doc.customerFile) {
                 doc.status = 2;
@@ -344,7 +343,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
             });
           }
           countNotNullOrUndefined = 0;
-          this._service.selectedDocuments = [];
+          this.documentService.selectedDocuments = [];
           this.isOkCount = 0;
           this.onSaveChangesInServer();
           this.openSnackBar('המסמכים הועלו בהצלחה!', 'x');
@@ -363,7 +362,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       filteredDocuments = this.dataSource.data.filter(doc => doc.adminFile)
     else
       filteredDocuments = this.dataSource.data.filter(doc => doc.customerFile)
-    this._service.updateMultipleDocuments(filteredDocuments)
+    this.documentService.updateMultipleDocuments(filteredDocuments)
       .subscribe(
         () => {
           console.log('The documents have been successfully updated on the server');
@@ -403,7 +402,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this._service.deleteDocument(element.id).subscribe(
+        this.documentService.deleteDocument(element.id).subscribe(
           (response: any) => {
             console.log(response);
             this.dataSource.data = this.dataSource.data.filter(doc => doc.id !== element.id);
@@ -421,12 +420,12 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   editTask(element: IDocument) {
     if (typeof window && window.sessionStorage != undefined)
       window.sessionStorage.setItem("customerId", element.customer_Id.toString());
-    this.router.navigate([`customer/task-edit/${element.id}`]);
+    this.router.navigate([`admin/task-edit/${element.id}`]);
   }
   addTask() {
-    this._service.customerId = this.customerId;
+    this.documentService.customerId = this.customerId;
     if (typeof window && window.sessionStorage != undefined)
       window.sessionStorage.setItem("customerId", this.customerId.toString());
-    this.router.navigate([`customer/task-edit/${-1}`]);
+    this.router.navigate([`admin/task-edit/${-1}`]);
   }
 }

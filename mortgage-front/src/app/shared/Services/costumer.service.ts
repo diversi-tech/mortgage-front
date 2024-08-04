@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { ICustomer } from "../Models/Customer";
@@ -7,13 +7,13 @@ import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class customerService {
-  readonly basicURL = `${environment.apiURL}/api/`;
+  readonly basicURL = environment.apiURL+"/api/";
   private customersSubject = new BehaviorSubject<ICustomer[]>([]);
   customers$ = this.customersSubject.asObservable();
 
-  constructor(private http: HttpClient) {
-    // this.fetchCustomers().subscribe(); // אתחול לקוחות בהפעלת השירות
+    constructor(private http: HttpClient) {
   }
+
 
   fetchCustomers(): Observable<ICustomer[]> {
     return this.http.get<ICustomer[]>(`${this.basicURL}Customers`)

@@ -42,7 +42,8 @@ mat-form-field mat-icon {
 }
 
 .content-container {
-  margin: 20px;
+  margin: 20px auto;
+  width: 60vw;
 }
 
 .cards-container {
@@ -113,12 +114,12 @@ mat-card-actions {
   cursor: pointer;
   color: #0d47a1;
 }
-
+/* 
 mat-checkbox {
   position: absolute;
   top: 0;
   left: 0;
-}
+} */
 
 .header-container {
   margin: 0 auto;
@@ -127,7 +128,7 @@ mat-checkbox {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  margin-bottom: 100px
+  /* margin-bottom: 100px */
 }
 
 .header-content {
@@ -195,4 +196,20 @@ mat-checkbox {
   /* border-top: 1px solid #ccc; */
   margin-right: 10px;
   /* width: 100vw; */
+}
+span:hover{
+  cursor: pointer;
+}
+.download{
+  color: rgb(0, 0, 92);
+  text-decoration: underline;
+}
+.download:hover{
+  color: rgb(2, 2, 35);
+}
+mat-header-cell{
+  background-color: rgba(170, 189, 202, 0.152)!important;
+}
+mat-row:hover{
+  background-color: #e0dcdc22;
 }

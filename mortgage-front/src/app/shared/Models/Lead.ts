@@ -5,7 +5,7 @@ export interface ILead {
     email: string;
     created_at: Date;
     updated_at: Date;
-    // token?:string= "8B21EE16-6B65-4DEF-B7EF-E53421DA6508";
+    token:string;
     expiration:Date;
 }
 

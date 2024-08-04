@@ -15,12 +15,14 @@ import { TaskEditComponent } from '../admin/task-edit/task-edit.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 
 
+
 const routes: Routes = [
     { path: "", component: CustomerPortalComponent,
         canActivate: [authGuard],
         children:[
+
         { path: "customer-portal", component: CustomerPortalComponent },
-        { path: "document-list", component: DocumentsListCustomerComponent },
+        { path: "document-list/:id", component: DocumentsListCustomerComponent },
         { path: "user-details", component: UserDetailComponent },
         { path: "lead-details", component: LeadDetailComponent },
         { path: "customer-details/:id", component: CustomerUpdateDetailesComponent },
@@ -29,7 +31,6 @@ const routes: Routes = [
         { path: 'calculator', component: MortgageCalculatorComponent },
         { path: 'mortgage-helper', component: MortgageHelperComponent },
         { path: 'customer-detailes/:id', component: CustomerUpdateDetailesComponent },
-        { path: 'task-edit/:id', component: TaskEditComponent },
         { path: 'notifications/:id', component: NotificationsComponent},
     ],
  },

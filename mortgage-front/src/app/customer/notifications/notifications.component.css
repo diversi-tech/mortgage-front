@@ -35,7 +35,7 @@
   } */
 
 
-
+/* 
   .notification-badge {
     background-color: red;
     color: white;
@@ -49,11 +49,11 @@
   
   .notifications-list {
     width: 300px;
-    max-height: 400px;
-    overflow-y: auto;
+    /* max-height: 400px; */
+    /* overflow-y: auto;
    
   }
-  
+   */
   .notification-item {
     padding: 10px;
     margin-bottom: 10px;
@@ -84,4 +84,277 @@
     text-align: center;
     color: #888;
     font-style: italic;
+  } 
+
+
+
+
+
+
+
+  .container{
+    width: 80vw;
+    background-color: rgba(255, 255, 255, 0.563);
+    border: 5px rgba(128, 128, 128, 0.306) solid;
+    border-radius: 15px;
+    margin: 10px auto;
+  
   }
+  .notification-card {
+    margin: 50px auto;
+    width: 75vw;
+    padding: 16px;
+    background-color: rgba(255, 255, 255, 0.947);
+    border: 5px rgba(128, 128, 128, 0.197) solid;
+    border-radius: 5px;
+  }
+  
+  .mat-card-header {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .mat-card-title {
+    display: flex;
+    align-items: center;
+  }
+  
+  .mat-form-field {
+    width: 100%;
+  }
+  
+  textarea.mat-input-element {
+    font-size: 1rem;
+    padding: 12px;
+  }
+  
+  mat-form-field {
+    display: inline-block;
+    width: 40vw;
+  
+  }
+  
+  .actions {
+    margin-top: 16px;
+    text-align: right;
+  }
+  
+  .notification-item {
+    margin-top: 16px;
+  }
+  
+  .message-bubble {
+    position: relative;
+    background:  #d3edfe;
+    border-radius: 10px;
+    padding: 16px;
+    max-width: 50%;
+    margin: 8px 0;
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+    display: flex;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .message-text {
+    font-size: 1rem;
+    margin: 5px;
+  }
+  
+  .message-text:hover {
+    cursor: default;
+  }
+  
+  .message-timestamp {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+    font-size: 0.8rem;
+    color: #666;
+  }
+  
+  .message-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 8px;
+  }
+  
+  .unread {
+    font-weight: bold;
+  }
+  
+  .message-bubble-unread {
+    position: relative;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 50%;
+    margin: 8px 0;
+    background-color: #fed3d4; /* צבע רקע להודעה שלא נקראה */
+    display: flex;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  }
+  .menu{
+    display: none;
+    position: absolute;
+    left: 1px; /* Adjust as needed */
+    top: 1px;
+  }
+  .message-bubble-unread:hover, .message-bubble:hover{
+    .menu{
+    display: block;
+    }
+  }
+  
+  .message-section, .history-section {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    width: 50vw;
+    margin: 10px auto;
+  }
+  
+  .message-section {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .history-section {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    margin: 0 0 16px 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.343);
+    /* margin-right: 16px; */
+    background-color: rgb(243, 244, 245);
+    /* border: 1px rgba(0, 0, 0, 0.321) solid; */
+    margin-left: 10px;
+  }
+  .icon{
+    float: right;
+    font-size: 15px;
+    margin-top: -5px;
+    margin-right: -58px;
+  }
+  .statistics-section {
+    /* עיצוב כפי שהיה קודם */
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 300px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .statistics-title {
+    margin: 0 0 16px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
+  
+  canvasjs-chart {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* עיצוב הכפתור להצגת/הסתרת הסטטיסטיקות */
+  .statistic {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    z-index: 10;
+  }
+  /* הגדרות עיצוב כלליות */
+  .statistics-section {
+    position: absolute; /* למיקום קבוע בעמוד */
+    top: 60px; /* מרחק מהחלק העליון */
+    left: 20px; /* מרחק מהצד השמאלי */
+    width: 300px; /* רוחב מקסימלי */
+    background-color: #ffffff; /* צבע רקע */
+    border: 1px solid #ddd; /* גבול */
+    border-radius: 8px; /* פינות מעוגלות */
+    padding: 16px; /* ריפוד פנימי */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* צללת תיבת */
+  }
+  
+  /* עיצוב הכותרת של סטטיסטיקות */
+  .statistics-title {
+    margin: 0 0 16px 0; /* מרווח תחתון בין הכותרת לגרף */
+    font-size: 1rem; /* גודל גופן */
+    font-weight: bold; /* משקל גופן */
+    color: #333; /* צבע גופן */
+    text-align: center; /* יישור טקסט למרכז */
+  }
+  
+  /* עיצוב הגרף */
+  canvasjs-chart {
+    width: 100%; /* התאמה לרוחב התיבה */
+    height: auto; /* גובה אוטומטי */
+  }
+  .notification-item {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+  }
+  
+  .profile-picture {
+    margin-right: 16px; /* רווח ימני בין התמונה להודעה */
+  }
+  
+  .message-content {
+    flex: 1; /* מאפשר לתוכן ההודעה לתפוס את כל רוחב השטח הפנוי */
+  }
+  
+  .message-bubble {
+    background: #e3f2fd;
+    border-radius: 10px;
+    padding: 16px;
+    position: relative;
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+    width: 100%;
+  }
+  
+  .message-text {
+    font-size: 1rem;
+    margin: 5px;
+  }
+  
+  .message-timestamp {
+    font-size: 0.8rem;
+    color: #666;
+  }
+  
+  .message-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+  }
+  
+  .unread {
+    font-weight: bold;
+  }
+  
+  .message-bubble-unread {
+    background-color: #d3edfe;
+  }
+  
+  
+  
+  

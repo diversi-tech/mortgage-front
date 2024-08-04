@@ -5,16 +5,23 @@
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
   <div id="main">
-
-
-    <!-- customers table -->
-    <div class="contents" style="padding: 25px;">
-      <h2>לקוחות</h2>
+    
+    <!-- אזור הלקוחות -->
+    <section class="contents">
+      <header>
+        <h2 class="component-title">רשימת לקוחות</h2> <!-- header  -->
+      </header>
       <table mat-table [dataSource]="customers" matSort class="mat-elevation-z8" dir="rtl">
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>שם</th>
+        <ng-container matColumnDef="first_Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> שם פרטי</th>
           <td mat-cell *matCellDef="let customer">
-            {{customer.first_Name}} {{customer.last_Name}}
+            {{customer.first_Name}} 
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="last_Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>שם משפחה</th>
+          <td mat-cell *matCellDef="let customer">
+            {{customer.last_Name}} 
           </td>
         </ng-container>
         <ng-container matColumnDef="address">
@@ -50,8 +57,7 @@
                 <span>שליחת מסר</span>
               </button>
             </mat-menu>
-            <app-download-accompanying-form [customerId]="customer.id" matTooltip="הורדת פרטי לקוח"
-              matTooltipPosition="left" class="icon-button download"></app-download-accompanying-form>
+            
           </td>
         </ng-container>
 
@@ -60,21 +66,25 @@
       </table>
       <mat-paginator #customersPaginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
       <br>
-      <button mat-fab color="primary" class="icon-button add" (click)="addCustomer()" matTooltip="הוספת לקוח חדש למערכת"
-        matTooltipPosition="above" style="bottom: -1vh;left: 1vw;z-index: 1000;">
-        <mat-icon class="icon">add</mat-icon>
-      </button>
       <export-to-excel [typeOfCustomer]="1"></export-to-excel>
-    </div>
-    
-    <div class="contents" style="padding: 25px;">
-      <!-- archived table -->
-      <h2>לקוחות בארכיון</h2>
+    </section>
+
+    <!-- אזור הלקוחות בארכיון -->
+    <section class="contents">
+      <header>
+        <h2 class="component-title">רשימת לקוחות בארכיון</h2> <!-- header  -->
+      </header>
       <table mat-table [dataSource]="archivedCustomers" matSort class="mat-elevation-z8" dir="rtl">
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>שם</th>
+        <ng-container matColumnDef="first_Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> שם פרטי</th>
           <td mat-cell *matCellDef="let customer">
-            {{customer.first_Name}} {{customer.last_Name}}
+            {{customer.first_Name}} 
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="last_Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>שם משפחה</th>
+          <td mat-cell *matCellDef="let customer">
+            {{customer.last_Name}} 
           </td>
         </ng-container>
         <ng-container matColumnDef="address">
@@ -110,26 +120,34 @@
                 <span>שליחת מסר ללקוח ארכיון</span>
               </button>
             </mat-menu>
-            <app-download-accompanying-form [customerId]="customer.id" matTooltip="הורדת פרטי לקוח"
-              matTooltipPosition="left" class="icon-button download"></app-download-accompanying-form>
+            
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;" ></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
       <mat-paginator #archivedCustomersPaginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
-
+<br>
       <export-to-excel [typeOfCustomer]="2"></export-to-excel>
-    </div>
-    <div class="contents" style="padding: 25px;">
-      <!--lead table-->
-      <h2>לידים</h2>
+    </section>
+
+    <!-- אזור הלידים -->
+    <section class="contents">
+      <header>
+        <h2 class="component-title">רשימת לידים</h2> <!-- header  -->
+      </header>
       <table mat-table [dataSource]="leads" matSort class="mat-elevation-z8" dir="rtl">
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>שם</th>
+        <ng-container matColumnDef="first_Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> שם פרטי</th>
           <td mat-cell *matCellDef="let customer">
-            {{customer.first_Name}} {{customer.last_Name}}
+            {{customer.first_Name}} 
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="last_Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>שם משפחה</th>
+          <td mat-cell *matCellDef="let customer">
+            {{customer.last_Name}} 
           </td>
         </ng-container>
         <ng-container matColumnDef="address">
@@ -165,8 +183,7 @@
                 <span>שליחת מסר לליד</span>
               </button>
             </mat-menu>
-            <app-download-accompanying-form [customerId]="customer.id" matTooltip="הורדת פרטי לקוח"
-              matTooltipPosition="left" class="icon-button download"></app-download-accompanying-form>
+            
           </td>
         </ng-container>
 
@@ -175,7 +192,11 @@
       </table>
       <mat-paginator #leadsPaginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
       <br>
-      <export-to-excel [typeOfCustomer]="0"></export-to-excel>
-    </div>
+      <button mat-fab color="primary" class="icon-button add" (click)="addCustomer()" matTooltip="הוספת ליד חדש למערכת"
+        matTooltipPosition="above" style="bottom: 12vh;left: 3vw;z-index: 1000;position: fixed;">
+        <mat-icon class="icon">add</mat-icon>
+      </button>
+      <export-to-excel [typeOfCustomer]="3"></export-to-excel>
+    </section>
   </div>
 </div>

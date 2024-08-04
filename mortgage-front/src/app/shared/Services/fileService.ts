@@ -7,7 +7,7 @@ import { throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { loginService } from './login.service';
 import { DocumentsListCustomerService } from './documents-list-customer.service';
-import { IDocument } from '../Models/Document';
+import { IDocument } from '../Models/document';
 
 @Injectable({
   providedIn: 'root'

@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from "rxjs";
 import { Injectable } from '@angular/core';
-import { IDocument } from '../Models/Document';
+import { IDocument } from '../Models/document';
 import { IDocumentType, TransactionType } from '../Models/DocumentTypes.Model';
 import { environment } from '../../../environments/environment';
 import { ICustomer } from '../Models/Customer';
 import { customerService } from './costumer.service';
+import { loginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +22,11 @@ export class DocumentsListCustomerService {
 
   private _selectedDocuments: (IDocument)[] = [];
 
-  constructor(private http: HttpClient, private customerService: customerService) {
-    // this.fetchDocumentsByCustomerId(7).subscribe();
-  }
+  constructor(private http: HttpClient,
+    private customerService: customerService,
+    private loginService: loginService) { }
 
-  get selectedDocuments(): (IDocument )[] {
+  get selectedDocuments(): (IDocument)[] {
     return this._selectedDocuments;
   }
 
@@ -71,10 +72,9 @@ export class DocumentsListCustomerService {
         })
       );
   }
-  fetchDocumentsTypesById(customerId: number): Observable<IDocumentType> {
-    return this.http.get<IDocumentType>(`${this.apiUrl}/DocumentTypes/${customerId}`);
-  }
-
+  // fetchDocumentsTypesByCustomerId(customerId: number): Observable<IDocumentType[]> {
+  //   return this.http.get<IDocumentType[]>(`${this.apiUrl}/DocumentTypes/${customerId}`);
+  // }
   deleteDocument(docId: number) {
     return this.http.delete(`${this.apiUrl}/CustomerTasksControllercs/${docId}`);
   }
@@ -90,5 +90,28 @@ export class DocumentsListCustomerService {
     console.log("customer=" + customer);
 
     return customer;
+  }
+
+  hasNotSavedDoc: boolean = false;
+  hasPendingDocuments: boolean = false;
+  checkPendingDocuments() {
+    this.fetchDocumentsByCustomerId(this.loginService.GetCurrentUser().customerId).subscribe(
+      (documents) => {
+        this.documentsSubject.next(documents);
+        this.documents$.subscribe(
+          (documents) => {
+            this.hasNotSavedDoc = this.selectedDocuments.filter(file => file != null && file != undefined).length > 0;
+            this.hasPendingDocuments = documents.some(document => document.status === 0);
+          },
+          (error) => {
+            console.error('שגיאה בטעינת ');
+          }
+        )
+      },
+      (error) => {
+        console.error('Error fetching documents:', error);
+      }
+    )
+
   }
 }

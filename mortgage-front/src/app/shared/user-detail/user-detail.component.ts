@@ -1,4 +1,4 @@
-
+ 
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,7 +21,7 @@ import { log } from 'console';
 
 export class UserDetailComponent implements OnInit {
   userForm: FormGroup;
-  userId: number | undefined;
+  userId!: number ;
   user!: IUser;
   roles = ['מנהל מערכת', 'לקוח'];
   formattedCreatedAt: string = '';
@@ -37,7 +37,7 @@ export class UserDetailComponent implements OnInit {
       userName: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       email: ['', [Validators.required, Validators.email]],
-      role: ['Admin', [Validators.required, Validators.pattern(/['מנהל מערכת'].*['לקוח']/)]],
+      role: ['', [Validators.required, Validators.pattern(/['מנהל מערכת'].*['לקוח']/)]],
       created_at: [{ value: '', disabled: true }],
       updated_at: [{ value: '', disabled: true }]
     });
@@ -47,59 +47,32 @@ export class UserDetailComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.userId = +params['id'];
       if (this.userId !== -1) {
-
         this.getUserById(this.userId);
-
       }
     });
   }
-
-
-
-
-
-
 
   getUserById(id: number): void {
     this.userService.getUserById(id).subscribe((user: IUser) => {
-
-
       this.user = user;
       if (this.user) {
-        if (this.user.created_at) {
           const createdAtDate = new Date(this.user.created_at);
           this.formattedCreatedAt = `${createdAtDate.getDate()}-${String(createdAtDate.getMonth() + 1).padStart(2, '0')}-${String(createdAtDate.getFullYear()).padStart(2, '0')}`;
-        }
-        if (this.user.updated_at) {
+
           const updatedAtDate = new Date(this.user.updated_at);
           this.formattedUpdatedAt = `${updatedAtDate.getDate()}-${String(updatedAtDate.getMonth() + 1).padStart(2, '0')}-${String(updatedAtDate.getFullYear()).padStart(2, '0')}`;
-        }
 
-        if (this.user.role !== undefined) {
-
-          const userRole = this.roles.indexOf(Role[this.user.role]);
-          if (userRole) {
-            this.user.role = userRole as unknown as Role;
-
-
-            this.userForm.patchValue({
-              created_at: this.user.created_at,
-              updated_at: this.user.updated_at
-            });
-            this.userForm.patchValue(this.user);
-          }
-          else {
-            this.userForm.patchValue(this.user);
-          }
-        }
-      }
-
-    });
-
-  }
-
-
-
+             this.userForm.patchValue({
+                  userName: this.user.userName,
+                  password: this.user.password,
+                  email: this.user.email,
+                  role: this.user.role === Role.Admin ? 'מנהל מערכת' : 'לקוח',
+                  created_at: this.user.created_at,
+                  updated_at: this.user.updated_at
+            }); 
+          } }
+   )}
+ 
   onEmailInput() {
     const emailValue = this.userForm.get('email')?.value;
     this.userForm.patchValue({ userName: emailValue });
@@ -141,4 +114,3 @@ export class UserDetailComponent implements OnInit {
     this.router.navigate(['admin/user-list']);
   }
 }
-

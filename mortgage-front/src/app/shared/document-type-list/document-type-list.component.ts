@@ -30,6 +30,8 @@ export class DocumentTypeListComponent {
     this.loadDocumentType();
   }
   loadDocumentType(): void {
+
+
     this.documentSubscription = this. _documentTypeservice.documentTypes$.subscribe({
       next: documentType => {
         this.dataSource.data = documentType;
@@ -40,7 +42,12 @@ export class DocumentTypeListComponent {
         console.error('Error loading customers:', error);
       }
     });    
-  }
+
+
+ 
+}
+
+
   ngOnDestroy(): void {
     if (this.documentSubscription) {
       this.documentSubscription.unsubscribe();

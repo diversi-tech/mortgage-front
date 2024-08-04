@@ -2,6 +2,7 @@
   .mat-table {
     padding: 1px !important;
     font-size: 12px !important;
+    
   }
 
 
@@ -28,9 +29,6 @@ th {
   font-weight: bold !important;
 }
 
-
-
-
 #main {
   margin-left: 40px;
   display: flex;
@@ -47,3 +45,15 @@ th {
   background-color: transparent;
 }
 
+.component-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: right;
+  color: #333; 
+}
+.contents{
+  padding: 10px;
+  margin-bottom: 10px;
+
+}
