@@ -66,7 +66,7 @@ customerId :number =0;
   }
 
   loadNotifications():void{
-  this.notificationService.getNotificationsByUserId(this.loginService.GetCurrentUser().id).subscribe({
+  this.notificationService.getNotificationsByUserId(this.customerId).subscribe({
     next: (res) => {
       this.notifications = res;
       this.unreadCount = this.notifications.filter(n => !n.isRead).length;
@@ -88,7 +88,7 @@ customerId :number =0;
     console.log("User ID:", userId);
   
      this.unreadNotifications = this.notifications.filter(
-      notification => notification.userId == userId && notification.isRead===false);
+      notification => notification.isRead===false);
       
     if (this.unreadNotifications.length === 0) {
       console.log("אין הודעות לא נקראות לעדכון");

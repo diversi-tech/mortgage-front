@@ -765,7 +765,8 @@ export class LeadComponent implements OnInit, AfterViewInit {
     lastSynced: new Date(Date.now()),
     isArchived: false,
     created_at: new Date(Date.now()),
-    updated_at: new Date(Date.now())
+    updated_at: new Date(Date.now()),
+    userId:0
   };
   familyStatusOptions = [
     { value: Family_Status.Single, label: 'רווק' },
@@ -839,7 +840,8 @@ export class LeadComponent implements OnInit, AfterViewInit {
       estimated_price_by_customer: ['', Validators.required],
       estimated_price_by_sales_agreement: ['', Validators.required],
       has_other_properties: ['', Validators.required],
-      amount_of_loan_requested: ['', Validators.required]
+      amount_of_loan_requested: ['', Validators.required],
+      userId:['']
     });
 
   // Form group for document uploads
@@ -943,6 +945,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
     this.customerData.phone = lead?.phone;
     this.customerData.email = lead?.email;
     this.customerData.first_Name = lead?.first_Name;
+
     this.user.id = 0;
     this.user.userName = this.firstFormGroup.value.userName;
     this.user.password = this.firstFormGroup.value.password;
@@ -972,8 +975,12 @@ export class LeadComponent implements OnInit, AfterViewInit {
               console.log('User created');
               this.customerData.lead_id = this.lead_id!;
               this.customerService.createCustomer(this.customerData).subscribe({
-                next: () => { console.log('Customer created'),
-              this.customerData.customer_type = Customer_Type.c },
+                next: (res) => { 
+                  console.log('Customer created'),
+                  this.customerData.id = res.id,
+                  this.customerData.customer_type = Customer_Type.c,
+                  this.customerData.userId = this.user.id 
+            },
                 error: (error: any) => console.error('Error creating customer:', error)
               });
             },
@@ -1051,6 +1058,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
       this.customerData.has_other_properties = this.thirdFormGroup.value.has_other_properties.toISOString
       this.customerData.amount_of_loan_requested = this.thirdFormGroup.value.amount_of_loan_requested.toISOString;
       this.customerData.isArchived = this.thirdFormGroup.value.isArchived;
+      this.customerData.userId = this.thirdFormGroup.value.userId;
     }
     const savedData = localStorage.getItem('customerData');
   }
@@ -1134,7 +1142,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   }
   // Saves the current state of documents and clears local storage
   saveDocuments() {
-    this.customerService.updateCustomer(1, this.customerData).subscribe({
+    this.customerService.updateCustomer(this.customerData.id, this.customerData).subscribe({
       next: () => {
         console.log("step 4 created");
         localStorage.removeItem('enterOrNot');
@@ -1175,7 +1183,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
         customer_Id: this.customerData.id!,
         task_description: item.document_Name,
         document_type_id: Number(this.customerData.transaction_type),
-        document_path: "לבדוק מה כותבים פה",
+        document_path: "",
         status: 0,
         status2:0,
         due_date: new Date(Date.now()),

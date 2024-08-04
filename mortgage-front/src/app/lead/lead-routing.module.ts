@@ -12,17 +12,23 @@ import { PageNotFoundComponent } from '../global/page-not-found/page-not-found.c
 //     { path: 'magic-link', component: MagicLinkComponent },
 // ];
 
-const routes: Routes = [{
-    path: '', component: LeadComponent,
-    canActivate: [authGuardLead],
-    children: [
-        //{ path: '', component: LeadComponent },
-        { path: 'lead/:id', component: LeadComponent },
-        { path: 'magic-link', component: MagicLinkComponent },
-    ]
-}
+// const routes: Routes = [{
+//     path: '', component: LeadComponent,
+//     canActivate: [authGuardLead],
+//     children: [
+//         { path: '', component: LeadComponent },
+//         { path: 'magic-link', component: MagicLinkComponent },
+//         { path: 'lead/:id', component: LeadComponent },
+//     ]
+// }
+//];
 
-];
+const routes: Routes = [
+    { path: '', component: LeadComponent, canActivate: [authGuardLead] },
+    { path: 'magic-link', component: MagicLinkComponent }, // צריך להיות במסלול העליון
+    { path: ':id', component: LeadComponent },
+    { path: '**', component: PageNotFoundComponent }
+  ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
