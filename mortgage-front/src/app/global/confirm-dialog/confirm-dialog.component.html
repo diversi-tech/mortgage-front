@@ -8,7 +8,7 @@
         {{ getContent() }}
     </p>
     <div mat-dialog-actions class="mat-dialog-actions">
-        <button mat-button class="mat-button cancel-button" (click)="onNoClick()">לא</button>
-        <button mat-button class="mat-button save-button" color="primary" (click)="onYesClick()" >כן</button>
+        <button mat-button class="mat-button" (click)="onNoClick()">לא</button>
+        <button mat-button class="mat-button cancel-button" color="primary" (click)="onYesClick()" cdkFocusInitial>כן</button>
     </div>
 </div>

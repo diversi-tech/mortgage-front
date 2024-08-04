@@ -13,11 +13,10 @@ import { loginService } from "./login.service";
   readonly basicURL =environment.apiURL+"/api/";
   private usersSubject = new BehaviorSubject<IUser[]>([]);
   users$ = this.usersSubject.asObservable();
-   constructor(private http: HttpClient,private loginservice:loginService) {
+  constructor(private http: HttpClient,private loginservice:loginService) { 
     if(this.loginservice.isAdmin())
-
     this.fetchUsers().subscribe();
-     }
+   }
 
   fetchUsers(): Observable<IUser[]> {
     const httpOptions = {
@@ -35,6 +34,7 @@ import { loginService } from "./login.service";
         })
       );
   }
+
   createUser(user: IUser) {
     const formData: FormData = new FormData();
     if (user.id !== undefined) formData.append('Id', user.id.toString());
