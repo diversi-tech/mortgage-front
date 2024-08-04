@@ -5,6 +5,7 @@ import { IUser, Role } from "../Models/user";
 import { environment } from "../../../environments/environment";
 import { log } from "node:console";
 import { response } from "express";
+import { loginService } from "./login.service";
 
 
 @Injectable()
@@ -12,7 +13,10 @@ import { response } from "express";
   readonly basicURL =environment.apiURL+"/api/";
   private usersSubject = new BehaviorSubject<IUser[]>([]);
   users$ = this.usersSubject.asObservable();
-   constructor(private http: HttpClient) {  }
+  constructor(private http: HttpClient,private loginservice:loginService) { 
+    if(this.loginservice.isAdmin())
+    this.fetchUsers().subscribe();
+   }
 
   fetchUsers(): Observable<IUser[]> {
     const httpOptions = {
@@ -30,6 +34,7 @@ import { response } from "express";
         })
       );
   }
+
   createUser(user: IUser) {
     const formData: FormData = new FormData();
     if (user.id !== undefined) formData.append('Id', user.id.toString());

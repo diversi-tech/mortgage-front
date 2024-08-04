@@ -1,15 +1,17 @@
 import { inject } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, CanActivateFn, NavigationStart, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, CanActivateChildFn, CanActivateFn, NavigationStart, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { loginService } from '../shared/Services/login.service';
 import { leadService } from '../shared/Services/lead.service';
 import { catchError, map, Observable, of, switchMap } from 'rxjs';
 
-export const authGuardAdmin: CanActivateFn = (route, state) => {
+export const authGuardAdmin: CanActivateChildFn = (route, state) => {
   const loginservice = inject(loginService);
   const router = inject(Router);
   if (loginservice.isLoggedIn()) {//check if loggedIn
     if (loginservice.isAdmin())//check if admin
       return true;
+    alert("!על פי דרגתך במערכת זו אינך מורשה לגלוש במסך זה")
+    router.navigate(['customer'])
     return false;
   } else {//if not loggedIn:
     router.navigate(['auth/login']);
@@ -17,13 +19,15 @@ export const authGuardAdmin: CanActivateFn = (route, state) => {
   }
 };
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateChildFn = (route, state) => {
   const loginservice = inject(loginService);
   const router = inject(Router);
   if (loginservice.isLoggedIn()) {//check if loggedIn
     console.log("here");
     if (!loginservice.isAdmin())//check if admin
       return true;
+    alert("!על פי דרגתך במערכת זו אינך מורשה לגלוש במסך זה")
+    router.navigate(['admin'])
     return false;
   } else {//if not loggedIn:
     router.navigate(['auth/login']);
@@ -56,7 +60,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 // };
 
 
-export const authGuardLead: CanActivateFn = (route, state) => {
+export const authGuardLead: CanActivateChildFn = (route, state) => {
   const leadservice = inject(leadService);
   const router = inject(Router);
 
@@ -68,7 +72,7 @@ export const authGuardLead: CanActivateFn = (route, state) => {
 
         const id = params.get('id');
         const token = params.get('token');
-        
+
         console.log('ID:', id);
         console.log('Token:', token);
 
