@@ -9,14 +9,12 @@
             <input matInput formControlName="first_Name" placeholder="לדוג. יוסי ">
             <mat-error *ngIf="leadForm.get('first_Name')?.hasError('required')">שדה זה הינו חובה</mat-error>
           </mat-form-field>
-
           <mat-form-field appearance="fill" class="mat-form-field">
             <mat-label>טלפון</mat-label>
             <input matInput formControlName="phone" placeholder="לדוג. 0501234567">
             <mat-error *ngIf="leadForm.get('phone')?.hasError('required')">שדה זה הינו חובה</mat-error>
             <mat-error *ngIf="leadForm.get('phone')?.hasError('pattern')">מספר טלפון לא תקין</mat-error>
           </mat-form-field>
-
           <mat-form-field appearance="fill" class="mat-form-field">
             <mat-label>מייל</mat-label>
             <input matInput formControlName="email" placeholder="לדוג. example@example.com">
@@ -26,18 +24,15 @@
           <br>
           <mat-form-field appearance="fill" class="mat-form-field">
             <mat-label>נוצר בתאריך</mat-label>
-            <input matInput [disabled]="true" formControlName="created_at">
+            <input matInput [readonly]="true" formControlName="created_at">
           </mat-form-field>
-
           <mat-form-field appearance="fill" class="mat-form-field">
             <mat-label>עודכן בתאריך</mat-label>
-            <input matInput [disabled]="true" formControlName="updated_at">
+            <input matInput [readonly]="true" formControlName="updated_at">
           </mat-form-field>
-
           <div class="button-group">
             <button mat-raised-button color="primary" type="submit" [disabled]="leadForm.invalid">שמור</button>
             <button mat-raised-button color="warn" type="button" (click)="cancel()">ביטול</button>
-
           </div>
         </form>
       </mat-card-content>

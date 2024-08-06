@@ -67,7 +67,6 @@ export class DocumentTypeDetailsComponent implements OnInit {
           this.snackBar.open('סוג המסמך עודכן בהצלחה!!', 'Close', {
           });
           this.clearFormFields();
-
         })
       }
       else {

@@ -5,26 +5,26 @@ import { ITokenPayload } from '../Models/TokenPayload';
 import { jwtDecode } from "jwt-decode";
 import { environment } from '../../../environments/environment';
 import { Role } from '../Models/user';
+import { log } from 'node:console';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class loginService {
-  public token: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
   readonly basicURL = environment.apiURL;
   currentUser: ITokenPayload = {
-      id: 0,
-      userName: '',
-      role: Role.None,
-      customerId: 0
+    id: -1,
+    userName: '',
+    role: Role.None,
+    customerId: -1
   };
   CurrentcustomerId?: number;
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string): Observable<string> { 
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });  
+  login(email: string, password: string): Observable<string> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const user = {
       userName: "string",
       password: password,
@@ -33,69 +33,85 @@ export class loginService {
       created_at: null,
       updated_at: null
     };
-    return this.http.post(`${this.basicURL}/api/Users/login`, user, { headers, responseType: 'text'}).pipe( 
-      tap(token => {this.token.next(token);
-      })
-    );;
-
+    return this.http.post(`${this.basicURL}/api/Users/login`, user, { headers, responseType: 'text' }).pipe();;
   }
 
   decodeToken(token: string): ITokenPayload {
-    // console.log("token=" + token);
-    const decoded = jwtDecode(token);
-    const JSONdecoder = JSON.parse(JSON.stringify(decoded));
-    let currentUserId, currentUserName, currentUserRole, currentCustomerId;
-    for (const key in JSONdecoder) {
-      if (key.includes("nameidentifier")) {
-        currentUserName = JSONdecoder[key];
-      }
-      else {
-        if (key.includes("userid"))
-          currentUserId = JSONdecoder[key];
-        else
-          if (key.includes("role"))
-            currentUserRole = JSONdecoder[key];
-          else
-            if (key.includes("customerId"))
-              currentCustomerId = JSONdecoder[key];
-      }
+    if (!token) {
+      throw new Error('Token is empty');
     }
-    this.currentUser.userName = currentUserName;
-    this.currentUser.role = currentUserRole;
-    this.currentUser.id = currentUserId;
-    this.currentUser.customerId = currentCustomerId;
+
+    const parts = token.split('.');
+    if (parts.length !== 3) {
+      throw new Error('Token structure is invalid');
+    }
+    try {
+      const decoded = jwtDecode(token);
+      const JSONdecoder = JSON.parse(JSON.stringify(decoded));
+      let currentUserId, currentUserName, currentUserRole, currentCustomerId;
+      for (const key in JSONdecoder) {
+        if (key.includes("nameidentifier")) {
+          currentUserName = JSONdecoder[key];
+        }
+        else {
+          if (key.includes("userid"))
+            currentUserId = JSONdecoder[key];
+          else
+            if (key.includes("role"))
+              currentUserRole = JSONdecoder[key];
+            else
+              if (key.includes("customerId"))
+                currentCustomerId = JSONdecoder[key];
+        }
+      }
+      this.currentUser.userName = currentUserName;
+      this.currentUser.role = currentUserRole;
+      this.currentUser.id = currentUserId;
+      this.currentUser.customerId = currentCustomerId;
+    }
+    catch (error) {
+      console.error('Invalid token:', error);
+    }
     return this.currentUser;
   }
 
+  GetToken() {
+    if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined') {
+      return sessionStorage.getItem("token");
+    } else {
+      console.error('sessionStorage is not available.');
+      return null;
+    }
+  }
+
   GetCurrentUser() {
-    if (typeof window !== 'undefined' && window.sessionStorage)
-      this.currentUser = this.decodeToken(sessionStorage.getItem("token") || "");
+
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      if (sessionStorage.getItem("token") != null) {
+        this.currentUser = this.decodeToken(sessionStorage.getItem("token") || "");
+      }
+    }
     return this.currentUser;
   }
   isLoggedIn(): boolean {
-    // just for example:
-    // return true;
-    // after merge with the git :
     if (typeof window !== 'undefined' && window.sessionStorage) {
       return !!sessionStorage.getItem('token');
     }
     return false;
   }
   isAdmin(): boolean {
-    // just for example:
-    // return true;
-    // after merge with the git :
-    // if(this.isLoggedIn()){
-    //   let currentUser:TokenPayload=this.decodeToken( localStorage.getItem('token'));
-    //   return currentUser.role===0;
-    // }
-    // return false;
-    if (this.isLoggedIn()) {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
       let token = sessionStorage.getItem('token') || "";
+      if (token === '') return false;
       let currentUser: ITokenPayload = this.decodeToken(token);
       return String(currentUser.role) == "Admin";
     }
-    return false;
+    return false
+  }
+  Logout() {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      sessionStorage.removeItem("token")
+    }
   }
 
   resetPassword(email: string): Observable<any> {

@@ -37,9 +37,15 @@
               <input matInput [(ngModel)]="formData['t_z']" name="id">
             </mat-form-field>
   
-            <mat-form-field appearance="fill" class="mat-form-field">
+            <!-- <mat-form-field appearance="fill" class="mat-form-field">
               <mat-label>תאריך לידה</mat-label>
               <input matInput type="date" [(ngModel)]="formData['birthDate']" name="birthDate">
+            </mat-form-field> -->
+            <mat-form-field appearance="fill">
+              <mat-label>תאריך לידה</mat-label>
+              <input matInput [matDatepicker]="picker" [(ngModel)]="formData['birthDate']" name="birthDate" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
   
             <mat-form-field appearance="fill" class="mat-form-field">

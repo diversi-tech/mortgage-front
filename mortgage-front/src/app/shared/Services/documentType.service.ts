@@ -1,22 +1,25 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { IDocumentType } from '../Models/DocumentTypes.Model';
 import { environment } from "../../../environments/environment";
+import { loginService } from "./login.service";
 
 
 
 @Injectable()
-export class DocumentTypeService {
+export class DocumentTypeService{
   readonly basicURL = environment.apiURL + "/api/";
   private documentSubject = new BehaviorSubject<IDocumentType[]>([]);
   documentTypes$ = this.documentSubject.asObservable();
 
-  constructor(private http: HttpClient) {
-    this.fetchCustomers().subscribe(); // אתחול לקוחות בהפעלת השירות
-  }
+  constructor(private http: HttpClient,private loginService:loginService) { 
+    if(this.loginService.isAdmin())
+    this.fetchDocumentTypes().subscribe()
+   }
 
-  fetchCustomers(): Observable<IDocumentType[]> {
+
+  fetchDocumentTypes(): Observable<IDocumentType[]> {
     return this.http.get<IDocumentType[]>(`${this.basicURL}DocumentTypes`)
       .pipe(
         tap(documentTypes => this.documentSubject.next(documentTypes)),
@@ -46,8 +49,21 @@ export class DocumentTypeService {
     return this.http.post(`${this.basicURL}DocumentTypes`, docType);
 }
 
-editDocumentType(docType: IDocumentType,id:number) :Observable<void>{
-  return this.http.put<void>(`${this.basicURL}DocumentTypes/${id}`, docType);
+editDocumentType(docType: IDocumentType, id: number): Observable<void> {
+  return this.http.put<void>(`${this.basicURL}DocumentTypes/${id}`, docType).pipe(
+    tap(() => {
+      const documentTypes = this.documentSubject.getValue();
+      const index = documentTypes.findIndex(dt => dt.id === id);
+      if (index !== -1) {
+        documentTypes[index] = docType;
+        this.documentSubject.next([...documentTypes]);
+      }
+    }),
+    catchError(error => {
+      console.error('Error updating document type:', error);
+      throw error;
+    })
+  );
 }
 
 
@@ -57,7 +73,7 @@ editDocumentType(docType: IDocumentType,id:number) :Observable<void>{
 
   getDocsByTransactionType(id:number):Observable<IDocumentType[]> {
 
-    return this.http.get<any[]>(`${this.basicURL}DocumentTypes/TypesDocument/${id}`)
+    return this.http.get<IDocumentType[]>(`${this.basicURL}DocumentTypes/TypesDocument/${id}`)
 
   }
 }

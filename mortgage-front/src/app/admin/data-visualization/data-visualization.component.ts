@@ -3,7 +3,7 @@ import { customerService } from '../../shared/Services/costumer.service';
 import { ICustomer } from '../../shared/Models/Customer';
 import { ILead } from '../../shared/Models/Lead';
 import { leadService } from '../../shared/Services/lead.service';
-import { IDocument } from '../../shared/Models/Document';
+import { IDocument } from '../../shared/Models/document';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
 import { IDocumentType } from '../../shared/Models/DocumentTypes.Model';
 

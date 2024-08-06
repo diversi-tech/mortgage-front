@@ -1,59 +1,4 @@
-/* .notifications-container {
-    position: relative;
-  }
-  
-  .unread-badge {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: red;
-    color: white;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 12px;
-  }
 
-.notifications-list {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    border: 1px solid #ccc;
-    background: white;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 1000;
-  }
-  
-  .notifications-list div {
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  .notifications-list div.unread {
-    font-weight: bold;
-    background: #f0f0f0;
-  } */
-
-
-/* 
-  .notification-badge {
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 0 5px;
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    font-size: 12px;
-  }
-  
-  .notifications-list {
-    width: 300px;
-    /* max-height: 400px; */
-    overflow-y: auto;
-   
-  }
-  
   .notification-item {
     padding: 10px;
     margin-bottom: 10px;
@@ -84,7 +29,7 @@
     text-align: center;
     color: #888;
     font-style: italic;
-  } */
+  } 
 
 
 
@@ -247,39 +192,8 @@
     margin-top: -5px;
     margin-right: -58px;
   }
-  .statistics-section {
-    /* עיצוב כפי שהיה קודם */
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 300px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+
   
-  .statistics-title {
-    margin: 0 0 16px 0;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-  }
-  
-  canvasjs-chart {
-    width: 100%;
-    height: auto;
-  }
-  
-  /* עיצוב הכפתור להצגת/הסתרת הסטטיסטיקות */
-  .statistic {
-    position: absolute;
-    top: 10px;
-    left: 20px;
-    z-index: 10;
-  }
   /* הגדרות עיצוב כלליות */
   .statistics-section {
     position: absolute; /* למיקום קבוע בעמוד */
@@ -293,20 +207,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* צללת תיבת */
   }
   
-  /* עיצוב הכותרת של סטטיסטיקות */
-  .statistics-title {
-    margin: 0 0 16px 0; /* מרווח תחתון בין הכותרת לגרף */
-    font-size: 1rem; /* גודל גופן */
-    font-weight: bold; /* משקל גופן */
-    color: #333; /* צבע גופן */
-    text-align: center; /* יישור טקסט למרכז */
-  }
   
-  /* עיצוב הגרף */
-  canvasjs-chart {
-    width: 100%; /* התאמה לרוחב התיבה */
-    height: auto; /* גובה אוטומטי */
-  }
   .notification-item {
     display: flex;
     align-items: center;

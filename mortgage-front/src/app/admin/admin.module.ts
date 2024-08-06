@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { ExportToExcelComponent } from './export-customers-to-excel/export-to-excel.component';
-import { DownloadAccompanyingFormComponent } from './download-accompanying-form/download-accompanying-form.component';
+import { DownloadAccompanyingFormComponent } from '../shared/download-accompanying-form/download-accompanying-form.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { LeadListComponent } from './lead-list/lead-list.component';
 import { SharedModule } from '../shared/shared.module';
@@ -29,7 +29,6 @@ import { TaskEditComponent } from './task-edit/task-edit.component';
     CustomerListComponent,
     LeadListComponent,
     ExportToExcelComponent,
-    DownloadAccompanyingFormComponent,
     DataVisualizationComponent,
     FileComponent,
     MailingListComponent,
