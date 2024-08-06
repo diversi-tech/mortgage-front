@@ -664,8 +664,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatStepper } from '@angular/material/stepper';
 import { leadService } from '../../shared/Services/lead.service';
 import { UserService } from '../../shared/Services/user.service';
-import { israeliIdValidator } from './birth-date-validator';
-import { birthDateValidator } from './israeli-id-validator';
+import { birthDateValidator } from './birth-date-validator';
+import { israeliIdValidator} from './israeli-id-validator';
 import { DocumentTypeService } from '../../shared/Services/documentType.service';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
 import { firstValueFrom } from 'rxjs';
@@ -678,6 +678,7 @@ import { log } from 'console';
 import { IUser, Role } from '../../shared/Models/user';
 import { ICustomer,Connection, Family_Status, Job_Status, TransactionTypeEnum, Customer_Type } from '../../shared/Models/Customer';
 import { ILead } from '../../shared/Models/Lead';
+import { IDocumentType } from '../../shared/Models/DocumentTypes.Model';
 
 @Component({
   selector: 'app-lead',
@@ -718,7 +719,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   uploadedFiles: File[] = [];
   selectedTransactionType: TransactionTypeEnum | undefined;
   showTable: boolean = false;
-  tableData: any[] = [];
+  tableData: IDocumentType[] = [];
 
   document: IDocument = {
     id: 0,
@@ -737,7 +738,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
 
   customerData: ICustomer = {
     id: 0,
-    lead_id: 0,
+    lead_id: this.lead_id!,
     last_Name: '',
     first_Name: '',
     email: '',
@@ -769,7 +770,8 @@ export class LeadComponent implements OnInit, AfterViewInit {
     lastSynced: new Date(Date.now()),
     isArchived: false,
     created_at: new Date(Date.now()),
-    updated_at: new Date(Date.now())
+    updated_at: new Date(Date.now()),
+    userId:0
   };
   familyStatusOptions = [
     { value: Family_Status.Single, label: 'רווק' },
@@ -842,7 +844,8 @@ export class LeadComponent implements OnInit, AfterViewInit {
       estimated_price_by_customer: ['', Validators.required],
       estimated_price_by_sales_agreement: ['', Validators.required],
       has_other_properties: ['', Validators.required],
-      amount_of_loan_requested: ['', Validators.required]
+      amount_of_loan_requested: ['', Validators.required],
+      userId:['']
     });
 
   // Form group for document uploads
@@ -974,17 +977,19 @@ if (localStorage.getItem('enterOrNot') === null) {
             alert("איימיל או סיסמא תפוסים נא להכניס אחר");
           }
         } else if (response === '404' && this.user !== null && this.user !== undefined && this.user.password !== '' && this.user.userName !== '') {
-          // localStorage.setItem('ifEnter','true')
           localStorage.setItem('enterOrNot', 'true')
           this.stepper.next()
           this.userService.createUserForLead(this.user,this.lead_id!).subscribe({
             next: (res: any) => {
               console.log('User created:', this.user);
               this.customerData.lead_id = this.lead_id!;
+              console.log(this.lead_id);
               this.customerService.createCustomerForLead(this.customerData,this.lead_id!).subscribe({
                 next: (res: ICustomer) => { 
                   this.customerId=res.id//-its my adding!!
                   this.customerData.customer_type = Customer_Type.c
+                  this.customerData.userId = this.user.id 
+                  this.customerData.id = res.id;
                 console.log('Customer created:', this.customerData)
                 this.loginservice.login(this.user.email!, this.user.password!).subscribe(
                   (response:any) => {
@@ -1074,6 +1079,7 @@ if (localStorage.getItem('enterOrNot') === null) {
       this.customerData.has_other_properties = this.thirdFormGroup.value.has_other_properties.toISOString
       this.customerData.amount_of_loan_requested = this.thirdFormGroup.value.amount_of_loan_requested.toISOString;
       this.customerData.isArchived = this.thirdFormGroup.value.isArchived;
+      this.customerData.userId = this.thirdFormGroup.value.userId;
     }
     const savedData = localStorage.getItem('customerData');
   }
@@ -1142,6 +1148,7 @@ if (localStorage.getItem('enterOrNot') === null) {
       error: (error: any) => console.error('Error updating customer:', error)
     });
   }
+
   // Saves customer data and handles the process for step 3
   async save() {
     let step = localStorage.getItem('currentStep');
@@ -1150,18 +1157,18 @@ if (localStorage.getItem('enterOrNot') === null) {
         //await firstValueFrom(this.customerService.updateCustomer(this.customerId, this.customerData));it is mine!!
 
         await firstValueFrom(this.customerService.updateCustomer(this.customerData.id, this.customerData));
-        await this.getDocuments();
-        if (localStorage.getItem('isAddDocuments') !== 'true')
-          await this.addToCustomerTask();
+        if (localStorage.getItem('isAddDocuments') !== 'true'){
+            await this.getDocuments();
+            await this.addToCustomerTask();
+        }
       } catch (error) {
         console.error('Error in the process', error);
       }
   }
+
   // Saves the current state of documents and clears local storage
   saveDocuments() {
-    this.customerService.updateCustomer(this.customerId, this.customerData).subscribe({
-
-      next: (response: any) => {
+ 
 
         console.log("step 4 created");
         localStorage.removeItem('enterOrNot');
@@ -1172,15 +1179,15 @@ if (localStorage.getItem('enterOrNot') === null) {
         localStorage.removeItem('tableData');
         localStorage.removeItem('isAddDocuments');
          location.reload();
-   }})
+  
   }
-
+  
  // Returning all appropriate documents by type of transaction
-  async getDocuments(): Promise<any> {
+  async getDocuments(): Promise<IDocumentType[]> {
     let num = Number(this.customerData.transaction_type);
     return new Promise((resolve, reject) => {
       this.documentType.getDocsByTransactionType(num).subscribe({
-        next: (res: any[]) => {
+        next: (res: IDocumentType[]) => {
           this.tableData = res;
           console.log("tableData", this.tableData);
           localStorage.setItem('tableData', JSON.stringify(this.tableData));
@@ -1194,7 +1201,7 @@ if (localStorage.getItem('enterOrNot') === null) {
     });
   }
 
-  // Adds documents to customer tasks based on the retrieved table data
+  // Adds documents to customerTasks table based on the retrieved table data
   async addToCustomerTask(): Promise<any> {
     const addDocumentPromises = this.tableData.map((item: any) => {
       this.document = {
@@ -1202,7 +1209,7 @@ if (localStorage.getItem('enterOrNot') === null) {
         customer_Id: this.customerData.id!,
         task_description: item.document_Name,
         document_type_id: Number(this.customerData.transaction_type),
-        document_path: "לבדוק מה כותבים פה",
+        document_path: "",
         status: 0,
         status2:0,
         due_date: new Date(Date.now()),

@@ -37,7 +37,6 @@ import { log } from 'console';
 export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['task_description', 'document_type_id', 'status', 'document_path', "document_path2", 'created_at', 'isOk', 'actions'];
-  // documentsSendIndex: number[] = [];
   isOkCount: number = 0;
   customerId!: number;
   documentStatusString: String = '';
@@ -107,6 +106,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.loadDocuments();
     if (this.loginService.isAdmin()) {
+      this.fetchDocumentTypes();
       if (typeof window && window.sessionStorage != undefined) {
         let currentId = +window.sessionStorage.getItem("customerId")!;
         if (currentId) {
@@ -184,6 +184,8 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     this.documentService.getAllDocumentType().subscribe(
       (response) => {
         this.documentTypes = response;
+        console.log("fetch document type");
+        
       },
       (error) => {
         console.error('Error fetching document types:', error);
@@ -257,7 +259,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
   cancelDocument(document1: IDocument): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { document1 } // Pass customer object as data to the dialog
+      data: { document1 } 
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -381,7 +383,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   }
 
   download(fileName: string, id: string) {
-    this._snackBar.open("ההורדה מתחילה", "X");
+    this._snackBar.open("ההורדה מתחילה", "סגירה");
     this.fileService.downloadFile(id).subscribe(
       (response) => {
         const contentDisposition = response.headers.get('Content-Disposition');

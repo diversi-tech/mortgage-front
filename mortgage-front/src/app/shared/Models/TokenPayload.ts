@@ -4,5 +4,4 @@ export interface ITokenPayload {
   userName: string;
   role: Role;
   customerId: number;
-
 }

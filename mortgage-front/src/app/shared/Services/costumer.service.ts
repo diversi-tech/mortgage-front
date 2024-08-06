@@ -34,15 +34,19 @@ export class customerService {
       );
   }
 
+  createCustomerForLead(customer: ICustomer,leadId:number): Observable<ICustomer> {
+    return this.http.post<ICustomer>(`${this.basicURL}Customers/Lead${leadId}`, customer);
+  }
+
   getCustomers(): Observable<ICustomer[]> {
     return (this.customersSubject.asObservable());
   }
   getCustomerById(id: number): ICustomer | undefined {
     const customers = this.customersSubject.getValue();
-    const c=customers.find(customer => customer.id === id);
+    const c = customers.find(customer => customer.id === id);
     return c;
   }
-  getById(id: number): Observable<any>{
+  getById(id: number): Observable<any> {
     return this.http.get(`${this.basicURL}Customers/${id}`); // Use this.apiUrl
   }
 
@@ -60,13 +64,20 @@ export class customerService {
     return this.http.post<ICustomer>(`${this.basicURL}Customers`, customer);
   }
 
-
-  createCustomerForLead(customer: ICustomer,leadId:number): Observable<ICustomer> {
-    return this.http.post<ICustomer>(`${this.basicURL}Customers/Lead${leadId}`, customer);
-  }
-
-  updateCustomer(customerId: number|undefined, customer: ICustomer|undefined): Observable<ICustomer> {
-    return this.http.put<ICustomer>(`${this.basicURL}Customers/${customerId}`,customer);
+  updateCustomer(customerId: number | undefined, customer: ICustomer): Observable<ICustomer> {
+    console.log('customer',customer);
+    
+    return this.http.put<ICustomer>(`${this.basicURL}Customers/${customerId}`, customer).pipe(
+      tap(() => {
+        const customers = this.customersSubject.getValue();
+        const index =customers.findIndex(c => c.id === customerId);
+        if (index !== -1) {
+          customers[index] = customer;        
+          this.customersSubject.next([...customers]);
+          this.fetchCustomers().subscribe(); 
+        }  
+      })
+    )
   }
 }
 

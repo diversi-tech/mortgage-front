@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UiStateService } from './shared/Services/uiState.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
@@ -9,7 +8,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AppComponent implements OnInit, OnDestroy {
   constructor(
-    private uiStateService: UiStateService,
     private _snackBar: MatSnackBar,
     private router: Router) {}
     private timeoutDuration = 20 * 60 * 1000; // 30 minutes
@@ -75,9 +73,7 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  get showGeneral(): boolean {
-    return this.uiStateService.showGeneral;
-  }
+
 
   title = 'mortgage-client';
 

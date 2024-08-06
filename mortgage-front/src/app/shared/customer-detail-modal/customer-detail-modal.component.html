@@ -2,7 +2,7 @@
     <mat-card class="lead-edit-card">
       <mat-card-title>פרטים אישיים</mat-card-title>
       <mat-card-content>
-        <form (submit)="submitForm()">
+        <form  (submit)="submitForm()">
           <mat-form-field appearance="fill" class="mat-form-field">
             <mat-label> שם פרטי</mat-label>
             <input matInput [(ngModel)]="formData['first_Name']" name="firstName">
@@ -21,7 +21,7 @@
 
           <mat-form-field appearance="fill" class="mat-form-field">
             <mat-label>מייל</mat-label>
-            <input matInput [(ngModel)]="formData['email']" name="email">
+            <input (blur)="filterusers()" matInput [(ngModel)]="formData['email']" name="email">
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill" class="mat-form-field">
@@ -38,6 +38,9 @@
 
           <!-- <mat-form-field appearance="fill" class="mat-form-field">
             <mat-label>תאריך לידה</mat-label>
+<<<<<<< HEAD
+            <input [(ngModel)]="formData['birthDate']" type="date"   matInput  name="birthDate">
+=======
             <input matInput type="date" [(ngModel)]="formData['birthDate']" name="birthDate">
           </mat-form-field> -->
 
@@ -46,8 +49,9 @@
             <input matInput [matDatepicker]="picker" [(ngModel)]="formData['birthDate']" name="birthDate" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+>>>>>>> 3109a7ac5a953fc84463f3417ca71604825083d4
           </mat-form-field>
-
+          <!--  [(ngModel)]="birthdateformat"  [value]="birthdateformat"-->
           <mat-form-field appearance="fill" class="mat-form-field">
             <mat-label>התקשרות</mat-label>
             <mat-select placeholder="Select your option" [(ngModel)]="formData['connection']" name="connection">
@@ -176,7 +180,7 @@
 
           <mat-divider id="devider"></mat-divider>
 
-          <mat-form-field appearance="fill" class="mat-form-field">
+          <mat-form-field  appearance="fill" class="mat-form-field last-row">
             <mat-label>סוג משתמש</mat-label>
             <mat-select placeholder="Select your option" [(ngModel)]="formData['customer_type']" name="customer_type">
               <mat-option *ngFor="let status of customer_type" [value]="status.value">
@@ -185,7 +189,27 @@
             </mat-select>
           </mat-form-field>
 
-          <!-- <mat-form-field appearance="fill" class="mat-form-field">
+          <!-- <mat-form-field appearance="fill" class="mat-form-field last-row">
+            <mat-label>משתמש</mat-label>
+            <input matInput [(ngModel)]="formData['userid']" name="userid">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let user of filteredUsers" [value]="user.id">
+                 {{ user.id }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field> -->
+
+          <mat-form-field  appearance="fill" class="mat-form-field last-row">
+            <mat-label>משתמש</mat-label>
+            <mat-select  placeholder="משתמש" [(ngModel)]="formData['userid']" name="userid">
+              <mat-option (blur)="filterusers()" *ngFor="let user of filteredUsers" [value]="user.id">
+                {{ user.id }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        
+
+          <mat-form-field appearance="fill" class="mat-form-field last-row">
             <mat-label>סינכרון אחרון</mat-label>
             <input matInput type="date" [(ngModel)]="formData['lastSynced']" name="lastSynced">
           </mat-form-field> -->
@@ -203,14 +227,14 @@
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field> -->
 
-          <mat-form-field appearance="fill" class="mat-form-field">
+          <mat-form-field   appearance="fill" class="mat-form-field last-row">
             <mat-label>נוצר בתאריך</mat-label>
-            <input matInput disabled="true">
+            <input matInput type="date" [(ngModel)]="formData['created_at']" name="created_at" disabled="true" >
           </mat-form-field>
-
-          <mat-form-field appearance="fill" class="mat-form-field">
+          <!--  -->
+          <mat-form-field   appearance="fill" class="mat-form-field last-row">
             <mat-label>עודכן בתאריך</mat-label>
-            <input matInput disabled="true">
+            <input matInput type="date" [(ngModel)]="formData['updated_at']" name="updated_at"   disabled="true">
           </mat-form-field>
 
           <div class="button-group">

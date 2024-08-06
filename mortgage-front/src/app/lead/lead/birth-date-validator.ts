@@ -1,24 +1,16 @@
 import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
-// בדיקת תעודת זהות ישראלית
-export function israeliIdValidator(): ValidatorFn {
+export function birthDateValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    const id = control.value;
-    if (!id) {
-      return null; // שדה ריק
+    const inputDate = new Date(control.value);
+    const today = new Date();
+    // אם התאריך הנכנס גדול מהיום
+    if (inputDate > today) {
+      return { invalidBirthDate: true };
     }
-    // בדיקה שהתעודה הזהות מורכבת מ-9 ספרות
-    if (!/^\d{9}$/.test(id)) {
-      return { invalidIsraeliId: true };
+    // בדיקת השנה
+    if (inputDate.getFullYear() > today.getFullYear()) {
+      return { invalidBirthDate: true };
     }
-    // בדיקת חישוב בקריבות
-    const sum = Array.from(id, Number)
-      .reduce((counter, digit, index) => {
-        const step = digit * ((index % 2) + 1);
-        return counter + (step > 9 ? step - 9 : step);
-      }, 0);
-    if (sum % 10 !== 0) {
-      return { invalidIsraeliId: true };
-    }
-    return null; // התעודה הזהות תקינה
+    return null; // התאריך תקין
   };
 }

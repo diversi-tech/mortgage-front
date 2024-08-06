@@ -41,6 +41,7 @@ export class DocumentsListCustomerService {
   getDocumentById(DocId: number) {
     return this.http.get<IDocument>(`${this.apiUrl}/CustomerTasksControllercs/${DocId}`);
   }
+  
   addDocument(document: IDocument): Observable<IDocument> {
     return this.http.post<IDocument>(`${this.apiUrl}/CustomerTasksControllercs`, document);
   }
