@@ -16,11 +16,5 @@ import { RouterModule } from '@angular/router';
 })
 export class PageNotFoundComponent {
   constructor( private cdr: ChangeDetectorRef) {}
-  // ngOnInit(): void {
-    
-    // setTimeout(() => {
-    //   this.uiStateService.setShowGeneral(false);
-    //   this.cdr.detectChanges();
-    // }, 0);  }
     
 }

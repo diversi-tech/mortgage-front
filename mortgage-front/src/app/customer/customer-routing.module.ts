@@ -20,7 +20,6 @@ const routes: Routes = [
     { path: "", component: CustomerPortalComponent,
         canActivate: [authGuard],
         children:[
-
         { path: "customer-portal", component: CustomerPortalComponent },
         { path: "document-list/:id", component: DocumentsListCustomerComponent },
         { path: "user-details", component: UserDetailComponent },

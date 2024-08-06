@@ -983,7 +983,6 @@ if (localStorage.getItem('enterOrNot') === null) {
               this.customerData.lead_id = this.lead_id!;
               this.customerService.createCustomerForLead(this.customerData,this.lead_id!).subscribe({
                 next: (res: ICustomer) => { 
-                  debugger
                   this.customerId=res.id//-its my adding!!
                   this.customerData.customer_type = Customer_Type.c
                 console.log('Customer created:', this.customerData)

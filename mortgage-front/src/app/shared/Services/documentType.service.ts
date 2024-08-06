@@ -14,12 +14,9 @@ export class DocumentTypeService{
   documentTypes$ = this.documentSubject.asObservable();
 
   constructor(private http: HttpClient,private loginService:loginService) { 
-    debugger
     if(this.loginService.isAdmin())
     this.fetchDocumentTypes().subscribe()
-    debugger
-
-   }
+     }
 
 
   fetchDocumentTypes(): Observable<IDocumentType[]> {
@@ -48,9 +45,18 @@ export class DocumentTypeService{
       );
   }
 
-  addDocumentType(docType: IDocumentType):Observable<any> {
-    return this.http.post(`${this.basicURL}DocumentTypes`, docType);
-}
+  addDocumentType(docType: IDocumentType): Observable<any> {
+    return this.http.post<IDocumentType>(`${this.basicURL}DocumentTypes`, docType)
+      .pipe(
+        tap(newDocType => {
+          const currentDocumentTypes = this.documentSubject.getValue();
+          this.documentSubject.next([...currentDocumentTypes, newDocType]);
+        }),
+        catchError(error => {
+          throw error;
+        })
+      );
+  }
 
 editDocumentType(docType: IDocumentType, id: number): Observable<void> {
   return this.http.put<void>(`${this.basicURL}DocumentTypes/${id}`, docType).pipe(

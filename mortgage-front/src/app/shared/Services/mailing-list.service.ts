@@ -12,7 +12,6 @@ export class MailingListService {
 
   sendMailingList(recipients: string[], subject: string, body: string): Observable<any> {
     const recipientsParam = recipients.join(',');
-    debugger
     const url = `${this.basicURL}send-mailing-list/${recipientsParam}`;
     const requestBody = {
       subject: subject || '',

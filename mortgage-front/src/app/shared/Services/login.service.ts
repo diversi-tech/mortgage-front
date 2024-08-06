@@ -35,12 +35,10 @@ export class loginService {
     };
     return this.http.post(`${this.basicURL}/api/Users/login`, user, { headers, responseType: 'text' }).pipe();;
   }
-
   decodeToken(token: string): ITokenPayload {
     if (!token) {
       throw new Error('Token is empty');
     }
-
     const parts = token.split('.');
     if (parts.length !== 3) {
       throw new Error('Token structure is invalid');
@@ -76,7 +74,6 @@ export class loginService {
   }
 
   GetToken() {
-    debugger
     if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined') {
       return sessionStorage.getItem("token");
     } else {
@@ -86,7 +83,6 @@ export class loginService {
   }
 
   GetCurrentUser() {
-
     if (typeof window !== 'undefined' && window.sessionStorage) {
       if (sessionStorage.getItem("token") != null) {
         this.currentUser = this.decodeToken(sessionStorage.getItem("token") || "");
