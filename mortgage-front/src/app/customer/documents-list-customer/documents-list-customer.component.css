@@ -196,3 +196,19 @@ mat-checkbox {
   margin-right: 10px;
   /* width: 100vw; */
 }
+span:hover{
+  cursor: pointer;
+}
+.download{
+  color: rgb(0, 0, 92);
+  text-decoration: underline;
+}
+.download:hover{
+  color: rgb(2, 2, 35);
+}
+mat-header-cell{
+  background-color: rgba(170, 189, 202, 0.152)!important;
+}
+mat-row:hover{
+  background-color: #e0dcdc22;
+}

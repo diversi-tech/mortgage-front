@@ -170,3 +170,29 @@
     </div>
     }
   </div>
+</main>
+
+<!-- טיפים לניהול מסמכים -->
+<div class="tips-container">
+  <mat-card class="tips-card">
+    <mat-card-title class="tips-title">טיפים לניהול מסמכים</mat-card-title>
+    <mat-card-content class="tips-content">
+      <div class="tips-item">
+        <b>שמור על סדר:</b> ארגן את המסמכים שלך לפי קטגוריות ברורות כדי למצוא אותם בקלות.
+      </div>
+      <div class="tips-item">
+        <b>גיבוי תקופתי:</b> ודא שיש לך גיבוי מסודר של המסמכים החשובים שלך.
+      </div>
+      <div class="tips-item">
+        <b>עדכון שוטף:</b> בדוק את המסמכים שלך מדי פעם כדי להבטיח שהם מעודכנים ותקינים.
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+@if(this.loginService.isAdmin()){
+<button mat-fab color="primary" class="add-button" (click)="addTask()" matTooltip="הוספת משימה"
+  matTooltipPosition="above" style="position: fixed;bottom: 8vh;left: 2vw;z-index: 1000;">
+  <mat-icon class="add-icon">add</mat-icon>
+</button>
+}

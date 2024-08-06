@@ -78,7 +78,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     this.customerId = customer.id!;
     if (typeof window && window.sessionStorage != undefined)
       window.sessionStorage.setItem("customerId", this.customerId.toString())!;
-    this.documentService.fetchDocumentsByCustomerId(customer.id || 0).subscribe({
+    this.documentService.fetchDocumentsByCustomerId(customer.id!).subscribe({
       next: documents => {
         this.dataSource.data = documents;
         this.dataSource.paginator = this.paginator;
@@ -109,7 +109,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       this.fetchDocumentTypes();
       if (typeof window && window.sessionStorage != undefined) {
         let currentId = +window.sessionStorage.getItem("customerId")!;
-        if (currentId) {
+        if (currentId&&!this.documentService.currentDocuments) {
           this.fetchDocumentTypes();
           this.customerId = currentId;
         }
@@ -119,13 +119,14 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     }
     else {
       this.fetchDocumentTypes();
+
       this.customerId = this.loginService.GetCurrentUser().customerId!;
     }
     this.loadDocuments();
     if (this.customerId)
-      this.documentService.fetchDocumentsByCustomerId(this.customerId).subscribe({
+     {this.documentService.fetchDocumentsByCustomerId(this.customerId).subscribe({
         next: documents => {
-          documents.forEach((file) => {
+          documents.forEach((file) => {            
             let tempDoc = this.documentService.currentDocuments.filter(doc => doc.id == file.id);
             if (tempDoc[0]) {
               if (this.loginService.isAdmin()) {
@@ -137,9 +138,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
                 file.status = tempDoc[0].status;
                 file.document_path = tempDoc[0].document_path;
                 file.customerFile = tempDoc[0].customerFile;
-
               }
-
             }
             this.documentService.currentDocuments.push(file);
           })
@@ -150,6 +149,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
           console.error('Error loading documents for customer:', error);
         }
       });
+    }
   }
 
   ngAfterViewInit() {
@@ -215,15 +215,12 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
   //Converts the transactionType enum value to the string value
   changeTransacTypeToString(index: number): String {
-
     let trans;
     if (this.documentTypes.length > 0)
       trans = this.documentTypes?.find(type => type.id == index)?.transaction_Type;
     this.transactionTypeString = TransactionType[trans!];
     return this.transactionTypeString;
   }
-
-
   onFileSelected(event: any, document: IDocument): void {
     // document.document_path
     const files: FileList = event.target.files;
@@ -332,23 +329,23 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
           this.dataSource.data.forEach((doc) => {
             console.log("this.documentService.currentDocuments=",this.documentService.currentDocuments);
             
-            let i = this.documentService.currentDocuments.findIndex(doc => doc.id == doc.id);
-            let j=this.dataSource.data.findIndex(doc=>doc.id==doc.id)
+            // let i = this.documentService.currentDocuments.findIndex(doc => doc.id == doc.id);
+            // let j=this.dataSource.data.findIndex(doc=>doc.id==doc.id)
             if (doc.customerFile) {
-              this.documentService.currentDocuments[i].status = 2
-              this.dataSource.data[j].status=2;
+              // this.documentService.currentDocuments[i].status = 2
+              // this.dataSource.data[j].status=2;
               doc.status = 2;
-              console.log('save customer i=',i," j=",j);
+              // console.log('save customer i=',i," j=",j);
 
             }
             if (doc.adminFile) {
-              this.documentService.currentDocuments[i].status2 = 2
-              this.dataSource.data[j].status2=2;
-              console.log('save admin i=',i," j=",j);
+              // this.documentService.currentDocuments[i].status2 = 2
+              // this.dataSource.data[j].status2=2;
+              // console.log('save admin i=',i," j=",j);
               
               doc.status2 = 2;
             }
-            this.documentService.currentDocuments[i].updated_at = new Date()
+            // this.documentService.currentDocuments[i].updated_at = new Date()
             doc.updated_at = new Date();
           });
           countNotNullOrUndefined = 0;

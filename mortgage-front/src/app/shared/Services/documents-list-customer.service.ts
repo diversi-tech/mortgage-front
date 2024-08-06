@@ -89,7 +89,7 @@ export class DocumentsListCustomerService {
   }
   getCustomerByDocumentId(doc: IDocument): ICustomer | undefined {
     console.log(doc);
-    var customer = this.customerService.getCustomerById(doc?.customer_Id || 0);
+    var customer = this.customerService.getCustomerById(doc?.customer_Id!);
     return customer;
   }
 
