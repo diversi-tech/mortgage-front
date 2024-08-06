@@ -4,13 +4,13 @@ import { loginService } from '../../shared/Services/login.service';
 
 @Component({
   selector: 'confirm-dialog',
-  styleUrl:"confirm-dialog.component.scss",
+  styleUrl: "confirm-dialog.component.scss",
   templateUrl: "confirm-dialog.component.html"
 })
 export class ConfirmDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,private loginService:loginService
+    @Inject(MAT_DIALOG_DATA) public data: any, private loginService: loginService
   ) { }
 
   onNoClick(): void {
@@ -47,9 +47,9 @@ export class ConfirmDialogComponent {
       return question + ` ${this.data.documentType.document_Name}`;
     } else if (this.data.lead) {
       return question + `${this.data.lead.first_Name}`;
-    } else if (this.data.document1&&this.loginService.isAdmin()) {
+    } else if (this.data.document1 && this.loginService.isAdmin()) {
       return question + `${this.data.document1.document_path2}`
-    }else if (this.data.document1){
+    } else if (this.data.document1) {
       return question + `${this.data.document1.document_path}`
     }
     else if (this.data.notification) {

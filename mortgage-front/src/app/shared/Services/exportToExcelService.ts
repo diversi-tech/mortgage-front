@@ -24,15 +24,12 @@ export class ExportToExcelService {
             Sheets: { 'data': worksheet },
             SheetNames: ['data']
         };
-
         const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
         this.saveAsExcelFile(excelBuffer, fileName || 'data');
     }
-
     private saveAsExcelFile(buffer: any, fileName: string): void {
         const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
         FileSaver.saveAs(data, `${fileName}${new Date().getTime()}.xlsx`);
-
     }
 }
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';

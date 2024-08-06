@@ -82,7 +82,7 @@
           } @else{
           <span class="download" (click)="download(element.document_path2,element.id+'_'+element.id2)"
             *ngIf="element.status2 == 2" matTooltip="צפה במסמך">
-            {{element.document_path}}</span>
+            {{element.document_path2}}</span>
           @if (element.status2 != 2) {<span>לא הועלה</span>}
           }
         </mat-cell>
