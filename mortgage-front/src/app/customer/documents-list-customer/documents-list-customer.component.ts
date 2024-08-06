@@ -37,7 +37,6 @@ import { log } from 'console';
 export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['task_description', 'document_type_id', 'status', 'document_path', "document_path2", 'created_at', 'isOk', 'actions'];
-  // documentsSendIndex: number[] = [];
   isOkCount: number = 0;
   customerId!: number;
   documentStatusString: String = '';
@@ -107,6 +106,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.loadDocuments();
     if (this.loginService.isAdmin()) {
+      this.fetchDocumentTypes();
       if (typeof window && window.sessionStorage != undefined) {
         let currentId = +window.sessionStorage.getItem("customerId")!;
         if (currentId) {
@@ -179,21 +179,24 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
   documentTypes: IDocumentType[] = [];
   fetchDocumentTypes() {
     this.documentService.getAllDocumentType().subscribe(
       (response) => {
         this.documentTypes = response;
+        console.log("fetch document type");
+        
       },
       (error) => {
         console.error('Error fetching document types:', error);
       }
     );
   }
+
   onCheckboxChange(checked: boolean, document: IDocument): void {
     if (checked == true) {
       this.isOkCount++;
-      // this.documentsSendIndex.push(document.id);
       console.log("this.isOkCount=" + this.isOkCount);
       document.isOk = true;
     }
@@ -213,8 +216,6 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
   //Converts the transactionType enum value to the string value
   changeTransacTypeToString(index: number): String {
-    // this.documentService.    
-    // console.log(this.documentTypesByCustomer);
     let trans;
     if (this.documentTypes.length > 0)
       trans = this.documentTypes?.find(type => type.id == index)?.transaction_Type;
@@ -224,7 +225,6 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
 
   onFileSelected(event: any, document: IDocument): void {
-    // document.document_path
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
@@ -260,7 +260,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
   cancelDocument(document1: IDocument): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { document1 } // Pass customer object as data to the dialog
+      data: { document1 } 
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -308,11 +308,11 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
     if (this.loginService.isAdmin()) {
       this.documentService.selectedDocuments = (this.dataSource.data
-        .filter(obj => obj.adminFile !== undefined && obj.adminFile !== null)) // filter out undefined and null
+        .filter(obj => obj.adminFile !== undefined && obj.adminFile !== null)) 
     }
     else {
       this.documentService.selectedDocuments = this.dataSource.data
-        .filter(obj => obj.customerFile !== undefined && obj.customerFile !== null) // filter out undefined and null
+        .filter(obj => obj.customerFile !== undefined && obj.customerFile !== null) 
     }
     let countNotNullOrUndefined = this.documentService.selectedDocuments.filter(value => value !== null && value !== undefined).length;
     console.log("this.isOkCount=" + this.isOkCount + "  countNotNullOrUndefined=" + countNotNullOrUndefined);
@@ -374,7 +374,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   }
 
   download(fileName: string, id: string) {
-    this._snackBar.open("ההורדה מתחילה", "X");
+    this._snackBar.open("ההורדה מתחילה", "סגירה");
     this.fileService.downloadFile(id).subscribe(
       (response) => {
         const contentDisposition = response.headers.get('Content-Disposition');

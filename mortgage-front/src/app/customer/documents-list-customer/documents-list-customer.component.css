@@ -43,7 +43,7 @@ mat-form-field mat-icon {
 
 .content-container {
   margin: 20px auto;
-  width: 60vw;
+  width: 75vw;
 }
 
 .cards-container {
@@ -212,4 +212,24 @@ mat-header-cell{
 }
 mat-row:hover{
   background-color: #e0dcdc22;
+}
+
+
+
+.document-item {
+  display: flex;
+  align-items: center;
+}
+
+.document-icon {
+  margin-left: 6px; /* מרווח בין האייקון לטקסט */
+}
+
+.document-text {
+  cursor: pointer; /* הופך את הטקסט ללחיץ */
+}
+
+/* הוספת קו מתחת לטקסט אם נדרש */
+.document-text:hover {
+  text-decoration: underline;
 }
