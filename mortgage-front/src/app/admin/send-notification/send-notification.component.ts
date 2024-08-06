@@ -49,7 +49,6 @@ export class SendNotificationComponent implements OnInit {
       }
     );
   }
-
   sendNotification(): void {
     if (this.newMessage.trim()) {
       const formattedMessage = this.newMessage.replace(/\n/g, '<br>');

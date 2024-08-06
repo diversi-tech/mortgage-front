@@ -92,17 +92,18 @@ export enum Family_Status {
   export class ICustomer {
       id?: number;
       lead_id?: number;
+      userid?:number;
       first_Name?: string
       last_Name?: string;
       email?: string
       phone?: string
       connection?: Connection
       t_z?: string;
-      lastSynced?: Date;
+      lastSynced?: Date|string;
       isArchived?: boolean;
-      created_at?: Date;
-      updated_at?: Date;
-      birthDate?: Date;
+      created_at?: Date|string;
+      updated_at?: Date|string;
+      birthDate?: Date|string;
       family_status?: Family_Status;
       number_of_people_in_house?: number;
       address?: string;

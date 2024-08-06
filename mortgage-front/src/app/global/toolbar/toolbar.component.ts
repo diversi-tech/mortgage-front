@@ -72,6 +72,6 @@ this.documentService.checkPendingDocuments();
     this.router.navigate([`customer/notifications/${this.loginService.GetCurrentUser().customerId}`])
   }
   openDocuments() {
-    this.router.navigate(['customer/document-list/getCurrentUser().cutomerId'])
+    this.router.navigate([`customer/document-list/${this.loginService.GetCurrentUser().customerId}`])
   }
 }
