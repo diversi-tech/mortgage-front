@@ -14,8 +14,11 @@ export class DocumentTypeService{
   documentTypes$ = this.documentSubject.asObservable();
 
   constructor(private http: HttpClient,private loginService:loginService) { 
+    debugger
     if(this.loginService.isAdmin())
     this.fetchDocumentTypes().subscribe()
+  
+
    }
 
 

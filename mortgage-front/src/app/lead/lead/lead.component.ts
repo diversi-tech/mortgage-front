@@ -1155,6 +1155,8 @@ if (localStorage.getItem('enterOrNot') === null) {
     let step = localStorage.getItem('currentStep');
       console.log("Updating customer in step 3");
       try {
+        //await firstValueFrom(this.customerService.updateCustomer(this.customerId, this.customerData));it is mine!!
+
         await firstValueFrom(this.customerService.updateCustomer(this.customerData.id, this.customerData));
         if (localStorage.getItem('isAddDocuments') !== 'true'){
             await this.getDocuments();

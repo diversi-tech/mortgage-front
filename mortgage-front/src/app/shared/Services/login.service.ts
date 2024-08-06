@@ -76,6 +76,7 @@ export class loginService {
   }
 
   GetToken() {
+   
     if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined') {
       return sessionStorage.getItem("token");
     } else {

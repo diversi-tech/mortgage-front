@@ -27,11 +27,9 @@ export class NotificationService {
   updateNotification(notification: INotification): Observable<INotification> {
     return this.http.put<INotification>(`${this.apiUrl}/${notification.id}`, notification);
   }
-  
   updateNotificationsStatus(notifications: INotification[]): Observable<INotification[]> {  
     return this.http.put<INotification[]>(`${this.apiUrl}`, notifications);
   }
-
   checkNotifications() {
     let customerId: number = 0;
     if (typeof window !== 'undefined' && window.sessionStorage)
