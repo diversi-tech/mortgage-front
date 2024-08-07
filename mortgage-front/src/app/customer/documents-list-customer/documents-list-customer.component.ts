@@ -380,7 +380,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   }
 
   download(fileName: string, id: string) {
-    this._snackBar.open("ההורדה מתחילה", "סגירה");
+    this.openSnackBar("ההורדה מתחילה", "סגירה");
     this.fileService.downloadFile(id).subscribe(
       (response) => {
         const contentDisposition = response.headers.get('Content-Disposition');
