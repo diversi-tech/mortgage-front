@@ -17,6 +17,8 @@ export class DocumentTypeService{
     if(this.loginService.isAdmin())
     this.fetchDocumentTypes().subscribe()
      }
+  
+
 
 
   fetchDocumentTypes(): Observable<IDocumentType[]> {
@@ -82,7 +84,7 @@ editDocumentType(docType: IDocumentType, id: number): Observable<void> {
 
   getDocsByTransactionType(id:number):Observable<IDocumentType[]> {
 
-    return this.http.get<any[]>(`${this.basicURL}DocumentTypes/TypesDocument/${id}`)
+    return this.http.get<IDocumentType[]>(`${this.basicURL}DocumentTypes/TypesDocument/${id}`)
 
   }
 }

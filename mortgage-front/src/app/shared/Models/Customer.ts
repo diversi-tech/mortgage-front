@@ -125,5 +125,6 @@ export enum Family_Status {
       estimated_price_by_sales_agreement?: number
       has_other_properties?: boolean;
       amount_of_loan_requested?: number
+      userId?:number;
    // customer_type: number | undefined;
   }

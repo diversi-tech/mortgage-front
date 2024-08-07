@@ -12,13 +12,11 @@
         loginService.GetCurrentUser().userName:'אורח'}}</span>
       @if(!this.loginService.isAdmin()){
       <button mat-icon-button (click)="openNotifications()">
-        <mat-icon [matBadge]="this.notificationService.unreadNotificationsCount"
-          [matBadgeHidden]="!this.notificationService.hasUnreadNotifications" aria-hidden="false"
+        <mat-icon [matBadge]="this.notificationService.unreadNotificationsCount"  [matBadgeHidden]="!this.notificationService.hasUnreadNotifications"  aria-hidden="false"
           matBadgeColor="warn">notifications</mat-icon>
       </button>
       <button mat-icon-button (click)="openDocuments()" matBadge="!" matBadgeSize="large" class="demo-section"
-        matTooltip="ישנם מסמכים שעדיין לא העלית" matTooltipPosition="below"
-        *ngIf="this.documentService.hasPendingDocuments">
+        matTooltip="ישנם מסמכים שעדיין לא העלית" matTooltipPosition="below" *ngIf="this.documentService.hasPendingDocuments">
         <mat-icon>description</mat-icon>
       </button>
       }

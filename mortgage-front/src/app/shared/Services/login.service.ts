@@ -73,7 +73,7 @@ export class loginService {
     return this.currentUser;
   }
 
-  GetToken() {
+  GetToken() {  
     if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined') {
       return sessionStorage.getItem("token");
     } else {

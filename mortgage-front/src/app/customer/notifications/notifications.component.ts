@@ -57,7 +57,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   loadNotifications(): void {
-    this.notificationService.getNotificationsByCustomerId(this.loginService.GetCurrentUser().customerId).subscribe({
+    this.notificationService.getNotificationsByCustomerId(this.customerId).subscribe({
       next: (res) => {
         this.notifications = res;
         console.log(res);
@@ -77,10 +77,14 @@ export class NotificationsComponent implements OnInit {
       console.error("אין משתמש מחובר או חסר ID");
       return;
     }
-    this.unreadNotifications = this.notifications.filter(
-      notification => notification.isRead == false);
+    const userId = currentUser.id;
+    console.log("User ID:", userId);
+  
+     this.unreadNotifications = this.notifications.filter(
+      notification => notification.isRead===false);
+      
     if (this.unreadNotifications.length === 0) {
-      // console.log("אין הודעות לא נקראות לעדכון");
+       console.log("אין הודעות לא נקראות לעדכון");
       return;
     }
     this.notificationService.updateNotificationsStatus(this.unreadNotifications).subscribe({
@@ -94,23 +98,6 @@ export class NotificationsComponent implements OnInit {
         console.error('Error updating notifications status', error);
       }
     });
-    // this.loadNotifications();
-    // this.unreadNotifications.forEach(notification => {
-    //   notification.isRead = true;
-    //   console.log("מעדכן הודעה לנקראה:", notification.id);
-    //   this.notificationService.updateNotification(notification).subscribe({
-    //     next: () => {
-    //       console.log("הודעה עודכנה בהצלחה:", notification.id);
-    //     },
-    //     error: (error) => {
-    //       console.error("שגיאה בעדכון הודעה:", notification.id, error);
-    //     }
-    //   });
-    // });
-
-    // console.log("כל ההודעות נשלחו לעדכון");
-    // אפשר להוסיף כאן עדכון של התצוגה אם צריך
-    // this.loadNotifications(); // רענון הנתונים
   }
 
 

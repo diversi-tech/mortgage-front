@@ -64,8 +64,7 @@ import { loginService } from "./login.service";
   }
 
 
-createUserForLead(user:IUser,leadId:number)
-{
+  createUserForLead(user: IUser, leadId: number): Observable<IUser> {
     const formData: FormData = new FormData();
     if (user.id !== undefined) formData.append('Id', user.id.toString());
     if (user.userName !== undefined) formData.append('UserName', user.userName);
@@ -75,12 +74,13 @@ createUserForLead(user:IUser,leadId:number)
     if (user.created_at !== undefined) formData.append('Created_at', user.created_at.toISOString());
     if (user.updated_at !== undefined) formData.append('Updated_at', user.updated_at.toISOString());
     let roleId;
-    if(user.role==Role.Admin)
-      roleId=0
+    if (user.role == Role.Admin)
+      roleId = 0;
     else
-      roleId=1
-    return this.http.post(`${this.basicURL}Users/Lead${leadId}`, { ...user, role: roleId });
-}
+      roleId = 1;
+    return this.http.post<IUser>(`${this.basicURL}Users/Lead${leadId}`, { ...user, role: roleId });
+  }
+  
 
   IsExist(user: IUser): Observable<string> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });  
@@ -111,7 +111,6 @@ createUserForLead(user:IUser,leadId:number)
       })
     );
   }
-  
 
   
   updateUser(updatedUser: IUser): Observable<IUser> {

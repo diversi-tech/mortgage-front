@@ -41,6 +41,10 @@ export class customerService {
       );
   }
 
+  createCustomerForLead(customer: ICustomer,leadId:number): Observable<ICustomer> {
+    return this.http.post<ICustomer>(`${this.basicURL}Customers/Lead${leadId}`, customer);
+  }
+
   getCustomers(): Observable<ICustomer[]> {
     return (this.customersSubject.asObservable());
   }
@@ -65,10 +69,6 @@ export class customerService {
 
   createCustomer(customer: ICustomer): Observable<ICustomer> {
     return this.http.post<ICustomer>(`${this.basicURL}Customers`, customer);
-  }
-
-  createCustomerForLead(customer: ICustomer,leadId:number): Observable<ICustomer> {
-    return this.http.post<ICustomer>(`${this.basicURL}Customers/Lead${leadId}`, customer);
   }
 
   updateCustomer(customerId: number | undefined, customer: ICustomer): Observable<ICustomer> {

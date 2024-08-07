@@ -33,7 +33,6 @@
                 <mat-icon *ngIf="notification.isRead" class="icon">drafts</mat-icon>
                 <mat-icon *ngIf="!notification.isRead" class="icon">markunread</mat-icon>
               </div>
-              <!--כדי שירד שורה בהתאם לשליחת ההודעה [innerHTML]זה בכוונה ב -->
               <div [innerHTML]="notification.message" class="message-text" [ngClass]="{ 'unread': !notification.isRead }"></div>
               <div class="message-timestamp">{{ notification.created_at | date:'short' }}</div>
             </div>
