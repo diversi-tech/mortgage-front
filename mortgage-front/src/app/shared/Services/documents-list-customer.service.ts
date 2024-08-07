@@ -65,8 +65,6 @@ export class DocumentsListCustomerService {
       );
   }
   updateMultipleDocuments(documents: IDocument[]): Observable<any> {
-    console.log(documents);
-    
     return this.http.put<any>(this.apiUrl + `/CustomerTasksControllercs`, documents)
       .pipe(
         catchError(error => {
@@ -75,9 +73,7 @@ export class DocumentsListCustomerService {
         })
       );
   }
-  // fetchDocumentsTypesByCustomerId(customerId: number): Observable<IDocumentType[]> {
-  //   return this.http.get<IDocumentType[]>(`${this.apiUrl}/DocumentTypes/${customerId}`);
-  // }
+
   deleteDocument(docId: number) {
     return this.http.delete(`${this.apiUrl}/CustomerTasksControllercs/${docId}`);
   }
@@ -115,11 +111,9 @@ export class DocumentsListCustomerService {
       }
     )
     else{
-      console.log("in else",this._currentDocuments);
       this.hasNotSavedDoc = this.currentDocuments.filter(file => file != null && file != undefined).length > 0;
       this.hasPendingDocuments = this._currentDocuments.some(document =>{ document.status == 0;console.log(document);
       });
-      console.log("this.hasNotSavedDoc=",this.hasNotSavedDoc," this.hasPendingDocuments=",this.hasPendingDocuments)
     }
   }
 }

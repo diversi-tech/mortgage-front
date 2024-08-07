@@ -42,7 +42,8 @@ mat-form-field mat-icon {
 }
 
 .content-container {
-  margin: 20px;
+  width: 70vw;
+  margin: 20px auto;
 }
 
 .cards-container {
@@ -199,11 +200,11 @@ mat-checkbox {
 span:hover{
   cursor: pointer;
 }
-.download{
+.download, .document-text{
   color: rgb(0, 0, 92);
   text-decoration: underline;
 }
-.download:hover{
+.download:hover,  .document-text:hover{
   color: rgb(2, 2, 35);
 }
 mat-header-cell{
@@ -211,4 +212,7 @@ mat-header-cell{
 }
 mat-row:hover{
   background-color: #e0dcdc22;
+}
+mat-table{
+  width: 50vw;
 }

@@ -44,31 +44,35 @@
           <!-- הצגת אייקונים ופעולות נוספות -->
           @if(this.loginService.isAdmin()){
           <span *ngIf="element.status == 2" class="document-item">
-            <span class="document-text" (click)="download(element.document_path, element.id+'')" matTooltip="צפה במסמך">{{element.document_path}}</span>
+            <span class="document-text" (click)="download(element.document_path, element.id+'')"
+              matTooltip="צפה במסמך">{{element.document_path}}</span>
           </span>
           @if (element.status != 2) {<span>לא הועלה</span>}
           } @else {
           <div *ngIf="element.status == 0" class="document-item">
-            <button mat-icon-button aria-label="upload file" (click)="fileInput.click()" matTooltip="צרף מסמך" matTooltipPosition="left" class="icon-button attach">
+            <button mat-icon-button aria-label="upload file" (click)="fileInput.click()" matTooltip="צרף מסמך"
+              matTooltipPosition="left" class="icon-button attach">
               <mat-icon class="icon">attach_file</mat-icon>
               <input type="file" #fileInput (change)="onFileSelected($event, element)" style="display: none" />
             </button>
           </div>
-      
+
           <span *ngIf="element.status == 1" class="document-item">
-<div>
+            <div>
               <i class="fa-solid fa-xmark" (click)="cancelDocument(element)"></i>
-</div>
-            <span class="document-text" matTooltip="צפה במסמך" (click)="viewDocument(element.customerFile)">{{element.document_path}}</span>
+            </div>
+            <span class="document-text" matTooltip="צפה במסמך"
+              (click)="viewDocument(element.customerFile)">{{element.document_path}}</span>
           </span>
-      
+
           <span *ngIf="element.status == 2" class="document-item">
-            <span class="document-text" matTooltip="צפה במסמך" (click)="download(element.document_path, element.id+'')">{{element.document_path}}</span>
+            <span class="document-text" matTooltip="צפה במסמך"
+              (click)="download(element.document_path, element.id+'')">{{element.document_path}}</span>
           </span>
           }
         </mat-cell>
       </ng-container>
-      
+
 
       <ng-container matColumnDef="document_path2">
         <mat-header-cell *matHeaderCellDef>מסמך מנהל</mat-header-cell>
@@ -83,10 +87,12 @@
           <span *ngIf="element.status2 == 1">
             <div class="document-container">
               <mat-icon (click)="cancelDocument(element)">cancel</mat-icon>
-              <span class="download" matTooltip="צפה במסמך" (click)="viewDocument(element.adminFile)">{{element.document_path2}}</span>
+              <span class="download" matTooltip="צפה במסמך"
+                (click)="viewDocument(element.adminFile)">{{element.document_path2}}</span>
             </div>
           </span>
-          <span class="download" matTooltip="צפה במסמך" (click)="download(element.document_path2,element.id+'_'+element.id2)"
+          <span class="download" matTooltip="צפה במסמך"
+            (click)="download(element.document_path2,element.id+'_'+element.id2)"
             *ngIf="element.status2 == 2">{{element.document_path2}}</span>
           } @else{
           <span class="download" (click)="download(element.document_path2,element.id+'_'+element.id2)"
