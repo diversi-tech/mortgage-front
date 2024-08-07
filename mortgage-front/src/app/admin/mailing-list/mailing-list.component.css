@@ -1,43 +1,30 @@
-/* הסגנון הכללי של הטופס */
 .card-content {
   padding: 20px;
 }
-
-/* עיצוב שדות הקלט */
 .mat-form-field {
   width: 100%;
-  margin-bottom: 20px; /* מבדל בין השדות */
+  margin-bottom: 20px;
 }
-
-/* עיצוב שדה נושא */
 .subject-field {
-  display: block; /* לוודא שהשדה תופס את כל הרוחב */
+  display: block; 
 }
-
-/* עיצוב שדה הודעה */
 .message-field {
-  display: block; /* לוודא שהשדה תופס את כל הרוחב */
+  display: block;
 }
-
-/* שיפור עיצוב של טקסט של שדות קלט */
 textarea.mat-input-element {
   width: 100%;
   box-sizing: border-box;
 }
-
-/* עיצוב הכפתורים */
 .button-group {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
-
 button {
   border-radius: 24px;
   padding: 10px 20px;
   font-size: 0.9rem;
 }
-
 #content {
   background-color: #f5f5f5;
   padding: 2% 4%;
@@ -45,8 +32,7 @@ button {
   max-width: 600px;
   margin: auto;
 }
-
-/* תצוגה לניידים */
+/* mobile display */
 @media screen and (max-width: 768px) {
   .button-group {
     flex-direction: column;

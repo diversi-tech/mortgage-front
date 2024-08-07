@@ -35,7 +35,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.NavigationMenuToggleService.toggle();
     this.notificationService.checkNotifications();
     // Subscribe to selectedDocuments changes
-    this.subscription = this.documentService.selectedDocuments$.subscribe(() => {
+    this.subscription = this.documentService.currentDocuments$.subscribe(() => {
       this.documentService.checkPendingDocuments();
     });
   }

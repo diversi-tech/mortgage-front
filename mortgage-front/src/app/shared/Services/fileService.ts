@@ -33,31 +33,6 @@ export class UploadService {
         }
       }
       );
-    // files.forEach((file, index) => {
-    //   if (file) {
-
-    //     id = files.findIndex(obj => obj?.name === file.name);
-    //     if (id != -1) {
-    //       if (this.loginService.isAdmin()) {
-    //         this.documentService.documents$.subscribe(
-    //           (data) => {
-    //             var obj=data.find(obj => obj?.id === id);
-    //             console.log(obj);
-    //             id2 = obj!.id2!;
-    //             if (id2 != -1) {
-    //               formData.append('files', file,`${id}_${id2}_${file.name}`);
-    //             }
-    //           }
-    //         );
-    //       }
-    //       else
-    //         formData.append('files', file, `${id}_${file.name}`);
-    //     }
-
-    //   }
-    // });
-    console.log("after foreach");
-
     const uploadReq = new HttpRequest('POST', `${this.baseUrl}/uploadfiles`, formData, {
       reportProgress: true,
     });
@@ -77,16 +52,15 @@ export class UploadService {
         return throwError(error);
       })
     );
-
   }
 
 
   uploadFile(file: File | null, id: string): Observable<any> {
     const formData = new FormData();
     if (file && this.loginService.isAdmin())
-      formData.append('file', file, `${id}_${file.name}`); // שינוי השם של הקובץ כאן
+      formData.append('file', file, `${id}_${file.name}`);
     else if (file)
-      formData.append('file', file, `${id}_${file.name}`); // שינוי השם של הקובץ כאן
+      formData.append('file', file, `${id}_${file.name}`);
 
     const uploadReq = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
       reportProgress: true,

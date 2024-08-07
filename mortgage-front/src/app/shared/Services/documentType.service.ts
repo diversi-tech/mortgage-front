@@ -19,8 +19,6 @@ export class DocumentTypeService{
      }
   
 
-
-
   fetchDocumentTypes(): Observable<IDocumentType[]> {
     return this.http.get<IDocumentType[]>(`${this.basicURL}DocumentTypes`)
       .pipe(
