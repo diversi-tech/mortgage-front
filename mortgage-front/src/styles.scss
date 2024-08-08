@@ -122,4 +122,81 @@ tr:hover{
     -webkit-box-shadow: 0 0 0 30px white inset !important;
     -webkit-text-fill-color: black !important;
   }
-  
+  /* styles.css או קובץ ה-CSS הגלובלי שלך */
+// .high-contrast.body {
+//   background-color: black !important;
+//   color: yellow !important;
+// }
+// .high-contrast.div
+
+// {
+//    color:yellow !important;
+//    background-color:black !important;
+// }
+
+
+// .high-contrast * {
+//   fill:yellow !important; /* עבור אייקונים ב-SVG */
+// }
+// .high-contrast.span
+// {
+//   color:yellow !important;
+//   background-color: black !important;
+// }
+.high-contrast p,
+.high-contrast h1,
+.high-contrast h2,
+.high-contrast h3,
+.high-contrast h4,
+.high-contrast .span
+ {
+  color: yellow !important;
+  background-color: black !important;
+}
+
+
+/* התאמות מיוחדות לאלמנטים של Angular Material */
+.high-contrast .mat-icon,
+.high-contrast .mat-button,
+.high-contrast .mat-checkbox .mat-checkbox-background
+ {
+  color: yellow !important;
+  fill: yellow !important;
+}
+
+
+// /* התאמות מיוחדות ל-Button */
+.high-contrast .mat-button-wrapper {
+  color: yellow !important;
+}
+
+.high-contrast table.mat-table th.mat-header-cell,
+.high-contrast table.mat-table td.mat-cell {
+  background-color: black !important;
+  color:yellow!important;
+}
+
+.high-contrast table.mat-table mat-icon {
+  color:yellow !important;
+  fill:yellow !important;
+  background-color: yellow !important;
+}
+
+.high-contrast mat-menu {
+  background-color: black !important;
+  color:yellow !important;
+}
+
+.high-contrast mat-menu button {
+  color:yellow !important;
+  background-color: black !important;
+}
+
+.high-contrast mat-paginator {
+  background-color: black !important;
+  color:yellow !important;
+}
+
+.high-contrast mat-paginator .mat-icon-button {
+  color:yellow !important;
+}

@@ -16,11 +16,7 @@ export class DocumentTypeService{
   constructor(private http: HttpClient,private loginService:loginService) { 
     if(this.loginService.isAdmin())
     this.fetchDocumentTypes().subscribe()
-  
-
    }
-
-
   fetchDocumentTypes(): Observable<IDocumentType[]> {
     return this.http.get<IDocumentType[]>(`${this.basicURL}DocumentTypes`)
       .pipe(
@@ -31,7 +27,6 @@ export class DocumentTypeService{
         })
       );
   }
-
   deleteDocumentType(DocumentTypeId: number): Observable<any> {
     const deleteUrl = `${this.basicURL}DocumentTypes/${DocumentTypeId}`;
     return this.http.delete(deleteUrl)
