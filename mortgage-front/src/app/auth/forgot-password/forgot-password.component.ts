@@ -71,7 +71,7 @@ export class ForgotPasswordComponent {
           this.snackBar.open('הסיסמה עודכנה בהצלחה', 'Close', {
             duration: 5000,
           });
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth/login']);
         },
         (error) => {
           this.snackBar.open('Failed to update password. Please try again.', 'Close', {

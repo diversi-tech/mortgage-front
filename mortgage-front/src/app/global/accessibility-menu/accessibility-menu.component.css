@@ -1,0 +1,57 @@
+.accessibility-button {
+    position:absolute;
+    bottom: 16px;
+    left: 16px;
+    z-index: 1000;
+  }
+  /* .high-contrast {
+    background-color: #000;
+    color: #e6ea07;
+    filter: contrast(200%);
+  } */
+.container-item {
+    padding: 10px;
+    /* background-color: #f9fafb; */
+    color: #0d0d0d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.simple-keyboard {
+    position: absolute;
+    bottom: 0;
+    width: 60%;
+    margin-left: 327px; 
+    background-color: #333;
+    /* צבע רקע */
+    color: black;
+    border: 2px solid red; /* גבול כדי לבדוק אם המקלדת מופיעה */
+}
+.simple-keyboard .hg-button {
+    background-color: #555;
+    /* צבע כפתורים */
+    color: #fff;
+    /* צבע טקסט כפתורים */
+    border-radius: 5px;
+    /* שינוי עיגול פינות הכפתורים */
+    border: 1px solid #000;
+    /* גבול לכפתורים */
+    font-size: 16px;
+    /* גודל טקסט */
+}
+.simple-keyboard .hg-button:hover {
+    background-color: #777;
+    /* צבע כפתורים במעבר עכבר */
+}
+
+.simple-keyboard .hg-button:active {
+    background-color: #999;
+    /* צבע כפתורים בעת לחיצה */
+}
