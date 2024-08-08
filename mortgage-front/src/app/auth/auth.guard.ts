@@ -4,7 +4,7 @@ import { loginService } from '../shared/Services/login.service';
 import { leadService } from '../shared/Services/lead.service';
 import { catchError, map, Observable, of, switchMap } from 'rxjs';
 
-export const authGuardAdmin: CanActivateChildFn = (route, state) => {
+export const authGuardAdmin: CanActivateFn = (route, state) => {
   const loginservice = inject(loginService);
   const router = inject(Router);
   if (loginservice.isLoggedIn()) {//check if loggedIn
@@ -19,12 +19,12 @@ export const authGuardAdmin: CanActivateChildFn = (route, state) => {
   }
 };
 
-export const authGuard: CanActivateChildFn = (route, state) => {
+export const authGuard: CanActivateFn = (route, state) => {
   const loginservice = inject(loginService);
   const router = inject(Router);
   if (loginservice.isLoggedIn()) {//check if loggedIn
     console.log("here");
-    if (!loginservice.isAdmin())//check if admin
+    if (!loginservice.isAdmin())//check if not admin
       return true;
     alert("!על פי דרגתך במערכת זו אינך מורשה לגלוש במסך זה")
     router.navigate(['admin'])

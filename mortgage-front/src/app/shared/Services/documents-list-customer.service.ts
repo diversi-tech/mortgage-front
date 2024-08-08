@@ -68,8 +68,8 @@ export class DocumentsListCustomerService {
     return this.http.put<any>(this.apiUrl + `/CustomerTasksControllercs`, documents)
       .pipe(
         catchError(error => {
-          console.error('שגיאה בעדכון מסמכים בשרת:', error);
-          return throwError('משהו השתבש בעדכון המסמכים. נסה שוב מאוחר יותר.');
+          console.error('Error updating documents on the server:', error);
+          return throwError('Something went wrong updating the documents. Please try again later.');
         })
       );
   }
@@ -77,12 +77,15 @@ export class DocumentsListCustomerService {
   deleteDocument(docId: number) {
     return this.http.delete(`${this.apiUrl}/CustomerTasksControllercs/${docId}`);
   }
+
   updateDocument(docId: number, documentData: any) {
     return this.http.put(`${this.apiUrl}/CustomerTasksControllercs/${docId}`, documentData);
   }
+
   createDocument(documentData: any) {
     return this.http.post(`${this.apiUrl}/CustomerTasksControllercs`, documentData);
   }
+  
   getCustomerByDocumentId(doc: IDocument): ICustomer | undefined {
     console.log(doc);
     var customer = this.customerService.getCustomerById(doc?.customer_Id!);

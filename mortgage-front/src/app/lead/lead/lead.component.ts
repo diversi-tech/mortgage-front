@@ -679,6 +679,7 @@ import { IUser, Role } from '../../shared/Models/user';
 import { ICustomer,Connection, Family_Status, Job_Status, TransactionTypeEnum, Customer_Type } from '../../shared/Models/Customer';
 import { ILead } from '../../shared/Models/Lead';
 import { IDocumentType } from '../../shared/Models/DocumentTypes.Model';
+import { DocumentsListCustomerComponent } from '../../customer/documents-list-customer/documents-list-customer.component';
 
 @Component({
   selector: 'app-lead',
@@ -686,6 +687,8 @@ import { IDocumentType } from '../../shared/Models/DocumentTypes.Model';
   styleUrls: ['./lead.component.css']
 })
 export class LeadComponent implements OnInit, AfterViewInit {
+  //תהילה ויעל
+  @ViewChild(DocumentsListCustomerComponent) documentsListCustomer: DocumentsListCustomerComponent | undefined;
 
   @ViewChild('stepper') stepper!: MatStepper;
 
@@ -946,53 +949,53 @@ if (localStorage.getItem('enterOrNot') === null) {
  // if so, pops up a message that the email and password need to be changed.
  // If not taken, creates a new user and a new customer.
  // If the user has left and returned, he will not have to enter details again.
-  checkUserNameAndPassword() {
-    this.leadService.getLeadById(this.lead_id!).subscribe((lead) => {
-      if (lead) {
-        this.customerData.phone = lead.phone;
-        this.customerData.email = lead.email;
-        this.customerData.first_Name = lead.first_Name;
-      }
-    });
-    
-    this.user.id = 0;
-    this.user.userName = this.firstFormGroup.value.userName;
-    this.user.password = this.firstFormGroup.value.password;
-    this.user.email = this.firstFormGroup.value.userName;
-    this.user.role = Role.Customer;
-    this.user.created_at = new Date(Date.now())
-    this.user.updated_at = new Date(Date.now())
-    
-    this.userService.IsExist(this.user).subscribe(
-      (response: string) => {
-        localStorage.setItem('userName', JSON.stringify(this.user.userName));
-        localStorage.setItem('password', JSON.stringify(this.user.password));
-        this.res = response;
-        if (response === '200'){
-          let i = localStorage.getItem('enterOrNot');
-          if (i === "true"){
-            this.stepper.next();
-          }
-          else {
-            alert("איימיל או סיסמא תפוסים נא להכניס אחר");
-          }
-        } else if (response === '404' && this.user !== null && this.user !== undefined && this.user.password !== '' && this.user.userName !== '') {
-          localStorage.setItem('enterOrNot', 'true')
-          this.stepper.next()
-          this.userService.createUserForLead(this.user,this.lead_id!).subscribe({
-            next: (res: any) => {
-              console.log('User created:', this.user);
-              this.customerData.lead_id = this.lead_id!;
-              console.log(this.lead_id);
-              this.customerService.createCustomerForLead(this.customerData,this.lead_id!).subscribe({
-                next: (res: ICustomer) => { 
-                  this.customerId=res.id//-its my adding!!
-                  this.customerData.customer_type = Customer_Type.c
-                  this.customerData.userId = this.user.id 
-                  this.customerData.id = res.id;
-                console.log('Customer created:', this.customerData)
+ checkUserNameAndPassword() {
+  this.leadService.getLeadById(this.lead_id!).subscribe((lead) => {
+    if (lead) {
+      this.customerData.phone = lead.phone;
+      this.customerData.email = lead.email;
+      this.customerData.first_Name = lead.first_Name;
+    }
+  });
+  
+  this.user.id = 0;
+  this.user.userName = this.firstFormGroup.value.userName;
+  this.user.password = this.firstFormGroup.value.password;
+  this.user.email = this.firstFormGroup.value.userName;
+  this.user.role = Role.Customer;
+  this.user.created_at = new Date(Date.now());
+  this.user.updated_at = new Date(Date.now());
+  
+  this.userService.IsExist(this.user).subscribe(
+    (response: string) => {
+      localStorage.setItem('userName', JSON.stringify(this.user.userName));
+      localStorage.setItem('password', JSON.stringify(this.user.password));
+      this.res = response;
+      if (response === '200') {
+        let i = localStorage.getItem('enterOrNot');
+        if (i === "true") {
+          this.stepper.next();
+        } else {
+          alert("איימיל או סיסמא תפוסים נא להכניס אחר");
+        }
+      } else if (response === '404' && this.user !== null && this.user !== undefined && this.user.password !== '' && this.user.userName !== '') {
+        localStorage.setItem('enterOrNot', 'true');
+        this.stepper.next();
+        this.userService.createUserForLead(this.user, this.lead_id!).subscribe({
+          next: (createdUser: IUser) => {
+            console.log('User created:', createdUser);
+            this.customerData.lead_id = this.lead_id!;
+            this.customerData.userId = createdUser.id;
+
+            console.log(this.lead_id);
+            this.customerService.createCustomerForLead(this.customerData, this.lead_id!).subscribe({
+              next: (res: ICustomer) => { 
+                this.customerId = res.id;
+                this.customerData.customer_type = Customer_Type.c;
+                this.customerData.id = res.id;
+                console.log('Customer created:', this.customerData);
                 this.loginservice.login(this.user.email!, this.user.password!).subscribe(
-                  (response:any) => {
+                  (response: any) => {
                     let parsedResponse = JSON.parse(response);
                     sessionStorage.setItem("token", parsedResponse.token);
                   },
@@ -1000,21 +1003,22 @@ if (localStorage.getItem('enterOrNot') === null) {
                     console.log('Login failed', error);
                   }
                 );
-               },
-                error: (error: any) => console.error('Error creating customer:', error)
-              });
-            },
-            error: (error: any) => console.error('Error creating user:', error)
-          });
-        } else {
-          console.error('Unexpected response:', response);
-        }
-      },
-      (error: any) => {
-        console.error('Error during user existence check:', error);
+              },
+              error: (error: any) => console.error('Error creating customer:', error)
+            });
+          },
+          error: (error: any) => console.error('Error creating user:', error)
+        });
+      } else {
+        console.error('Unexpected response:', response);
       }
-      )
-  }
+    },
+    (error: any) => {
+      console.error('Error during user existence check:', error);
+    }
+  );
+}
+
 
   // Saves form data to local storage
   saveFormData(){
@@ -1155,12 +1159,17 @@ if (localStorage.getItem('enterOrNot') === null) {
       console.log("Updating customer in step 3");
       try {
         //await firstValueFrom(this.customerService.updateCustomer(this.customerId, this.customerData));it is mine!!
+console.log("iddd  "+this.customerData.id);
 
         await firstValueFrom(this.customerService.updateCustomer(this.customerData.id, this.customerData));
         if (localStorage.getItem('isAddDocuments') !== 'true'){
             await this.getDocuments();
             await this.addToCustomerTask();
         }
+          //תהילה ויעל
+
+        this.documentsListCustomer!.loadDocuments();
+
       } catch (error) {
         console.error('Error in the process', error);
       }

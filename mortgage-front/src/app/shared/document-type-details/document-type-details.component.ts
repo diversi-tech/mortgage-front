@@ -36,8 +36,6 @@ export class DocumentTypeDetailsComponent implements OnInit {
       }
     });
   }
-
-
   setFormValues(id: number): void {
     if (this.docTypeId != -1) {
       this.documentTypeService.getDocTypeById(id).subscribe(docTypeById => {
@@ -49,19 +47,14 @@ export class DocumentTypeDetailsComponent implements OnInit {
       });
     }
   }
-
-
   onSubmit(): void {
     if (this.documentTypeForm.valid) {
       const formValues = this.documentTypeForm.value;
-
       const documentTypeObject: IDocumentType = {
         document_Name: formValues.document_Name,
         required: formValues.required as boolean,
         transaction_Type: TransactionType[formValues.transaction_Type as unknown as keyof typeof TransactionType]
       }
-
-
       if (this.docTypeId != -1) {
         this.documentTypeService.editDocumentType(documentTypeObject, this.docTypeId!).subscribe(() => {
           this.snackBar.open('סוג המסמך עודכן בהצלחה!!', 'Close', {
@@ -79,16 +72,12 @@ export class DocumentTypeDetailsComponent implements OnInit {
       this.router.navigate(['admin/document-type-list']);
     }
   }
-
-
   cancel() {
     this.router.navigate(['admin/document-type-list']);
   }
-
   clearFormFields(): void {
     const transactionTypeValue = this.documentTypeForm.get('transaction_Type')?.value;
     console.log(transactionTypeValue);
-
     this.documentTypeForm.reset({
       transaction_Type: transactionTypeValue
     });

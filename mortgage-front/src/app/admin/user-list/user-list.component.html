@@ -10,7 +10,7 @@
         </mat-form-field>
     </div>        
     <div class="rtl-table-wrapper">
-        <table mat-table [dataSource]="users$" matSort class="mat-elevation-z8 table-user" dir="rtl">
+        <table mat-table [dataSource]="usersDataSource" matSort class="mat-elevation-z8 table-user" dir="rtl">
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>תעודת זהות</th>
                 <td mat-cell *matCellDef="let user">{{ user.id }}</td>

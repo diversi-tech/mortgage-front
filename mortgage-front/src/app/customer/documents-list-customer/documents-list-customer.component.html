@@ -41,67 +41,93 @@
       <ng-container matColumnDef="document_path">
         <mat-header-cell *matHeaderCellDef>מסמך לקוח</mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <!-- הצגת אייקונים ופעולות נוספות -->
-          @if(this.loginService.isAdmin()){
-          <span *ngIf="element.status == 2" class="document-item">
-            <span class="document-text" (click)="download(element.document_path, element.id+'')"
-              matTooltip="צפה במסמך">{{element.document_path}}</span>
-          </span>
-          @if (element.status != 2) {<span>לא הועלה</span>}
-          } @else {
-          <div *ngIf="element.status == 0" class="document-item">
-            <button mat-icon-button aria-label="upload file" (click)="fileInput.click()" matTooltip="צרף מסמך"
-              matTooltipPosition="left" class="icon-button attach">
-              <mat-icon class="icon">attach_file</mat-icon>
-              <input type="file" #fileInput (change)="onFileSelected($event, element)" style="display: none" />
-            </button>
-          </div>
-
-          <span *ngIf="element.status == 1" class="document-item">
-            <div>
-              <i class="fa-solid fa-xmark" (click)="cancelDocument(element)"></i>
+          <!-- Admin view -->
+          <ng-container *ngIf="loginService.isAdmin(); else customerView">
+            <ng-container *ngIf="element.status == 2">
+              <span class="document-item">
+                <span class="document-text" (click)="download(element.document_path, element.id+'')" matTooltip="צפה במסמך">
+                  {{element.document_path}}
+                </span>
+              </span>
+            </ng-container>
+            <ng-container *ngIf="element.status != 2">
+              <span>לא הועלה</span>
+            </ng-container>
+          </ng-container>
+      
+          <!-- Customer view -->
+          <ng-template #customerView>
+            <div *ngIf="element.status == 0" class="document-item">
+              <button mat-icon-button aria-label="upload file" (click)="fileInput.click()" matTooltip="צרף מסמך" matTooltipPosition="left" class="icon-button attach">
+                <mat-icon class="icon">attach_file</mat-icon>
+                <input type="file" #fileInput (change)="onFileSelected($event, element)" style="display: none" />
+              </button>
             </div>
-            <span class="document-text" matTooltip="צפה במסמך"
-              (click)="viewDocument(element.customerFile)">{{element.document_path}}</span>
-          </span>
-
-          <span *ngIf="element.status == 2" class="document-item">
-            <span class="document-text" matTooltip="צפה במסמך"
-              (click)="download(element.document_path, element.id+'')">{{element.document_path}}</span>
-          </span>
-          }
+      
+            <span *ngIf="element.status == 1" class="document-item">
+              <i class="fa-solid fa-xmark delete-icon" (click)="cancelDocument(element)"></i>
+              <span class="document-text" matTooltip="צפה במסמך" (click)="viewDocument(element.customerFile)">
+                {{element.document_path}}
+              </span>
+            </span>
+      
+            <span *ngIf="element.status == 2" class="document-item">
+              <span class="document-text" matTooltip="צפה במסמך" (click)="download(element.document_path, element.id+'')">
+                {{element.document_path}}
+              </span>
+            </span>
+          </ng-template>
         </mat-cell>
       </ng-container>
-
+      
+      
 
       <ng-container matColumnDef="document_path2">
         <mat-header-cell *matHeaderCellDef>מסמך מנהל</mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <!-- הצגת אייקונים ופעולות נוספות -->
-          @if(this.loginService.isAdmin()){
-          <button mat-icon-button aria-label="upload file" (click)="fileInput.click()" matTooltip="צרף מסמך"
-            *ngIf="element.status2==0" matTooltipPosition="left" class="icon-button attach">
-            <mat-icon class="icon">attach_file</mat-icon>
-            <input type="file" #fileInput (change)="onFileSelected($event, element)" style="display: none" />
-          </button>
-          <span *ngIf="element.status2 == 1">
-            <div class="document-container">
-              <mat-icon (click)="cancelDocument(element)">cancel</mat-icon>
-              <span class="download" matTooltip="צפה במסמך"
-                (click)="viewDocument(element.adminFile)">{{element.document_path2}}</span>
-            </div>
-          </span>
-          <span class="download" matTooltip="צפה במסמך"
-            (click)="download(element.document_path2,element.id+'_'+element.id2)"
-            *ngIf="element.status2 == 2">{{element.document_path2}}</span>
-          } @else{
-          <span class="download" (click)="download(element.document_path2,element.id+'_'+element.id2)"
-            *ngIf="element.status2 == 2" matTooltip="צפה במסמך">
-            {{element.document_path2}}</span>
-          @if (element.status2 != 2) {<span>לא הועלה</span>}
-          }
+          <!-- Admin view -->
+          <ng-container *ngIf="loginService.isAdmin(); else customerView">
+            <ng-container *ngIf="element.status2 == 0">
+              <button mat-icon-button aria-label="upload file" (click)="fileInput.click()" matTooltip="צרף מסמך"
+                matTooltipPosition="left" class="icon-button attach">
+                <mat-icon class="icon">attach_file</mat-icon>
+                <input type="file" #fileInput (change)="onFileSelected($event, element)" style="display: none" />
+              </button>
+            </ng-container>
+      
+            <ng-container *ngIf="element.status2 == 1">
+              <span class="document-item">
+                <i class="fa-solid fa-xmark delete-icon" (click)="cancelDocument(element)"></i>
+                <span class="document-text" matTooltip="צפה במסמך" (click)="viewDocument(element.adminFile)">
+                  {{element.document_path2}}
+                </span>
+              </span>
+            </ng-container>
+      
+            <ng-container *ngIf="element.status2 == 2">
+              <span class="document-item">
+                <span class="document-text" matTooltip="צפה במסמך" (click)="download(element.document_path2, element.id+'_'+element.id2)">
+                  {{element.document_path2}}
+                </span>
+              </span>
+            </ng-container>
+          </ng-container>
+      
+          <!-- Customer view -->
+          <ng-template #customerView>
+            <span class="document-item" *ngIf="element.status2 == 2" (click)="download(element.document_path2, element.id+'_'+element.id2)"
+              matTooltip="צפה במסמך">
+              <span class="document-text">
+                {{element.document_path2}}
+              </span>
+            </span>
+            <ng-container *ngIf="element.status2 != 2">
+              <span>לא הועלה</span>
+            </ng-container>
+          </ng-template>
         </mat-cell>
       </ng-container>
+      
 
       <ng-container matColumnDef="created_at">
         <mat-header-cell *matHeaderCellDef>תאריך עדכון</mat-header-cell>

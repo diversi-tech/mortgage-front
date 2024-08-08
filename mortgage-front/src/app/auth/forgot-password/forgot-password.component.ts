@@ -61,6 +61,12 @@ export class ForgotPasswordComponent {
       }
     };
   }
+    //Hidden by default
+    hidePassword = true;
+    //Toggles between hidden and visible state
+    togglePasswordVisibility() {
+      this.hidePassword = !this.hidePassword;
+    }
   //Confirm function and save the new password and go to the login page
   submit(): void {
     if (this.forgotPasswordForm.valid) {
@@ -71,7 +77,7 @@ export class ForgotPasswordComponent {
           this.snackBar.open('הסיסמה עודכנה בהצלחה', 'Close', {
             duration: 5000,
           });
-        this.router.navigate(['/login']);
+        this.router.navigate(['auth/login']);
         },
         (error) => {
           this.snackBar.open('Failed to update password. Please try again.', 'Close', {

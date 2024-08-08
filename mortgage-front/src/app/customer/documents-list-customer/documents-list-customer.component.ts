@@ -311,9 +311,13 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
         else if (!event.includes("Unhandled")) {
           this.dataSource.data.forEach((doc) => {
             if (doc.customerFile) {
+              console.log('customerFile');
+              this.documentService.currentDocuments.find(d=>d.id==doc.id)!.status=2;
               doc.status = 2;
             }
             if (doc.adminFile) {
+              console.log('adminFile');
+              this.documentService.currentDocuments.find(d=>d.id==doc.id)!.status2=2;
               doc.status2 = 2;
             }
             doc.updated_at = new Date();
