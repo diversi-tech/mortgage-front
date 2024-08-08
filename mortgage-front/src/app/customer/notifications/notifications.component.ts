@@ -60,13 +60,11 @@ export class NotificationsComponent implements OnInit {
     this.notificationService.getNotificationsByCustomerId(this.customerId).subscribe({
       next: (res) => {
         this.notifications = res;
-        console.log(res);
-        this.updateChatStatusToRead();
         this.unreadCount = this.notifications.filter(n => !n.isRead).length;
+        this.updateChatStatusToRead();
       },
       error: (error) => {
         console.error('Error fetching notifications', error);
-        // כאן תוכל להוסיף לוגיקה נוספת לטיפול בשגיאה, כמו הצגת הודעה למשתמש
       }
     });
   }
@@ -88,7 +86,7 @@ export class NotificationsComponent implements OnInit {
       return;
     }
     this.notificationService.updateNotificationsStatus(this.unreadNotifications).subscribe({
-      next: (res) => {
+      next: () => {
         console.log("Notifications updated successfully");
         this.unreadCount = 0;
         this.notificationService.hasUnreadNotifications=false;

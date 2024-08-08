@@ -48,7 +48,7 @@ import { loginService } from "./login.service";
   }
 
 
-createUserForLead(user:IUser,leadId:number)
+createUserForLead(user:IUser,leadId:number): Observable<IUser>
 {
     const formData: FormData = new FormData();
     if (user.id !== undefined) formData.append('Id', user.id.toString());
@@ -63,7 +63,7 @@ createUserForLead(user:IUser,leadId:number)
       roleId=0
     else
       roleId=1
-    return this.http.post(`${this.basicURL}Users/Lead${leadId}`, { ...user, role: roleId });
+    return this.http.post<IUser>(`${this.basicURL}Users/Lead${leadId}`, { ...user, role: roleId });
 }
   
   //  createUser(user: User): Observable<User> {

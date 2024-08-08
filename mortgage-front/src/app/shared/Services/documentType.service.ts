@@ -14,7 +14,7 @@ export class DocumentTypeService{
   documentTypes$ = this.documentSubject.asObservable();
 
   constructor(private http: HttpClient,private loginService:loginService) { 
-    debugger
+    
     if(this.loginService.isAdmin())
     this.fetchDocumentTypes().subscribe()
   
@@ -75,8 +75,6 @@ editDocumentType(docType: IDocumentType, id: number): Observable<void> {
   }
 
   getDocsByTransactionType(id:number):Observable<IDocumentType[]> {
-
     return this.http.get<IDocumentType[]>(`${this.basicURL}DocumentTypes/TypesDocument/${id}`)
-
   }
 }
