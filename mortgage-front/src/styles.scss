@@ -200,3 +200,48 @@ tr:hover{
 .high-contrast mat-paginator .mat-icon-button {
   color:yellow !important;
 }
+
+
+
+/* global styles.css */
+
+.high-contrast {
+  background-color: black;
+  color: white;
+}
+
+.large-font {
+  font-size: 150%;
+}
+
+.normal-font {
+  font-size: 100%;
+}
+
+.increased-line-height {
+  line-height: 2;
+}
+
+.normal-line-height {
+  line-height: normal;
+}
+
+.increased-spacing {
+  letter-spacing: 0.1em;
+}
+
+.normal-spacing {
+  letter-spacing: normal;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.text-align-right {
+  text-align: right;
+}

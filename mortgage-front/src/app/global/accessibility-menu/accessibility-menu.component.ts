@@ -30,7 +30,6 @@ export class AccessibilityMenuComponent {
       this.textToSpeechEnabled = localStorage.getItem('textToSpeechEnabled') === 'true';
       this.textSpacingEnabled = localStorage.getItem('textSpacingEnabled') === 'true';
       const textAlign = localStorage.getItem('textAlign');
-
       if (textAlign) {
         this.textAlignEnabled = {
           left: textAlign === 'left',
@@ -40,12 +39,12 @@ export class AccessibilityMenuComponent {
       }
 
       if (this.highContrastEnabled) {
-        this.renderer.addClass(document.documentElement, 'high-contrast');
+        this.renderer.addClass(document.body, 'high-contrast');
       }
       this.toggleFontSize(this.fontSizeEnabled);
       this.toggleLineHeight(this.lineHeightEnabled);
       this.toggleTextSpacing(this.textSpacingEnabled);
-      if (textAlign&&(textAlign=='left' ||textAlign=='center' ||textAlign== 'right')) {
+      if (textAlign && (textAlign == 'left' || textAlign == 'center' || textAlign == 'right')) {
         this.toggleTextAlign(true, textAlign);
       }
       if (this.textToSpeechEnabled) {
@@ -53,19 +52,21 @@ export class AccessibilityMenuComponent {
       }
     }
   }
- isMenuOpen = false;
+
+  isMenuOpen = false;
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
+
   toggleHighContrast() {
     this.highContrastEnabled = !this.highContrastEnabled;
     const className = 'high-contrast';
 
     if (this.highContrastEnabled) {
-      this.renderer.addClass(document.documentElement, className);
+      this.renderer.addClass(document.body, className);
     } else {
-      this.renderer.removeClass(document.documentElement, className);
+      this.renderer.removeClass(document.body, className);
     }
 
     if (this.isLocalStorageAvailable()) {
@@ -90,7 +91,7 @@ export class AccessibilityMenuComponent {
   toggleFontSize(enable: boolean) {
     this.fontSizeEnabled = enable;
     const size = enable ? '150%' : '100%';
-    document.documentElement.style.fontSize = size;
+    this.renderer.setStyle(document.body, 'fontSize', size);
 
     if (this.isLocalStorageAvailable()) {
       localStorage.setItem('fontSizeEnabled', enable.toString());
@@ -101,7 +102,7 @@ export class AccessibilityMenuComponent {
   toggleLineHeight(enable: boolean) {
     this.lineHeightEnabled = enable;
     const lineHeight = enable ? '2' : 'normal';
-    document.documentElement.style.lineHeight = lineHeight;
+    this.renderer.setStyle(document.body, 'lineHeight', lineHeight);
 
     if (this.isLocalStorageAvailable()) {
       localStorage.setItem('lineHeightEnabled', enable.toString());
@@ -110,12 +111,11 @@ export class AccessibilityMenuComponent {
   }
 
   toggleTextAlign(enable: boolean, align: 'left' | 'center' | 'right') {
-    
     this.textAlignEnabled = { left: false, center: false, right: false };
     this.textAlignEnabled[align] = enable;
 
     const alignment = enable ? align : 'initial';
-    document.documentElement.style.textAlign = alignment;
+    this.renderer.setStyle(document.body, 'textAlign', alignment);
 
     if (this.isLocalStorageAvailable()) {
       localStorage.setItem('textAlign', enable ? align : 'initial');
@@ -125,7 +125,7 @@ export class AccessibilityMenuComponent {
   toggleTextSpacing(enable: boolean) {
     this.textSpacingEnabled = enable;
     const spacing = enable ? '0.1em' : 'normal';
-    document.documentElement.style.letterSpacing = spacing;
+    this.renderer.setStyle(document.body, 'letterSpacing', spacing);
 
     if (this.isLocalStorageAvailable()) {
       localStorage.setItem('textSpacingEnabled', enable.toString());
