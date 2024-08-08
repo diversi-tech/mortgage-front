@@ -1,59 +1,146 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Component, Renderer2, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'accessibility-menu',
   templateUrl: './accessibility-menu.component.html',
-  styleUrl: './accessibility-menu.component.css'
+  styleUrls: ['./accessibility-menu.component.css']
 })
 export class AccessibilityMenuComponent {
   highContrastEnabled = false;
-  selectedColor = 'default';
+  fontSizeEnabled = false;
+  lineHeightEnabled = false;
+  textAlignEnabled = { left: false, center: false, right: false };
+  textSpacingEnabled = false;
+  textToSpeechEnabled = false;
+
   @ViewChild('keyboardContainer', { static: false })
   keyboardContainer!: ElementRef;
 
-  constructor(private renderer: Renderer2,private el: ElementRef) {}
+  constructor(private renderer: Renderer2, private el: ElementRef) {}
+
   ngOnInit(): void {
-    // const isHighContrast = localStorage.getItem('highContrast') === 'true';
-    // if (isHighContrast) {
-    //   this.renderer.addClass(document.body, 'high-contrast');
-    // }
+    this.applySavedSettings();
+  }
+
+  applySavedSettings() {
+    if (this.isLocalStorageAvailable()) {
+      this.highContrastEnabled = localStorage.getItem('highContrast') === 'true';
+      this.fontSizeEnabled = localStorage.getItem('fontSizeEnabled') === 'true';
+      this.lineHeightEnabled = localStorage.getItem('lineHeightEnabled') === 'true';
+      this.textToSpeechEnabled = localStorage.getItem('textToSpeechEnabled') === 'true';
+      this.textSpacingEnabled = localStorage.getItem('textSpacingEnabled') === 'true';
+      const textAlign = localStorage.getItem('textAlign');
+
+      if (textAlign) {
+        this.textAlignEnabled = {
+          left: textAlign === 'left',
+          center: textAlign === 'center',
+          right: textAlign === 'right'
+        };
+      }
+
+      if (this.highContrastEnabled) {
+        this.renderer.addClass(document.documentElement, 'high-contrast');
+      }
+      this.toggleFontSize(this.fontSizeEnabled);
+      this.toggleLineHeight(this.lineHeightEnabled);
+      this.toggleTextSpacing(this.textSpacingEnabled);
+      if (textAlign&&(textAlign=='left' ||textAlign=='center' ||textAlign== 'right')) {
+        this.toggleTextAlign(true, textAlign);
+      }
+      if (this.textToSpeechEnabled) {
+        this.toggleTextToSpeech(true);
+      }
+    }
+  }
+ isMenuOpen = false;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
   toggleHighContrast() {
-      document.body.classList.toggle('high-contrast');
+    this.highContrastEnabled = !this.highContrastEnabled;
+    const className = 'high-contrast';
+
+    if (this.highContrastEnabled) {
+      this.renderer.addClass(document.documentElement, className);
+    } else {
+      this.renderer.removeClass(document.documentElement, className);
+    }
+
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem('highContrast', this.highContrastEnabled.toString());
+    }
   }
+
   toggleTextToSpeech(enabled: boolean) {
+    this.textToSpeechEnabled = enabled;
+
     if (enabled) {
       window.speechSynthesis.speak(new SpeechSynthesisUtterance(document.body.innerText));
     } else {
       window.speechSynthesis.cancel();
     }
+
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem('textToSpeechEnabled', enabled.toString());
+    }
   }
+
   toggleFontSize(enable: boolean) {
-    if (enable) {
-      document.body.style.fontSize = '50px';  // Updated to a reasonable large size
-    } else {
-      document.body.style.fontSize = '16px';  // Default size
+    this.fontSizeEnabled = enable;
+    const size = enable ? '150%' : '100%';
+    document.documentElement.style.fontSize = size;
+
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem('fontSizeEnabled', enable.toString());
+      localStorage.setItem('fontSize', size);
     }
   }
+
   toggleLineHeight(enable: boolean) {
-    if (enable) {
-      document.body.style.lineHeight = '2';  // Double line height
-    } else {
-      document.body.style.lineHeight = 'normal';  // Default line height
+    this.lineHeightEnabled = enable;
+    const lineHeight = enable ? '2' : 'normal';
+    document.documentElement.style.lineHeight = lineHeight;
+
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem('lineHeightEnabled', enable.toString());
+      localStorage.setItem('lineHeight', lineHeight);
     }
   }
-  toggleTextAlign(enable: boolean, align: string) {
-    if (enable) {
-      document.body.style.textAlign = align;
-    } else {
-      document.body.style.textAlign = 'initial';  // Default text align
+
+  toggleTextAlign(enable: boolean, align: 'left' | 'center' | 'right') {
+    
+    this.textAlignEnabled = { left: false, center: false, right: false };
+    this.textAlignEnabled[align] = enable;
+
+    const alignment = enable ? align : 'initial';
+    document.documentElement.style.textAlign = alignment;
+
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem('textAlign', enable ? align : 'initial');
     }
   }
+
   toggleTextSpacing(enable: boolean) {
-    if (enable) {
-      document.body.style.letterSpacing = '0.1em';  // Wide spacing
-    } else {
-      document.body.style.letterSpacing = 'normal';  // Default spacing
+    this.textSpacingEnabled = enable;
+    const spacing = enable ? '0.1em' : 'normal';
+    document.documentElement.style.letterSpacing = spacing;
+
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem('textSpacingEnabled', enable.toString());
+      localStorage.setItem('letterSpacing', spacing);
+    }
+  }
+
+  private isLocalStorageAvailable(): boolean {
+    try {
+      const testKey = '__test__';
+      localStorage.setItem(testKey, testKey);
+      localStorage.removeItem(testKey);
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 }

@@ -30,28 +30,20 @@
     width: 60%;
     margin-left: 327px; 
     background-color: #333;
-    /* צבע רקע */
     color: black;
-    border: 2px solid red; /* גבול כדי לבדוק אם המקלדת מופיעה */
+    border: 2px solid red; 
 }
 .simple-keyboard .hg-button {
     background-color: #555;
-    /* צבע כפתורים */
     color: #fff;
-    /* צבע טקסט כפתורים */
     border-radius: 5px;
-    /* שינוי עיגול פינות הכפתורים */
     border: 1px solid #000;
-    /* גבול לכפתורים */
     font-size: 16px;
-    /* גודל טקסט */
 }
 .simple-keyboard .hg-button:hover {
     background-color: #777;
-    /* צבע כפתורים במעבר עכבר */
 }
 
 .simple-keyboard .hg-button:active {
     background-color: #999;
-    /* צבע כפתורים בעת לחיצה */
 }
