@@ -15,6 +15,7 @@ import { NavigationMenuComponent } from './navigation-menu/navigation-menu.compo
 import { RouterModule } from '@angular/router';
 import { CustomerModule } from '../customer/customer.module';
 import { NotificationsComponent } from '../customer/notifications/notifications.component';
+import { AccessibilityMenuComponent } from './accessibility-menu/accessibility-menu.component';
 
 //import { NotificationsComponent } from '../customer/notifications/notifications.component';
 //import { CustomerModule } from '../customer/customer.module';
@@ -27,6 +28,7 @@ import { NotificationsComponent } from '../customer/notifications/notifications.
     FooterComponent,
     ToolbarComponent,
     NavigationMenuComponent,
+    AccessibilityMenuComponent,
     //NotificationsComponent
   ],
   imports: [
@@ -41,6 +43,7 @@ import { NotificationsComponent } from '../customer/notifications/notifications.
     FooterComponent,
     ToolbarComponent,
     NavigationMenuComponent,
+    AccessibilityMenuComponent
    // NotificationsComponent
   ]
 })

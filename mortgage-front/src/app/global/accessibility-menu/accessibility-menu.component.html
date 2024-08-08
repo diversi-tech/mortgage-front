@@ -1,0 +1,79 @@
+<div class="accessibility-button">
+  <button mat-fab color="primary" (click)="toggleMenu()" class="access">
+    <mat-icon style="float: right;">accessible</mat-icon>
+  </button>
+</div>
+
+<div class="side-menu" [class.open]="isMenuOpen">
+  <div class="container-item">
+    <mat-icon>volume_up</mat-icon>
+    <span>הקראת האתר</span>
+    <mat-slide-toggle 
+      (change)="toggleTextToSpeech($event.checked)"
+      [checked]="textToSpeechEnabled">
+    </mat-slide-toggle>
+  </div>
+
+  <div class="container-item">
+      <mat-icon>contrast</mat-icon>
+      <span>ניגודיות</span>
+      <mat-slide-toggle  
+        (change)="toggleHighContrast()"
+        [checked]="highContrastEnabled">
+      </mat-slide-toggle>
+  </div>
+
+  <div class="container-item">
+    <mat-icon>format_size</mat-icon>
+    <span>הגדל גודל גופן</span>
+    <mat-slide-toggle 
+      (change)="toggleFontSize($event.checked)"
+      [checked]="fontSizeEnabled">
+    </mat-slide-toggle>
+  </div>
+
+  <div class="container-item">
+    <mat-icon>height</mat-icon>
+    <span>הגדל גובה שורה</span>
+    <mat-slide-toggle 
+      (change)="toggleLineHeight($event.checked)"
+      [checked]="lineHeightEnabled">
+    </mat-slide-toggle>
+  </div>
+
+  <div class="container-item">
+    <mat-icon>format_align_left</mat-icon>
+    <span>יישור טקסט לשמאל</span>
+    <mat-slide-toggle 
+      (change)="toggleTextAlign($event.checked, 'left')"
+      [checked]="textAlignEnabled.left">
+    </mat-slide-toggle>
+  </div>
+
+  <div class="container-item">
+    <mat-icon>format_align_center</mat-icon>
+    <span>יישור טקסט למרכז</span>
+    <mat-slide-toggle 
+      (change)="toggleTextAlign($event.checked, 'center')"
+      [checked]="textAlignEnabled.center">
+    </mat-slide-toggle>
+  </div>
+
+  <div class="container-item">
+    <mat-icon>format_align_right</mat-icon>
+    <span>יישור טקסט לימין</span>
+    <mat-slide-toggle 
+      (change)="toggleTextAlign($event.checked, 'right')"
+      [checked]="textAlignEnabled.right">
+    </mat-slide-toggle>
+  </div>
+
+  <div class="container-item">
+    <mat-icon>space_bar</mat-icon>
+    <span>ריווח טקסט רחב</span>
+    <mat-slide-toggle 
+      (change)="toggleTextSpacing($event.checked)"
+      [checked]="textSpacingEnabled">
+    </mat-slide-toggle>
+  </div>
+</div>
