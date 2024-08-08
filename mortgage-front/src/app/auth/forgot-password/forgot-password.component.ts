@@ -22,9 +22,6 @@ export class ForgotPasswordComponent {
       ],
       confirmPassword: ['', Validators.required]
     }, { validator: this.mustMatch('newPassword', 'confirmPassword') });
-
-
-  
     
   }
 
@@ -73,7 +70,6 @@ export class ForgotPasswordComponent {
       const newPassword1=this.forgotPasswordForm.get('newPassword')!.value;
       this.loginService.updatePassword(newPassword1,this.id).subscribe(
        (response)  => {
-          console.log("response from put",response);
           this.snackBar.open('הסיסמה עודכנה בהצלחה', 'Close', {
             duration: 5000,
           });

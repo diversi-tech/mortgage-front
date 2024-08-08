@@ -1,0 +1,47 @@
+<div class="accessibility-button">
+    <button mat-fab color="primary" [matMenuTriggerFor]="menu" [matMenuTriggerRestoreFocus]="false">
+      <mat-icon>accessible</mat-icon>
+    </button>
+  </div>
+  <mat-menu #menu="matMenu" class="large-menu">
+    <div class="container-item">
+      <mat-icon>volume_up</mat-icon>
+      <span>הקראת האתר</span>
+      <mat-slide-toggle (click)="$event.stopPropagation()" (change)="toggleTextToSpeech($event.checked)"></mat-slide-toggle>
+    </div>
+    <div class="container-item">
+        <mat-icon>contrast</mat-icon>
+        <span>ניגודיות</span>
+        <mat-slide-toggle (click)="$event.stopPropagation()" (change)=" toggleHighContrast()"></mat-slide-toggle>
+      </div>
+    <div class="container-item">
+      <mat-icon>format_size</mat-icon>
+      <span>הגדל גודל גופן</span>
+      <mat-slide-toggle (click)="$event.stopPropagation()" (change)="toggleFontSize($event.checked)"></mat-slide-toggle>
+    </div>
+    <div class="container-item">
+      <mat-icon>height</mat-icon>
+      <span>הגדל גובה שורה</span>
+      <mat-slide-toggle (click)="$event.stopPropagation()" (change)="toggleLineHeight($event.checked)"></mat-slide-toggle>
+    </div>
+    <div class="container-item">
+      <mat-icon>format_align_left</mat-icon>
+      <span>יישור טקסט לשמאל</span>
+      <mat-slide-toggle (click)="$event.stopPropagation()" (change)="toggleTextAlign($event.checked, 'left')"></mat-slide-toggle>
+    </div>
+    <div class="container-item">
+      <mat-icon>format_align_center</mat-icon>
+      <span>יישור טקסט למרכז</span>
+      <mat-slide-toggle (click)="$event.stopPropagation()" (change)="toggleTextAlign($event.checked, 'center')"></mat-slide-toggle>
+    </div>
+    <div class="container-item">
+      <mat-icon>format_align_right</mat-icon>
+      <span>יישור טקסט לימין</span>
+      <mat-slide-toggle (click)="$event.stopPropagation()" (change)="toggleTextAlign($event.checked, 'right')"></mat-slide-toggle>
+    </div>
+    <div class="container-item">
+      <mat-icon>space_bar</mat-icon>
+      <span>ריווח טקסט רחב</span>
+      <mat-slide-toggle (click)="$event.stopPropagation()" (change)="toggleTextSpacing($event.checked)"></mat-slide-toggle>
+    </div>
+  </mat-menu>
