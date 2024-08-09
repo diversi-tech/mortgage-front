@@ -8,25 +8,19 @@ import { log } from "console";
 
 @Injectable()
 export class customerService {
-  readonly basicURL = environment.apiURL+"/api/";
+  readonly basicURL = `${environment.apiURL}/api/`;
   private customersSubject = new BehaviorSubject<ICustomer[]>([]);
   customers$ = this.customersSubject.asObservable();
-
     constructor(private http: HttpClient) {
-  }
-
-
-  fetchCustomers(): Observable<ICustomer[]> {
+  }  fetchCustomers(): Observable<ICustomer[]> {
     return this.http.get<ICustomer[]>(`${this.basicURL}Customers`)
       .pipe(
         tap(customers => this.customersSubject.next(customers)),
         catchError(error => {
-          // console.error('Error fetching customers:', error);
           throw error;
         })
       );
   }
-
   deleteCustomer(customerId: number): Observable<any> {
     const deleteUrl = `${this.basicURL}Customers/${customerId}`;
     return this.http.delete(deleteUrl)
@@ -36,7 +30,6 @@ export class customerService {
           this.customersSubject.next(updatedCustomers);
         }),
         catchError(error => {
-          // console.error('Error deleting customer:', error);
           throw error;
         })
       );

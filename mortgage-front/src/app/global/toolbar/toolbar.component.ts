@@ -23,7 +23,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   private subscription?: Subscription;
 
   constructor(
-    private NavigationMenuToggleService: NavigatioMenuToggleService,
+    public NavigationMenuToggleService: NavigatioMenuToggleService,
     public notificationService: NotificationService,
     public documentService: DocumentsListCustomerService,
     private customerService: customerService,
@@ -35,7 +35,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.NavigationMenuToggleService.toggle();
     this.notificationService.checkNotifications();
     // Subscribe to selectedDocuments changes
-    this.subscription = this.documentService.selectedDocuments$.subscribe(() => {
+    this.subscription = this.documentService.currentDocuments$.subscribe(() => {
       this.documentService.checkPendingDocuments();
     });
   }
@@ -59,9 +59,7 @@ logOut(){
 this.notificationService.checkNotifications();
 this.documentService.checkPendingDocuments();
   }
-  toggleNavigationMenu() {
-    this.NavigationMenuToggleService.toggle();
-  }
+
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any): void {
     if (this.documentService.hasNotSavedDoc) {

@@ -14,14 +14,9 @@ export class DocumentTypeService{
   documentTypes$ = this.documentSubject.asObservable();
 
   constructor(private http: HttpClient,private loginService:loginService) { 
-    
     if(this.loginService.isAdmin())
     this.fetchDocumentTypes().subscribe()
-  
-
    }
-
-
   fetchDocumentTypes(): Observable<IDocumentType[]> {
     return this.http.get<IDocumentType[]>(`${this.basicURL}DocumentTypes`)
       .pipe(
@@ -32,7 +27,6 @@ export class DocumentTypeService{
         })
       );
   }
-
   deleteDocumentType(DocumentTypeId: number): Observable<any> {
     const deleteUrl = `${this.basicURL}DocumentTypes/${DocumentTypeId}`;
     return this.http.delete(deleteUrl)
@@ -48,9 +42,18 @@ export class DocumentTypeService{
       );
   }
 
-  addDocumentType(docType: IDocumentType):Observable<any> {
-    return this.http.post(`${this.basicURL}DocumentTypes`, docType);
-}
+  addDocumentType(docType: IDocumentType): Observable<any> {
+    return this.http.post<IDocumentType>(`${this.basicURL}DocumentTypes`, docType)
+      .pipe(
+        tap(newDocType => {
+          const currentDocumentTypes = this.documentSubject.getValue();
+          this.documentSubject.next([...currentDocumentTypes, newDocType]);
+        }),
+        catchError(error => {
+          throw error;
+        })
+      );
+  }
 
 editDocumentType(docType: IDocumentType, id: number): Observable<void> {
   return this.http.put<void>(`${this.basicURL}DocumentTypes/${id}`, docType).pipe(
@@ -77,4 +80,5 @@ editDocumentType(docType: IDocumentType, id: number): Observable<void> {
   getDocsByTransactionType(id:number):Observable<IDocumentType[]> {
     return this.http.get<IDocumentType[]>(`${this.basicURL}DocumentTypes/TypesDocument/${id}`)
   }
+  
 }

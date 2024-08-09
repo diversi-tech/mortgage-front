@@ -17,22 +17,22 @@ export class DocumentsListCustomerService {
   private documentsSubject = new BehaviorSubject<IDocument[]>([]);
   documents$ = this.documentsSubject.asObservable();
 
-  private selectedDocumentsSubject = new BehaviorSubject<(IDocument)[]>([]);
-  selectedDocuments$ = this.selectedDocumentsSubject.asObservable();
+  private currentDocumentsSubject = new BehaviorSubject<(IDocument)[]>([]);
+  currentDocuments$ = this.currentDocumentsSubject.asObservable();
 
-  private _selectedDocuments: (IDocument)[] = [];
+  private _currentDocuments: (IDocument)[] = [];
 
   constructor(private http: HttpClient,
     private customerService: customerService,
     private loginService: loginService) { }
 
-  get selectedDocuments(): (IDocument)[] {
-    return this._selectedDocuments;
+  get currentDocuments(): (IDocument)[] {
+    return this._currentDocuments;
   }
 
-  set selectedDocuments(documents: (IDocument)[]) {
-    this._selectedDocuments = documents;
-    this.selectedDocumentsSubject.next(documents);
+  set currentDocuments(documents: (IDocument)[]) {
+    this._currentDocuments = documents;
+    this.currentDocumentsSubject.next(documents);
   }
 
   getDocumentsTypesById(customerId: number): Observable<IDocumentType[]> {
@@ -43,11 +43,11 @@ export class DocumentsListCustomerService {
   }
   
   addDocument(document: IDocument): Observable<IDocument> {
-    return this.http.post<IDocument>(`${this.apiUrl}/CustomerTasksControllercs/addDocuments`, document);
+    return this.http.post<IDocument>(`${this.apiUrl}/CustomerTasksControllercs`, document);
   }
 
   addDocuments(documents: IDocument[]): Observable<IDocument[]> {
-    return this.http.post<IDocument[]>(`${this.apiUrl}/CustomerTasksControllercs`, documents);
+    return this.http.post<IDocument[]>(`${this.apiUrl}/CustomerTasksControllercs/addDocuments`, documents);
   }
 
   getAllDocuments(): Observable<IDocument[]> {
@@ -72,40 +72,40 @@ export class DocumentsListCustomerService {
     return this.http.put<any>(this.apiUrl + `/CustomerTasksControllercs`, documents)
       .pipe(
         catchError(error => {
-          console.error('שגיאה בעדכון מסמכים בשרת:', error);
-          return throwError('משהו השתבש בעדכון המסמכים. נסה שוב מאוחר יותר.');
+          console.error('Error updating documents on the server:', error);
+          return throwError('Something went wrong updating the documents. Please try again later.');
         })
       );
   }
-  // fetchDocumentsTypesByCustomerId(customerId: number): Observable<IDocumentType[]> {
-  //   return this.http.get<IDocumentType[]>(`${this.apiUrl}/DocumentTypes/${customerId}`);
-  // }
+
   deleteDocument(docId: number) {
     return this.http.delete(`${this.apiUrl}/CustomerTasksControllercs/${docId}`);
   }
+
   updateDocument(docId: number, documentData: any) {
     return this.http.put(`${this.apiUrl}/CustomerTasksControllercs/${docId}`, documentData);
   }
+
   createDocument(documentData: any) {
     return this.http.post(`${this.apiUrl}/CustomerTasksControllercs`, documentData);
   }
+  
   getCustomerByDocumentId(doc: IDocument): ICustomer | undefined {
     console.log(doc);
-    var customer = this.customerService.getCustomerById(doc?.customer_Id || 0);
-    console.log("customer=" + customer);
-
+    var customer = this.customerService.getCustomerById(doc?.customer_Id!);
     return customer;
   }
 
   hasNotSavedDoc: boolean = false;
   hasPendingDocuments: boolean = false;
   checkPendingDocuments() {
+    if(!this._currentDocuments||!this._currentDocuments[0])
     this.fetchDocumentsByCustomerId(this.loginService.GetCurrentUser().customerId).subscribe(
       (documents) => {
         this.documentsSubject.next(documents);
         this.documents$.subscribe(
           (documents) => {
-            this.hasNotSavedDoc = this.selectedDocuments.filter(file => file != null && file != undefined).length > 0;
+            this.hasNotSavedDoc = this.currentDocuments.filter(file => file != null && file != undefined).length > 0;
             this.hasPendingDocuments = documents.some(document => document.status === 0);
           },
           (error) => {
@@ -117,6 +117,10 @@ export class DocumentsListCustomerService {
         console.error('Error fetching documents:', error);
       }
     )
-
+    else{
+      this.hasNotSavedDoc = this.currentDocuments.filter(file => file != null && file != undefined).length > 0;
+      this.hasPendingDocuments = this._currentDocuments.some(document =>{ document.status == 0;console.log(document);
+      });
+    }
   }
 }

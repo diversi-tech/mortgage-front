@@ -18,7 +18,7 @@ export class DataVisualizationComponent implements OnInit {
 
   constructor(private _serviceCustomer: customerService, private leadService: leadService, private documentService: DocumentsListCustomerService) {
     this._serviceCustomer.fetchCustomers().subscribe();
-   }
+  }
   customers: ICustomer[] = [];
   leads: ILead[] = [];
   documents: IDocument[] = [];
@@ -67,7 +67,7 @@ export class DataVisualizationComponent implements OnInit {
     return counts;
   }
   async initializeChart1() {
-    
+
     var leadCount = this.leads.length;
     var customerCount = this.customers.length;
     var familyStatusCounts = this.getFamilyStatusCounts();

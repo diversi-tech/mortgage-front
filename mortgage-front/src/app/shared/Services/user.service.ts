@@ -9,6 +9,7 @@ import { loginService } from "./login.service";
 
 
 @Injectable()
+
  export class UserService {
   readonly basicURL =environment.apiURL+"/api/";
   private usersSubject = new BehaviorSubject<IUser[]>([]);
@@ -17,13 +18,13 @@ import { loginService } from "./login.service";
     if(this.loginservice.isAdmin())
     this.fetchUsers().subscribe();
    }
-
+   
   fetchUsers(): Observable<IUser[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
-      withCredentials: true // שורה זו חשובה לפיתוח
+      withCredentials: true // this line is important for developing
     };
     return this.http.get<IUser[]>(`${this.basicURL}Users`, httpOptions)
       .pipe(
@@ -35,6 +36,21 @@ import { loginService } from "./login.service";
       );
   }
 
+  deleteUserById(id: number): Observable<any> {
+    return this.http.delete(`${this.basicURL}Users/${id}`)
+      .pipe(
+        tap(() => {
+          const currentUsers = this.usersSubject.getValue();
+          const updatedUsers = currentUsers.filter(user => user.id !== id);
+          this.usersSubject.next(updatedUsers);
+        }),
+        catchError(error => {
+          console.error('Error deleting user:', error);
+          throw error;
+        })
+      );
+  }
+  
   createUser(user: IUser) {
     const formData: FormData = new FormData();
     if (user.id !== undefined) formData.append('Id', user.id.toString());
@@ -48,8 +64,7 @@ import { loginService } from "./login.service";
   }
 
 
-createUserForLead(user:IUser,leadId:number): Observable<IUser>
-{
+  createUserForLead(user: IUser, leadId: number): Observable<IUser> {
     const formData: FormData = new FormData();
     if (user.id !== undefined) formData.append('Id', user.id.toString());
     if (user.userName !== undefined) formData.append('UserName', user.userName);
@@ -59,41 +74,13 @@ createUserForLead(user:IUser,leadId:number): Observable<IUser>
     if (user.created_at !== undefined) formData.append('Created_at', user.created_at.toISOString());
     if (user.updated_at !== undefined) formData.append('Updated_at', user.updated_at.toISOString());
     let roleId;
-    if(user.role==Role.Admin)
-      roleId=0
+    if (user.role == Role.Admin)
+      roleId = 0;
     else
-      roleId=1
+      roleId = 1;
     return this.http.post<IUser>(`${this.basicURL}Users/Lead${leadId}`, { ...user, role: roleId });
-}
+  }
   
-  //  createUser(user: User): Observable<User> {
-  //   console.log("in addLead");
-  //   const updateUrl = `${this.basicURL}Users/`;
-  //   console.log(updateUrl);
-  //   return this.http.post<User>(updateUrl, user)
-  //     .pipe(
-  //       tap(() => {
-  //         console.log("in addLead tap");
-  //         const users = this.usersSubject.getValue();
-  //         this.usersSubject.next([...users, user]);
-  //         this.fetchUsers().subscribe(); // אתחול לקוח
-  //         console.log("id:" + user?.id);
-  //       }),
-  //       catchError(error => {
-  //         console.error('Error added customer:', error);
-  //         throw error;
-  //       })
-  //     );
-  // }
-  //  createUser(user: User): Observable<User> {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json'
-  //     }),
-  //     withCredentials: true
-  //   };
-  //   return this.http.post<User>(`${this.basicURL}Users`, user, httpOptions);
-  // }
 
   IsExist(user: IUser): Observable<string> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });  
@@ -124,7 +111,6 @@ createUserForLead(user:IUser,leadId:number): Observable<IUser>
       })
     );
   }
-  
 
   
   updateUser(updatedUser: IUser): Observable<IUser> {
@@ -148,5 +134,8 @@ createUserForLead(user:IUser,leadId:number): Observable<IUser>
     .pipe(
       tap(() => { this.fetchUsers().subscribe(); }))
   }
+
+
+
 }
 

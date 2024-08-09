@@ -48,7 +48,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
   @Input() documentUpdate: Subject<void> | undefined;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
   @ViewChildren('myCheckbox') checkboxes!: QueryList<MatCheckbox>;
 
   constructor(private documentService: DocumentsListCustomerService,
@@ -84,17 +84,16 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   }
   //To display the customer who typed his name
   displayCustomer(customer: ICustomer): string {
-    return customer && customer.first_Name ? customer.first_Name : '';
+    return customer && customer.first_Name ? customer.first_Name + ' ' + customer.last_Name : '';
   }
 
   async onCustomerSelected(customer: ICustomer) {
     this.customerId = customer.id!;
     if (typeof window && window.sessionStorage != undefined)
       window.sessionStorage.setItem("customerId", this.customerId.toString())!;
-    this.documentService.fetchDocumentsByCustomerId(customer.id || 0).subscribe({
+    this.documentService.fetchDocumentsByCustomerId(customer.id!).subscribe({
       next: documents => {
         this.dataSource.data = documents;
-        this.dataSource.paginator = this.paginator;
       },
       error: error => {
         console.error('Error loading documents for customer:', error);
@@ -124,8 +123,10 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       if (typeof window && window.sessionStorage != undefined) {
         let currentId = +window.sessionStorage.getItem("customerId")!;
         if (currentId) {
-          this.fetchDocumentTypes();
           this.customerId = currentId;
+        }
+        if (!this.documentService.currentDocuments) {
+          this.fetchDocumentTypes();
         }
       }
       this.loadDocuments();
@@ -134,6 +135,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
 
     else {
       this.fetchDocumentTypes();
+
       this.customerId = this.loginService.GetCurrentUser().customerId!;
       }
 
@@ -142,17 +144,15 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       this.fetchDocumentTypes();
        this.customerId = this.loginService.GetCurrentUser().customerId!;
        console.log("this.customerId",this.customerId);
-        
-      });
-    
+      });  
     
     
     this.loadDocuments();
-    if (this.customerId)
+    if (this.customerId) {
       this.documentService.fetchDocumentsByCustomerId(this.customerId).subscribe({
         next: documents => {
           documents.forEach((file) => {
-            let tempDoc = this.documentService.selectedDocuments.filter(doc => doc.id == file.id);
+            let tempDoc = this.documentService.currentDocuments.filter(doc => doc.id == file.id);
             if (tempDoc[0]) {
               if (this.loginService.isAdmin()) {
                 file.status2 = tempDoc[0].status2;
@@ -163,20 +163,18 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
                 file.status = tempDoc[0].status;
                 file.document_path = tempDoc[0].document_path;
                 file.customerFile = tempDoc[0].customerFile;
-
               }
-
             }
-            this.documentService.selectedDocuments.push(file);
+            this.documentService.currentDocuments.push(file);
           })
           this.dataSource.data = documents;
-          this.dataSource.paginator = this.paginator;
         },
         error: error => {
           console.error('Error loading documents for customer:', error);
         }
       });
    
+    }
   }
 
   ngAfterViewInit() {
@@ -189,12 +187,9 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     return checkboxArray[index] ? checkboxArray[index].checked : false;
   }
   loadDocuments(): void {
-    console.log('in load');
-
     this.documentSubscription = this.documentService.documents$.subscribe({
       next: documents => {
         this.dataSource.data = documents;
-        this.dataSource.paginator = this.paginator;
       },
       error: error => {
         console.error('Error loading documents:', error);
@@ -202,17 +197,11 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
   documentTypes: IDocumentType[] = [];
   fetchDocumentTypes() {
     this.documentService.getAllDocumentType().subscribe(
       (response) => {
         this.documentTypes = response;
-        console.log("fetch document type");
-        
       },
       (error) => {
         console.error('Error fetching document types:', error);
@@ -222,14 +211,12 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   onCheckboxChange(checked: boolean, document: IDocument): void {
     if (checked == true) {
       this.isOkCount++;
-      console.log("this.isOkCount=" + this.isOkCount);
       document.isOk = true;
     }
 
     else {
       this.isOkCount--;
       console.log("this.isOkCount=" + this.isOkCount);
-      document.isOk = false;
     }
   }
 
@@ -247,10 +234,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     this.transactionTypeString = TransactionType[trans!];
     return this.transactionTypeString;
   }
-
-
   onFileSelected(event: any, document: IDocument): void {
-    // document.document_path
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
@@ -258,14 +242,13 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
         document.adminFile = file
         document.document_path2 = file.name;
         document.status2 = 1;
-        console.log('in select doc=' + document);
       }
       else {
         document.customerFile = file;
         document.document_path = file.name;
         document.status = 1;
       }
-      this.documentService.selectedDocuments.forEach(doc => {
+      this.documentService.currentDocuments.forEach(doc => {
         if (doc.id == document.id) {
           if (this.loginService.isAdmin()) {
             doc.adminFile = file;
@@ -279,30 +262,30 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
           }
         }
       })
-      var tempList = this.documentService.selectedDocuments
-      this.documentService.selectedDocuments = tempList;
     }
+    this.documentService.hasPendingDocuments = this.documentService.currentDocuments.some(doc => doc.status == 0)
   }
 
   cancelDocument(document1: IDocument): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { document1 } 
+      data: { document1 }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        let i = this.documentService.currentDocuments.findIndex(doc => doc.id == document1.id);
         if (this.loginService.isAdmin()) {
-          document1.adminFile = undefined;
-          document1.status2 = 0;
-          document1.document_path2 = undefined;
+          this.documentService.currentDocuments[i].adminFile = document1.adminFile = undefined;
+          this.documentService.currentDocuments[i].status2 = document1.status2 = 0;
+          this.documentService.currentDocuments[i].document_path2 = document1.document_path2 = undefined;
+          this.documentService.hasPendingDocuments = true
         } else {
-          document1.customerFile = undefined;
-          document1.status = 0;
-          document1.document_path = undefined;
+          this.documentService.currentDocuments[i].customerFile = document1.customerFile = undefined;
+          this.documentService.currentDocuments[i].status = document1.status = 0;
+          this.documentService.currentDocuments[i].document_path = document1.document_path = undefined;
+          this.documentService.hasPendingDocuments = true
         }
         if (document1.isOk)
           this.isOkCount--;
-        var tempList = this.documentService.selectedDocuments
-        this.documentService.selectedDocuments = tempList;
       }
     });
   }
@@ -329,19 +312,16 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   }
 
   saveFiles() {
-    console.log('data=:');
-    console.log(this.dataSource.data);
-
+    var localcurrentDocuments;
     if (this.loginService.isAdmin()) {
-      this.documentService.selectedDocuments = (this.dataSource.data
-        .filter(obj => obj.adminFile !== undefined && obj.adminFile !== null)) 
+      localcurrentDocuments = (this.dataSource.data
+        .filter(obj => obj.adminFile !== undefined && obj.adminFile !== null)) // filter out undefined and null
     }
     else {
-      this.documentService.selectedDocuments = this.dataSource.data
-        .filter(obj => obj.customerFile !== undefined && obj.customerFile !== null) 
+      localcurrentDocuments = this.dataSource.data
+        .filter(obj => obj.customerFile !== undefined && obj.customerFile !== null) // filter out undefined and null
     }
-    let countNotNullOrUndefined = this.documentService.selectedDocuments.filter(value => value !== null && value !== undefined).length;
-    console.log("this.isOkCount=" + this.isOkCount + "  countNotNullOrUndefined=" + countNotNullOrUndefined);
+    let countNotNullOrUndefined = localcurrentDocuments.filter(value => value !== null && value !== undefined).length;
     if (countNotNullOrUndefined != this.isOkCount) {
       this.openSnackBar(' יש לאשר תחילה את כל המסמכים שנבחרו.', 'בטל');
       return;
@@ -351,25 +331,25 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       this.openSnackBar('עדיין לא נבחרו מסמכים.', 'בטל');
       return;
     }
-    this.fileService.uploadFiles(this.documentService.selectedDocuments)?.subscribe(
+    this.fileService.uploadFiles(localcurrentDocuments)?.subscribe(
       (event: any) => {
         if (event.status === 'progress') {
         }
         else if (!event.includes("Unhandled")) {
-          for (let i = 0; i < this.documentService.selectedDocuments.length; i++) {
-            this.dataSource.data.forEach(doc => {
-              if (doc.customerFile) {
-                doc.status = 2;
-                doc.updated_at = new Date();
-              }
-              else if (doc.adminFile) {
-                doc.status2 = 2;
-                doc.updated_at = new Date();
-              }
-            });
-          }
+          this.dataSource.data.forEach((doc) => {
+            if (doc.customerFile) {
+              console.log('customerFile');
+              this.documentService.currentDocuments.find(d=>d.id==doc.id)!.status=2;
+              doc.status = 2;
+            }
+            if (doc.adminFile) {
+              console.log('adminFile');
+              this.documentService.currentDocuments.find(d=>d.id==doc.id)!.status2=2;
+              doc.status2 = 2;
+            }
+            doc.updated_at = new Date();
+          });
           countNotNullOrUndefined = 0;
-          this.documentService.selectedDocuments = [];
           this.isOkCount = 0;
           this.onSaveChangesInServer();
           this.openSnackBar('המסמכים הועלו בהצלחה!', 'x');
@@ -407,7 +387,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
         this.saveDownloadFile(response.body!, fileName!);
       },
       (error) => {
-        alert('Error downloading file'); console.log(error);
+        alert('Error downloading file'); 
       }
     );
   }
@@ -430,7 +410,6 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       if (result === true) {
         this.documentService.deleteDocument(element.id).subscribe(
           (response: any) => {
-            console.log(response);
             this.dataSource.data = this.dataSource.data.filter(doc => doc.id !== element.id);
             this.openSnackBar('המסמך נמחק בהצלחה', "בטל");
           },
