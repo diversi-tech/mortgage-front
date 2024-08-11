@@ -1,13 +1,13 @@
 .accessibility-button {
     position: fixed;
-    bottom: 5vh;
+    bottom: 17vh;
     left: -16px;
     z-index: 1000;
 }
 
 .side-menu {
     position: fixed;
-    bottom:15vh;
+    bottom:24vh;
     left: -300px; /* התפריט מוסתר מהצד */
     width: auto;
     max-width: 300px; /* רוחב מקסימלי */
@@ -46,6 +46,8 @@
 
 .access {
     background-color: #01199f; 
+    /* background-color: #3243a9;  */
+
     color: white;
     border-top-right-radius: 30%!important;
     border-bottom-right-radius: 30%!important;

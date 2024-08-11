@@ -4,14 +4,25 @@
 
 :host {
     background-color: transparent;
-  }
+}
+
 .mat-toolbar {
     display: flex;
     justify-content: space-between;
     background-color: rgb(178, 189, 202);
-    background: linear-gradient(135deg, rgb(206, 213, 221), rgb(169, 178, 187));
+    /* background: linear-gradient(135deg, rgb(206, 213, 221), rgb(169, 178, 187)); */
+    /* background: linear-gradient(135deg, #ffffff, #f1f3f5); */
+    background: linear-gradient(135deg, rgb(244, 249, 255), rgb(227, 230, 233));
+    /* background: linear-gradient(135deg, rgb(210, 216, 221), rgb(244, 249, 255)); */
+
     padding: 0 16px;
 
+}
+
+.tool-icon {
+    color: rgb(197, 196, 196);
+    font-size: 35px;
+    padding: 10px;
 }
 
 .toolbar-content {
@@ -51,6 +62,7 @@
 .welcome-message {
     display: flex;
     align-items: center;
+    /* margin-left:70vw;  */
     font-size: 1.25rem;
     font-weight: 500;
     color: white;
@@ -69,6 +81,11 @@ mat-icon {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }

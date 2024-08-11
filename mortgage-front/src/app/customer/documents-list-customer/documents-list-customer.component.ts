@@ -401,9 +401,11 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     this.router.navigate([`admin/task-edit/${element.id}`]);
   }
   addTask() {
+    this.customerId=this.loginService.GetCurrentUser().customerId;
     this.documentService.customerId = this.customerId;
     if (typeof window && window.sessionStorage != undefined)
-      window.sessionStorage.setItem("customerId", this.customerId.toString());
+      // window.sessionStorage.setItem("customerId", this.customerId?.toString());
+    window.sessionStorage.setItem("customerId", this.customerId.toString());
     this.router.navigate([`admin/task-edit/${-1}`]);
   }
 }

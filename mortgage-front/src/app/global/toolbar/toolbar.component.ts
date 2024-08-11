@@ -44,6 +44,7 @@ logOut(){
   if(this.loginService.isLoggedIn()){
     this.loginService.Logout()
   }
+  this.router.navigate(['auth//login']);
 }
   ngOnDestroy(): void {
     if (this.subscription) {

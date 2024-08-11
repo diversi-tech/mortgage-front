@@ -10,7 +10,7 @@ import { loginService } from '../../shared/Services/login.service';
 export class CustomerPortalComponent {
   constructor(private loginService:loginService){}
   componentArrayOfCustomer = [
-    new IComponentInfo("מסמכים", `/customer/document-list/${this.loginService.GetCurrentUser().customerId}`, "description"),
+    new IComponentInfo("מסמכים", `/customer/document-list/${this.loginService.GetCurrentUser().customerId}`, "real_estate_agent"),
     new IComponentInfo('פרטים אישיים', `/customer/customer-details/${this.loginService.GetCurrentUser().customerId}`, "description"),
     new IComponentInfo('מחשבון משכנתאות', "/customer/calculator", "calculate"),
     new IComponentInfo('מילון עזר למשכנתא',"mortgage-helper","help_outline"),

@@ -6,14 +6,16 @@
     padding: 20px 0;
     box-shadow: 0 -2px 5px rgba(21, 22, 21, 0.2);
     height:60px;
-    background-color: rgb(178, 189, 202); 
+    /* background-color: rgb(178, 189, 202);  */
+    background: linear-gradient(135deg, rgb(244, 249, 255), rgb(210, 216, 221));
+
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     /* text-shadow: 2px 2px 50px white; */
     /* flex-wrap: wrap;*/
     font-family: Segoe UI Black;
-    color:#ffffffe9;
+    color:#cbc7c7e9;
 
     /* flex-wrap: wrap;*/
     /* grid-area: "footer"; */
