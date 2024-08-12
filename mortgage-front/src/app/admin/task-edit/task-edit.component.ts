@@ -96,6 +96,6 @@ export class TaskEditComponent implements OnInit {
     }
   }
   cancel() {
-    this.router.navigate(['/customer/document-list']);
+    this.router.navigate(['/admin/document-list']);
   }
 }

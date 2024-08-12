@@ -8,6 +8,7 @@ import {  Subscription } from 'rxjs';
 import { ConfirmDialogComponent } from '../../global/confirm-dialog/confirm-dialog.component';
 import { DocumentTypeService } from '../Services/documentType.service';
 import {  MatDialog } from '@angular/material/dialog';
+import { log } from 'console';
 
 
 @Component({
@@ -67,6 +68,8 @@ export class DocumentTypeListComponent {
   }
 
   editDocument(selected: IDocumentType): void {
+    console.log("selected:   ",selected);
+    
     this.router.navigate(['admin/documentType-details', selected.id]);
   }
  
