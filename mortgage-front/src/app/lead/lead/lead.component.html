@@ -181,13 +181,16 @@
         <input matInput formControlName="estimated_price_by_customer" type="number"
           (input)="onInputChange('estimated_price_by_customer', $event)">
         <mat-error *ngIf="thirdFormGroup.get('estimated_price_by_customer')?.hasError('required')">שדה חובה</mat-error>
+        <mat-error *ngIf="thirdFormGroup.get('estimated_price_by_customer')?.hasError('pattern')">נא להכניס רק ספרות</mat-error>
+
       </mat-form-field>
       <mat-form-field>
         <mat-label>שווה הנכס לפי הסכם מכר</mat-label>
-        <input matInput formControlName="estimated_price_by_sales_agreement" type="number"
+        <input matInput formControlName="estimated_price_by_sales_agreement" type="text"
           (input)="onInputChange('estimated_price_by_sales_agreement', $event)">
         <mat-error *ngIf="thirdFormGroup.get('estimated_price_by_sales_agreement')?.hasError('required')">שדה
           חובה</mat-error>
+          <mat-error *ngIf="thirdFormGroup.get('estimated_price_by_sales_agreement')?.hasError('pattern')">נא להכניס רק ספרות</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>יש נכסים נוספים ללווה</mat-label>
@@ -204,7 +207,7 @@
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>חזור</button>
-        <button mat-button matStepperNext  (click)="save()">הבא</button>
+        <button mat-button   (click)="save()">הבא</button>
       </div>
     </form>
   </mat-step>
@@ -213,11 +216,11 @@
     <form [formGroup]="fourthFormGroup">
       <ng-template matStepLabel>העלאת מסמכים</ng-template>
      
-      <documents-list-customer></documents-list-customer>
+      <documents-list-customer [documentUpdate]="documentUpdates"></documents-list-customer>
 
       <div>
         <button mat-button matStepperPrevious>חזור</button>
-        <button mat-button (click)="saveDocuments()">שמור</button>
+        <button mat-button (click)="removeStorage()">שמור</button>
       </div>
     </form>
   </mat-step>

@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList, AfterViewInit, Input, SimpleChanges } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
-import { map, Observable, startWith, Subscription } from 'rxjs';
+import { map, Observable, startWith, Subject, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Status, IDocument } from '../../shared/Models/document';
@@ -18,6 +18,7 @@ import { ICustomer } from '../../shared/Models/Customer';
 import { FormControl } from '@angular/forms';
 import { customerService } from '../../shared/Services/costumer.service';
 import { log } from 'console';
+import { LeadComponent } from '../../lead/lead/lead.component';
 
 @Component({
   selector: 'documents-list-customer',
@@ -35,7 +36,7 @@ import { log } from 'console';
 })
 
 export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
-
+  @Input() docsAdded = false;
   displayedColumns = ['task_description', 'document_type_id', 'status', 'document_path', "document_path2", 'created_at', 'isOk', 'actions'];
   isOkCount: number = 0;
   customerId!: number;
@@ -44,6 +45,10 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   transactionTypeString: String = '';
   dataSource: MatTableDataSource<IDocument> = new MatTableDataSource<IDocument>();
   private documentSubscription?: Subscription;
+
+  @Input() documentUpdate: Subject<void> | undefined;
+
+  
   @ViewChildren('myCheckbox') checkboxes!: QueryList<MatCheckbox>;
 
   constructor(private documentService: DocumentsListCustomerService,
@@ -57,7 +62,17 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     if (this.loginService.isAdmin())
       this.customerService.fetchCustomers().subscribe();
   }
+  
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if (changes['docsAdded'] && changes['docsAdded'].currentValue === true) {
+  //     this.fetch();
+  //   }
+  // }
 
+  // fetch(){
+  //   console.log("היי אני כאן הגעתי לפ'צ וזה אומר שהשתניתי בזמן שהוספתי מסמכים לא יודע אם זה נכון!!");
+    
+  // }
   //Variables for the customers search 
   customerControl = new FormControl();
   customers: ICustomer[] = [];
@@ -101,6 +116,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
     this.loadDocuments();
     if (this.loginService.isAdmin()) {
       this.fetchDocumentTypes();
@@ -116,11 +132,21 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       this.loadDocuments();
       this.loadCustomers();
     }
+
     else {
       this.fetchDocumentTypes();
 
       this.customerId = this.loginService.GetCurrentUser().customerId!;
-    }
+      }
+
+      this.documentUpdate?.subscribe(() => {
+        this.loadDocuments();
+      this.fetchDocumentTypes();
+       this.customerId = this.loginService.GetCurrentUser().customerId!;
+       console.log("this.customerId",this.customerId);
+      });  
+    
+    
     this.loadDocuments();
     if (this.customerId) {
       this.documentService.fetchDocumentsByCustomerId(this.customerId).subscribe({
@@ -147,6 +173,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
           console.error('Error loading documents for customer:', error);
         }
       });
+   
     }
   }
 

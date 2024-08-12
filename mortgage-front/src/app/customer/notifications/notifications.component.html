@@ -1,5 +1,5 @@
       <div class="history-section">
-        <h2>היסטורית הודעות</h2>
+        <h2>היסטורית התראות והודעות</h2>
         <div *ngIf="notifications.length">
           <div *ngFor="let notification of notifications" class="notification-item">
             <div class="message-bubble" [ngClass]="{ 'message-bubble-unread': !notification.isRead}"
