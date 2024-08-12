@@ -26,6 +26,7 @@
             "outputPath": "dist/mortgage-client",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "baseHref": "/mortgage-front/",
             "polyfills": [
               "zone.js"
             ],
