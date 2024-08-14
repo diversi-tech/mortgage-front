@@ -10,13 +10,13 @@ export interface IDocument {
     task_description: string;
     document_type_id: number;
     document_path?: string;
-    document_path2?: string;
+    document_path2?: string;//תהילה
     status: Status;
     status2:Status;
     due_date: Date;
     created_at: Date;
     updated_at: Date;
-    isOk:boolean;
+    isOk?:boolean;
     adminFile?:File;
     customerFile?:File;
 }

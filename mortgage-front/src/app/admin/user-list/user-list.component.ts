@@ -30,13 +30,16 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
     this.loadUsers();
   }
-  
+  isLoading = true; //mention if the data loaded
+
   loadUsers(): void {
     this.userService.users$.subscribe({
       next: users => {
         this.usersDataSource.data = users;
         this.usersDataSource.sort = this.sort;
         this.usersDataSource.paginator = this.paginator;
+
+        this.isLoading=false;
       },
       error: error => {
         console.error('Error loading users:', error);

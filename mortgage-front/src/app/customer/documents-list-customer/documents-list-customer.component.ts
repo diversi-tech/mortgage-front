@@ -75,7 +75,7 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
   async onCustomerSelected(customer: ICustomer) {
     this.customerId = customer.id!;
     if (typeof window && window.sessionStorage != undefined)
-      window.sessionStorage.setItem("customerId", this.customerId.toString())!;
+      window.sessionStorage.setItem("selectedCustomer", this.customerId.toString())!;
     this.documentService.fetchDocumentsByCustomerId(customer.id!).subscribe({
       next: documents => {
         this.dataSource.data = documents;
@@ -401,11 +401,15 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
     this.router.navigate([`admin/task-edit/${element.id}`]);
   }
   addTask() {
-    this.customerId=this.loginService.GetCurrentUser().customerId;
-    this.documentService.customerId = this.customerId;
+    // this.customerId=this.loginService.GetCurrentUser().customerId;
+    // this.documentService.customerId = this.customerId;
+    // this.customerId=+sessionStorage.getItem("selectedCustomer")!;
     if (typeof window && window.sessionStorage != undefined)
+    {this.customerId=+sessionStorage.getItem("selectedCustomer")!;
+    this.documentService.customerId = this.customerId;}
+
       // window.sessionStorage.setItem("customerId", this.customerId?.toString());
-    window.sessionStorage.setItem("customerId", this.customerId.toString());
+    // window.sessionStorage.setItem("customerId", this.customerId.toString());
     this.router.navigate([`admin/task-edit/${-1}`]);
   }
 }

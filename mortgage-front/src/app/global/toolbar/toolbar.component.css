@@ -24,7 +24,10 @@
     font-size: 35px;
     padding: 10px;
 }
-
+.tool-icon:hover{
+    color: rgb(173, 171, 171);
+    cursor: pointer;
+}
 .toolbar-content {
     display: flex;
     align-items: center;

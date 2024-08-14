@@ -37,7 +37,7 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
   ngOnInit(): void {
     this.loadLeads();
   }
-
+isLoading:boolean=true;
   
   loadLeads(): void {
     // Fetch initial data to populate the subject
@@ -47,6 +47,7 @@ export class LeadListComponent implements OnInit,OnDestroy,AfterViewInit{
             this.dataSource.data = leads; // Update dataSource with the latest leads
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
+            this.isLoading=false;
           },
           error: error => {
             console.error('Error loading leads:', error);

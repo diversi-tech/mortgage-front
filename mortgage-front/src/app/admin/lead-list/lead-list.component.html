@@ -1,5 +1,11 @@
 <div class="mainAll">
   <div class="contents" dir="rtl">
+    <ng-container *ngIf="isLoading; else dataLoaded">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <p style="text-align: center; margin-top: 15px;">הנתונים נטענים...</p>
+    </ng-container>
+
+    <ng-template #dataLoaded>
     <h2 class="component-title">רשימת לידים</h2> <!-- header  -->
     <mat-form-field dir="rtl" class="search-field">
       <mat-label>חפש</mat-label>
@@ -55,5 +61,7 @@
       <mat-icon class="add-icon">add</mat-icon>
     </button>
     <mat-paginator [pageSizeOptions]="[8, 15, 25]" showFirstLastButtons dir="rtl"></mat-paginator>
+    </ng-template>
   </div>
+
 </div>

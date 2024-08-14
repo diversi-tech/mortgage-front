@@ -1,23 +1,19 @@
-// lead.component.ts
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { leadService } from '../../shared/Services/lead.service';
 import { UserService } from '../../shared/Services/user.service';
 import { birthDateValidator } from './birth-date-validator';
-import { israeliIdValidator} from './israeli-id-validator';
+import { israeliIdValidator } from './israeli-id-validator';
 import { DocumentTypeService } from '../../shared/Services/documentType.service';
 import { DocumentsListCustomerService } from '../../shared/Services/documents-list-customer.service';
-import { firstValueFrom } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { IDocument } from '../../shared/Models/document';
 import { customerService } from '../../shared/Services/costumer.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { loginService } from '../../shared/Services/login.service';
-import { log } from 'console';
-
 import { IUser, Role } from '../../shared/Models/user';
-import { ICustomer,Connection, Family_Status, Job_Status, TransactionTypeEnum, Customer_Type } from '../../shared/Models/Customer';
-import { ILead } from '../../shared/Models/Lead';
+import { ICustomer, Connection, Family_Status, Job_Status, TransactionTypeEnum, Customer_Type } from '../../shared/Models/Customer';
 import { IDocumentType } from '../../shared/Models/DocumentTypes.Model';
 import { DocumentsListCustomerComponent } from '../../customer/documents-list-customer/documents-list-customer.component';
 
@@ -49,10 +45,12 @@ export class LeadComponent implements OnInit, AfterViewInit {
   isLinear = true;
   isAddDocuments = false;
   res = "";
-  lead_id: number |null=null ;
+  lead_id: number | null = null;
   customerId!: number | undefined;
+  userId!: number |undefined;
   password1!: string;
   username1!: string;
+  isDocsAdded = false;
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -64,19 +62,21 @@ export class LeadComponent implements OnInit, AfterViewInit {
   showTable: boolean = false;
   tableData: IDocumentType[] = [];
 
+  // documentUpdates = new Subject<void>();
+
   document: IDocument = {
     id: 0,
     customer_Id: 0,
     task_description: "",
     document_type_id: 0,
     document_path: "",
+    document_path2: "",
     status: 0,
-    status2:0,
+    status2: 0,
     due_date: new Date(Date.now()),
     created_at: new Date(Date.now()),
+    id2: 0,
     updated_at: new Date(Date.now()),
-    isOk: false,
-    id2: 0
   };
 
   customerData: ICustomer = {
@@ -114,7 +114,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
     isArchived: false,
     created_at: new Date(Date.now()),
     updated_at: new Date(Date.now()),
-    userId:0
+    userId: 0
   };
   familyStatusOptions = [
     { value: Family_Status.Single, label: 'רווק' },
@@ -142,19 +142,29 @@ export class LeadComponent implements OnInit, AfterViewInit {
     { value: false, label: 'לא' },
   ];
   passwordStrength: { valid: string[], invalid: string[] } = { valid: [], invalid: [] };
-
-  constructor( private loginservice:loginService,private route: ActivatedRoute, private _formBuilder: FormBuilder, private customerService: customerService, private leadService: leadService, private userService: UserService, private documentType: DocumentTypeService, private customerTask: DocumentsListCustomerService) {
+displayDocuments:boolean=false;
+  constructor(
+    private loginservice: loginService,
+    private route: ActivatedRoute, 
+    private router:Router,
+    private _formBuilder: FormBuilder, 
+    private customerService: customerService, 
+    private leadService: leadService, 
+    private userService: UserService, 
+    private documentType: DocumentTypeService, 
+    private customerTasks: DocumentsListCustomerService) {
     this.firstFormGroup = new FormGroup({
-      userName: new FormControl({ value: '', disabled: false }, [
+      userName: new FormControl({ value: 'enter mail', disabled: false }, [
         Validators.required, Validators.email]),
-      password: new FormControl({ value: '', disabled: false }, [
+      password: new FormControl({ value: 'enter password', disabled: false }, [
         Validators.required,
         Validators.minLength(10),
         this.passwordStrengthValidator
       ])
     })
+    
 
- // Form group for personal information
+    // Form group for personal information
     this.secondFormGroup = this._formBuilder.group({
       last_Name: ['', [Validators.pattern('^[a-zA-Zא-ת ]*$'), Validators.required]],
       first_Name: [''],
@@ -167,7 +177,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
       number_of_people_in_house: ['', [Validators.pattern('^[0-9]*$'), Validators.required]],
       address: ['', Validators.required],
       job_status: [''],
-       customer_type: [''],
+      customer_type: [''],
       work_business_name: ['', Validators.required],
       job_description: ['', Validators.required],
       avarage_monthly_salary: ['', [Validators.pattern('^[0-9]*$'), Validators.required]],
@@ -180,24 +190,25 @@ export class LeadComponent implements OnInit, AfterViewInit {
       expenses_other: ['', Validators.required]
     });
 
-// Form group for property information
+    // Form group for property information
     this.thirdFormGroup = this._formBuilder.group({
       property_city: ['', Validators.required],
       transaction_type: ['', Validators.required],
-      estimated_price_by_customer: ['', Validators.required],
-      estimated_price_by_sales_agreement: ['', Validators.required],
+      estimated_price_by_customer: ['', [Validators.pattern('^[0-9]*$'), Validators.required]],
+      estimated_price_by_sales_agreement: ['', [Validators.pattern('^[0-9]*$'), Validators.required]],
       has_other_properties: ['', Validators.required],
-      amount_of_loan_requested: ['', Validators.required],
-      userId:['']
+      amount_of_loan_requested: ['', [Validators.pattern('^[0-9]*$'), Validators.required]],
+      userId: ['']
     });
 
-  // Form group for document uploads
+    // Form group for document uploads
     this.fourthFormGroup = this._formBuilder.group({
       documents: ['', Validators.required]
     });
   }
 
- // Custom validator for password strength
+
+  // Custom validator for password strength
   passwordStrengthValidator = (control: FormControl): { [key: string]: boolean } | null => {
     const value = control.value;
     const hasUpperCase = /[A-Z]/.test(value);
@@ -229,16 +240,25 @@ export class LeadComponent implements OnInit, AfterViewInit {
     return { passwordStrength: true };
   }
 
+
+  // // מאזין לאירוע היציאה מהדפדפן
+  // @HostListener('window:beforeunload', ['$event'])
+  // unloadHandler(event: Event) {
+  //   this.saveFormData();
+  // }
+
+  
   // Lifecycle hook that is called after data-bound properties are initialized
   ngOnInit(): void {
-    console.log("in ngOnInit of lead");
     this.route.paramMap.subscribe(params => {
       this.lead_id = Number(params.get('id'));
-})
-if(typeof window && window.localStorage!=undefined)
-if (localStorage.getItem('enterOrNot') === null) {
+      console.log("in ng oninit id=",this.lead_id);
+      sessionStorage.setItem('lead_id',this.lead_id+"");
+    })
+
+    if (localStorage.getItem('enterOrNot') === null) {
       localStorage.setItem('enterOrNot', 'false');
-} 
+    }
 
     const storedUserName = localStorage.getItem('userName');
     const storedPassword = localStorage.getItem('password');
@@ -252,6 +272,14 @@ if (localStorage.getItem('enterOrNot') === null) {
       this.firstFormGroup.get('password')?.disable();
     }
 
+// שןלפת מהלוקשל ומכניסה ידנית
+    this.customerId = +localStorage.getItem('customerId')!;
+    this.lead_id = +localStorage.getItem('lead_id')!;
+    this.userId = +localStorage.getItem('userId')!;
+    this.customerData.id = this.customerId;
+    this.customerData.lead_id =this.lead_id;
+    this.customerData.userId =this.userId;    
+
     const storedStep = localStorage.getItem('currentStep');
     if (storedStep !== null) {
       this.currentStepIndex = parseInt(storedStep, 10);
@@ -260,108 +288,126 @@ if (localStorage.getItem('enterOrNot') === null) {
     if (tableDataString) {
       this.tableData = JSON.parse(tableDataString);
     }
-    //this.loadCustomerDataFromLocalStorage();
     this.loadFormData();
+
   }
 
-   // Loads customer data from local storage
-   loadCustomerDataFromLocalStorage() {
-    const storedData = localStorage.getItem('customerData');
-    if (storedData) {
-      this.customerData = JSON.parse(storedData);
-    }
-  }
-    // Updates the current step in the stepper component
+  // Updates the current step in the stepper component
   onStepChange(event: any) {
-    this.currentStepIndex = event.selectedIndex;// Update the variable when the step is changed
-    localStorage.setItem('currentStep', this.currentStepIndex.toString()); 
+    this.currentStepIndex = event.selectedIndex;
+    localStorage.setItem('currentStep', this.currentStepIndex.toString());
   }
-    // Lifecycle hook that is called after the component's view has been fully initialized
+  // Lifecycle hook that is called after the component's view has been fully initialized
   ngAfterViewInit() {
     this.loadCurrentStep();
   }
-    // Checks if the user is returning by checking local storage
+  // Checks if the user is returning by checking local storage
   isReturningUser(): boolean {
     return localStorage.getItem('enterOrNot') === 'true';
   }
 
- //Checks if the email or password is taken,
- // if so, pops up a message that the email and password need to be changed.
- // If not taken, creates a new user and a new customer.
- // If the user has left and returned, he will not have to enter details again.
- checkUserNameAndPassword() {
-  this.leadService.getLeadById(this.lead_id!).subscribe((lead) => {
-    if (lead) {
-      this.customerData.phone = lead.phone;
-      this.customerData.email = lead.email;
-      this.customerData.first_Name = lead.first_Name;
-    }
-  });
-  
-  this.user.id = 0;
-  this.user.userName = this.firstFormGroup.value.userName;
-  this.user.password = this.firstFormGroup.value.password;
-  this.user.email = this.firstFormGroup.value.userName;
-  this.user.role = Role.Customer;
-  this.user.created_at = new Date(Date.now());
-  this.user.updated_at = new Date(Date.now());
-  
-  this.userService.IsExist(this.user).subscribe(
-    (response: string) => {
-      localStorage.setItem('userName', JSON.stringify(this.user.userName));
-      localStorage.setItem('password', JSON.stringify(this.user.password));
-      this.res = response;
-      if (response === '200') {
-        let i = localStorage.getItem('enterOrNot');
-        if (i === "true") {
-          this.stepper.next();
-        } else {
-          alert("איימיל או סיסמא תפוסים נא להכניס אחר");
-        }
-      } else if (response === '404' && this.user !== null && this.user !== undefined && this.user.password !== '' && this.user.userName !== '') {
-        localStorage.setItem('enterOrNot', 'true');
-        this.stepper.next();
-        this.userService.createUserForLead(this.user, this.lead_id!).subscribe({
-          next: (createdUser: IUser) => {
-            console.log('User created:', createdUser);
-            this.customerData.lead_id = this.lead_id!;
-            this.customerData.userId = createdUser.id;
+  //Checks if the email or password is taken,
+  // if so, pops up a message that the email and password need to be changed.
+  // If not taken, creates a new user and a new customer.
+  // If the user has left and returned, he will not have to enter details again.
+  checkUserNameAndPassword() {
+    console.log("id========"+this.lead_id);
+    this.lead_id=+sessionStorage.getItem('lead_id')!;
+    this.leadService.getLeadById(this.lead_id!).subscribe((lead) => {
+      if (lead) {
+        
+        this.customerData.phone = lead.phone;
+        this.customerData.email = lead.email;
+        this.customerData.first_Name = lead.first_Name;
+       // localStorage.setItem('formData', JSON.stringify(this.customerData));
+       //דחפתי לטופס עצמו כדי שישמור שדות שאין להם ויזואליות
+       this.secondFormGroup.value.phone = this.customerData.phone;
+       this.secondFormGroup.value.email =    this.customerData.email ;
+       this.secondFormGroup.value.first_Name =  this.customerData.first_Name;
 
-            console.log(this.lead_id);
-            this.customerService.createCustomerForLead(this.customerData, this.lead_id!).subscribe({
-              next: (res: ICustomer) => { 
-                this.customerId = res.id;
-                this.customerData.customer_type = Customer_Type.c;
-                this.customerData.id = res.id;
-                console.log('Customer created:', this.customerData);
-                this.loginservice.login(this.user.email!, this.user.password!).subscribe(
-                  (response: any) => {
-                    let parsedResponse = JSON.parse(response);
-                    sessionStorage.setItem("token", parsedResponse.token);
-                  },
-                  (error: any) => {
-                    console.log('Login failed', error);
-                  }
-                );
-              },
-              error: (error: any) => console.error('Error creating customer:', error)
-            });
-          },
-          error: (error: any) => console.error('Error creating user:', error)
-        });
-      } else {
-        console.error('Unexpected response:', response);
       }
-    },
-    (error: any) => {
-      console.error('Error during user existence check:', error);
+    });
+
+    if (localStorage.getItem('enterOrNot') == 'true') {
+      this.stepper.next();
+      return;
     }
-  );
-}
+    this.user.id = 0;
+    this.user.userName = this.firstFormGroup.value.userName;
+    this.user.password = this.firstFormGroup.value.password;    
+    this.user.email = this.firstFormGroup.value.userName;
+    this.user.role = Role.Customer;
+    this.user.created_at = new Date(Date.now())
+    this.user.updated_at = new Date(Date.now())
+
+    this.userService.IsExist(this.user).subscribe(
+      (response: string) => {
+        localStorage.setItem('userName', JSON.stringify(this.user.userName));
+        localStorage.setItem('password', JSON.stringify(this.user.password));
+        this.res = response;
+        if (response === '200') {
+          let i = localStorage.getItem('enterOrNot');
+          if (i === "true") {
+            this.stepper.next();
+          }
+          else {
+            alert("איימיל או סיסמא תפוסים נא להכניס אחר");
+          }
+        } else if (response === '404' && this.user !== null && this.user !== undefined && this.user.password !== '' && this.user.userName !== '') {
+          localStorage.setItem('enterOrNot', 'true')
+          this.stepper.next()
+          this.userService.createUserForLead(this.user, this.lead_id!).subscribe({
+            next: (createdUser: IUser) => {
+              console.log('User created:', this.user);
+              this.customerData.lead_id = this.lead_id!;
+              this.customerData.userId = createdUser.id;
+              // this.customerData.userId = this.user.id;
+              console.log("customerData=====",this.customerData.id);
+                 //כנ"ל 
+              // this.secondFormGroup.value.lead_id = this.lead_id;
+              this.secondFormGroup.value.userId = createdUser.id;
+
+              this.customerService.createCustomerForLead(this.customerData, this.lead_id!).subscribe({
+                next: (res: ICustomer) => {
+                  this.customerId = res.id
+                  localStorage.setItem('customerId', this.customerId + "")
+                  localStorage.setItem('lead_id', this.lead_id + "")
+                  localStorage.setItem('userId', this.userId + "")                  
+                  this.customerData.customer_type = Customer_Type.c
+                  // this.customerData.userId = this.user.id
+                  this.customerData.id = res.id;
+                    //כנ"ל
+                  this.secondFormGroup.value.customer_type = Customer_Type.c;                
+                  console.log('Customer created:', this.customerData)
+                  this.loginservice.login(this.user.email!, this.user.password!).subscribe(
+                    (response: any) => {
+                      let parsedResponse = JSON.parse(response);
+                      sessionStorage.setItem("token", parsedResponse.token);
+                      console.log("customerid=",this.loginservice.GetCurrentUser().customerId);
+                    },
+                    (error: any) => {
+                      console.log('Login failed', error);
+                    }
+                  );
+                },
+                error: (error: any) => console.error('Error creating customer:', error)
+              });
+            },
+            error: (error: any) => console.error('Error creating user:', error)
+          });
+        } else {
+          console.error('Unexpected response:', response);
+        }
+      },
+      (error: any) => {
+        console.error('Error during user existence check:', error);
+      }
+    );
+  }
 
 
   // Saves form data to local storage
-  saveFormData(){
+  saveFormData() {
     const formData = {
       firstFormGroup: this.firstFormGroup.value,
       secondFormGroup: this.secondFormGroup.value,
@@ -370,6 +416,7 @@ if (localStorage.getItem('enterOrNot') === null) {
       uploadedFiles: this.uploadedFiles
     };
     localStorage.setItem('formData', JSON.stringify(formData));
+
   }
   // Saves the current step index to local storage
   saveCurrentStep() {
@@ -393,6 +440,7 @@ if (localStorage.getItem('enterOrNot') === null) {
       this.thirdFormGroup.patchValue(data.thirdFormGroup);
       this.fourthFormGroup.patchValue(data.fourthFormGroup);
       this.uploadedFiles = data.uploadedFiles || [];
+
 
       this.customerData.last_Name = this.secondFormGroup.value.last_Name;
       this.customerData.first_Name = this.secondFormGroup.value.first_Name;
@@ -425,15 +473,17 @@ if (localStorage.getItem('enterOrNot') === null) {
       this.customerData.isArchived = this.thirdFormGroup.value.isArchived;
       this.customerData.userId = this.thirdFormGroup.value.userId;
     }
+    console.log("customerData", this.customerData);
+
     const savedData = localStorage.getItem('customerData');
   }
-    // Updates a field in customerData when the user changes an input value
+  // Updates a field in customerData when the user changes an input value
   onInputChange(fieldName: keyof ICustomer, event: any) {
     const fieldValue = event.target.value;
     this.customerData[fieldName] = fieldValue;
     this.saveFormData();
   }
-    // Updates a field in customerData when the user changes a selection value
+  // Updates a field in customerData when the user changes a selection value
   onSelectionChange(fieldName: keyof ICustomer, value: any) {
     if (fieldName == 'family_status') {
       this.customerData[fieldName] = value as Family_Status;
@@ -464,124 +514,125 @@ if (localStorage.getItem('enterOrNot') === null) {
     }
     this.saveFormData();
   }
-  // Handles file input changes, adding selected files to uploadedFiles array
-  onFileChange(event: any) {
-    const files: File[] = event.target.files;
-    for (let i = 0; i < files.length; i++) {
-      this.uploadedFiles.push(files[i]);
-    }
-    this.saveFormData();
-  }
-  // Removes a file from the uploadedFiles array
-  removeFile(index: number) {
-    this.uploadedFiles.splice(index, 1);
-  }
-    // Opens a document in a new window
-  viewDocument(file: File) {
-    const url = URL.createObjectURL(file);
-    window.open(url);
-  }
-    // Saves the current table data to local storage
+  // Saves the current table data to local storage
   saveSelectionType(value: any) {
     localStorage.setItem('tableData', JSON.stringify(this.tableData));
   }
-    // Submits the form data, updating the customer information
-  onSubmit() {
-    this.customerService.updateCustomer(this.customerId, this.customerData).subscribe({
-      next: (response: any) => console.log('Customer updated not null'),
-      error: (error: any) => console.error('Error updating customer:', error)
-    });
-  }
 
   // Saves customer data and handles the process for step 3
-  async save() {
-    let step = localStorage.getItem('currentStep');
-      console.log("Updating customer in step 3");
-      try {
-        //await firstValueFrom(this.customerService.updateCustomer(this.customerId, this.customerData));it is mine!!
-console.log("iddd  "+this.customerData.id);
-
-        await firstValueFrom(this.customerService.updateCustomer(this.customerData.id, this.customerData));
-        if (localStorage.getItem('isAddDocuments') !== 'true'){
-            await this.getDocuments();
-            await this.addToCustomerTask();
-        }
-          //תהילה ויעל
-
-        this.documentsListCustomer!.loadDocuments();
-
-      } catch (error) {
-        console.error('Error in the process', error);
-      }
-  }
-
-  // Saves the current state of documents and clears local storage
-  saveDocuments() {
- 
-
-        console.log("step 4 created");
-        localStorage.removeItem('enterOrNot');
-        localStorage.removeItem('formData');
-        localStorage.removeItem('currentStep');
-        localStorage.removeItem('ifEnter');
-        localStorage.removeItem('currentStepIndex');
-        localStorage.removeItem('tableData');
-        localStorage.removeItem('isAddDocuments');
-         location.reload();
-  
-  }
-  
- // Returning all appropriate documents by type of transaction
-  async getDocuments(): Promise<IDocumentType[]> {
-    let num = Number(this.customerData.transaction_type);
-    return new Promise((resolve, reject) => {
-      this.documentType.getDocsByTransactionType(num).subscribe({
-        next: (res: IDocumentType[]) => {
-          this.tableData = res;
-          console.log("tableData", this.tableData);
-          localStorage.setItem('tableData', JSON.stringify(this.tableData));
-          resolve(this.tableData);
-        },
-        error: (error: any) => {
-          console.error('Error fetching documents:', error);
-          reject(error);
-        }
-      });
-    });
-  }
-
-  // Adds documents to customerTasks table based on the retrieved table data
-  async addToCustomerTask(): Promise<any> {
-    const addDocumentPromises = this.tableData.map((item: any) => {
-      this.document = {
-        id: 0,
-        customer_Id: this.customerData.id!,
-        task_description: item.document_Name,
-        document_type_id: Number(this.customerData.transaction_type),
-        document_path: "",
-        status: 0,
-        status2:0,
-        due_date: new Date(Date.now()),
-        created_at: new Date(Date.now()),
-        updated_at: new Date(Date.now()),
-        isOk: false,
-        id2:0
-      };
-      return new Promise((resolve, reject) => {
-        this.customerTask.addDocument(this.document).subscribe({
-          next: (res) => {
-            console.log("Add document successed to customerTask");
-            this.isAddDocuments = true;
-            localStorage.setItem('isAddDocuments', 'true');
-            resolve(res);
-          },
-          error: (error) => {
-            console.log("Failed to add document to CustomerTask");
-            reject(error);
+   save() {
+    try {
+      this.customerService.updateCustomer(this.customerId, this.customerData).subscribe(
+        () => {
+          if (localStorage.getItem('isAddDocuments') !== 'true') {
+            this.getDocsByTransactionTypeAndAddTasks();
           }
         });
-      });
+    } catch (error) {
+      console.error('Error in the process', error);
+    }
+  }
+  saveSecondStep() {
+    try {
+      this.customerData.customer_type=Customer_Type.l;
+      this.customerService.updateCustomer(this.customerId, this.customerData).subscribe(
+        () => {
+         console.log('saved second step');
+         
+        });
+    } catch (error) {
+      console.error('Error in the process', error);
+    }
+  }
+  // Saves the current state of documents and clears local storage
+  removeStorage() {
+
+    console.log("step 4 created");
+    localStorage.removeItem('enterOrNot');
+    localStorage.removeItem('formData');
+    localStorage.removeItem('currentStep');
+    localStorage.removeItem('ifEnter');
+    localStorage.removeItem('currentStepIndex');
+    localStorage.removeItem('tableData');
+    localStorage.removeItem('isAddDocuments');
+    localStorage.removeItem('customerId');
+    localStorage.removeItem('lead_id');
+    localStorage.removeItem('username');
+    localStorage.removeItem('password');
+
+    // location.reload();
+    this.router.navigate(['auth/login']);
+  }
+
+  getDocsByTransactionTypeAndAddTasks(): void {    
+    let num = Number(this.customerData.transaction_type);
+    console.log("in getDocsByTransactionTypeAndAddTasks num=",num);
+
+    this.documentType.getDocsByTransactionType(num).subscribe(
+      (res) => {
+        this.tableData = res;
+        localStorage.setItem('tableData', JSON.stringify(this.tableData));
+        console.log("in getDocsByTransactionTypeAndAddTasks, res=",res);
+        
+        this.addToCustomerTask();
+        // this.documentUpdates.next();
+        this.stepper.next();
+      },
+      (error: any) => {
+        console.error('Error fetching documents:', error);
+
+      }
+    );
+
+  }
+
+
+  //  // Returning all appropriate documents by type of transaction
+  //   async getDocuments(): Promise<IDocumentType[]> {
+  //     let num = Number(this.customerData.transaction_type);
+  //     return new Promise((resolve, reject) => {
+  //       this.documentType.getDocsByTransactionType(num).subscribe({
+  //         next: (res: IDocumentType[]) => {
+  //           this.tableData = res;
+  //           console.log("tableData", this.tableData);
+  //           localStorage.setItem('tableData', JSON.stringify(this.tableData));
+  //           resolve(this.tableData);
+  //         },
+  //         error: (error: any) => {
+  //           console.error('Error fetching documents:', error);
+  //           reject(error);
+  //         }
+  //       });
+  //     });
+  //   }
+
+  async addToCustomerTask(): Promise<any> {
+    const documents: IDocument[] = this.tableData.map((item: any) => ({
+      id: 0,
+      id2: 0,
+      customer_Id: this.customerData.id!,
+      task_description: item.document_Name,
+      document_type_id: Number(this.customerData.transaction_type),
+      document_path: "",
+      document_path2: "",
+      status: 0,
+      status2: 0,
+      due_date: new Date(Date.now()),
+      created_at: new Date(Date.now()),
+      updated_at: new Date(Date.now())
+    }));
+
+    this.customerTasks.addDocuments(documents).subscribe({
+      next: (res) => {
+        console.log("Successfully added documents to customerTask");
+        this.isDocsAdded = true;
+        this.displayDocuments=true;
+
+        localStorage.setItem('isAddDocuments', 'true');
+      },
+      error: (error) => {
+        console.log("Failed to add documents to CustomerTask");
+      }
     });
-    return Promise.all(addDocumentPromises);
   }
 }

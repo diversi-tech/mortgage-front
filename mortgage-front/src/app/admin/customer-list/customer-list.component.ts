@@ -29,7 +29,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadCustomers();
   }
-
+isLoading:boolean=true;
   loadCustomers(): void {
     this.customersSubscription = this.customerService.customers$.subscribe({
       next: (customers: any[]) => {
@@ -44,6 +44,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
         this.leads.paginator = this.leadsPaginator;
         this.customers.paginator = this.customersPaginator;
         this.archivedCustomers.paginator = this.archivedCustomersPaginator;
+        this.isLoading=false;
       },
       error: (error: any) => {
         console.error('Error loading customers:', error);

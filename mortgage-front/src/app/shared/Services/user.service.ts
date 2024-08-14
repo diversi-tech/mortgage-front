@@ -78,7 +78,7 @@ import { loginService } from "./login.service";
       roleId = 0;
     else
       roleId = 1;
-    return this.http.post<IUser>(`${this.basicURL}Users/Lead${leadId}`, { ...user, role: roleId });
+    return this.http.post<IUser>(`${this.basicURL}Users/Lead/${leadId}`, { ...user, role: roleId });
   }
   
 

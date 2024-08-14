@@ -23,7 +23,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   private subscription?: Subscription;
 
   constructor(
-    private NavigationMenuToggleService: NavigatioMenuToggleService,
+    public NavigationMenuToggleService: NavigatioMenuToggleService,
     public notificationService: NotificationService,
     public documentService: DocumentsListCustomerService,
     private customerService: customerService,
@@ -60,9 +60,7 @@ logOut(){
 this.notificationService.checkNotifications();
 this.documentService.checkPendingDocuments();
   }
-  toggleNavigationMenu() {
-    this.NavigationMenuToggleService.toggle();
-  }
+
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any): void {
     if (this.documentService.hasNotSavedDoc) {

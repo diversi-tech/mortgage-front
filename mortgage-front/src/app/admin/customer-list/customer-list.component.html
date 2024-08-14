@@ -5,7 +5,11 @@
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
   <div id="main">
-    
+    <ng-container *ngIf="isLoading; else dataLoaded">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <p style="text-align: center; margin-top: 15px;">הנתונים נטענים...</p>
+    </ng-container>
+    <ng-template #dataLoaded>
     <!-- אזור הלקוחות -->
     <section class="contents">
       <header>
@@ -141,7 +145,7 @@
         <ng-container matColumnDef="first_Name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> שם פרטי</th>
           <td mat-cell *matCellDef="let customer">
-            {{customer.first_Name}} 
+            {{customer.first_Name}} {{customer.id}}
           </td>
         </ng-container>
         <ng-container matColumnDef="last_Name">
@@ -198,5 +202,6 @@
       </button>
       <export-to-excel [typeOfCustomer]="3"></export-to-excel>
     </section>
+    </ng-template>
   </div>
 </div>

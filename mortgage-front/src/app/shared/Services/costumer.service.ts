@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, catchError, tap } from "rxjs";
 import { ICustomer } from "../Models/Customer";
 import { ILead } from "../Models/Lead";
 import { environment } from "../../../environments/environment";
+import { log } from "console";
 
 @Injectable()
 export class customerService {
@@ -35,7 +36,7 @@ export class customerService {
   }
 
   createCustomerForLead(customer: ICustomer,leadId:number): Observable<ICustomer> {
-    return this.http.post<ICustomer>(`${this.basicURL}Customers/Lead${leadId}`, customer);
+    return this.http.post<ICustomer>(`${this.basicURL}Customers/Lead/${leadId}`, customer);
   }
 
   getCustomers(): Observable<ICustomer[]> {
@@ -65,8 +66,8 @@ export class customerService {
   }
 
   updateCustomer(customerId: number | undefined, customer: ICustomer): Observable<ICustomer> {
-    console.log('customer',customer);
-    
+    console.log("customerId",customerId);
+    console.log("customer",customer);
     return this.http.put<ICustomer>(`${this.basicURL}Customers/${customerId}`, customer).pipe(
       tap(() => {
         const customers = this.customersSubject.getValue();

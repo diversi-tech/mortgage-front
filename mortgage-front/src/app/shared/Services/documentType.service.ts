@@ -78,8 +78,7 @@ editDocumentType(docType: IDocumentType, id: number): Observable<void> {
   }
 
   getDocsByTransactionType(id:number):Observable<IDocumentType[]> {
-
     return this.http.get<IDocumentType[]>(`${this.basicURL}DocumentTypes/TypesDocument/${id}`)
-
   }
+  
 }
