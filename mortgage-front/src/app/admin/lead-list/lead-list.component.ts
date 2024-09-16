@@ -108,12 +108,13 @@ isLoading:boolean=true;
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 3000, // Duration in milliseconds for how long the snackbar should be visible
+      direction:'rtl'
     });
   }
 sendLink(id: number) {
   this.magicLinkService.sendMagicLink(id).subscribe({
     next: response => {
-      this.openSnackBar('Link sent successfully!', 'Close');
+      this.openSnackBar('הלינק נשלח בהצלחה!', 'Close');
     },
     error: error => {
       console.error('Error sending  link:', error);

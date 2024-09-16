@@ -4,13 +4,13 @@
         <mat-card-title>פרטים אישיים</mat-card-title>
         <mat-card-content>
           <form (submit)="submitForm()">
-            <mat-form-field appearance="fill" class="mat-form-field">
+            <mat-form-field appearance="fill" class="mat-form-field" matTooltip="שדה זה לא ניתן לעריכה">
               <mat-label> שם פרטי</mat-label>
               <input readonly matInput [(ngModel)]="formData['first_Name']" name="firstName">
               <mat-error>שדה זה הינו חובה</mat-error>
             </mat-form-field>
   
-            <mat-form-field appearance="fill" class="mat-form-field">
+            <mat-form-field appearance="fill" class="mat-form-field" matTooltip="שדה זה לא ניתן לעריכה">
               <mat-label>שם משפחה</mat-label>
               <input readonly matInput [(ngModel)]="formData['last_Name']" name="lastName">
             </mat-form-field>

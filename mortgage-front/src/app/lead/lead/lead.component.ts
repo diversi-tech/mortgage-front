@@ -47,7 +47,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
   res = "";
   lead_id: number | null = null;
   customerId!: number | undefined;
-  userId!: number |undefined;
+  userId!: number | undefined;
   password1!: string;
   username1!: string;
   isDocsAdded = false;
@@ -142,27 +142,29 @@ export class LeadComponent implements OnInit, AfterViewInit {
     { value: false, label: 'לא' },
   ];
   passwordStrength: { valid: string[], invalid: string[] } = { valid: [], invalid: [] };
-displayDocuments:boolean=false;
+  displayDocuments: boolean = false;
+  hidePassword = true;  // משתנה לשליטה על הצגת הסיסמה
+
   constructor(
     private loginservice: loginService,
-    private route: ActivatedRoute, 
-    private router:Router,
-    private _formBuilder: FormBuilder, 
-    private customerService: customerService, 
-    private leadService: leadService, 
-    private userService: UserService, 
-    private documentType: DocumentTypeService, 
+    private route: ActivatedRoute,
+    private router: Router,
+    private _formBuilder: FormBuilder,
+    private customerService: customerService,
+    private leadService: leadService,
+    private userService: UserService,
+    private documentType: DocumentTypeService,
     private customerTasks: DocumentsListCustomerService) {
     this.firstFormGroup = new FormGroup({
-      userName: new FormControl({ value: 'enter mail', disabled: false }, [
+      userName: new FormControl({ value: 'הכנס מייל', disabled: false }, [
         Validators.required, Validators.email]),
-      password: new FormControl({ value: 'enter password', disabled: false }, [
+      password: new FormControl({ value: null, disabled: false }, [
         Validators.required,
         Validators.minLength(10),
         this.passwordStrengthValidator
       ])
     })
-    
+
 
     // Form group for personal information
     this.secondFormGroup = this._formBuilder.group({
@@ -219,7 +221,7 @@ displayDocuments:boolean=false;
     this.passwordStrength.valid = [];
     this.passwordStrength.invalid = [];
 
-    if (value.length >= 10) this.passwordStrength.valid.push('אורך 10 תווים לפחות');
+    if (value && value.length >= 10) this.passwordStrength.valid.push('אורך 10 תווים לפחות');
     else this.passwordStrength.invalid.push('אורך 10 תווים לפחות');
 
     if (hasUpperCase) this.passwordStrength.valid.push('אות גדולה');
@@ -247,13 +249,13 @@ displayDocuments:boolean=false;
   //   this.saveFormData();
   // }
 
-  
+
   // Lifecycle hook that is called after data-bound properties are initialized
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.lead_id = Number(params.get('id'));
-      console.log("in ng oninit id=",this.lead_id);
-      sessionStorage.setItem('lead_id',this.lead_id+"");
+      console.log("in ng oninit id=", this.lead_id);
+      sessionStorage.setItem('lead_id', this.lead_id + "");
     })
 
     if (localStorage.getItem('enterOrNot') === null) {
@@ -272,13 +274,13 @@ displayDocuments:boolean=false;
       this.firstFormGroup.get('password')?.disable();
     }
 
-// שןלפת מהלוקשל ומכניסה ידנית
+    // שןלפת מהלוקשל ומכניסה ידנית
     this.customerId = +localStorage.getItem('customerId')!;
     this.lead_id = +localStorage.getItem('lead_id')!;
     this.userId = +localStorage.getItem('userId')!;
     this.customerData.id = this.customerId;
-    this.customerData.lead_id =this.lead_id;
-    this.customerData.userId =this.userId;    
+    this.customerData.lead_id = this.lead_id;
+    this.customerData.userId = this.userId;
 
     const storedStep = localStorage.getItem('currentStep');
     if (storedStep !== null) {
@@ -311,19 +313,19 @@ displayDocuments:boolean=false;
   // If not taken, creates a new user and a new customer.
   // If the user has left and returned, he will not have to enter details again.
   checkUserNameAndPassword() {
-    console.log("id========"+this.lead_id);
-    this.lead_id=+sessionStorage.getItem('lead_id')!;
+    console.log("id========" + this.lead_id);
+    this.lead_id = +sessionStorage.getItem('lead_id')!;
     this.leadService.getLeadById(this.lead_id!).subscribe((lead) => {
       if (lead) {
-        
+
         this.customerData.phone = lead.phone;
         this.customerData.email = lead.email;
         this.customerData.first_Name = lead.first_Name;
-       // localStorage.setItem('formData', JSON.stringify(this.customerData));
-       //דחפתי לטופס עצמו כדי שישמור שדות שאין להם ויזואליות
-       this.secondFormGroup.value.phone = this.customerData.phone;
-       this.secondFormGroup.value.email =    this.customerData.email ;
-       this.secondFormGroup.value.first_Name =  this.customerData.first_Name;
+        // localStorage.setItem('formData', JSON.stringify(this.customerData));
+        //דחפתי לטופס עצמו כדי שישמור שדות שאין להם ויזואליות
+        this.secondFormGroup.value.phone = this.customerData.phone;
+        this.secondFormGroup.value.email = this.customerData.email;
+        this.secondFormGroup.value.first_Name = this.customerData.first_Name;
 
       }
     });
@@ -334,7 +336,7 @@ displayDocuments:boolean=false;
     }
     this.user.id = 0;
     this.user.userName = this.firstFormGroup.value.userName;
-    this.user.password = this.firstFormGroup.value.password;    
+    this.user.password = this.firstFormGroup.value.password;
     this.user.email = this.firstFormGroup.value.userName;
     this.user.role = Role.Customer;
     this.user.created_at = new Date(Date.now())
@@ -362,8 +364,8 @@ displayDocuments:boolean=false;
               this.customerData.lead_id = this.lead_id!;
               this.customerData.userId = createdUser.id;
               // this.customerData.userId = this.user.id;
-              console.log("customerData=====",this.customerData.id);
-                 //כנ"ל 
+              console.log("customerData=====", this.customerData.id);
+              //כנ"ל 
               // this.secondFormGroup.value.lead_id = this.lead_id;
               this.secondFormGroup.value.userId = createdUser.id;
 
@@ -372,18 +374,18 @@ displayDocuments:boolean=false;
                   this.customerId = res.id
                   localStorage.setItem('customerId', this.customerId + "")
                   localStorage.setItem('lead_id', this.lead_id + "")
-                  localStorage.setItem('userId', this.userId + "")                  
+                  localStorage.setItem('userId', this.userId + "")
                   this.customerData.customer_type = Customer_Type.c
                   // this.customerData.userId = this.user.id
                   this.customerData.id = res.id;
-                    //כנ"ל
-                  this.secondFormGroup.value.customer_type = Customer_Type.c;                
+                  //כנ"ל
+                  this.secondFormGroup.value.customer_type = Customer_Type.c;
                   console.log('Customer created:', this.customerData)
                   this.loginservice.login(this.user.email!, this.user.password!).subscribe(
                     (response: any) => {
                       let parsedResponse = JSON.parse(response);
                       sessionStorage.setItem("token", parsedResponse.token);
-                      console.log("customerid=",this.loginservice.GetCurrentUser().customerId);
+                      console.log("customerid=", this.loginservice.GetCurrentUser().customerId);
                     },
                     (error: any) => {
                       console.log('Login failed', error);
@@ -520,12 +522,13 @@ displayDocuments:boolean=false;
   }
 
   // Saves customer data and handles the process for step 3
-   save() {
+  save() {
     try {
       this.customerService.updateCustomer(this.customerId, this.customerData).subscribe(
         () => {
           if (localStorage.getItem('isAddDocuments') !== 'true') {
             this.getDocsByTransactionTypeAndAddTasks();
+            this.stepper.next();
           }
         });
     } catch (error) {
@@ -534,11 +537,11 @@ displayDocuments:boolean=false;
   }
   saveSecondStep() {
     try {
-      this.customerData.customer_type=Customer_Type.l;
+      this.customerData.customer_type = Customer_Type.l;
       this.customerService.updateCustomer(this.customerId, this.customerData).subscribe(
         () => {
-         console.log('saved second step');
-         
+          console.log('saved second step');
+
         });
     } catch (error) {
       console.error('Error in the process', error);
@@ -564,16 +567,16 @@ displayDocuments:boolean=false;
     this.router.navigate(['auth/login']);
   }
 
-  getDocsByTransactionTypeAndAddTasks(): void {    
+  getDocsByTransactionTypeAndAddTasks(): void {
     let num = Number(this.customerData.transaction_type);
-    console.log("in getDocsByTransactionTypeAndAddTasks num=",num);
+    console.log("in getDocsByTransactionTypeAndAddTasks num=", num);
 
     this.documentType.getDocsByTransactionType(num).subscribe(
       (res) => {
         this.tableData = res;
         localStorage.setItem('tableData', JSON.stringify(this.tableData));
-        console.log("in getDocsByTransactionTypeAndAddTasks, res=",res);
-        
+        console.log("in getDocsByTransactionTypeAndAddTasks, res=", res);
+
         this.addToCustomerTask();
         // this.documentUpdates.next();
         this.stepper.next();
@@ -626,7 +629,7 @@ displayDocuments:boolean=false;
       next: (res) => {
         console.log("Successfully added documents to customerTask");
         this.isDocsAdded = true;
-        this.displayDocuments=true;
+        this.displayDocuments = true;
 
         localStorage.setItem('isAddDocuments', 'true');
       },

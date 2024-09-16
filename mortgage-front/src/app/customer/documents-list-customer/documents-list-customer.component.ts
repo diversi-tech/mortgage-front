@@ -304,6 +304,8 @@ export class DocumentsListCustomerComponent implements OnInit, AfterViewInit {
       this.openSnackBar('עדיין לא נבחרו מסמכים.', 'בטל');
       return;
     }
+    this.openSnackBar('מתחיל בהעלאת המסמכים...', 'בטל');
+
     this.fileService.uploadFiles(localcurrentDocuments)?.subscribe(
       (event: any) => {
         if (event.status === 'progress') {

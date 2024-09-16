@@ -4,15 +4,24 @@
       <ng-template matStepLabel>הגדרת שם משתמש וסיסמא</ng-template>
       <mat-form-field>
         <mat-label>אימייל</mat-label>
-        <input matInput formControlName="userName" required>
+        <input matInput formControlName="userName" required matTooltip="הכנס מייל- בשביל הכניסות הבאות" matTooltipPosition="right">
         <mat-error *ngIf="firstFormGroup.get('userName')?.hasError('required')">שדה חובה</mat-error>
         <mat-error *ngIf="firstFormGroup.get('userName')?.hasError('email')">אימייל לא תקין</mat-error>
       </mat-form-field>
+      <!-- <mat-form-field>
+        <mat-label>סיסמא</mat-label>
+        <input matInput formControlName="password" type="password" required matTooltip="הכנס סיסמא- בשביל הכניסות הבאות" matTooltipPosition="right">
+        <mat-error *ngIf="firstFormGroup.get('password')?.hasError('required')">שדה חובה</mat-error>
+      </mat-form-field> -->
       <mat-form-field>
         <mat-label>סיסמא</mat-label>
-        <input matInput formControlName="password" type="password" required>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required matTooltip="הכנס סיסמא- בשביל הכניסות הבאות" matTooltipPosition="right">
+        <mat-icon matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword" style="cursor: pointer;">
+          {{ hidePassword ? 'visibility_off' : 'visibility' }} 
+        </mat-icon>
         <mat-error *ngIf="firstFormGroup.get('password')?.hasError('required')">שדה חובה</mat-error>
       </mat-form-field>
+      
       
       <div *ngIf="firstFormGroup.get('password')?.touched">
         <p>דרישות לסיסמה חזקה:</p>
@@ -203,8 +212,8 @@
         <mat-label>סכום ההלוואה</mat-label>
         <input matInput formControlName="amount_of_loan_requested" type="number"
           (input)="onInputChange('amount_of_loan_requested', $event)">
-        <mat-error *ngIf="thirdFormGroup.get('amount_of_loan_requested')?.hasError('required')">שדה חובה</mat-error>
-      </mat-form-field>
+        <mat-error style="color: red;" *ngIf="thirdFormGroup.get('amount_of_loan_requested')?.hasError('required')">שדה חובה</mat-error>
+      </mat-form-field >
       <div>
         <button mat-button matStepperPrevious>חזור</button>
         <button mat-button   (click)="save()">הבא</button>
@@ -216,7 +225,7 @@
     <form [formGroup]="fourthFormGroup">
       <ng-template matStepLabel>העלאת מסמכים</ng-template>
      @if (this.displayDocuments) {
-      <documents-list-customer></documents-list-customer>
+      <documents-list-customer style="width: 100vw;"></documents-list-customer>
 }
       <div>
         <button mat-button matStepperPrevious>חזור</button>

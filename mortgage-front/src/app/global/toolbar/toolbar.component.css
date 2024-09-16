@@ -92,3 +92,40 @@ mat-icon {
         opacity: 1;
     }
 }
+@media (max-width: 600px) {
+    .tool-icon {
+        font-size: 18px; /* Smaller icon size */
+    }
+    
+    .logo {
+        height: 50px; /* Further reduced height */
+        width: 60px;  /* Further reduced width */
+    }
+
+    .buttonLog {
+        font-size: 0.55rem; /* Smaller font size */
+        padding: 2px;
+    }
+    .welcome-message {
+        font-size: 0.55rem; /* Adjusted font size */
+    }
+    .toolbar-content {
+        margin-bottom: 6px; /* Spacing between sections */
+    }
+    button{
+        margin: 0;
+        padding: 0;
+    }
+    .menuBut{
+        /* font-size: 1rem!important; */
+        padding: 0;
+        margin-left: 0rem;
+    }
+    .menuBut:hover{
+        background-color: transparent;
+    }
+    mat-icon {
+        margin-right: 0px;
+    }
+        
+}
