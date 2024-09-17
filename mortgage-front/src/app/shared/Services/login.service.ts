@@ -26,6 +26,7 @@ export class loginService {
   login(email: string, password: string): Observable<string> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const user = {
+      id:0,
       userName: "string",
       password: password,
       email: email,
@@ -33,7 +34,7 @@ export class loginService {
       created_at: null,
       updated_at: null
     };
-    return this.http.post(`${this.basicURL}/api/Users/login`, user, { headers, responseType: 'text' }).pipe();;
+    return this.http.post(`${this.basicURL}/api/Users/login`, user, { headers, responseType: 'text' }).pipe();
   }
   decodeToken(token: string): ITokenPayload {
     if (!token) {

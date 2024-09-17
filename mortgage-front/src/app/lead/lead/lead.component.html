@@ -216,12 +216,12 @@
       </mat-form-field >
       <div>
         <button mat-button matStepperPrevious>חזור</button>
-        <button mat-button   (click)="save()">הבא</button>
+        <button mat-button   (click)="save()">שלח נתונים</button>
       </div>
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="fourthFormGroup" >
+  <!-- <mat-step [stepControl]="fourthFormGroup" >
     <form [formGroup]="fourthFormGroup">
       <ng-template matStepLabel>העלאת מסמכים</ng-template>
      @if (this.displayDocuments) {
@@ -232,6 +232,6 @@
         <button mat-button (click)="removeStorage()">שמור</button>
       </div>
     </form>
-  </mat-step>
+  </mat-step> -->
 
 </mat-horizontal-stepper>

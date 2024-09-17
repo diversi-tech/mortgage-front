@@ -16,6 +16,7 @@ import { IUser, Role } from '../../shared/Models/user';
 import { ICustomer, Connection, Family_Status, Job_Status, TransactionTypeEnum, Customer_Type } from '../../shared/Models/Customer';
 import { IDocumentType } from '../../shared/Models/DocumentTypes.Model';
 import { DocumentsListCustomerComponent } from '../../customer/documents-list-customer/documents-list-customer.component';
+import { read } from 'node:fs';
 
 @Component({
   selector: 'app-lead',
@@ -326,7 +327,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
         this.secondFormGroup.value.phone = this.customerData.phone;
         this.secondFormGroup.value.email = this.customerData.email;
         this.secondFormGroup.value.first_Name = this.customerData.first_Name;
-
+        console.log("פרטי הלקוח התעדכנו בפרטי הליד");
       }
     });
 
@@ -523,33 +524,56 @@ export class LeadComponent implements OnInit, AfterViewInit {
 
   // Saves customer data and handles the process for step 3
   save() {
+    console.log('in save line 527');
+
     try {
-      this.customerService.updateCustomer(this.customerId, this.customerData).subscribe(
-        () => {
-          if (localStorage.getItem('isAddDocuments') !== 'true') {
-            this.getDocsByTransactionTypeAndAddTasks();
-            this.stepper.next();
-          }
-        });
+      console.log('in try line 530');
+      
+      this.customerService.updateCustomer(this.customerId, this.customerData).subscribe({
+        next:(res) => {
+          // if (localStorage.getItem('isAddDocuments') !== 'true') {
+          this.getDocsByTransactionTypeAndAddTasks();
+          console.log("The response from update customer =", res);
+          this.removeStorage();
+          this.router.navigate(['auth/login']);
+          // }
+        },
+        error:(err)=>{
+          console.log("Error in update");
+          // this.router.navigate(['auth/login']);
+        }
+    });
     } catch (error) {
       console.error('Error in the process', error);
     }
   }
   saveSecondStep() {
+    // try {
+    //   this.customerData.customer_type = Customer_Type.l;
+    //   this.customerService.updateCustomer(this.customerId, this.customerData).subscribe(
+    //     () => {
+    //       console.log('saved second step');
+
+    //     });
+    // } catch (error) {
+    //   console.error('Error in the process', error);
+    // }
     try {
       this.customerData.customer_type = Customer_Type.l;
-      this.customerService.updateCustomer(this.customerId, this.customerData).subscribe(
-        () => {
+      this.customerService.createCustomerForLead(this.customerData, this.customerId!).subscribe(
+        (res) => {
           console.log('saved second step');
+          console.log('נוצר לקוח res=', res);
+
 
         });
     } catch (error) {
       console.error('Error in the process', error);
     }
+    //להעתיק את זה ולהשתמש בפונקציה שיוצרת לקוח- ולא מעדכנת וללראות שזה עובר הרשאות!!
   }
   // Saves the current state of documents and clears local storage
   removeStorage() {
-
     console.log("step 4 created");
     localStorage.removeItem('enterOrNot');
     localStorage.removeItem('formData');
