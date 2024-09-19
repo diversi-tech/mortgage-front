@@ -36,6 +36,8 @@ export class customerService {
   }
 
   createCustomerForLead(customer: ICustomer,leadId:number): Observable<ICustomer> {
+    console.log("leadId=",leadId);
+    
     return this.http.post<ICustomer>(`${this.basicURL}Customers/Lead/${leadId}`, customer);
   }
 

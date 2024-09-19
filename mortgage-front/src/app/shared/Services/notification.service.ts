@@ -18,6 +18,8 @@ export class NotificationService {
   }
 
   sendNotification(notificationDto: any): Observable<any> {
+    console.log("notificationDto=",notificationDto);
+    // notificationDto.userId=this.loginService.GetCurrentUser().id;
     return this.http.post<any>(this.apiUrl, notificationDto);
   }
   deleteNotification(id: number): Observable<void> {

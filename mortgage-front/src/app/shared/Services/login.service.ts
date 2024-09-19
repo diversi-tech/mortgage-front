@@ -26,7 +26,7 @@ export class loginService {
   login(email: string, password: string): Observable<string> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const user = {
-      id:0,
+      id: 0,
       userName: "string",
       password: password,
       email: email,
@@ -59,8 +59,12 @@ export class loginService {
             if (key.includes("role"))
               currentUserRole = JSONdecoder[key];
             else
-              if (key.includes("customerId"))
-                currentCustomerId = JSONdecoder[key];
+              if (key.includes("customerId")) {
+                // if (localStorage.getItem('customerId'))
+                //   currentCustomerId = localStorage.getItem('customerId');
+                // else
+                  currentCustomerId = JSONdecoder[key];
+              }
         }
       }
       this.currentUser.userName = currentUserName;
@@ -74,7 +78,7 @@ export class loginService {
     return this.currentUser;
   }
 
-  GetToken() {  
+  GetToken() {
     if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined') {
       return sessionStorage.getItem("token");
     } else {

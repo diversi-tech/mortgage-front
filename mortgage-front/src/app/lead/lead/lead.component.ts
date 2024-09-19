@@ -354,7 +354,7 @@ export class LeadComponent implements OnInit, AfterViewInit {
             this.stepper.next();
           }
           else {
-            alert("איימיל או סיסמא תפוסים נא להכניס אחר");
+            alert("קרתה תקלה, אנא נסה להכניס מייל א סיסמא שונים");
           }
         } else if (response === '404' && this.user !== null && this.user !== undefined && this.user.password !== '' && this.user.userName !== '') {
           localStorage.setItem('enterOrNot', 'true')
@@ -365,13 +365,15 @@ export class LeadComponent implements OnInit, AfterViewInit {
               this.customerData.lead_id = this.lead_id!;
               this.customerData.userId = createdUser.id;
               // this.customerData.userId = this.user.id;
-              console.log("customerData=====", this.customerData.id);
+              // console.log("הUSERID שנוצר עבור אוביקט לקוח הוא:", this.customerData.userId);
+              // console.log("הID שנוצר עבור האוביקט לקוח הוא:", this.customerData.id);
               //כנ"ל 
               // this.secondFormGroup.value.lead_id = this.lead_id;
               this.secondFormGroup.value.userId = createdUser.id;
 
               this.customerService.createCustomerForLead(this.customerData, this.lead_id!).subscribe({
                 next: (res: ICustomer) => {
+                  // console.log("הרספונס מיצירת לקוח===",res);
                   this.customerId = res.id
                   localStorage.setItem('customerId', this.customerId + "")
                   localStorage.setItem('lead_id', this.lead_id + "")
@@ -382,11 +384,13 @@ export class LeadComponent implements OnInit, AfterViewInit {
                   //כנ"ל
                   this.secondFormGroup.value.customer_type = Customer_Type.c;
                   console.log('Customer created:', this.customerData)
+                  console.log('עכשיו אחרי שהלקוח נוצר נראה מה השם והסיסמא: username=',this.user.email," password=", this.user.password!);
+                  
                   this.loginservice.login(this.user.email!, this.user.password!).subscribe(
                     (response: any) => {
                       let parsedResponse = JSON.parse(response);
                       sessionStorage.setItem("token", parsedResponse.token);
-                      console.log("customerid=", this.loginservice.GetCurrentUser().customerId);
+                      console.log("created from token customerid=", this.loginservice.GetCurrentUser().id);
                     },
                     (error: any) => {
                       console.log('Login failed', error);
@@ -534,7 +538,11 @@ export class LeadComponent implements OnInit, AfterViewInit {
           // if (localStorage.getItem('isAddDocuments') !== 'true') {
           this.getDocsByTransactionTypeAndAddTasks();
           console.log("The response from update customer =", res);
+          var customer_Id=localStorage.getItem('customerId')
           this.removeStorage();
+          sessionStorage.clear();
+          localStorage.clear();
+          localStorage.setItem('customerId',customer_Id+'');
           this.router.navigate(['auth/login']);
           // }
         },

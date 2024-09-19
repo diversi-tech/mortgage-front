@@ -51,13 +51,12 @@ export class DocumentTypeDetailsComponent implements OnInit {
     if (this.documentTypeForm.valid) {
       const formValues = this.documentTypeForm.value;
       const documentTypeObject: IDocumentType = {
-        id: this.docTypeId!, // הוסף את ה-ID כאן
-
         document_Name: formValues.document_Name,
         required: formValues.required as boolean,
         transaction_Type: TransactionType[formValues.transaction_Type as unknown as keyof typeof TransactionType]
       }
       if (this.docTypeId != -1) {
+        documentTypeObject.id=this.docTypeId!, // הוסף את ה-ID כאן
         this.documentTypeService.editDocumentType(documentTypeObject, this.docTypeId!).subscribe(() => {
           this.snackBar.open('סוג המסמך עודכן בהצלחה!!', 'Close', {
           });

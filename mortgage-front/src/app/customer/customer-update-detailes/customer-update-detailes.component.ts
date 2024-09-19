@@ -60,6 +60,7 @@ export class CustomerUpdateDetailesComponent {
 
   ngOnInit(): void {
     const id = this.loginService.GetCurrentUser().customerId
+    
     if (id) {
       this.customerService.getById(id).subscribe({
         next: (response) => {
